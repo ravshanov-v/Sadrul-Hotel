@@ -1,0 +1,552 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --gold: #D4AF37;
+  --gold-light: #F5D676;
+  --dark: #1A1A2E;
+  --text: #5a4a3a;
+  --muted: #B8A88A;
+  --bg: #fff;
+  --card-bg: #fff;
+  --border: rgba(212, 175, 55, 0.08);
+  --shadow: rgba(0, 0, 0, 0.06);
+}
+
+.dark {
+  --bg: #0d0d24;
+  --card-bg: #0d0d24;
+  --dark: #e8e8e8;
+  --text: rgba(255, 255, 255, 0.6);
+  --muted: rgba(255, 255, 255, 0.25);
+  --border: rgba(212, 175, 55, 0.04);
+  --shadow: rgba(0, 0, 0, 0.3);
+}
+
+/* ========== OVERLAY ========== */
+.prophile-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(6px);
+  z-index: 200;
+  animation: overlayIn 0.25s ease;
+}
+@keyframes overlayIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* ========== PANEL ========== */
+.prophile-panel {
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  width: 340px;
+  max-width: 88vw;
+  background: var(--bg);
+  z-index: 201;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 4px 0 50px rgba(0, 0, 0, 0.12);
+  animation: slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+@keyframes slideIn { from { transform: translateX(-100%); } to { transform: translateX(0); } }
+
+/* ========== HEADER ========== */
+.prophile-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 22px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.prophile-close {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0, 0, 0, 0.04);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.prophile-close:hover { background: rgba(0, 0, 0, 0.08); transform: rotate(90deg); }
+.prophile-close img { width: 16px; height: 16px; opacity: 0.5; }
+.dark .prophile-close { background: rgba(255, 255, 255, 0.05); }
+.dark .prophile-close:hover { background: rgba(255, 255, 255, 0.1); }
+.dark .prophile-close img { filter: brightness(0) invert(0.6); }
+
+.prophile-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--dark);
+  letter-spacing: 0.5px;
+}
+
+.prophile-dark-toggle {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(212, 175, 55, 0.08);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.prophile-dark-toggle:hover { background: rgba(212, 175, 55, 0.16); transform: rotate(15deg); }
+.prophile-dark-toggle img { width: 18px; height: 18px; }
+
+/* ========== USER ========== */
+.prophile-user {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px 24px 22px;
+  background: linear-gradient(180deg, rgba(212, 175, 55, 0.05) 0%, transparent 100%);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.prophile-avatar-wrap { position: relative; margin-bottom: 14px; }
+
+.prophile-avatar {
+  width: 72px; height: 72px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 26px; font-weight: 800;
+  color: #1A1A2E;
+  position: relative; z-index: 1;
+  box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
+}
+
+.prophile-avatar-ring {
+  position: absolute; inset: -4px;
+  border-radius: 50%;
+  border: 2px solid rgba(212, 175, 55, 0.15);
+  animation: ringPulse 2.5s ease-in-out infinite;
+}
+@keyframes ringPulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.05); opacity: 0.4; }
+}
+
+.prophile-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px; font-weight: 700;
+  color: var(--dark);
+  margin: 0 0 3px;
+  text-align: center;
+}
+
+.prophile-email {
+  font-size: 13px; font-weight: 400;
+  color: var(--muted);
+  margin: 0;
+  text-align: center;
+}
+
+/* ========== ANIMATIONS ========== */
+@keyframes linkFadeIn {
+  from { opacity: 0; transform: translateX(-16px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* ========== SERVICES ========== */
+.prophile-services {
+  padding: 18px 16px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.prophile-service-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 13px 16px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: var(--card-bg);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: 'Poppins', sans-serif;
+  text-align: left;
+  width: 100%;
+  animation: linkFadeIn 0.4s ease backwards;
+  box-shadow: 0 1px 4px var(--shadow);
+}
+.prophile-service-card:hover {
+  transform: translateX(4px);
+  border-color: rgba(212, 175, 55, 0.18);
+  box-shadow: 0 4px 16px rgba(212, 175, 55, 0.08);
+}
+.prophile-service-card.active {
+  border-color: rgba(212, 175, 55, 0.22);
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.06), transparent);
+  box-shadow: 0 4px 20px rgba(212, 175, 55, 0.06);
+}
+
+/* Dashboard card - navigation style */
+.prophile-service-card:last-child .prophile-service-icon {
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.12), rgba(212, 175, 55, 0.04));
+  border-color: rgba(212, 175, 55, 0.15);
+}
+.prophile-service-card:last-child::after {
+  content: '→';
+  font-size: 14px;
+  color: var(--gold);
+  opacity: 0;
+  transition: all 0.3s;
+  flex-shrink: 0;
+}
+.prophile-service-card:last-child:hover::after {
+  opacity: 1;
+  transform: translateX(2px);
+}
+
+.prophile-service-icon {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  background: var(--card-bg);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+  box-shadow: 0 2px 8px var(--shadow);
+  border: 1px solid var(--border);
+}
+.prophile-service-icon svg { width: 20px; height: 20px; transition: transform 0.3s; }
+.prophile-service-card:hover .prophile-service-icon svg { transform: scale(1.12); }
+
+.prophile-service-badge {
+  position: absolute;
+  top: -5px; right: -5px;
+  min-width: 19px; height: 19px;
+  border-radius: 50px;
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  color: #1A1A2E;
+  font-size: 10px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  padding: 0 5px;
+  box-shadow: 0 2px 6px rgba(212, 175, 55, 0.35);
+  line-height: 1;
+}
+
+.prophile-service-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  flex: 1;
+  min-width: 0;
+}
+.prophile-service-label {
+  font-size: 14px; font-weight: 600;
+  color: var(--dark);
+  letter-spacing: 0.2px;
+}
+.prophile-service-desc {
+  font-size: 11px; font-weight: 400;
+  color: var(--muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.prophile-service-arrow {
+  width: 14px; height: 14px;
+  color: var(--muted);
+  opacity: 0;
+  transition: all 0.3s;
+  flex-shrink: 0;
+}
+.prophile-service-card:hover .prophile-service-arrow,
+.prophile-service-card.active .prophile-service-arrow { opacity: 0.6; transform: translateX(3px); }
+
+/* ========== FOOTER ========== */
+.prophile-footer {
+  padding: 14px 16px 22px;
+  border-top: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.prophile-logout-btn {
+  width: 100%;
+  display: flex; align-items: center; justify-content: center;
+  gap: 10px;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1.5px solid rgba(231, 76, 60, 0.12);
+  background: rgba(231, 76, 60, 0.03);
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px; font-weight: 500;
+  color: #e74c3c;
+  cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.prophile-logout-btn svg { width: 18px; height: 18px; transition: transform 0.3s; }
+.prophile-logout-btn:hover {
+  background: rgba(231, 76, 60, 0.06);
+  border-color: rgba(231, 76, 60, 0.2);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(231, 76, 60, 0.08);
+}
+.prophile-logout-btn:hover svg { transform: translateX(3px); }
+
+/* ========== SUBPANEL ========== */
+.prophile-subpanel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  padding: 16px;
+  gap: 12px;
+}
+
+.prophile-subpanel-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.prophile-sub-back {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(212, 175, 55, 0.08);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s;
+  color: var(--gold);
+  flex-shrink: 0;
+}
+.prophile-sub-back:hover { background: rgba(212, 175, 55, 0.16); transform: translateX(-2px); }
+.prophile-sub-back svg { width: 18px; height: 18px; }
+
+.prophile-subpanel-header h4 {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px; font-weight: 700;
+  color: var(--dark);
+  margin: 0;
+  flex: 1;
+}
+
+.prophile-sub-count {
+  font-size: 12px; font-weight: 600;
+  color: var(--muted);
+  background: var(--border);
+  padding: 3px 12px;
+  border-radius: 50px;
+}
+
+.prophile-sub-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 50px 20px;
+  text-align: center;
+  flex: 1;
+}
+.prophile-sub-empty svg { width: 48px; height: 48px; color: var(--muted); opacity: 0.3; }
+.prophile-sub-empty p { font-size: 14px; color: var(--muted); margin: 0; }
+
+.prophile-sub-btn {
+  padding: 10px 28px;
+  border-radius: 50px;
+  border: none;
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  color: #1A1A2E;
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px; font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.prophile-sub-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(212, 175, 55, 0.25); }
+
+/* ========== FAVORITES LIST ========== */
+.prophile-fav-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+  overflow-y: auto;
+  padding-bottom: 10px;
+}
+
+.prophile-fav-type-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--muted);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 6px 4px 0;
+}
+
+.prophile-fav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
+  border-radius: 12px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  transition: all 0.3s;
+}
+.prophile-fav-item:hover { border-color: rgba(212, 175, 55, 0.12); }
+
+.prophile-fav-item img {
+  width: 48px; height: 48px;
+  border-radius: 10px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.prophile-fav-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+.prophile-fav-name {
+  font-size: 13px; font-weight: 600;
+  color: var(--dark);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.prophile-fav-loc {
+  font-size: 11px; font-weight: 400;
+  color: var(--muted);
+}
+
+.prophile-fav-price {
+  font-family: 'Playfair Display', serif;
+  font-size: 16px; font-weight: 700;
+  color: var(--gold);
+  flex-shrink: 0;
+}
+
+/* ========== BOOKING ITEM ========== */
+.prophile-booking-item {
+  padding: 14px;
+  border-radius: 12px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.prophile-booking-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.prophile-booking-hotel {
+  font-size: 14px; font-weight: 600;
+  color: var(--dark);
+}
+.prophile-booking-status {
+  font-size: 10px; font-weight: 600;
+  color: #27ae60;
+  padding: 3px 10px;
+  border-radius: 50px;
+  background: rgba(39, 174, 96, 0.08);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.prophile-booking-dates {
+  font-size: 12px; font-weight: 400;
+  color: var(--muted);
+}
+
+/* ========== SETTINGS ========== */
+.prophile-settings {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 8px;
+}
+
+.prophile-setting-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+}
+.prophile-setting-label {
+  font-size: 13px; font-weight: 500;
+  color: var(--muted);
+}
+.prophile-setting-value {
+  font-size: 14px; font-weight: 600;
+  color: var(--dark);
+}
+
+/* ========== HELP ========== */
+.prophile-help-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 4px;
+}
+
+.prophile-help-item {
+  border-radius: 12px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.prophile-help-question {
+  padding: 14px 16px;
+  font-size: 13px; font-weight: 500;
+  color: var(--dark);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  list-style: none;
+}
+.prophile-help-question::-webkit-details-marker { display: none; }
+.prophile-help-question::before {
+  content: '+';
+  font-size: 18px; font-weight: 300;
+  color: var(--gold);
+  transition: transform 0.3s;
+  flex-shrink: 0;
+}
+details[open] .prophile-help-question::before { content: '−'; }
+
+.prophile-help-answer {
+  padding: 0 16px 14px;
+  margin: 0;
+  font-size: 12px; font-weight: 400;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* ========== SCROLLBAR ========== */
+.prophile-panel::-webkit-scrollbar,
+.prophile-subpanel::-webkit-scrollbar,
+.prophile-fav-list::-webkit-scrollbar { width: 4px; }
+.prophile-panel::-webkit-scrollbar-track,
+.prophile-subpanel::-webkit-scrollbar-track,
+.prophile-fav-list::-webkit-scrollbar-track { background: transparent; }
+.prophile-panel::-webkit-scrollbar-thumb,
+.prophile-subpanel::-webkit-scrollbar-thumb,
+.prophile-fav-list::-webkit-scrollbar-thumb { background: rgba(212, 175, 55, 0.15); border-radius: 4px; }
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 480px) {
+  .prophile-panel { width: 100%; max-width: 100vw; }
+}

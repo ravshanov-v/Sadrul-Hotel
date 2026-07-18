@@ -1,0 +1,278 @@
+import { useState } from "react"
+import { useNavigate } from "react-router-dom"
+import { Swiper, SwiperSlide } from 'swiper/react'
+import 'swiper/css'
+import 'swiper/css/pagination'
+import 'swiper/css/navigation'
+import { Pagination, Navigation, Autoplay } from 'swiper/modules'
+import { takliflar } from '../../data/takliflar'
+import { hotels } from '../../data/hotels'
+import { IoGiftSharp } from 'react-icons/io5'
+import { useAuth } from '../../components/Auth/useAuth'
+import { useModal } from '../../components/SmallWindows/Modal/useModal'
+import { HiShieldCheck } from 'react-icons/hi'
+import { FiUserPlus, FiCheckCircle } from 'react-icons/fi'
+import "./Takliflar.css"
+
+function Toast({ message, show }) {
+  return (
+    <div className={`tk-toast ${show ? 'tk-toast-visible' : ''}`}>
+      <svg viewBox="0 0 24 24" fill="none" className="tk-toast-icon">
+        <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5" />
+        <path d="M8 12l3 3 5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+      <span>{message}</span>
+    </div>
+  )
+}
+
+function OfferCard({ taklif, onCopyCode }) {
+  const navigate = useNavigate()
+  const hotel = hotels.find(h => h.id === taklif.hotelId)
+  const [imgLoaded, setImgLoaded] = useState(false)
+
+  const formatDate = (dateStr) => {
+    const d = new Date(dateStr)
+    const months = ["Yanvar", "Fevral", "Mart", "Aprel", "May", "Iyun", "Iyul", "Avgust", "Sentabr", "Oktyabr", "Noyabr", "Dekabr"]
+    return `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`
+  }
+
+  return (
+    <div className="tk-card">
+      <div className="tk-card-image">
+        <div className={`tk-image-loader ${imgLoaded ? 'tk-image-loaded' : ''}`} />
+        <img
+          src={taklif.image}
+          alt={taklif.title}
+          loading="lazy"
+          onLoad={() => setImgLoaded(true)}
+        />
+        <div className="tk-card-overlay" />
+        <div className="tk-discount-badge">
+          <span className="tk-discount-number">-{taklif.discount}%</span>
+        </div>
+        {taklif.badge && (
+          <div className="tk-card-badge">{taklif.badge}</div>
+        )}
+      </div>
+      <div className="tk-card-body">
+        <div className="tk-card-icon-row">
+          <div className="tk-card-icon">
+            <IoGiftSharp />
+          </div>
+          <span className="tk-card-exclusive">
+            <svg viewBox="0 0 24 24" fill="none" className="tk-exclusive-star">
+              <path d="M12 2l1.5 5.5L19 8l-4 3.5L16.5 17 12 13.5 7.5 17 9 11.5 5 8l5.5-.5L12 2z" fill="currentColor" />
+            </svg>
+            Eksklyuziv Taklif
+          </span>
+        </div>
+        <h3 className="tk-card-title">{taklif.title}</h3>
+        <p className="tk-card-subtitle">{taklif.subtitle}</p>
+        <p className="tk-card-desc">{taklif.description}</p>
+
+        <div className="tk-card-pricing">
+          <div className="tk-pricing-col">
+            <span className="tk-price-label">Eski narx</span>
+            <span className="tk-price-old">${taklif.oldPrice.toLocaleString()}</span>
+          </div>
+          <div className="tk-pricing-divider">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </div>
+          <div className="tk-pricing-col">
+            <span className="tk-price-label">Yangi narx</span>
+            <span className="tk-price-new">${taklif.newPrice.toLocaleString()}</span>
+          </div>
+        </div>
+
+        <div className="tk-card-promo">
+          <div className="tk-promo-header">
+            <svg viewBox="0 0 24 24" fill="none" className="tk-promo-tag">
+              <path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M7 7h.01" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+            </svg>
+            <span className="tk-promo-label">PROMO KOD</span>
+          </div>
+          <div className="tk-promo-code-row">
+            <span className="tk-promo-code">{taklif.promoCode}</span>
+            <button className="tk-promo-copy" onClick={() => onCopyCode(taklif.promoCode)}>
+              <svg viewBox="0 0 24 24" fill="none">
+                <rect x="9" y="9" width="13" height="13" rx="2" stroke="currentColor" strokeWidth="1.5" />
+                <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <div className="tk-card-expiry">
+          <svg viewBox="0 0 24 24" fill="none" className="tk-expiry-icon">
+            <rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" strokeWidth="1.5" />
+            <path d="M3 10h18M8 2v4M16 2v4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+          </svg>
+          <span className="tk-expiry-text">
+            <span className="tk-expiry-label">Amal qilish:</span>
+            {formatDate(taklif.expireDate)}
+          </span>
+        </div>
+
+        {hotel && (
+          <div className="tk-card-hotel">
+            <svg viewBox="0 0 24 24" fill="none" className="tk-hotel-icon">
+              <path d="M3 21V7l9-5 9 5v14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M9 21V12h6v9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            <span>{hotel.name}</span>
+            <span className="tk-hotel-room">· {taklif.roomName}</span>
+          </div>
+        )}
+
+        <button
+          className="tk-card-cta"
+          onClick={() => navigate(`/mehmonxona/${taklif.hotelId}?promo=${taklif.promoCode}&room=${taklif.roomId}&discount=${taklif.discount}`)}
+        >
+          <span>Bron qilish</span>
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  )
+}
+
+function MemberToast({ show }) {
+  return (
+    <div className={`tk-member-toast ${show ? 'tk-member-toast-visible' : ''}`}>
+      <div className="tk-member-toast-icon">
+        <FiCheckCircle />
+      </div>
+      <div className="tk-member-toast-content">
+        <span className="tk-member-toast-title">A'zolik tasdiqlandi</span>
+        <span className="tk-member-toast-msg">Siz allaqachon a'zo bo'lgansiz</span>
+      </div>
+    </div>
+  )
+}
+
+export default function Takliflar() {
+  const { isAuthenticated } = useAuth()
+  const { openModal } = useModal()
+  const navigate = useNavigate()
+  const [toastMsg, setToastMsg] = useState("")
+  const [toastShow, setToastShow] = useState(false)
+  const [memberToastShow, setMemberToastShow] = useState(false)
+
+  const handleCopyCode = (code) => {
+    navigator.clipboard.writeText(code).then(() => {
+      setToastMsg("Promo kod nusxalandi")
+      setToastShow(true)
+      setTimeout(() => setToastShow(false), 2500)
+    }).catch(() => {
+      setToastMsg("Nusxalashda xatolik")
+      setToastShow(true)
+      setTimeout(() => setToastShow(false), 2500)
+    })
+  }
+
+  const handleMemberClick = () => {
+    if (isAuthenticated) {
+      setMemberToastShow(true)
+      setTimeout(() => setMemberToastShow(false), 3500)
+    } else {
+      openModal('signup')
+    }
+  }
+
+  return (
+    <div className='tk-page'>
+      <Toast message={toastMsg} show={toastShow} />
+      <MemberToast show={memberToastShow} />
+      <div className='tk-header' data-aos="zoom-in">
+        <div className='tk-badge'>
+          <span className='tk-badge-line' />
+          <span>Maxsus Takliflar</span>
+          <span className='tk-badge-line' />
+        </div>
+        <h1 className='tk-title'>Eksklyuziv <span className='tk-gold'>Chegirmalar</span></h1>
+        <p className='tk-subtitle'>Cheklangan muddatli eng yaxshi takliflar faqat siz uchun</p>
+      </div>
+      <div className='tk-swiper-wrap'>
+        <Swiper
+          grabCursor={true}
+          slidesPerView={3}
+          spaceBetween={30}
+          loop={false}
+          pagination={{ clickable: true }}
+          navigation={true}
+          autoplay={{ delay: 4000, disableOnInteraction: false, pauseOnMouseEnter: true }}
+          observer={true}
+          observeParents={true}
+          watchOverflow={true}
+          autoHeight={false}
+          modules={[Pagination, Navigation, Autoplay]}
+          className="tk-swiper"
+          breakpoints={{
+            320: { slidesPerView: 1.15, spaceBetween: 14 },
+            640: { slidesPerView: 2, spaceBetween: 20 },
+            900: { slidesPerView: 2.3, spaceBetween: 24 },
+            1200: { slidesPerView: 3, spaceBetween: 30 },
+          }}
+        >
+          {takliflar.map(taklif => (
+            <SwiperSlide key={taklif.id}>
+              <OfferCard taklif={taklif} onCopyCode={handleCopyCode} />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
+      <div className="tk-bottom" data-aos="fade-up" data-aos-delay="300">
+        <div className="tk-bottom-bg-pattern" />
+        <div className="tk-bottom-glow" />
+        <div className="tk-bottom-content">
+          <div className="tk-bottom-badge">
+            <HiShieldCheck />
+            <span>Premium A'zolik</span>
+          </div>
+          <h2 className="tk-bottom-title">
+            Sadrul <span className="tk-gold">Club</span>
+          </h2>
+          <p className="tk-bottom-desc">
+            Har bir bron uchun ko'proq foyda va imtiyozlardan bahramand bo'ling
+          </p>
+          <div className="tk-bottom-features">
+            <div className="tk-bottom-feature">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l1.5 5.5L19 8l-4 3.5L16.5 17 12 13.5 7.5 17 9 11.5 5 8l5.5-.5L12 2z" fill="currentColor"/></svg>
+              <span>20% gacha chegirma</span>
+            </div>
+            <div className="tk-bottom-feature">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l1.5 5.5L19 8l-4 3.5L16.5 17 12 13.5 7.5 17 9 11.5 5 8l5.5-.5L12 2z" fill="currentColor"/></svg>
+              <span>Eksklyuziv takliflar</span>
+            </div>
+            <div className="tk-bottom-feature">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l1.5 5.5L19 8l-4 3.5L16.5 17 12 13.5 7.5 17 9 11.5 5 8l5.5-.5L12 2z" fill="currentColor"/></svg>
+              <span>Bepul xizmatlar</span>
+            </div>
+          </div>
+          <button className="tk-bottom-cta" onClick={handleMemberClick}>
+            <FiUserPlus />
+            <span>A'zo bo'lish</span>
+            <svg viewBox="0 0 24 24" fill="none" className="tk-bottom-arrow">
+              <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </button>
+        </div>
+        <div className="tk-bottom-decor">
+          <span className="tk-bottom-decor-dot" style={{ top: '15%', left: '8%' }} />
+          <span className="tk-bottom-decor-dot" style={{ top: '75%', left: '12%' }} />
+          <span className="tk-bottom-decor-dot" style={{ top: '25%', right: '10%' }} />
+          <span className="tk-bottom-decor-dot" style={{ top: '65%', right: '6%' }} />
+          <span className="tk-bottom-decor-ring" style={{ top: '10%', right: '18%' }} />
+          <span className="tk-bottom-decor-ring" style={{ bottom: '15%', left: '5%' }} />
+        </div>
+      </div>
+    </div>
+  )
+}

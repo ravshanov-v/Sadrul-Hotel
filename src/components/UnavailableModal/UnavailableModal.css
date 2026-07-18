@@ -1,0 +1,356 @@
+.uam-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: uamFadeIn 0.3s ease;
+}
+
+.uam-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.uam-modal {
+  position: relative;
+  width: 100%;
+  max-width: 780px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  border-radius: 20px;
+  padding: 0;
+  animation: uamSlideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(212, 175, 55, 0.1);
+}
+
+.uam-modal::-webkit-scrollbar { width: 6px; }
+.uam-modal::-webkit-scrollbar-track { background: transparent; }
+.uam-modal::-webkit-scrollbar-thumb { background: rgba(212, 175, 55, 0.3); border-radius: 3px; }
+
+.uam-header {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 24px 28px 16px;
+  background: linear-gradient(180deg, rgba(26, 26, 46, 0.98), rgba(26, 26, 46, 0));
+  border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+}
+
+.uam-header-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(212, 175, 55, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.uam-header-icon svg {
+  width: 22px;
+  height: 22px;
+  color: #D4AF37;
+}
+
+.uam-header-text {
+  flex: 1;
+}
+
+.uam-header-text h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.uam-header-text p {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.uam-close {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+  flex-shrink: 0;
+}
+
+.uam-close:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border-color: rgba(212, 175, 55, 0.3);
+}
+
+.uam-close svg {
+  width: 18px;
+  height: 18px;
+}
+
+.uam-body {
+  padding: 8px 28px 28px;
+}
+
+.uam-section {
+  margin-top: 24px;
+}
+
+.uam-section:first-child {
+  margin-top: 0;
+}
+
+.uam-section-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #D4AF37;
+  margin: 0 0 14px;
+}
+
+.uam-section-title svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+/* Similar Rooms */
+.uam-rooms-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.uam-room-card {
+  display: flex;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(212, 175, 55, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.uam-room-card:hover {
+  border-color: rgba(212, 175, 55, 0.25);
+  background: rgba(212, 175, 55, 0.05);
+  transform: translateY(-2px);
+}
+
+.uam-room-img {
+  width: 80px;
+  height: 70px;
+  border-radius: 8px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.uam-room-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.uam-room-info h4 {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.uam-room-cat {
+  font-size: 11px;
+  color: rgba(212, 175, 55, 0.6);
+  margin: 2px 0 4px;
+}
+
+.uam-room-price {
+  font-size: 14px;
+  font-weight: 700;
+  color: #D4AF37;
+}
+
+.uam-room-price small {
+  font-size: 11px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* Alternative Dates */
+.uam-dates-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.uam-date-chip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(212, 175, 55, 0.12);
+  background: rgba(255, 255, 255, 0.03);
+  cursor: pointer;
+  transition: all 0.3s;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.uam-date-chip:hover {
+  border-color: #D4AF37;
+  background: rgba(212, 175, 55, 0.08);
+  color: #fff;
+}
+
+.uam-date-chip svg {
+  width: 16px;
+  height: 16px;
+  color: #D4AF37;
+  flex-shrink: 0;
+}
+
+.uam-date-chip span {
+  white-space: nowrap;
+}
+
+.uam-date-label {
+  font-size: 11px;
+  color: #D4AF37;
+  font-weight: 600;
+  margin-right: 4px;
+}
+
+/* Nearby Hotels */
+.uam-hotels-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.uam-hotel-card {
+  display: flex;
+  gap: 14px;
+  padding: 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(212, 175, 55, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+  cursor: pointer;
+  transition: all 0.3s;
+  align-items: center;
+}
+
+.uam-hotel-card:hover {
+  border-color: rgba(212, 175, 55, 0.25);
+  background: rgba(212, 175, 55, 0.05);
+  transform: translateX(4px);
+}
+
+.uam-hotel-img {
+  width: 70px;
+  height: 60px;
+  border-radius: 8px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.uam-hotel-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.uam-hotel-info h4 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.uam-hotel-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 4px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.uam-hotel-rating {
+  color: #D4AF37;
+  font-weight: 600;
+}
+
+.uam-hotel-distance {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.uam-hotel-distance svg {
+  width: 12px;
+  height: 12px;
+}
+
+.uam-hotel-btn {
+  flex-shrink: 0;
+  padding: 8px 18px;
+  border-radius: 8px;
+  border: 1px solid #D4AF37;
+  background: transparent;
+  color: #D4AF37;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-family: 'Poppins', sans-serif;
+}
+
+.uam-hotel-btn:hover {
+  background: #D4AF37;
+  color: #1a1a2e;
+}
+
+@keyframes uamFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes uamSlideUp {
+  from { opacity: 0; transform: translateY(40px) scale(0.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@media (max-width: 640px) {
+  .uam-overlay { padding: 12px; }
+  .uam-modal { max-height: 85vh; }
+  .uam-header { padding: 16px 18px 12px; }
+  .uam-body { padding: 4px 18px 18px; }
+  .uam-rooms-grid { grid-template-columns: 1fr; }
+  .uam-header-text h2 { font-size: 17px; }
+  .uam-dates-list { flex-direction: column; }
+  .uam-hotel-card { flex-wrap: wrap; }
+}

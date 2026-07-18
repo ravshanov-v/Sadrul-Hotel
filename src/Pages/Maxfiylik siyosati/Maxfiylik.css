@@ -1,0 +1,153 @@
+.privacy-page {
+  padding-bottom: 4rem;
+}
+
+.privacy-hero {
+  position: relative;
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 100%);
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 3rem;
+  padding: 4rem 2rem;
+}
+
+.privacy-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 30% 50%, rgba(212, 175, 55, 0.08) 0%, transparent 60%);
+}
+
+.privacy-hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 700px;
+}
+
+.privacy-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: #D4AF37;
+  font-size: 0.85rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.privacy-badge-line {
+  width: 40px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #D4AF37, transparent);
+}
+
+.privacy-hero-title {
+  font-size: 2.5rem;
+  color: #fff;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.gold-text {
+  background: linear-gradient(135deg, #D4AF37, #E6C15A, #D4AF37);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.privacy-hero-desc {
+  color: #a0a0b0;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.privacy-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.privacy-article {
+  background: #f8f9fc;
+  border-radius: 16px;
+  padding: 2rem;
+  transition: all 0.3s ease;
+}
+
+.dark .privacy-article {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.privacy-article:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+}
+
+.dark .privacy-article:hover {
+  box-shadow: 0 8px 30px rgba(212, 175, 55, 0.05);
+  border-color: rgba(212, 175, 55, 0.15);
+}
+
+.privacy-article-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.privacy-article-num {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #D4AF37;
+  opacity: 0.6;
+  min-width: 40px;
+}
+
+.privacy-article-title {
+  font-size: 1.3rem;
+  color: #1a1a2e;
+  font-weight: 600;
+}
+
+.dark .privacy-article-title {
+  color: #e0e0e0;
+}
+
+.privacy-article-text {
+  color: #555;
+  line-height: 1.8;
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.dark .privacy-article-text {
+  color: #a0a0b0;
+}
+
+.privacy-updated {
+  text-align: center;
+  margin-top: 3rem;
+  padding-top: 2rem;
+}
+
+.privacy-updated-line {
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #D4AF37, transparent);
+  margin: 0 auto 1rem;
+}
+
+.privacy-updated p {
+  color: #888;
+  font-size: 0.85rem;
+  font-style: italic;
+}

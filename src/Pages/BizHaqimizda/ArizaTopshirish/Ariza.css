@@ -1,0 +1,332 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap');
+
+.ariza-page {
+  font-family: 'Poppins', sans-serif;
+  overflow-x: hidden;
+}
+
+.gold-text {
+  background: linear-gradient(135deg, #D4AF37, #f5d77b, #D4AF37);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.ariza-hero {
+  position: relative;
+  min-height: 30vh;
+  padding: 100px 20px 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: #0f0f1a;
+}
+
+.ariza-hero::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 600px;
+  height: 600px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.15) 0%, rgba(212, 175, 55, 0.06) 30%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.ariza-hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+.ariza-hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 700px;
+
+}
+
+.ariza-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 20px;
+  color: #D4AF37;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+.ariza-hero-content h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 56px;
+  font-weight: 900;
+  color: #fff;
+  margin: 0 0 16px;
+  line-height: 1.15;
+  text-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+}
+
+.ariza-hero-sub {
+  font-size: 16px;
+  color: #c9b88a;
+  line-height: 1.7;
+  margin: 0 auto;
+  max-width: 500px;
+  letter-spacing: 0.3px;
+}
+
+/* BODY */
+.ariza-body {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 60px 40px 100px;
+}
+
+.ariza-container {
+  width: 100%;
+}
+
+/* FORM */
+.ariza-form {
+  background: #fff;
+  border-radius: 24px;
+  padding: 48px;
+  box-shadow: 0 10px 50px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(212, 175, 55, 0.1);
+}
+
+.dark .ariza-form {
+  background: linear-gradient(145deg, #1a1a2e, #16213e);
+  border-color: rgba(212, 175, 55, 0.08);
+  box-shadow: 0 10px 50px rgba(0, 0, 0, 0.3);
+}
+
+.ariza-form-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: #1A1A2E;
+  margin: 0 0 28px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid rgba(212, 175, 55, 0.15);
+}
+
+.dark .ariza-form-title {
+  color: #e8e8e8;
+  border-bottom-color: rgba(212, 175, 55, 0.08);
+}
+
+.ariza-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.ariza-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ariza-full {
+  grid-column: 1 / -1;
+}
+
+.ariza-form-group label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #8B7355;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.dark .ariza-form-group label {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.ariza-form-group input,
+.ariza-form-group select,
+.ariza-form-group textarea {
+  padding: 14px 18px;
+  border-radius: 14px;
+  border: 2px solid rgba(0, 0, 0, 0.06);
+  background: #F8F6F3;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #1A1A2E;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.dark .ariza-form-group input,
+.dark .ariza-form-group select,
+.dark .ariza-form-group textarea {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.06);
+  color: #e8e8e8;
+}
+
+.ariza-form-group input:focus,
+.ariza-form-group select:focus,
+.ariza-form-group textarea:focus {
+  border-color: #D4AF37;
+  background: #fff;
+  box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.08);
+}
+
+.dark .ariza-form-group input:focus,
+.dark .ariza-form-group select:focus,
+.dark .ariza-form-group textarea:focus {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: #D4AF37;
+}
+
+.ariza-form-group input::placeholder,
+.ariza-form-group textarea::placeholder {
+  color: #B8A88A;
+}
+
+.ariza-form-group textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.ariza-form-group select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 9l6 6 6-6' stroke='%23B8A88A' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  background-size: 16px;
+  padding-right: 44px;
+}
+
+/* BTN */
+.ariza-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px 44px;
+  border-radius: 50px;
+  border: none;
+  font-family: 'Poppins', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  letter-spacing: 0.5px;
+  text-decoration: none;
+}
+
+.ariza-btn-primary {
+  background: linear-gradient(135deg, #D4AF37, #F5D676);
+  color: #1A1A2E;
+}
+
+.ariza-btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 40px rgba(212, 175, 55, 0.35);
+}
+
+.ariza-btn svg {
+  width: 18px;
+  height: 18px;
+  transition: transform 0.3s;
+}
+
+.ariza-btn-primary:hover svg {
+  transform: translateX(5px);
+}
+
+.ariza-btn-submit {
+  margin-top: 32px;
+  width: 100%;
+}
+
+/* SUCCESS */
+.ariza-success-card {
+  background: #fff;
+  border-radius: 24px;
+  padding: 60px 48px;
+  text-align: center;
+  box-shadow: 0 10px 50px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(212, 175, 55, 0.1);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.dark .ariza-success-card {
+  background: linear-gradient(145deg, #1a1a2e, #16213e);
+  border-color: rgba(212, 175, 55, 0.08);
+  box-shadow: 0 10px 50px rgba(0, 0, 0, 0.3);
+}
+
+.ariza-success-icon {
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 24px;
+}
+
+.ariza-success-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.ariza-success-card h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: #1A1A2E;
+  margin: 0 0 12px;
+}
+
+.dark .ariza-success-card h2 {
+  color: #e8e8e8;
+}
+
+.ariza-success-text {
+  font-size: 15px;
+  color: #777;
+  line-height: 1.6;
+  margin: 0 0 8px;
+}
+
+.dark .ariza-success-text {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.ariza-success-note {
+  font-size: 13px;
+  color: #D4AF37;
+  margin: 0 0 32px;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .ariza-hero-content h1 {
+    font-size: 36px;
+  }
+
+  .ariza-body {
+    padding: 40px 20px 80px;
+  }
+
+  .ariza-form {
+    padding: 32px 24px;
+  }
+
+  .ariza-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ariza-success-card {
+    padding: 40px 24px;
+  }
+}

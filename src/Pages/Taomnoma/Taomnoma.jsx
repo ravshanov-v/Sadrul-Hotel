@@ -1,0 +1,357 @@
+import { useState, useRef, useEffect } from "react"
+import { useNavigate, Outlet, useLocation } from "react-router-dom"
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { menuItems, menuCategories } from "../../data/taomnoma"
+import 'swiper/css';
+import 'swiper/css/effect-fade';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import "./Taomnoma.css"
+import { EffectFade, Navigation, Pagination, Autoplay } from 'swiper/modules';
+import AOS from "aos"
+import { useFavorites } from "../../components/Favorites/useFavorites.js"
+
+const getCategoryId = (cat) => cat.toLowerCase().replace(/\s+/g, '-')
+
+const TM_PARTICLES = Array.from({ length: 15 }, (_, i) => ({
+    id: i,
+    x: (i * 17 + 3) % 100,
+    y: (i * 31 + 7) % 100,
+    size: ((i * 13 + 5) % 3) + 1.5,
+    delay: (i * 7) % 8,
+    duration: ((i * 11 + 3) % 6) + 6,
+    drift: (((i * 19 + 13) % 20) - 10)
+}))
+
+function ParticleField() {
+
+    return (
+        <div className="tm-particles">
+            {TM_PARTICLES.map(p => (
+                <div
+                    key={p.id}
+                    className="tm-particle"
+                    style={{
+                        left: `${p.x}%`,
+                        top: `${p.y}%`,
+                        width: p.size,
+                        height: p.size,
+                        animationDelay: `${p.delay}s`,
+                        animationDuration: `${p.duration}s`,
+                        "--drift": `${p.drift}px`
+                    }}
+                />
+            ))}
+        </div>
+    )
+}
+
+function MenuCard({ item }) {
+    const navigate = useNavigate()
+    const { toggleFav, isFav } = useFavorites()
+
+    return (
+        <div
+            className="tm-card"
+            onClick={() => navigate(`/taomnoma/${item.id}`)}
+        >
+            <div className="tm-card-img">
+                <img src={item.image} alt={item.name} loading="lazy" />
+                <button
+                  className={`tm-like-btn ${isFav('food_' + item.id) ? 'liked' : ''}`}
+                  onClick={(e) => { e.stopPropagation(); toggleFav('food_' + item.id) }}
+                  aria-label="Like"
+                >
+                  <svg viewBox="0 0 24 24">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </button>
+            </div>
+            <div className="tm-card-body">
+                <div className="tm-card-top">
+                    <h3 className="tm-card-name">{item.name}</h3>
+                    <span className="tm-card-cat-label">{item.category}</span>
+                </div>
+                <p className="tm-card-desc">{item.description}</p>
+                <div className="tm-card-bottom">
+                    <span className="tm-card-info">
+                        <svg viewBox="0 0 24 24" fill="none">
+                            <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5" />
+                            <path d="M12 6v6l4 2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                        </svg>
+                        {item.info}
+                    </span>
+                </div>
+                <div className="tm-var-wrap">
+                    <span className="tm-about-btn" onClick={(e) => { e.stopPropagation(); navigate(`/taomnoma/${item.id}`) }}>
+                        <svg viewBox="0 0 24 24" fill="none" className="tm-about-icon">
+                            <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5" />
+                            <path d="M12 16v-4M12 8h.01" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                        </svg>
+                        <span>Taom haqida</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+export default function Taomnoma() {
+    const location = useLocation()
+    const isChildRoute = location.pathname !== "/taomnoma" && location.pathname.startsWith("/taomnoma/")
+
+    const [activeCategory, setActiveCategory] = useState("Barchasi")
+    const [visibleCount, setVisibleCount] = useState(12)
+    const [searchQuery, setSearchQuery] = useState("")
+    const [searchLoading, setSearchLoading] = useState(false)
+    const [searchError, setSearchError] = useState("")
+    const [highlightedCat, setHighlightedCat] = useState("")
+    const bodyRef = useRef(null)
+
+    const filtered = activeCategory === "Barchasi"
+        ? menuItems
+        : menuItems.filter(i => i.category === activeCategory)
+
+    useEffect(() => { AOS.refresh() }, [filtered])
+
+    useEffect(() => {
+        if (activeCategory !== "Barchasi") {
+            const id = getCategoryId(activeCategory)
+            const el = document.getElementById(id)
+            if (el) {
+                setTimeout(() => el.scrollIntoView({ behavior: "smooth", block: "start" }), 100)
+            }
+        }
+    }, [activeCategory])
+
+    useEffect(() => {
+        if (searchError) {
+            const timer = setTimeout(() => {
+                setSearchError("")
+            }, 2000)
+            return () => clearTimeout(timer)
+        }
+    }, [searchError])
+
+    const handleSearch = () => {
+        const q = searchQuery.trim()
+        if (!q) return
+
+        setSearchLoading(true)
+        setSearchError("")
+
+        setTimeout(() => {
+            const match = menuCategories.find(cat => {
+                if (cat === "Barchasi") return false
+                const a = cat.toLowerCase()
+                const b = q.toLowerCase()
+                return a.includes(b) || b.includes(a)
+            })
+
+            if (match) {
+                setActiveCategory(match)
+                setVisibleCount(12)
+                setSearchQuery("")
+                setHighlightedCat(match)
+                setTimeout(() => setHighlightedCat(""), 2000)
+
+                const id = getCategoryId(match)
+                const el = document.getElementById(id)
+                if (el) {
+                    el.scrollIntoView({ behavior: "smooth", block: "start" })
+                } else {
+                    bodyRef.current?.scrollIntoView({ behavior: "smooth" })
+                }
+            } else {
+                setSearchError("Bunday taom bo'limi topilmadi.")
+            }
+
+            setSearchLoading(false)
+        }, 1200)
+    }
+
+    const handleSearchChange = (e) => {
+        setSearchQuery(e.target.value)
+        if (searchError) setSearchError("")
+    }
+
+    const handleKeyDown = (e) => {
+        if (e.key === "Enter") handleSearch()
+    }
+
+    const handleCategoryClick = (cat) => {
+        setActiveCategory(cat)
+        setVisibleCount(12)
+        setSearchQuery("")
+        setSearchError("")
+    }
+
+    if (isChildRoute) return <Outlet />
+
+    const visible = filtered.slice(0, visibleCount)
+    const hasMore = visibleCount < filtered.length
+
+    return (
+    <div className="taomnoma" data-aos="fade-up">
+      <section className="tm-hero" data-aos="fade-up">
+        <ParticleField />
+                <div className="tm-hero-glow" />
+                <div className="tm-hero-overlay" />
+                <div className="tm-hero-content" data-aos="zoom-in">
+                    <div className="tm-badge-wrap">
+                        <div className="tm-badge">
+                            <input
+                                type="text"
+                                className="tm-badge-inp"
+                                placeholder="Milliy taomlar..."
+                                value={searchQuery}
+                                onChange={handleSearchChange}
+                                onKeyDown={handleKeyDown}
+                            />
+                            <button
+                                className="badge-btn"
+                                onClick={handleSearch}
+                                disabled={searchLoading}
+                            >
+                                {searchLoading ? (
+                                    <>
+                                        <span className="tm-btn-loader" />
+                                        <span>Qidirilmoqda...</span>
+                                    </>
+                                ) : (
+                                    "Qidirish"
+                                )}
+                            </button>
+                        </div>
+                        {(searchLoading || searchError) && (
+                            <div className={`tm-loading-panel visible`}>
+                                {searchLoading && (
+                                    <div className="tm-lp-loader">
+                                        <div className="tm-lp-ring" />
+                                        <div className="tm-lp-text">
+                                            <p className="tm-lp-title">Taom bo'limi qidirilmoqda...</p>
+                                            <p className="tm-lp-sub">Iltimos biroz kuting.</p>
+                                        </div>
+                                    </div>
+                                )}
+                                {searchError && !searchLoading && (
+                                    <div className="tm-lp-warning">
+                                        <div className="tm-lp-warn-icon">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                                                <circle cx="12" cy="12" r="10" />
+                                                <path d="M12 8v4M12 16h.01" strokeLinecap="round" />
+                                            </svg>
+                                        </div>
+                                        <div className="tm-lp-warn-text">
+                                            <p className="tm-lp-warn-title">Bunday taom bo'limi topilmadi.</p>
+                                            <p className="tm-lp-warn-sub">Boshqa qidiruv so'zini kiriting.</p>
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                        )}
+                    </div>
+                    <h1 className="tm-title">
+                        Mehmonxona <span className="tm-gold">Taomnomasi</span>
+                    </h1>
+                    <p className="tm-subtitle">
+                        Sadrul mehmonxonasida mavjud bo'lgan barcha taomlar va ichimliklar ro'yxati
+                    </p>
+                    <div className="tm-hero-actions">
+                        <button className="tm-hero-btn" onClick={() => bodyRef.current?.scrollIntoView({ behavior: "smooth" })}>
+                            Taomnomani ko'rish
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <path d="M19 14l-7 7m0 0l-7-7m7 7V3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div className="tm-divider">
+                        <span /><div className="tm-diamond" /><span />
+                    </div>
+                </div>
+            </section>
+            <section className="tm-body" ref={bodyRef} data-aos="fade-up">
+                <div className="tm-section-label" data-aos="fade-up">
+                    <span className="tm-label-line" />
+                    <span>Sadrul Menyu</span>
+                    <span className="tm-label-line" />
+                </div>
+                <h2 className="tm-section-title" data-aos="fade-up">Mavjud <span className="tm-gold">Taomlar</span></h2>
+                <div
+                    className={`tm-categories ${highlightedCat ? "tm-section-highlight" : ""}`}
+                    id={getCategoryId(activeCategory)}
+                    data-aos="fade-up"
+                    data-aos-delay="100"
+                >
+                    <div className="tm-cat-track">
+                        {menuCategories.map(cat => (
+                            <button
+                                key={cat}
+                                className={`tm-cat-btn ${activeCategory === cat ? "active" : ""}`}
+                                onClick={() => handleCategoryClick(cat)}
+                            >
+                                {cat}
+                            </button>
+                        ))}
+                    </div>
+                </div>
+                <div className="tm-stats" data-aos="fade-up" data-aos-delay="150">
+                    <span className="tm-stats-count">{filtered.length} ta taom topildi</span>
+                </div>
+                <div className="tm-grid-wrap">
+                    <div className="tm-grid">
+                        {Array.from({ length: Math.ceil(visible.length / 4) }, (_, i) => {
+                            const rowItems = visible.slice(i * 4, i * 4 + 4)
+                            return (
+                                <div key={i} className="tm-grid-row" data-aos="row-reveal" data-aos-delay={i * 50} data-aos-offset="100">
+                                    {rowItems.map(item => (
+                                        <MenuCard key={item.id} item={item} />
+                                    ))}
+                                </div>
+                            )
+                        })}
+                    </div>
+                </div>
+                {hasMore && (
+                    <div className="tm-load-more" data-aos="fade-up">
+                        <button className="tm-load-btn" onClick={() => setVisibleCount(prev => prev + 4)}>
+                            Ko'proq ko'rish
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <path d="M7 13l5 5 5-5M7 6l5 5 5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                            </svg>
+                        </button>
+                    </div>
+                )}
+                {filtered.length === 0 && !searchLoading && (
+                    <div className="tm-empty">
+                        <svg viewBox="0 0 24 24" fill="none">
+                            <circle cx="11" cy="11" r="8" stroke="currentColor" strokeWidth="2" />
+                            <path d="M21 21l-4.35-4.35" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                        </svg>
+                        <p>Bu kategoriyada taom topilmadi</p>
+                    </div>
+                )}
+                <article className="swiper-art" data-aos="fade-up">
+                    <Swiper
+                        spaceBetween={0}
+                        effect={'fade'}
+                        navigation={true}
+                        pagination={{ clickable: true }}
+                        autoplay={{ delay: 4000, disableOnInteraction: false, pauseOnMouseEnter: true }}
+                        speed={1200}
+                        modules={[EffectFade, Navigation, Pagination, Autoplay]}
+                        className="mySwiper"
+                    >
+                        <SwiperSlide><img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&q=80" /></SwiperSlide>
+                        <SwiperSlide><img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=1200&q=80" /></SwiperSlide>
+                        <SwiperSlide><img src="https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?w=1200&q=80" /></SwiperSlide>
+                        <SwiperSlide><img src="https://images.unsplash.com/photo-1556909172-54557c7e4fb7?w=1200&q=80" /></SwiperSlide>
+                        <SwiperSlide><img src="https://images.unsplash.com/photo-1596797038530-2c107229654b?w=1200&q=80" /></SwiperSlide>
+                        <SwiperSlide><img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?w=1200&q=80" /></SwiperSlide>
+                        <SwiperSlide><img src="https://images.unsplash.com/photo-1507048331197-7d4ac70811cf?w=1200&q=80" /></SwiperSlide>
+                    </Swiper>
+                </article>
+            </section>
+        </div>
+    )
+}

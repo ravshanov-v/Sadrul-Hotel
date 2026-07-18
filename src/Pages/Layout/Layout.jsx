@@ -1,0 +1,99 @@
+import { useEffect, useRef } from "react"
+import { Outlet, useLocation } from "react-router-dom"
+
+import Nav from "../../components/Navbar/Nav.jsx"
+import Footer from "../../components/Footer/Footer.jsx"
+import { ModalProvider } from "../../components/SmallWindows/Modal/ModalProvider.jsx"
+import { DarkModeProvider } from "../../components/DarkMode/DarkModeProvider.jsx"
+import { AuthProvider } from "../../components/Auth/AuthProvider.jsx"
+import { FavoritesProvider } from "../../components/Favorites/FavoritesProvider.jsx"
+import { ProphileProvider } from "../../components/Prophile/ProphileProvider.jsx"
+import { useModal } from "../../components/SmallWindows/Modal/useModal.js"
+import Modal from "../../components/SmallWindows/Modal/Modal.jsx"
+import SignUpModal from "../../components/SmallWindows/Modal/SignUpModal.jsx"
+import Prophile from "../../components/Prophile/Prophile.jsx"
+
+import "./Layout.css"
+
+const knownRoutePrefixes = [
+  "/mehmonxona/", "/bron-qilish/", "/taomnoma/"
+]
+
+const knownExact = [
+  "/", "/mehmonxonalar", "/takliflar", "/biz-haqimizda",
+  "/taomnoma", "/signup", "/ariza", "/maxfiylik-siyosati",
+  "/foydalanish-shartlari"
+]
+
+function isNotFound(pathname) {
+  if (knownExact.includes(pathname)) return false
+  for (const prefix of knownRoutePrefixes) {
+    if (pathname.startsWith(prefix)) return false
+  }
+  return pathname !== "/"
+}
+
+function LayoutContent() {
+  const location = useLocation()
+  const prevPath = useRef(location.pathname)
+  const isSignup = location.pathname === "/signup"
+  const hideFrame = isNotFound(location.pathname)
+  const { openModal, closeModal } = useModal()
+
+
+  useEffect(() => {
+    if (location.pathname !== prevPath.current) {
+      prevPath.current = location.pathname
+      window.scrollTo(0, 0)
+    }
+  }, [location.pathname])
+
+  useEffect(() => {
+
+    if (location.state?.openModal) {
+      openModal()
+      window.history.replaceState({}, document.title)
+    } else {
+      closeModal()
+    }
+  }, [location.pathname])
+
+  return (
+    <>
+      {!hideFrame && <Nav />}
+      {hideFrame ? (
+        <main>
+          <Outlet />
+        </main>
+      ) : (
+        <div className="container">
+          <main>
+            <Outlet />
+          </main>
+        </div>
+      )}
+      {!hideFrame && !isSignup && <Modal />}
+      {!hideFrame && !isSignup && <SignUpModal />}
+      {!hideFrame && <Prophile />}
+      {!hideFrame && <Footer />}
+    </>
+  )
+}
+
+function Layout() {
+  return (
+    <AuthProvider>
+      <FavoritesProvider>
+        <ModalProvider>
+          <ProphileProvider>
+            <DarkModeProvider>
+              <LayoutContent />
+            </DarkModeProvider>
+          </ProphileProvider>
+        </ModalProvider>
+      </FavoritesProvider>
+    </AuthProvider>
+  )
+}
+
+export default Layout

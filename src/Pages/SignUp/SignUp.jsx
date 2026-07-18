@@ -5,6 +5,7 @@ import close from "../../Assets/Icons/close.svg"
 import { useModal } from "../../components/SmallWindows/Modal/useModal.js"
 import { useAuth } from "../../components/Auth/useAuth"
 import { validateEmail } from "../../utils/auth"
+import { useLanguage } from "../../components/Language/useLanguage.js"
 
 import "./SignUp.css"
 
@@ -12,6 +13,7 @@ export default function SignUp() {
   const navigate = useNavigate()
   const { openModal } = useModal()
   const { login } = useAuth()
+  const { t } = useLanguage()
 
   const [form, setForm] = useState({
     fullName: "",
@@ -57,10 +59,10 @@ export default function SignUp() {
 
   function getPasswordFeedback(pass) {
     const items = []
-    if (pass.length < 6) items.push({ key: 'length', text: 'Kamida 6 belgi' })
-    if (!/[a-zA-Z]/.test(pass)) items.push({ key: 'letter', text: 'Kamida 1 ta harf' })
-    if (!/[0-9]/.test(pass)) items.push({ key: 'number', text: 'Kamida 1 ta raqam' })
-    if (!/[^a-zA-Z0-9]/.test(pass)) items.push({ key: 'special', text: 'Kamida 1 ta maxsus belgi (!@#$%^&*)' })
+    if (pass.length < 6) items.push({ key: 'length', text: t("signup.minChars") })
+    if (!/[a-zA-Z]/.test(pass)) items.push({ key: 'letter', text: t("signup.minLetter") })
+    if (!/[0-9]/.test(pass)) items.push({ key: 'number', text: t("signup.minNumber") })
+    if (!/[^a-zA-Z0-9]/.test(pass)) items.push({ key: 'special', text: t("signup.minSpecial") })
     return items
   }
 
@@ -109,38 +111,38 @@ export default function SignUp() {
     <div className="signup-page">
       <div className="signup-card">
         <button className="signup-close-btn" onClick={() => navigate("/")}>
-          <img className="close" src={close} alt="Yopish" />
+          <img className="close" src={close} alt={t("signup.closeAlt")} />
         </button>
         <div className="signup-content">
           <div className="signup-left" data-aos="fade-right">
             <div className="signup-left-logo">
-              <img className="signup-logo-img" src={logoIconS} alt="Sadrul" />
-              <p className="signup-logo-p">sadrul</p>
+              <img className="signup-logo-img" src={logoIconS} alt={t("signup.logoAlt")} />
+              <p className="signup-logo-p">{t("signup.logoSpan")}</p>
             </div>
             <span className="signup-left-decoration">
-              <span>HOTEL</span>
+              <span>{t("signup.hotelSuffix")}</span>
             </span>
             <div className="signup-left-quote">
-              <p>Mukammal dam olishingiz</p>
-              <p>aynan shu yerdan boshlanadi</p>
+              <p>{t("signup.quote1")}</p>
+              <p>{t("signup.quote2")}</p>
             </div>
           </div>
 
           <div className="signup-right" data-aos="fade-up">
-            <h1 className="signup-h">Ro'yxatdan o'tish</h1>
-            <p className="signup-desc">Sadrul mehmonxonasida hisob yaratish uchun ma'lumotlaringizni kiriting.</p>
+            <h1 className="signup-h">{t("signup.title")}</h1>
+            <p className="signup-desc">{t("signup.desc")}</p>
 
             <form className="signup-form" onSubmit={handleSubmit} noValidate autoComplete="off">
               <div className="signup-field">
                 <input
                   className={inputClass("fullName")}
                   type="text"
-                  placeholder="To'liq ismingiz"
+                  placeholder={t("signup.fullName")}
                   value={form.fullName}
                   onChange={handleChange("fullName")}
                 />
                 {touched.fullName && !validations.fullName && (
-                  <p className="signup-feedback error">Ismingiz kamida 2 belgidan iborat bo'lishi kerak</p>
+                  <p className="signup-feedback error">{t("signup.nameError")}</p>
                 )}
               </div>
 
@@ -148,7 +150,7 @@ export default function SignUp() {
                 <input
                   className={inputClass("email")}
                   type="email"
-                  placeholder="Elektron pochta"
+                  placeholder={t("signup.email")}
                   value={form.email}
                   onChange={handleChange("email")}
                 />
@@ -165,13 +167,13 @@ export default function SignUp() {
                 <input
                   className={inputClass("phone")}
                   type="tel"
-                  placeholder="Telefon raqam"
+                  placeholder={t("signup.phone")}
                   autoComplete="tel"
                   value={form.phone}
                   onChange={handleChange("phone")}
                 />
                 {touched.phone && !validations.phone && (
-                  <p className="signup-feedback error">Telefon raqam noto'g'ri formatda</p>
+                  <p className="signup-feedback error">{t("signup.phoneError")}</p>
                 )}
               </div>
 
@@ -181,7 +183,7 @@ export default function SignUp() {
                     <input
                       className={inputClass("password")}
                       type={showPassword ? "text" : "password"}
-                      placeholder="Parol"
+                      placeholder={t("signup.password")}
                       autoComplete="new-password"
                       value={form.password}
                       onChange={handleChange("password")}
@@ -190,7 +192,7 @@ export default function SignUp() {
                       type="button"
                       className="signup-eye-btn"
                       onClick={() => setShowPassword(prev => !prev)}
-                      aria-label={showPassword ? "Parolni yashirish" : "Parolni ko'rsatish"}
+                      aria-label={showPassword ? t("signup.hidePwd") : t("signup.showPwd")}
                     >
                       {showPassword ? (
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -207,7 +209,7 @@ export default function SignUp() {
                     </button>
                   </div>
                   {touched.password && !validations.password && (
-                    <p className="signup-feedback error">Parol kamida 6 belgidan iborat bo'lishi kerak</p>
+                    <p className="signup-feedback error">{t("signup.passwordLength")}</p>
                   )}
                   {touched.password && validations.password && (
                     <>
@@ -220,7 +222,7 @@ export default function SignUp() {
                       )}
                       {getPasswordFeedback(form.password).length === 0 && getPasswordStrength(form.password) && (
                         <p className={`signup-feedback ${getPasswordStrength(form.password).level}`}>
-                          {getPasswordStrength(form.password).level === 'oddiy' ? 'Zaif parol' : getPasswordStrength(form.password).level === 'normal' ? "O'rtacha parol" : 'Kuchli parol'}
+                          {t(getPasswordStrength(form.password).level === 'oddiy' ? 'signup.weakPwd' : getPasswordStrength(form.password).level === 'normal' ? 'signup.mediumPwd' : 'signup.strongPwd')}
                         </p>
                       )}
                     </>
@@ -232,7 +234,7 @@ export default function SignUp() {
                     <input
                       className={inputClass("confirmPassword")}
                       type={showConfirm ? "text" : "password"}
-                      placeholder="Parolni tasdiqlang"
+                      placeholder={t("signup.confirmPassword")}
                       autoComplete="new-password"
                       value={form.confirmPassword}
                       onChange={handleChange("confirmPassword")}
@@ -241,7 +243,7 @@ export default function SignUp() {
                       type="button"
                       className="signup-eye-btn"
                       onClick={() => setShowConfirm(prev => !prev)}
-                      aria-label={showConfirm ? "Parolni yashirish" : "Parolni ko'rsatish"}
+                      aria-label={showConfirm ? t("signup.hidePwd") : t("signup.showPwd")}
                     >
                       {showConfirm ? (
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -258,16 +260,16 @@ export default function SignUp() {
                     </button>
                   </div>
                   {touched.confirmPassword && !validations.confirmPassword && (
-                    <p className="signup-feedback error">Parollar mos kelmadi</p>
+                    <p className="signup-feedback error">{t("signup.passwordMismatch")}</p>
                   )}
                 </div>
               </div>
 
-              <button className="signup-btn" type="submit" data-aos="zoom-in"><span>Ro'yxatdan o'tish</span></button>
+              <button className="signup-btn" type="submit" data-aos="zoom-in"><span>{t("signup.submit")}</span></button>
             </form>
 
             <p className="signup-login-link">
-              Hisobingiz bormi? <span className="signup-toggle-link" onClick={() => { openModal(); navigate("/", { state: { openModal: true } }) }}>Kirish</span>
+              {t("signup.haveAccount")} <span className="signup-toggle-link" onClick={() => { openModal(); navigate("/", { state: { openModal: true } }) }}>{t("signup.loginLink")}</span>
             </p>
           </div>
         </div>

@@ -3,10 +3,12 @@ import { useNavigate } from "react-router-dom"
 import { hotels } from "../../data/hotels"
 import { getSimilarRooms, getNearbyHotels, getAlternativeDates } from "../../utils/availability"
 import { categoryMultiplier, roomTypes } from "../../utils/roomData"
+import { useLanguage } from "../Language/useLanguage.js"
 import "./UnavailableModal.css"
 
 export default function UnavailableModal({ hotelId, roomType, checkIn, checkOut, onClose }) {
   const navigate = useNavigate()
+  const { t, tData } = useLanguage()
   const hotel = hotels.find(h => h.id === Number(hotelId)) || hotels[0]
 
   const [similarRooms] = useState(() => getSimilarRooms(hotelId, roomType, roomTypes, hotel?.price || 0))
@@ -30,8 +32,8 @@ export default function UnavailableModal({ hotelId, roomType, checkIn, checkOut,
             </svg>
           </div>
           <div className="uam-header-text">
-            <h2>Bu xona band</h2>
-            <p>Kechirasiz, tanlagan xonangiz hozirda mavjud emas. Quyidagi alternativlarni ko'rib chiqing.</p>
+            <h2>{t("unavailable.title")}</h2>
+            <p>{t("unavailable.desc")}</p>
           </div>
           <button className="uam-close" onClick={onClose}>
             <svg viewBox="0 0 24 24" fill="none">
@@ -47,7 +49,7 @@ export default function UnavailableModal({ hotelId, roomType, checkIn, checkOut,
                 <svg viewBox="0 0 24 24" fill="none">
                   <path d="M3 7V5a2 2 0 012-2h14a2 2 0 012 2v2M3 7v10a2 2 0 002 2h14a2 2 0 002-2V7M3 7h18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
                 </svg>
-                O'xshash xonalar
+                {t("unavailable.similarRooms")}
               </h3>
               <div className="uam-rooms-grid">
                 {similarRooms.slice(0, 4).map(room => (
@@ -59,13 +61,13 @@ export default function UnavailableModal({ hotelId, roomType, checkIn, checkOut,
                       onClose()
                     }}
                   >
-                    <img className="uam-room-img" src={room.image} alt={room.name} />
+                    <img className="uam-room-img" src={room.image} alt={tData("data.rooms." + room.id + ".name", room.name)} />
                     <div className="uam-room-info">
-                      <h4>{room.name}</h4>
-                      <div className="uam-room-cat">{room.category}</div>
+                      <h4>{tData("data.rooms." + room.id + ".name", room.name)}</h4>
+                      <div className="uam-room-cat">{tData("data.rooms." + room.id + ".category", room.category)}</div>
                       <div className="uam-room-price">
                         ${Math.round(hotel.price * (categoryMultiplier[room.category] || 1))}
-                        <small>/kecha</small>
+                        <small>{t("unavailable.perNight")}</small>
                       </div>
                     </div>
                   </div>
@@ -81,7 +83,7 @@ export default function UnavailableModal({ hotelId, roomType, checkIn, checkOut,
                   <rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" strokeWidth="1.5" />
                   <path d="M3 10h18M8 2v4M16 2v4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
                 </svg>
-                Alternativ sanalar
+                {t("unavailable.alternativeDates")}
               </h3>
               <div className="uam-dates-list">
                 {alternativeDates.map((alt, i) => (
@@ -114,7 +116,7 @@ export default function UnavailableModal({ hotelId, roomType, checkIn, checkOut,
                   <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" stroke="currentColor" strokeWidth="1.5" />
                   <circle cx="12" cy="9" r="2.5" stroke="currentColor" strokeWidth="1.5" />
                 </svg>
-                Yaqin atrofdagi mehmonxonalar
+                {t("unavailable.nearbyHotels")}
               </h3>
               <div className="uam-hotels-grid">
                 {nearbyHotels.map(h => (
@@ -126,9 +128,9 @@ export default function UnavailableModal({ hotelId, roomType, checkIn, checkOut,
                       onClose()
                     }}
                   >
-                    <img className="uam-hotel-img" src={h.image} alt={h.name} />
+                    <img className="uam-hotel-img" src={h.image} alt={tData("data.hotels." + h.id + ".name", h.name)} />
                     <div className="uam-hotel-info">
-                      <h4>{h.name}</h4>
+                      <h4>{tData("data.hotels." + h.id + ".name", h.name)}</h4>
                       <div className="uam-hotel-meta">
                         <span className="uam-hotel-rating">
                           <svg viewBox="0 0 24 24" fill="currentColor" style={{ width: 12, height: 12, verticalAlign: 'middle', marginRight: 2 }}>
@@ -136,7 +138,7 @@ export default function UnavailableModal({ hotelId, roomType, checkIn, checkOut,
                           </svg>
                           {h.rating}
                         </span>
-                        <span>{h.rooms} xona</span>
+                        <span>{h.rooms} {t("unavailable.rooms")}</span>
                         <span className="uam-hotel-distance">
                           <svg viewBox="0 0 24 24" fill="none">
                             <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="none" stroke="currentColor" strokeWidth="1.5" />
@@ -150,7 +152,7 @@ export default function UnavailableModal({ hotelId, roomType, checkIn, checkOut,
                       navigate(`/mehmonxona/${h.id}`)
                       onClose()
                     }}>
-                      Ko'rish
+                      {t("unavailable.view")}
                     </button>
                   </div>
                 ))}

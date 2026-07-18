@@ -10,6 +10,7 @@ import "./Taomnoma.css"
 import { EffectFade, Navigation, Pagination, Autoplay } from 'swiper/modules';
 import AOS from "aos"
 import { useFavorites } from "../../components/Favorites/useFavorites.js"
+import { useLanguage } from "../../components/Language/useLanguage.js"
 
 const getCategoryId = (cat) => cat.toLowerCase().replace(/\s+/g, '-')
 
@@ -49,6 +50,7 @@ function ParticleField() {
 function MenuCard({ item }) {
     const navigate = useNavigate()
     const { toggleFav, isFav } = useFavorites()
+    const { t, tData } = useLanguage()
 
     return (
         <div
@@ -56,7 +58,7 @@ function MenuCard({ item }) {
             onClick={() => navigate(`/taomnoma/${item.id}`)}
         >
             <div className="tm-card-img">
-                <img src={item.image} alt={item.name} loading="lazy" />
+                <img src={item.image} alt={tData("data.menu." + item.id + ".name", item.name)} loading="lazy" />
                 <button
                   className={`tm-like-btn ${isFav('food_' + item.id) ? 'liked' : ''}`}
                   onClick={(e) => { e.stopPropagation(); toggleFav('food_' + item.id) }}
@@ -69,17 +71,17 @@ function MenuCard({ item }) {
             </div>
             <div className="tm-card-body">
                 <div className="tm-card-top">
-                    <h3 className="tm-card-name">{item.name}</h3>
-                    <span className="tm-card-cat-label">{item.category}</span>
+                    <h3 className="tm-card-name">{tData("data.menu." + item.id + ".name", item.name)}</h3>
+                    <span className="tm-card-cat-label">{tData("data.menu." + item.id + ".category", item.category)}</span>
                 </div>
-                <p className="tm-card-desc">{item.description}</p>
+                <p className="tm-card-desc">{tData("data.menu." + item.id + ".description", item.description)}</p>
                 <div className="tm-card-bottom">
                     <span className="tm-card-info">
                         <svg viewBox="0 0 24 24" fill="none">
                             <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5" />
                             <path d="M12 6v6l4 2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
                         </svg>
-                        {item.info}
+                        {tData("data.menu." + item.id + ".info", item.info)}
                     </span>
                 </div>
                 <div className="tm-var-wrap">
@@ -88,7 +90,7 @@ function MenuCard({ item }) {
                             <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5" />
                             <path d="M12 16v-4M12 8h.01" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
                         </svg>
-                        <span>Taom haqida</span>
+                        <span>{t("menu.aboutFood")}</span>
                     </span>
                 </div>
             </div>
@@ -98,6 +100,7 @@ function MenuCard({ item }) {
 
 export default function Taomnoma() {
     const location = useLocation()
+    const { t } = useLanguage()
     const isChildRoute = location.pathname !== "/taomnoma" && location.pathname.startsWith("/taomnoma/")
 
     const [activeCategory, setActiveCategory] = useState("Barchasi")
@@ -163,7 +166,7 @@ export default function Taomnoma() {
                     bodyRef.current?.scrollIntoView({ behavior: "smooth" })
                 }
             } else {
-                setSearchError("Bunday taom bo'limi topilmadi.")
+                setSearchError(t("menu.notFoundTitle"))
             }
 
             setSearchLoading(false)
@@ -203,7 +206,7 @@ export default function Taomnoma() {
                             <input
                                 type="text"
                                 className="tm-badge-inp"
-                                placeholder="Milliy taomlar..."
+                                placeholder={t("menu.searchPlaceholder")}
                                 value={searchQuery}
                                 onChange={handleSearchChange}
                                 onKeyDown={handleKeyDown}
@@ -216,11 +219,9 @@ export default function Taomnoma() {
                                 {searchLoading ? (
                                     <>
                                         <span className="tm-btn-loader" />
-                                        <span>Qidirilmoqda...</span>
+                                        <span>{t("menu.searching")}</span>
                                     </>
-                                ) : (
-                                    "Qidirish"
-                                )}
+                                ) : t("menu.searchBtn")}
                             </button>
                         </div>
                         {(searchLoading || searchError) && (
@@ -229,8 +230,8 @@ export default function Taomnoma() {
                                     <div className="tm-lp-loader">
                                         <div className="tm-lp-ring" />
                                         <div className="tm-lp-text">
-                                            <p className="tm-lp-title">Taom bo'limi qidirilmoqda...</p>
-                                            <p className="tm-lp-sub">Iltimos biroz kuting.</p>
+                                            <p className="tm-lp-title">{t("menu.loadingTitle")}</p>
+                                            <p className="tm-lp-sub">{t("menu.loadingDesc")}</p>
                                         </div>
                                     </div>
                                 )}
@@ -243,8 +244,8 @@ export default function Taomnoma() {
                                             </svg>
                                         </div>
                                         <div className="tm-lp-warn-text">
-                                            <p className="tm-lp-warn-title">Bunday taom bo'limi topilmadi.</p>
-                                            <p className="tm-lp-warn-sub">Boshqa qidiruv so'zini kiriting.</p>
+                                            <p className="tm-lp-warn-title">{t("menu.notFoundTitle")}</p>
+                                            <p className="tm-lp-warn-sub">{t("menu.notFoundDesc")}</p>
                                         </div>
                                     </div>
                                 )}
@@ -252,14 +253,14 @@ export default function Taomnoma() {
                         )}
                     </div>
                     <h1 className="tm-title">
-                        Mehmonxona <span className="tm-gold">Taomnomasi</span>
+                        {t("menu.heroTitle1")} <span className="tm-gold">{t("menu.heroTitleGold")}</span> {t("menu.heroTitle2")}
                     </h1>
                     <p className="tm-subtitle">
-                        Sadrul mehmonxonasida mavjud bo'lgan barcha taomlar va ichimliklar ro'yxati
+                        {t("menu.heroDesc")}
                     </p>
                     <div className="tm-hero-actions">
                         <button className="tm-hero-btn" onClick={() => bodyRef.current?.scrollIntoView({ behavior: "smooth" })}>
-                            Taomnomani ko'rish
+                            {t("menu.heroBadge")}
                             <svg viewBox="0 0 24 24" fill="none">
                                 <path d="M19 14l-7 7m0 0l-7-7m7 7V3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                             </svg>
@@ -273,10 +274,10 @@ export default function Taomnoma() {
             <section className="tm-body" ref={bodyRef} data-aos="fade-up">
                 <div className="tm-section-label" data-aos="fade-up">
                     <span className="tm-label-line" />
-                    <span>Sadrul Menyu</span>
+                    <span>{t("menu.menuLabel")}</span>
                     <span className="tm-label-line" />
                 </div>
-                <h2 className="tm-section-title" data-aos="fade-up">Mavjud <span className="tm-gold">Taomlar</span></h2>
+                <h2 className="tm-section-title" data-aos="fade-up">{t("menu.availableTitle1")} <span className="tm-gold">{t("menu.availableTitleGold")}</span> {t("menu.availableTitle2")}</h2>
                 <div
                     className={`tm-categories ${highlightedCat ? "tm-section-highlight" : ""}`}
                     id={getCategoryId(activeCategory)}
@@ -296,7 +297,7 @@ export default function Taomnoma() {
                     </div>
                 </div>
                 <div className="tm-stats" data-aos="fade-up" data-aos-delay="150">
-                    <span className="tm-stats-count">{filtered.length} ta taom topildi</span>
+                    <span className="tm-stats-count">{filtered.length} {t("menu.found")}</span>
                 </div>
                 <div className="tm-grid-wrap">
                     <div className="tm-grid">
@@ -315,7 +316,7 @@ export default function Taomnoma() {
                 {hasMore && (
                     <div className="tm-load-more" data-aos="fade-up">
                         <button className="tm-load-btn" onClick={() => setVisibleCount(prev => prev + 4)}>
-                            Ko'proq ko'rish
+                            {t("menu.viewMore")}
                             <svg viewBox="0 0 24 24" fill="none">
                                 <path d="M7 13l5 5 5-5M7 6l5 5 5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                             </svg>
@@ -328,7 +329,7 @@ export default function Taomnoma() {
                             <circle cx="11" cy="11" r="8" stroke="currentColor" strokeWidth="2" />
                             <path d="M21 21l-4.35-4.35" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
                         </svg>
-                        <p>Bu kategoriyada taom topilmadi</p>
+                        <p>{t("menu.empty")}</p>
                     </div>
                 )}
                 <article className="swiper-art" data-aos="fade-up">

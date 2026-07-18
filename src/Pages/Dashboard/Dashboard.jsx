@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom"
 import { hotels } from "../../data/hotels"
 import { menuItems } from "../../data/taomnoma"
 import { takliflar } from "../../data/takliflar"
+import { useLanguage } from "../../components/Language/useLanguage"
 import { useProphile } from "../../components/Prophile/useProphile"
 import Prophile from "../../components/Prophile/Prophile"
 import Nav from "../../components/Navbar/Nav.jsx"
@@ -18,26 +19,7 @@ import {
 import "./Dashboard.css"
 
 const uniqueCities = [...new Set(hotels.map(h => h.location?.split(",")[0]?.trim()).filter(Boolean))]
-const avgRating = parseFloat((hotels.reduce((s, h) => s + (h.rating || 0), 0) / hotels.length).toFixed(1))
-const totalVariants = menuItems.reduce((s, item) => s + (item.variants?.length || 0), 0)
 const roomCount = hotels.reduce((s, h) => s + (h.rooms || 0), 0)
-const platformStats = [
-  { value: hotels.length, suffix: "+", label: "Hamkor mehmonxona", icon: <BsBuilding /> },
-  { value: totalVariants, suffix: "+", label: "Milliy taomlar", icon: <BsCupHot /> },
-  { value: roomCount, suffix: "+", label: "Qulay xonalar", icon: <BsPeople /> },
-  { value: uniqueCities.length, suffix: "+", label: "Shaharlar", icon: <BsMap /> },
-  { value: 1, suffix: "+", label: "Davlatlar", icon: <BsGlobe /> },
-  { value: avgRating, suffix: "", label: "O'rtacha reyting", icon: <BsStar />, isRating: true },
-  { value: takliflar.length, suffix: "+", label: "Faol chegirmalar", icon: <BsTag /> },
-]
-
-const activities = [
-  { icon: <BsCalendarCheck />, text: "Hyatt Regency Tashkent ga bron qilindi", time: "2 kun oldin", color: "#D4AF37" },
-  { icon: <BsCheckCircle />, text: "Hilton Tashkent City to'lovi tasdiqlandi", time: "5 kun oldin", color: "#10b981" },
-  { icon: <BsTag />, text: "30% chegirma promokodi faollashtirildi", time: "1 hafta oldin", color: "#8b5cf6" },
-  { icon: <BsStar />, text: "Mövenpick Samarkand ga 5 yulduzli baho berildi", time: "2 hafta oldin", color: "#f59e0b" },
-  { icon: <BsHeart />, text: "InterContinental Tashkent sevimlilarga qo'shildi", time: "3 hafta oldin", color: "#ef4444" },
-]
 
 function CountUp({ end, suffix, duration = 2000 }) {
   const [value, setValue] = useState(0)
@@ -69,12 +51,33 @@ function CountUp({ end, suffix, duration = 2000 }) {
 
 export default function Dashboard() {
   const navigate = useNavigate()
+  const { t } = useLanguage()
   const { openProphile } = useProphile()
+
+  const avgRating = parseFloat((hotels.reduce((s, h) => s + (h.rating || 0), 0) / hotels.length).toFixed(1))
+  const totalVariants = menuItems.reduce((s, item) => s + (item.variants?.length || 0), 0)
+  const platformStats = [
+    { value: hotels.length, suffix: "+", label: t("dashboard.partnerHotels"), icon: <BsBuilding /> },
+    { value: totalVariants, suffix: "+", label: t("dashboard.nationalDishes"), icon: <BsCupHot /> },
+    { value: roomCount, suffix: "+", label: t("dashboard.cozyRooms"), icon: <BsPeople /> },
+    { value: uniqueCities.length, suffix: "+", label: t("dashboard.cities"), icon: <BsMap /> },
+    { value: 1, suffix: "+", label: t("dashboard.countries"), icon: <BsGlobe /> },
+    { value: avgRating, suffix: "", label: t("dashboard.avgRating"), icon: <BsStar />, isRating: true },
+    { value: takliflar.length, suffix: "+", label: t("dashboard.activeDiscounts"), icon: <BsTag /> },
+  ]
+
+  const activities = [
+    { icon: <BsCalendarCheck />, text: t("dashboard.act1"), time: t("dashboard.time1"), color: "#D4AF37" },
+    { icon: <BsCheckCircle />, text: t("dashboard.act2"), time: t("dashboard.time2"), color: "#10b981" },
+    { icon: <BsTag />, text: t("dashboard.act3"), time: t("dashboard.time3"), color: "#8b5cf6" },
+    { icon: <BsStar />, text: t("dashboard.act4"), time: t("dashboard.time4"), color: "#f59e0b" },
+    { icon: <BsHeart />, text: t("dashboard.act5"), time: t("dashboard.time5"), color: "#ef4444" },
+  ]
 
   return (
     <div className="dp">
       <Nav />
-      <button className="dp-back-btn" onClick={openProphile} aria-label="Profil">
+      <button className="dp-back-btn" onClick={openProphile} aria-label={t("dashboard.profileAria")}>
         <svg viewBox="0 0 24 24" fill="currentColor">
           <rect x="3" y="5" width="18" height="2" rx="1" />
           <rect x="3" y="11" width="18" height="2" rx="1" />
@@ -89,8 +92,8 @@ export default function Dashboard() {
 
           <section className="dp-platform" data-aos="fade-up">
             <div className="dp-platform-header">
-              <h2 className="dp-section-title">Sadrul platformasi</h2>
-              <p className="dp-section-desc">O'zbekistonning eng yirik mehmonxona bron platformasi</p>
+              <h2 className="dp-section-title">{t("dashboard.title")}</h2>
+              <p className="dp-section-desc">{t("dashboard.desc")}</p>
             </div>
             <div className="dp-platform-grid">
               {platformStats.map((stat, i) => (
@@ -108,7 +111,7 @@ export default function Dashboard() {
 
           <section className="dp-activity" data-aos="fade-up">
             <div className="dp-activity-header">
-              <h2 className="dp-section-title">So'nggi faoliyat</h2>
+              <h2 className="dp-section-title">{t("dashboard.activityTitle")}</h2>
             </div>
             <div className="dp-activity-timeline">
               {activities.map((a, i) => (
@@ -132,10 +135,10 @@ export default function Dashboard() {
                 <div className="dp-concierge-icon">
                   <BsChatDots />
                 </div>
-                <h2 className="dp-concierge-title">24/7 Concierge xizmati</h2>
-                <p className="dp-concierge-text">Har qanday savolingizga istalgan vaqtda professional yordam oling. Biz sizga eng yaxshi tajribani taqdim etishga tayyormiz.</p>
+                <h2 className="dp-concierge-title">{t("dashboard.conciergeTitle")}</h2>
+                <p className="dp-concierge-text">{t("dashboard.conciergeText")}</p>
                 <button className="dp-btn dp-btn-primary" onClick={() => navigate("/biz-haqimizda")}>
-                  Chat boshlash <BsArrowRight />
+                  {t("dashboard.chatStart")} <BsArrowRight />
                 </button>
               </div>
             </div>

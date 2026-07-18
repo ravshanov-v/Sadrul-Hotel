@@ -1,5 +1,6 @@
 import React from 'react'
 import { NavLink } from "react-router-dom"
+import { useLanguage } from "../Language/useLanguage.js"
 
 import phone from "../../Assets/Icons/phone-icon.svg"
 import email from "../../Assets/Icons/gmail-icon.svg"
@@ -31,6 +32,7 @@ const socialIcons = [
 ]
 
 export default function Footer() {
+  const { t } = useLanguage()
   return (
     <div className='footer-parent' data-aos="fade-up">
       <footer className="footer-grid">
@@ -40,7 +42,7 @@ export default function Footer() {
             <span className="foot-brand-adrul">adrul</span>
           </div>
           <p className="foot-desc">
-            Mukammal dam olish ishonchli tanlovdan boshlanadi. Sadrul sizni eng yaxshi mehmonxonalar va yuqori darajadagi xizmat bilan bog'laydi.
+            {t("footer.desc")}
           </p>
           <div className="foot-social">
             {socialIcons.map((icon) => (
@@ -54,38 +56,38 @@ export default function Footer() {
         </div>
 
         <div className="footer-section" data-aos="fade-up" data-aos-delay="100">
-          <h3 className="foot-section-title">Kompaniya</h3>
+          <h3 className="foot-section-title">{t("footer.company")}</h3>
           <ul className="foot-links">
-            <li><NavLink to="/biz-haqimizda">Biz haqimizda</NavLink></li>
-            <li><NavLink to="/biz-haqimizda#missiyamiz">Missiyamiz</NavLink></li>
-            <li><NavLink to="/biz-haqimizda#jamoa">Jamoa</NavLink></li>
-            <li><NavLink to="/biz-haqimizda#karyera">Karyera</NavLink></li>
+            <li><NavLink to="/biz-haqimizda">{t("footer.about")}</NavLink></li>
+            <li><NavLink to="/biz-haqimizda#missiyamiz">{t("footer.mission")}</NavLink></li>
+            <li><NavLink to="/biz-haqimizda#jamoa">{t("footer.team")}</NavLink></li>
+            <li><NavLink to="/biz-haqimizda#karyera">{t("footer.career")}</NavLink></li>
           </ul>
         </div>
 
         <div className="footer-section" data-aos="fade-up" data-aos-delay="200">
-          <h3 className="foot-section-title">Mehmonxonalar</h3>
+          <h3 className="foot-section-title">{t("footer.hotels")}</h3>
           <ul className="foot-links">
-            <li><NavLink to="/mehmonxonalar">Mehmonxonalar</NavLink></li>
-            <li><NavLink to="/takliflar">Takliflar</NavLink></li>
-            <li><NavLink to="/mehmonxonalar?category=Hashamatli">Lux to'plamlar</NavLink></li>
+            <li><NavLink to="/mehmonxonalar">{t("footer.hotels")}</NavLink></li>
+            <li><NavLink to="/takliflar">{t("footer.offers")}</NavLink></li>
+            <li><NavLink to="/mehmonxonalar?category=Hashamatli">{t("footer.luxury")}</NavLink></li>
           </ul>
         </div>
 
         <div className="footer-section" data-aos="fade-up" data-aos-delay="300">
-          <h3 className="foot-section-title">Aloqa</h3>
+          <h3 className="foot-section-title">{t("footer.contact")}</h3>
           <ul className="foot-contact">
             <li className="foot-contact-item">
               <img className="foot-contact-icon" src={phone} alt="Phone" />
-              <span>+998 __ ___ __ __</span>
+              <span>{t("footer.phone")}</span>
             </li>
             <li className="foot-contact-item">
               <img className="foot-contact-icon" src={email} alt="Email" />
-              <span>info@sadrul.uz</span>
+              <span>{t("footer.email")}</span>
             </li>
             <li className="foot-contact-item">
               <img className="foot-contact-icon" src={adres} alt="Address" />
-              <span>Toshkent, O'zbekiston</span>
+              <span>{t("footer.address")}</span>
             </li>
           </ul>
         </div>
@@ -94,11 +96,11 @@ export default function Footer() {
 
         <div className="foot-bottom">
           <ul className="foot-bottom-links">
-            <li><NavLink to="/maxfiylik-siyosati">Maxfiylik siyosati</NavLink></li>
-            <li><NavLink to="/foydalanish-shartlari">Foydalanish shartlari</NavLink></li>
+            <li><NavLink to="/maxfiylik-siyosati">{t("footer.privacy")}</NavLink></li>
+            <li><NavLink to="/foydalanish-shartlari">{t("footer.terms")}</NavLink></li>
 
           </ul>
-          <p>&copy; {new Date().getFullYear()} Sadrul. Barcha huquqlar himoyalangan.</p>
+          <p>&copy; {new Date().getFullYear()} Sadrul. {t("footer.copyright")}</p>
 
         </div>
       </footer>

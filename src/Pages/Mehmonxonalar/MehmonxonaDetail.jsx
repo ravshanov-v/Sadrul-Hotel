@@ -4,6 +4,7 @@ import { hotels } from "../../data/hotels"
 import { useAuth } from "../../components/Auth/useAuth.js"
 import { useModal } from "../../components/SmallWindows/Modal/useModal.js"
 import { useFavorites } from "../../components/Favorites/useFavorites.js"
+import { useLanguage } from "../../components/Language/useLanguage.js"
 import { checkRoomAvailability } from "../../utils/availability"
 import { roomCategories, categoryMultiplier, extractCategory, roomTypes } from "../../utils/roomData"
 import UnavailableModal from "../../components/UnavailableModal/UnavailableModal"
@@ -42,6 +43,7 @@ export default function MehmonxonaDetail() {
   const { user } = useAuth()
   const { openModal } = useModal()
   const { toggleFav, isFav } = useFavorites()
+  const { t, tData } = useLanguage()
   const hotel = hotels.find(h => h.id === Number(hotelId))
   const [roomCategory, setRoomCategory] = useState("Barchasi")
   const promoCode = searchParams.get("promo") || ""
@@ -104,7 +106,7 @@ export default function MehmonxonaDetail() {
     }).addTo(map)
     L.marker([hotel.coordinates.lat, hotel.coordinates.lng])
       .addTo(map)
-      .bindPopup(`<b>${hotel.name}</b><br>${hotel.location}`)
+      .bindPopup(`<b>${tData("data.hotels." + hotel.id + ".name", hotel.name)}</b><br>${tData("data.hotels." + hotel.id + ".location", hotel.location)}`)
     mapInstance.current = map
     return () => {
       map.remove()
@@ -116,9 +118,9 @@ export default function MehmonxonaDetail() {
     return (
       <div className="md-page">
         <div className="md-hero md-hero-simple">
-          <h1>Mehmonxona topilmadi</h1>
+          <h1>{t("hotelDetail.notFound")}</h1>
           <button className="md-btn md-btn-primary" onClick={() => navigate("/mehmonxonalar")}>
-            Mehmonxonalarga qaytish
+            {t("hotelDetail.backToList")}
           </button>
         </div>
       </div>
@@ -158,9 +160,9 @@ export default function MehmonxonaDetail() {
             <svg viewBox="0 0 24 24" fill="none">
               <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="currentColor" />
             </svg>
-            {hotel.category}
+            {tData("data.hotels." + hotel.id + ".category", hotel.category)}
           </div>
-          <h1 className="md-title">{hotel.name}</h1>
+          <h1 className="md-title">{tData("data.hotels." + hotel.id + ".name", hotel.name)}</h1>
           <div className="md-hero-meta">
             <div className="md-stars">
               {stars.map((_, i) => (
@@ -180,24 +182,24 @@ export default function MehmonxonaDetail() {
                 <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" stroke="currentColor" strokeWidth="2" />
                 <circle cx="12" cy="9" r="2.5" stroke="currentColor" strokeWidth="2" />
               </svg>
-              {hotel.location}
+              {tData("data.hotels." + hotel.id + ".location", hotel.location)}
             </span>
           </div>
-          <p className="md-subtitle">{hotel.description}</p>
+          <p className="md-subtitle">{tData("data.hotels." + hotel.id + ".description", hotel.description)}</p>
         </div>
       </section>
 
       <section className="md-section md-gallery" data-aos="fade-up">
         <div className="md-section-label">
           <span className="md-label-line" />
-          <span>Galereya</span>
+          <span>{t("hotelDetail.gallery")}</span>
           <span className="md-label-line" />
         </div>
-        <h2 className="md-section-title">Mehmonxona <span className="md-gold">Galereyasi</span></h2>
+        <h2 className="md-section-title"><span className="md-gold">{t("hotelDetail.galleryTitle")}</span></h2>
         <div className="md-gallery-grid">
           {galleryImages.map((img, i) => (
             <div key={i} className="md-gallery-item" data-aos="zoom-in" data-aos-delay={i * 100}>
-              <img src={img} alt={`${hotel.name} ${i + 1}`} loading="lazy" />
+              <img src={img} alt={`${tData("data.hotels." + hotel.id + ".name", hotel.name)} ${i + 1}`} loading="lazy" />
             </div>
           ))}
         </div>
@@ -207,37 +209,33 @@ export default function MehmonxonaDetail() {
         <div className="md-container">
           <div className="md-section-label">
             <span className="md-label-line" />
-            <span>Biz haqimizda</span>
+            <span>{t("hotelDetail.aboutLabel")}</span>
             <span className="md-label-line" />
           </div>
-          <h2 className="md-section-title">Mehmonxona <span className="md-gold">Haqida</span></h2>
+          <h2 className="md-section-title"><span className="md-gold">{t("hotelDetail.aboutTitle")}</span></h2>
           <div className="md-about-content">
             <div className="md-about-text" data-aos="fade-right">
-              <p>{hotel.description}</p>
+              <p>{tData("data.hotels." + hotel.id + ".description", hotel.description)}</p>
               <p>
-                {hotel.name} – O'zbekistonning eng sara mehmonxonalaridan biri. 
-                {hotel.stars}-yulduzli ushbu mehmonxona {hotel.rooms} ta xonaga ega bo'lib, 
-                har bir mehmon uchun eng yuqori darajadagi qulaylik va xizmatni taklif etadi.
-                Mehmonxonamizda zamonaviy infratuzilma, professional xodimlar va 
-                unutilmas dam olish uchun barcha sharoitlar mavjud.
+                {t("hotelDetail.description").replace("{name}", tData("data.hotels." + hotel.id + ".name", hotel.name)).replace("{stars}", hotel.stars).replace("{rooms}", hotel.rooms)}
               </p>
             </div>
             <div className="md-about-stats" data-aos="fade-left">
               <div className="md-stat-card">
                 <span className="md-stat-number">{hotel.rooms}</span>
-                <span className="md-stat-label">Xonalar</span>
+                <span className="md-stat-label">{t("hotelDetail.rooms")}</span>
               </div>
               <div className="md-stat-card">
                 <span className="md-stat-number">{hotel.reviews}+</span>
-                <span className="md-stat-label">Sharhlar</span>
+                <span className="md-stat-label">{t("hotelDetail.reviews")}</span>
               </div>
               <div className="md-stat-card">
                 <span className="md-stat-number">{hotel.stars}</span>
-                <span className="md-stat-label">Yulduzlar</span>
+                <span className="md-stat-label">{t("hotelDetail.stars")}</span>
               </div>
               <div className="md-stat-card">
                 <span className="md-stat-number">{hotel.rating}</span>
-                <span className="md-stat-label">Reyting</span>
+                <span className="md-stat-label">{t("hotelDetail.rating")}</span>
               </div>
             </div>
           </div>
@@ -248,10 +246,10 @@ export default function MehmonxonaDetail() {
         <div className="md-container">
           <div className="md-section-label">
             <span className="md-label-line" />
-            <span>Qulayliklar</span>
+            <span>{t("hotelDetail.amenitiesLabel")}</span>
             <span className="md-label-line" />
           </div>
-          <h2 className="md-section-title">Mehmonxona <span className="md-gold">Qulayliklari</span></h2>
+          <h2 className="md-section-title"><span className="md-gold">{t("hotelDetail.amenitiesTitle")}</span></h2>
           <div className="md-amenities-grid">
             {hotel.amenities.map((amenity, i) => (
               <div key={i} className="md-amenity-card" data-aos="fade-up" data-aos-delay={i * 80}>
@@ -269,10 +267,10 @@ export default function MehmonxonaDetail() {
         <div className="md-container">
           <div className="md-section-label">
             <span className="md-label-line" />
-            <span>Joylashuv</span>
+            <span>{t("hotelDetail.location")}</span>
             <span className="md-label-line" />
           </div>
-          <h2 className="md-section-title">Mehmonxona <span className="md-gold">Xaritada</span></h2>
+          <h2 className="md-section-title"><span className="md-gold">{t("hotelDetail.locationTitle")}</span></h2>
           <div className="md-map-container">
             {hotel.coordinates ? (
               <div ref={mapRef} className="md-map-iframe" />
@@ -282,8 +280,8 @@ export default function MehmonxonaDetail() {
                   <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" stroke="currentColor" strokeWidth="2" />
                   <circle cx="12" cy="9" r="2.5" stroke="currentColor" strokeWidth="2" />
                 </svg>
-                <h3>{hotel.location}</h3>
-                <p>{hotel.name}</p>
+                <h3>{tData("data.hotels." + hotel.id + ".location", hotel.location)}</h3>
+                <p>{tData("data.hotels." + hotel.id + ".name", hotel.name)}</p>
               </div>
             )}
           </div>
@@ -294,12 +292,12 @@ export default function MehmonxonaDetail() {
         <div className="md-container">
           <div className="md-section-label">
             <span className="md-label-line" />
-            <span>Xonalar</span>
+            <span>{t("hotelDetail.roomsLabel")}</span>
             <span className="md-label-line" />
           </div>
-          <h2 className="md-section-title">Mavjud <span className="md-gold">Xonalar</span></h2>
+          <h2 className="md-section-title"><span className="md-gold">{t("hotelDetail.roomsTitle")}</span></h2>
           <p className="md-rooms-sub">
-            Quyidagi xona turlaridan birini tanlab, bron qilishingiz mumkin
+            {t("hotelDetail.roomsSub")}
           </p>
           <div className="md-room-categories" data-aos="fade-up">
             <div className="md-room-cat-track">
@@ -323,11 +321,11 @@ export default function MehmonxonaDetail() {
                 </svg>
               </div>
               <div className="md-promo-banner-text">
-                <span className="md-promo-banner-title">Promo kod faollashtirildi</span>
-                <span className="md-promo-banner-code">{promoCode} · {promoDiscount}% chegirma</span>
+                <span className="md-promo-banner-title">{t("hotelDetail.promoActivated")}</span>
+                <span className="md-promo-banner-code">{t("hotelDetail.promoInfo").replace("{code}", promoCode).replace("{discount}", promoDiscount)}</span>
               </div>
               <button className="md-promo-banner-clear" onClick={() => navigate(`/mehmonxona/${hotelId}`, { replace: true })}>
-                Bekor qilish
+                {t("hotelDetail.dismiss")}
               </button>
             </div>
           )}
@@ -343,14 +341,14 @@ export default function MehmonxonaDetail() {
                   const avail = availabilityMap[roomCat]
                   return (
                     <div key={room.id} className={`md-room-card ${isPromoRoom ? 'md-room-promo' : ''} ${avail && !avail.available ? 'md-room-card-unavailable' : ''}`} id={isPromoRoom ? 'md-promo-room' : ''}>
-                      {isPromoRoom && <div className="md-room-promo-tag">Taklif asosida</div>}
+                      {isPromoRoom && <div className="md-room-promo-tag">{t("hotelDetail.specialOffer")}</div>}
                       <div className="md-room-image">
                         {avail && (
                           <div className={`md-avail-badge ${avail.available ? (avail.remaining <= Math.ceil(avail.totalRooms / 3) ? 'md-avail-limited' : 'md-avail-available') : 'md-avail-booked'}`}>
                             {avail.available ? (
                               <>
                                 <span className="md-avail-dot" />
-                                <span>{avail.remaining >= avail.totalRooms ? 'Mavjud' : `${avail.remaining} ta qoldi`}</span>
+                                <span>{avail.remaining >= avail.totalRooms ? t("hotelDetail.available") : `${avail.remaining} ${t("hotelDetail.remaining")}`}</span>
                               </>
                             ) : (
                               <>
@@ -358,12 +356,12 @@ export default function MehmonxonaDetail() {
                                   <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5" />
                                   <path d="M15 9l-6 6M9 9l6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
                                 </svg>
-                                <span>Band</span>
+                                <span>{t("hotelDetail.booked")}</span>
                               </>
                             )}
                           </div>
                         )}
-                        <img src={room.image} alt={room.name} loading="lazy" />
+                        <img src={room.image} alt={tData("data.rooms." + room.id + ".name", room.name)} loading="lazy" />
                         <button
                           className={`md-like-btn ${isFav('room_' + room.id) ? 'liked' : ''}`}
                           onClick={(e) => { e.stopPropagation(); toggleFav('room_' + room.id) }}
@@ -375,29 +373,29 @@ export default function MehmonxonaDetail() {
                         </button>
                       </div>
                       <div className="md-room-body">
-                        <h3 className="md-room-name">{room.name}</h3>
+                        <h3 className="md-room-name">{tData("data.rooms." + room.id + ".name", room.name)}</h3>
                         <p className="md-room-desc">{room.description}</p>
                         <div className="md-room-bottom">
                           <div className="md-room-price">
                             {promoPrice ? (
                               <>
-                                <span className="md-room-price-label">dan</span>
+                                <span className="md-room-price-label">{t("hotelDetail.from")}</span>
                                 <span className="md-room-price-old">${room.price}</span>
                                 <span className="md-room-price-amount md-room-price-promo">${promoPrice}</span>
-                                <span className="md-room-price-unit">/ kecha</span>
+                                <span className="md-room-price-unit">{t("hotelDetail.perNight")}</span>
                               </>
                             ) : (
                               <>
-                                <span className="md-room-price-label">dan</span>
+                                <span className="md-room-price-label">{t("hotelDetail.from")}</span>
                                 <span className="md-room-price-amount">${room.price}</span>
-                                <span className="md-room-price-unit">/ kecha</span>
+                                <span className="md-room-price-unit">{t("hotelDetail.perNight")}</span>
                               </>
                             )}
                           </div>
                           <button className={`md-room-btn ${avail && !avail.available ? 'md-room-btn-disabled' : ''} ${bookLoading === room.id ? 'md-room-btn-loading' : ''}`}
                             disabled={avail && !avail.available}
                             onClick={() => {
-                              if (!user) { openModal('login', 'Bron qilish uchun avval hisobingizga kiring'); return }
+                              if (!user) { openModal('login', t("hotelDetail.loginPrompt")); return }
                               setBookLoading(room.id)
                               const tomorrow = new Date()
                               tomorrow.setDate(tomorrow.getDate() + 1)
@@ -417,12 +415,12 @@ export default function MehmonxonaDetail() {
                             {bookLoading === room.id ? (
                               <>
                                 <span className="md-room-btn-spinner" />
-                                Tekshirilmoqda...
+                                {t("hotelDetail.checking")}
                               </>
                             ) : avail && !avail.available ? (
-                              'Xona band'
+                              t("hotelDetail.booked")
                             ) : (
-                              'Bron qilish'
+                              t("hotelDetail.bookNow")
                             )}
                           </button>
                         </div>
@@ -436,7 +434,7 @@ export default function MehmonxonaDetail() {
           {hasMore && (
             <div className="md-load-wrap" data-aos="fade-up">
               <button className="md-load-btn" onClick={() => setVisibleCount(prev => prev + 6)}>
-                Ko'proq ko'rish
+                {t("hotelDetail.viewMore")}
                 <svg viewBox="0 0 24 24" fill="none">
                   <path d="M7 13l5 5 5-5M7 6l5 5 5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
@@ -450,18 +448,18 @@ export default function MehmonxonaDetail() {
         <div className="md-cta-bg" />
         <div className="md-cta-content" data-aos="zoom-in">
           <h2>
-            <span className="md-gold">{hotel.name}</span> da Dam Oling
+            <span className="md-gold">{tData("data.hotels." + hotel.id + ".name", hotel.name)}</span> {t("hotelDetail.ctaTitle")}
           </h2>
-          <p>Eng yaxshi narxlar va xizmat bilan sizni kutamiz</p>
+          <p>{t("hotelDetail.ctaDesc")}</p>
           <div className="md-cta-actions">
             <button className="md-btn md-btn-gold" onClick={() => {
               const el = document.querySelector(".md-rooms")
               if (el) el.scrollIntoView({ behavior: "smooth" })
             }}>
-              Xona bron qilish
+              {t("hotelDetail.bookRoom")}
             </button>
             <button className="md-btn md-btn-outline" onClick={() => navigate("/mehmonxonalar")}>
-              Barcha mehmonxonalar
+              {t("hotelDetail.allHotels")}
             </button>
           </div>
         </div>

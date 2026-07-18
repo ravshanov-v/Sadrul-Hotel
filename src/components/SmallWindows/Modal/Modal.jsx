@@ -4,12 +4,14 @@ import logoIconS from "../../../Assets/Icons/logo-S-icon.png"
 import { useModal } from "./useModal"
 import { useAuth } from "../../Auth/useAuth"
 import { validateEmail } from "../../../utils/auth"
+import { useLanguage } from "../../Language/useLanguage.js"
 import "./Modal.css"
 
 export default function Modal() {
 
   const { isOpen, modalType, modalReason, openModal, closeModal } = useModal()
   const { login } = useAuth()
+  const { t } = useLanguage()
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [showPassword, setShowPassword] = useState(false)
@@ -81,36 +83,36 @@ export default function Modal() {
     <div className="modal-backdrop" onClick={closeModal} role="dialog" aria-modal="true">
       <div className="modal-window" onClick={(e) => e.stopPropagation()}>
         <button className="modal-close-btn" onClick={closeModal}>
-          <img className="close" src={close} alt="Yopish" />
+          <img className="close" src={close} alt={t("modal.closeAlt")} />
         </button>
         <div className="modal-content">
           <article className="modal-left">
             <article className="modal-left-logo">
               <img className="left-logo-img" src={logoIconS} alt="Logo" />
-              <p className="left-logo-p">sadrul</p>
+              <p className="left-logo-p">{t("modal.logoSpan")}</p>
             </article>
             <div className="modal-left-decoration">
-              <span>HOTEL</span>
+              <span>{t("modal.hotelSpan")}</span>
             </div>
             <div className="modal-left-quote">
-              <p>Hashtamat dam olish</p>
-              <p>sari bir qadam</p>
+              <p>{t("modal.hotelPrefix")}</p>
+              <p>{t("modal.hotelSuffix")}</p>
             </div>
           </article>
           <article className="modal-right">
             {modalReason && (
               <div className="modal-reason-banner">{modalReason}</div>
             )}
-            <h1 className="right-h">Xush kelibsiz!</h1>
+            <h1 className="right-h">{t("modal.welcome")}</h1>
             <article className="modal-right-p-parent">
-              <p className="modal-right-p">Sadrul mehmonxonasiga kirish uchun elektron pochta va parolingizni kiriting.</p>
+              <p className="modal-right-p">{t("modal.loginDesc")}</p>
             </article>
             <form className="modal-form" onSubmit={handleSubmit} noValidate>
               <div className="modal-field">
                 <input
                   className={emailClass}
                   type="text"
-                  placeholder="Elektron pochta"
+                  placeholder={t("modal.emailPlaceholder")}
                   autoComplete="email"
                   value={email}
                   onChange={handleEmailChange}
@@ -123,7 +125,7 @@ export default function Modal() {
                   </div>
                 )}
                 {emailTouched && emailValid && (
-                  <p className="modal-feedback success">To'g'ri</p>
+                  <p className="modal-feedback success">{t("modal.validLabel")}</p>
                 )}
               </div>
               <div className="modal-field">
@@ -131,7 +133,7 @@ export default function Modal() {
                   <input
                     className={passwordClass}
                     type={showPassword ? "text" : "password"}
-                    placeholder="Parol (kamida 6 belgi)"
+                    placeholder={t("modal.passwordPlaceholder")}
                     autoComplete="new-password"
                     value={password}
                     onChange={handlePasswordChange}
@@ -140,7 +142,7 @@ export default function Modal() {
                     type="button"
                     className="modal-eye-btn"
                     onClick={() => setShowPassword(prev => !prev)}
-                    aria-label={showPassword ? "Parolni yashirish" : "Parolni ko'rsatish"}
+                    aria-label={showPassword ? t("modal.hidePwd") : t("modal.showPwd")}
                   >
                     {showPassword ? (
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -157,18 +159,18 @@ export default function Modal() {
                   </button>
                 </div>
                 {passwordTouched && !passwordValid && (
-                  <p className="modal-feedback error">Parol kamida 6 belgidan iborat bo'lishi kerak</p>
+                  <p className="modal-feedback error">{t("modal.passwordError")}</p>
                 )}
                 {passwordTouched && passwordValid && (
-                  <p className="modal-feedback success">To'g'ri</p>
+                  <p className="modal-feedback success">{t("modal.validLabel")}</p>
                 )}
               </div>
-              <button className="login-btn" type="submit"><span>Kirish</span></button>
+              <button className="login-btn" type="submit"><span>{t("modal.loginBtn")}</span></button>
             </form>
           </article>
         </div>
         <div className="modal-bottom-link">
-          <p>Agar ro'yxatdan o'tmagan bo'lsangiz <a href="#" onClick={(e) => { e.preventDefault(); openModal('signup', modalReason) }}>ro'yxatdan o'tish</a> havolasi orqali ro'yxatdan o'ting</p>
+          <p>{t("modal.noAccount")} <a href="#" onClick={(e) => { e.preventDefault(); openModal('signup', modalReason) }}>{t("modal.signupLink")}</a></p>
         </div>
       </div>
     </div>

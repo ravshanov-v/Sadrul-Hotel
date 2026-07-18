@@ -9,18 +9,20 @@ import { useModal } from "../SmallWindows/Modal/useModal.js"
 import { useDarkMode } from "../DarkMode/useDarkMode.js"
 import { useAuth } from "../Auth/useAuth.js"
 import { useProphile } from "../Prophile/useProphile.js"
+import { useLanguage } from "../Language/useLanguage.js"
 
 import "./Nav.css"
 
 function NavMemberToast({ show }) {
+  const { t } = useLanguage()
   return (
     <div className={`tk-member-toast ${show ? 'tk-member-toast-visible' : ''}`}>
       <div className="tk-member-toast-icon">
         <FiCheckCircle />
       </div>
       <div className="tk-member-toast-content">
-        <span className="tk-member-toast-title">A'zolik tasdiqlandi</span>
-        <span className="tk-member-toast-msg">Siz allaqachon a'zo bo'lgansiz</span>
+        <span className="tk-member-toast-title">{t("nav.memberTitle")}</span>
+        <span className="tk-member-toast-msg">{t("nav.memberMsg")}</span>
       </div>
     </div>
   )
@@ -32,10 +34,8 @@ export default function Nav() {
   const { user } = useAuth()
   const { openProphile } = useProphile()
   const [memberToastShow, setMemberToastShow] = useState(false)
+  const { lang, setLang, t } = useLanguage()
   const [langOpen, setLangOpen] = useState(false)
-  const [lang, setLang] = useState("UZ")
-
-  const languages = ["UZ", "RU", "EN"]
 
   const initials = user?.fullName
     ? user.fullName.split(" ").map(w => w[0]).join("").toUpperCase().slice(0, 2)
@@ -61,11 +61,11 @@ export default function Nav() {
       </article>
 
       <ul className="nav-links">
-        <li><NavLink to="/">Bosh sahifa</NavLink></li>
-        <li><NavLink to="/mehmonxonalar">Mehmonxonalar</NavLink></li>
-        <li><NavLink to="/taomnoma">Taomnoma</NavLink></li>
-        <li><NavLink to="/takliflar">Takliflar</NavLink></li>
-        <li><NavLink to="/biz-haqimizda">Biz haqimizda</NavLink></li>
+        <li><NavLink to="/">{t("nav.home")}</NavLink></li>
+        <li><NavLink to="/mehmonxonalar">{t("nav.hotels")}</NavLink></li>
+        <li><NavLink to="/taomnoma">{t("nav.menu")}</NavLink></li>
+        <li><NavLink to="/takliflar">{t("nav.offers")}</NavLink></li>
+        <li><NavLink to="/biz-haqimizda">{t("nav.about")}</NavLink></li>
       </ul>
 
       <div className="nav-actions">
@@ -78,16 +78,16 @@ export default function Nav() {
         </button>
         <article className="lang-wrap">
           <button className="btn-lang" onClick={() => setLangOpen(!langOpen)}>
-            {lang}
+            {lang.toUpperCase()}
             <svg className={`lang-arrow ${langOpen ? "lang-arrow-open" : ""}`} viewBox="0 0 24 24" fill="none" width="12" height="12">
               <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </button>
           {langOpen && (
             <div className="lang-dropdown">
-              {languages.filter(l => l !== lang).map(l => (
+              {["uz", "ru", "en"].filter(l => l !== lang).map(l => (
                 <button key={l} className="lang-option" onClick={() => { setLang(l); setLangOpen(false) }}>
-                  {l}
+                  {l.toUpperCase()}
                 </button>
               ))}
             </div>
@@ -102,7 +102,7 @@ export default function Nav() {
           </div>
         ) : (
           <button className="btn-login" onClick={handleLoginClick}>
-            <img className="nav-btn-login" src={userIcon} alt="user" /><p>Kirish</p>
+            <img className="nav-btn-login" src={userIcon} alt="user" /><p>{t("nav.login")}</p>
           </button>
         )}
       </div>

@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useCallback } from "react"
 import { useNavigate, useSearchParams } from "react-router-dom"
 import AOS from "aos"
 import { hotels, categories } from "../../data/hotels"
+import { useLanguage } from "../../components/Language/useLanguage.js"
 import "./Mehmonxonalar.css"
 
 const STAR_SVG = "M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"
@@ -40,6 +41,7 @@ function ParticleField() {
 }
 
 function FeaturedStrip({ hotels }) {
+  const { t, tData } = useLanguage()
   const featured = hotels.filter(h => h.rating >= 4.8)
   const navigate = useNavigate()
 
@@ -47,10 +49,10 @@ function FeaturedStrip({ hotels }) {
     <section className="mx-featured">
       <div className="mx-section-label" data-aos="fade-up">
         <span className="mx-label-line" />
-        <span>Tanlangan Mehmonxonalar</span>
+        <span>{t("hotels.featuredLabel")}</span>
         <span className="mx-label-line" />
       </div>
-      <h2 className="mx-section-title" data-aos="fade-up" data-aos-delay="100">Eng Yuqori Reyting</h2>
+      <h2 className="mx-section-title" data-aos="fade-up" data-aos-delay="100">{t("hotels.featuredTitle")}</h2>
       <div className="mx-featured-track" data-aos="fade-up" data-aos-delay="200">
         <div className="mx-featured-inner">
           {[...featured, ...featured].map((h, i) => (
@@ -60,7 +62,7 @@ function FeaturedStrip({ hotels }) {
               onClick={() => navigate(`/mehmonxona/${h.id}`)}
             >
               <div className="mx-feat-img">
-                <img src={h.image} alt={h.name} loading="lazy" />
+                <img src={h.image} alt={tData("data.hotels." + h.id + ".name", h.name)} loading="lazy" />
                 <div className="mx-feat-rating-badge">
                   <svg viewBox="0 0 24 24" fill="currentColor">
                     <path d={STAR_SVG} />
@@ -69,9 +71,9 @@ function FeaturedStrip({ hotels }) {
                 </div>
               </div>
               <div className="mx-feat-body">
-                <h3>{h.name}</h3>
-                <span className="mx-feat-loc">{h.location}</span>
-                <span className="mx-feat-price">${h.price}<small>/kecha</small></span>
+                <h3>{tData("data.hotels." + h.id + ".name", h.name)}</h3>
+                <span className="mx-feat-loc">{tData("data.hotels." + h.id + ".location", h.location)}</span>
+                <span className="mx-feat-price">${h.price}<small>{t("hotels.perNight")}</small></span>
               </div>
             </article>
           ))}
@@ -82,6 +84,7 @@ function FeaturedStrip({ hotels }) {
 }
 
 function HotelCard({ hotel }) {
+  const { t, tData } = useLanguage()
   const navigate = useNavigate()
   const [imgError, setImgError] = useState(false)
 
@@ -96,7 +99,7 @@ function HotelCard({ hotel }) {
       <div className="mx-card-image">
         <img
           src={imgError ? "https://placehold.co/600x400/1a1a2e/d4af37?text=Hotel" : hotel.image}
-          alt={hotel.name}
+          alt={tData("data.hotels." + hotel.id + ".name", hotel.name)}
           loading="lazy"
           onError={() => setImgError(true)}
         />
@@ -104,7 +107,7 @@ function HotelCard({ hotel }) {
           <svg viewBox="0 0 24 24" fill="none">
             <path d={STAR_SVG} fill="currentColor" />
           </svg>
-          {hotel.category}
+          {tData("data.hotels." + hotel.id + ".category", hotel.category)}
         </div>
         <div className="mx-card-image-rating">
           <svg viewBox="0 0 24 24" fill="currentColor">
@@ -115,8 +118,8 @@ function HotelCard({ hotel }) {
       </div>
       <div className="mx-card-body">
         <div className="mx-card-top">
-          <h3 className="mx-card-name">{hotel.name}</h3>
-          <div className="mx-card-stars" title={`${hotel.stars} yulduzli`}>
+          <h3 className="mx-card-name">{tData("data.hotels." + hotel.id + ".name", hotel.name)}</h3>
+          <div className="mx-card-stars" title={`${hotel.stars} ${t("hotels.stars")}`}>
             {stars.map((_, i) => (
               <svg key={i} viewBox="0 0 24 24" fill="currentColor">
                 <path d={STAR_SVG} />
@@ -129,12 +132,12 @@ function HotelCard({ hotel }) {
             <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" stroke="currentColor" strokeWidth="2" />
             <circle cx="12" cy="9" r="2.5" stroke="currentColor" strokeWidth="2" />
           </svg>
-          <span>{hotel.location}</span>
+          <span>{tData("data.hotels." + hotel.id + ".location", hotel.location)}</span>
         </div>
-        <p className="mx-card-desc">{hotel.description}</p>
+        <p className="mx-card-desc">{tData("data.hotels." + hotel.id + ".description", hotel.description)}</p>
         <div className="mx-card-bottom">
           <button className="mx-card-btn" onClick={goToHotel}>
-            <span>Mehmonxonani ko'rish</span>
+            <span>{t("hotels.viewHotel")}</span>
             <svg viewBox="0 0 24 24" fill="none">
               <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
@@ -146,6 +149,7 @@ function HotelCard({ hotel }) {
 }
 
 export default function Mehmonxonalar() {
+  const { t } = useLanguage()
   const [searchParams] = useSearchParams()
   const categoryParam = searchParams.get("category")
   const [activeCategory, setActiveCategory] = useState(categoryParam && categories.includes(categoryParam) ? categoryParam : "Barchasi")
@@ -187,21 +191,21 @@ export default function Mehmonxonalar() {
               <path d={STAR_SVG} fill="currentColor" />
             </svg>
             <span className="mx-badge-line" />
-            Sadrul Premium
+            {t("hotels.heroBadge")}
             <span className="mx-badge-line" />
             <svg viewBox="0 0 24 24" fill="none">
               <path d={STAR_SVG} fill="currentColor" />
             </svg>
           </div>
           <h1 className="mx-title">
-            <span className="mx-gold">Saralangan</span> Mehmonxonalar
+            {t("hotels.heroTitle1")} <span className="mx-gold">{t("hotels.heroTitleGold")}</span> {t("hotels.heroTitle2")}
           </h1>
           <p className="mx-subtitle">
-            O'zbekiston bo'ylab eng yaxshi mehmonxonalar, kurortlar va dam olish maskanlari
+            {t("hotels.heroDesc")}
           </p>
           <div className="mx-hero-actions">
             <button className="mx-hero-btn" onClick={() => bodyRef.current?.scrollIntoView({ behavior: "smooth" })}>
-              Katalogni ko'rish
+              {t("hotels.viewCatalog")}
               <svg viewBox="0 0 24 24" fill="none">
                 <path d="M19 14l-7 7m0 0l-7-7m7 7V3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
@@ -218,10 +222,10 @@ export default function Mehmonxonalar() {
       <section className="mx-body" ref={bodyRef}>
         <div className="mx-section-label" data-aos="fade-up">
           <span className="mx-label-line" />
-          <span>Mehmonxona Katalogi</span>
+          <span>{t("hotels.catalogLabel")}</span>
           <span className="mx-label-line" />
         </div>
-        <h2 className="mx-section-title" data-aos="fade-up" data-aos-delay="100">Barcha Mehmonxonalar</h2>
+        <h2 className="mx-section-title" data-aos="fade-up" data-aos-delay="100">{t("hotels.catalogTitle")}</h2>
 
         <div className="mx-categories" data-aos="fade-up" data-aos-delay="150">
           <div className="mx-cat-track">
@@ -233,14 +237,14 @@ export default function Mehmonxonalar() {
                 data-aos="fade-up"
                 data-aos-delay={200 + i * 40}
               >
-                {cat}
+                {t("hotels.cat_" + cat)}
               </button>
             ))}
           </div>
         </div>
 
         <div className="mx-stats" data-aos="fade-up" data-aos-delay="300">
-          <span className="mx-stats-count">{filtered.length} ta mehmonxona topildi</span>
+          <span className="mx-stats-count">{filtered.length} {t("hotels.found")}</span>
         </div>
 
         <div className="mx-grid">
@@ -265,7 +269,7 @@ export default function Mehmonxonalar() {
               <circle cx="11" cy="11" r="8" stroke="currentColor" strokeWidth="2" />
               <path d="M21 21l-4.35-4.35" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
             </svg>
-            <p>Bu kategoriyada mehmonxona topilmadi</p>
+            <p>{t("hotels.emptyCategory")}</p>
           </div>
         )}
       </section>
@@ -274,14 +278,14 @@ export default function Mehmonxonalar() {
         <div className="mx-booking-bg" />
         <div className="mx-section-label" style={{ position: "relative", zIndex: 2 }} data-aos="fade-up">
           <span className="mx-label-line" />
-          <span>Hoziroq Bron Qiling</span>
+          <span>{t("hotels.ctaLabel")}</span>
           <span className="mx-label-line" />
         </div>
         <h2 className="mx-section-title" style={{ position: "relative", zIndex: 2, color: "#fff" }} data-aos="zoom-in" data-aos-delay="150">
-          O'zingizga Yoqqan <span className="mx-gold">Mehmonxonani</span> Toping
+          {t("hotels.ctaTitle1")} <span className="mx-gold">{t("hotels.ctaTitleGold")}</span> {t("hotels.ctaTitle2")}
         </h2>
         <p className="mx-booking-sub" style={{ position: "relative", zIndex: 2 }} data-aos="fade-up" data-aos-delay="300">
-          Qulay narxlar, bepul bekor qilish va 24/7 qo'llab-quvvatlash
+          {t("hotels.ctaDesc")}
         </p>
       </section>
 

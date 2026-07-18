@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import { useNavigate, useSearchParams } from "react-router-dom"
 import { positionNames } from "../../../data/karyera"
+import { useLanguage } from "../../../components/Language/useLanguage.js"
 import "./Ariza.css"
 
 export default function Ariza() {
@@ -16,6 +17,7 @@ export default function Ariza() {
     coverLetter: "",
   })
   const [submitted, setSubmitted] = useState(false)
+  const { t, tData } = useLanguage()
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -34,17 +36,17 @@ export default function Ariza() {
     const CHAT_ID = import.meta.env.VITE_TELEGRAM_CHAT_ID || "7483038020";
 
     const text = `
-📩 Yangi ish arizasi
+📩 ${t("ariza.telegramNewApp")}
 
- Ism: ${form.fullName}
+ ${t("ariza.telegramName")}: ${form.fullName}
 
- Telefon: ${form.phone}
+ ${t("ariza.telegramPhone")}: ${form.phone}
 
- Email: ${form.email}
+ ${t("ariza.telegramEmail")}: ${form.email}
 
- Lavozim: ${form.position}
+ ${t("ariza.telegramPosition")}: ${form.position}
 
- Motivatsion xat:
+ ${t("ariza.telegramLetter")}:
 
 ${form.coverLetter}
 `;
@@ -69,10 +71,10 @@ ${form.coverLetter}
       if (data.ok) {
         setSubmitted(true);
       } else {
-        alert("Telegramga yuborishda xatolik yuz berdi.");
+        alert(t("ariza.errorTelegram"));
       }
     } catch (error) {
-      alert("Internet yoki server xatosi.");
+      alert(t("ariza.errorNetwork"));
     }
   };
   if (submitted) {
@@ -81,8 +83,8 @@ ${form.coverLetter}
         <div className="ariza-hero">
           <div className="ariza-hero-overlay" />
           <div className="ariza-hero-content">
-            <h1>Ariza Qabul Qilindi!</h1>
-            <p className="ariza-hero-sub">Sizning arizangiz muvaffaqiyatli qabul qilindi</p>
+            <h1>{t("ariza.successTitle")}</h1>
+            <p className="ariza-hero-sub">{t("ariza.successSub")}</p>
           </div>
         </div>
         <div className="ariza-body">
@@ -93,13 +95,13 @@ ${form.coverLetter}
                 <path d="M8 12L11 15L16 9" stroke="#D4AF37" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </div>
-            <h2 data-aos="fade-up" data-aos-delay="200">Tabriklaymiz, {form.fullName}!</h2>
+            <h2 data-aos="fade-up" data-aos-delay="200">{t("ariza.successGreeting")}, {form.fullName}!</h2>
             <p className="ariza-success-text" data-aos="fade-up" data-aos-delay="300">
-              Sizning <strong>{form.position}</strong> lavozimiga arizangiz qabul qilindi.
+              {t("ariza.successYou")} <strong>{form.position}</strong> {t("ariza.successText")}
             </p>
-            <p className="ariza-success-note" data-aos="fade-up" data-aos-delay="400">Tez orada siz bilan bog'lanamiz.</p>
+            <p className="ariza-success-note" data-aos="fade-up" data-aos-delay="400">{t("ariza.successNote")}</p>
             <button className="ariza-btn ariza-btn-primary" data-aos="fade-up" data-aos-delay="500" onClick={() => navigate("/biz-haqimizda")}>
-              Biz haqimizda sahifasiga qaytish
+              {t("ariza.backBtn")}
             </button>
           </div>
         </div>
@@ -112,46 +114,46 @@ ${form.coverLetter}
       <div className="ariza-hero">
         <div className="ariza-hero-overlay" />
         <div className="ariza-hero-content" data-aos="zoom-in">
-          <div className="ariza-badge" data-aos="fade-up" data-aos-delay="0">Karyera</div>
-          <h1>Ariza <span className="gold-text">Topshirish</span></h1>
-          <p className="ariza-hero-sub">Bizning jamoamizga qo'shiling va birgalikda rivojlaning</p>
+          <div className="ariza-badge" data-aos="fade-up" data-aos-delay="0">{t("ariza.heroBadge")}</div>
+          <h1>{t("ariza.heroTitle")}</h1>
+          <p className="ariza-hero-sub">{t("ariza.heroDesc")}</p>
         </div>
       </div>
 
       <div className="ariza-body">
         <div className="ariza-container">
           <form className="ariza-form" onSubmit={handleSubmit} data-aos="fade-up">
-            <h2 className="ariza-form-title">Shaxsiy ma'lumotlar</h2>
+            <h2 className="ariza-form-title">{t("ariza.formTitle")}</h2>
             <div className="ariza-form-grid">
               <div className="ariza-form-group ariza-full">
-                <label>To'liq ismingiz</label>
-                <input type="text" name="fullName" value={form.fullName} onChange={handleChange} placeholder="Ali Aliyev" required />
+                <label>{t("ariza.fullName")}</label>
+                <input type="text" name="fullName" value={form.fullName} onChange={handleChange} placeholder={t("ariza.namePlaceholder")} required />
               </div>
               <div className="ariza-form-group">
-                <label>Telefon raqam</label>
-                <input type="tel" name="phone" value={form.phone} onChange={handleChange} placeholder="+998 90 123 45 67" required />
+                <label>{t("ariza.phone")}</label>
+                <input type="tel" name="phone" value={form.phone} onChange={handleChange} placeholder={t("ariza.phonePlaceholder")} required />
               </div>
               <div className="ariza-form-group">
-                <label>Email</label>
-                <input type="email" name="email" value={form.email} onChange={handleChange} placeholder="ali@example.com" required />
+                <label>{t("ariza.email")}</label>
+                <input type="email" name="email" value={form.email} onChange={handleChange} placeholder={t("ariza.emailPlaceholder")} required />
               </div>
               <div className="ariza-form-group ariza-full">
-                <label>Lavozim</label>
+                <label>{t("ariza.position")}</label>
                 <select name="position" value={form.position} onChange={handleChange} required>
-                  <option value="" disabled>Lavozimni tanlang</option>
-                  {positionNames.map(p => (
-                    <option key={p} value={p}>{p}</option>
+                  <option value="" disabled>{t("ariza.selectDefault")}</option>
+                  {positionNames.map((p, idx) => (
+                    <option key={p} value={p}>{tData("data.careers." + idx + ".title", p)}</option>
                   ))}
                 </select>
               </div>
               <div className="ariza-form-group ariza-full">
-                <label>Xat:</label>
-                <textarea name="coverLetter" value={form.coverLetter} onChange={handleChange} placeholder="O'zingiz haqingizda qisqacha ma'lumot (yoshingiz, qayerda yashashingiz, va h.k) va nima uchun biz bilan ishlashni xohlayotganingizni yozing..." rows={5} />
+                <label>{t("ariza.coverLetter")}</label>
+                <textarea name="coverLetter" value={form.coverLetter} onChange={handleChange} placeholder={t("ariza.letterPlaceholder")} rows={5} />
               </div>
             </div>
 
             <button type="submit" className="ariza-btn ariza-btn-primary ariza-btn-submit" data-aos="zoom-in">
-              Arizani yuborish
+              {t("ariza.submitBtn")}
               <svg viewBox="0 0 24 24" fill="none">
                 <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
               </svg>

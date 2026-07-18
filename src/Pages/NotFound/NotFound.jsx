@@ -1,15 +1,17 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { useLanguage } from "../../components/Language/useLanguage.js"
 import './NotFound.css'
 
 
 export default function NotFound() {
+  const { t } = useLanguage()
     return (
         <div className="not-found-page" data-aos="zoom-in">
             <div className="nf-glow nf-glow-1" />
             <div className="nf-glow nf-glow-2" />
 
-            <div className="nf-badge">XATO</div>
+            <div className="nf-badge">{t("notFound.badge")}</div>
 
             <div className="nf-error-wrap">
                 <span className="nf-char nf-char-1">4</span>
@@ -29,12 +31,11 @@ export default function NotFound() {
             </div>
 
             <h2 className="nf-title">
-                Sahifa topilmadi
+                {t("notFound.title")}
             </h2>
 
             <p className="nf-desc">
-                Uzr, siz qidirayotgan sahifa mavjud emas yoki ko'chirilgan bo'lishi mumkin.
-                Iltimos, qaytadan urinib ko'ring yoki bosh sahifaga o'ting.
+                {t("notFound.desc")}
             </p>
 
             <Link to="/" className="nf-btn">
@@ -43,7 +44,7 @@ export default function NotFound() {
                     <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
                     <polyline points="9 22 9 12 15 12 15 22"/>
                 </svg>
-                Bosh sahifaga qaytish
+                {t("notFound.homeBtn")}
             </Link>
         </div>
     )

@@ -204,17 +204,17 @@
   box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.08);
 }
 
-.su-modal-field .signup-input.oddiy {
+.su-modal-field .signup-input.weak {
   border-color: #F1C40F;
   box-shadow: 0 0 0 3px rgba(241, 196, 15, 0.1);
 }
 
-.su-modal-field .signup-input.normal {
+.su-modal-field .signup-input.medium {
   border-color: #E67E22;
   box-shadow: 0 0 0 3px rgba(230, 126, 34, 0.1);
 }
 
-.su-modal-field .signup-input.mukammal {
+.su-modal-field .signup-input.strong {
   border-color: #2ECC71;
   box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.1);
 }
@@ -269,30 +269,30 @@
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2350E590' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpolyline points='16 8 10 16 7 13'/%3E%3C/svg%3E");
 }
 
-.su-feedback.oddiy {
+.su-feedback.weak {
   color: #F1C40F;
   background: rgba(241, 196, 15, 0.06);
 }
 
-.su-feedback.oddiy::before {
+.su-feedback.weak::before {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23F1C40F' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cline x1='12' y1='8' x2='12' y2='12'/%3E%3Cline x1='12' y1='16' x2='12.01' y2='16'/%3E%3C/svg%3E");
 }
 
-.su-feedback.normal {
+.su-feedback.medium {
   color: #E67E22;
   background: rgba(230, 126, 34, 0.06);
 }
 
-.su-feedback.normal::before {
+.su-feedback.medium::before {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23E67E22' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cline x1='12' y1='8' x2='12' y2='14'/%3E%3Cline x1='12' y1='16' x2='12.01' y2='16'/%3E%3C/svg%3E");
 }
 
-.su-feedback.mukammal {
+.su-feedback.strong {
   color: #50E590;
   background: rgba(46, 204, 113, 0.06);
 }
 
-.su-feedback.mukammal::before {
+.su-feedback.strong::before {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2350E590' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpolyline points='16 8 10 16 7 13'/%3E%3C/svg%3E");
 }
 

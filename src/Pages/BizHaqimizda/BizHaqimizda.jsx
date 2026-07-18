@@ -5,6 +5,7 @@ import { takliflar } from "../../data/takliflar"
 import "./BizHaqimizda.css"
 import { BsBuildings, BsPeople, BsShieldCheck, BsStar } from 'react-icons/bs'
 import { jobPositions } from "../../data/karyera"
+import { useLanguage } from "../../components/Language/useLanguage"
 
 const cityCount = [...new Set(hotels.map(h => h.location?.split(",")[0]?.trim()).filter(Boolean))].length
 const roomCount = hotels.reduce((s, h) => s + (h.rooms || 0), 0)
@@ -12,29 +13,30 @@ const roomCount = hotels.reduce((s, h) => s + (h.rooms || 0), 0)
 export default function BizHaqimizda() {
   const navigate = useNavigate()
   const location = useLocation()
+  const { t, tData } = useLanguage()
   const stats = [
-    { icon: <BsBuildings />, value: `${hotels.length}+`, label: "Mehmonxonalar" },
-    { icon: <BsPeople />, value: `${roomCount}+`, label: "Qulay xonalar" },
-    { icon: <BsShieldCheck />, value: `${takliflar.length}+`, label: "Maxsus takliflar" },
-    { icon: <BsStar />, value: `${cityCount}+`, label: "Shaharlar" },
+    { icon: <BsBuildings />, value: `${hotels.length}+`, label: t("about.statsHotels") },
+    { icon: <BsPeople />, value: `${roomCount}+`, label: t("about.statsRooms") },
+    { icon: <BsShieldCheck />, value: `${takliflar.length}+`, label: t("about.statsOffers") },
+    { icon: <BsStar />, value: `${cityCount}+`, label: t("about.statsCities") },
   ]
 
   const values = [
     {
-      title: "Ishonchlilik",
-      desc: "Har bir hamkorimiz bilan uzoq muddatli va ishonchli munosabatlar o'rnatamiz",
+      title: t("home.valueTrust"),
+      desc: t("home.valueTrustDesc"),
     },
     {
-      title: "Sifat",
-      desc: "Xizmat ko'rsatishda eng yuqori standartlarga amal qilamiz",
+      title: t("home.valueQuality"),
+      desc: t("home.valueQualityDesc"),
     },
     {
-      title: "Innovatsiya",
-      desc: "Zamonaviy texnologiyalar yordamida xizmatlarni doimiy takomillashtirib boramiz",
+      title: t("home.valueInnovation"),
+      desc: t("home.valueInnovationDesc"),
     },
     {
-      title: "Natija",
-      desc: "Har bir vazifaga mas'uliyat bilan yondashib, aniq natijaga erishamiz",
+      title: t("home.valueResult"),
+      desc: t("home.valueResultDesc"),
     },
   ]
 
@@ -122,14 +124,14 @@ export default function BizHaqimizda() {
         <div className='about-hero-content' data-aos="zoom-in">
           <div className='about-badge'>
             <span className='about-badge-line' />
-            <span>Sadrul.uz</span>
+            <span>{t("about.heroBadge")}</span>
             <span className='about-badge-line' />
           </div>
           <h1 className='about-hero-title'>
-            Biz <span className='gold-text'>haqimizda</span>
+            {t("about.heroTitle1")} <span className='gold-text'>{t("about.heroTitleGold")}</span> {t("about.heroTitle2")}
           </h1>
           <p className='about-hero-desc'>
-            Sadrul — zamonaviy texnologiyalar va tajribani birlashtirib, mijozlarga yuqori sifatli xizmatlar taqdim etuvchi platforma
+            {t("about.heroDesc")}
           </p>
         </div>
       </section>
@@ -147,11 +149,11 @@ export default function BizHaqimizda() {
         <div className="about-video-card">
           <div className="about-video-label">
             <span className="about-badge-line" />
-            <span>Sadrul hayoti</span>
+            <span>{t("about.videoLabel")}</span>
             <span className="about-badge-line" />
           </div>
           <h2 className="about-section-title">
-            Kompaniyamiz <span className="gold-text">hayotidan</span>
+            {t("about.videoTitle1")} <span className="gold-text">{t("about.videoTitleGold")}</span> {t("about.videoTitle2")}
           </h2>
           <div className="about-video-container">
             <div ref={containerRef} className="about-video" />
@@ -179,18 +181,18 @@ export default function BizHaqimizda() {
       <section className="about-jamoa" id="jamoa">
         <div className='about-section-badge' data-aos="fade-up">
           <span className='about-badge-line' />
-          <span>Jamoa</span>
+          <span>{t("about.teamLabel")}</span>
           <span className='about-badge-line' />
         </div>
         <h2 className='about-section-title' data-aos="fade-up">
-          Bizning <span className='gold-text'>jamoa</span>
+          {t("about.teamTitle1")} <span className='gold-text'>{t("about.teamTitleGold")}</span> {t("about.teamTitle2")}
         </h2>
         <div className='about-jamoa-grid'>
           {[
-            { name: "Saidakbar Ravshanov", role: "Bosh direktor", desc: "10 yillik tajribaga ega mehmonxona biznesi mutaxassisi" },
-            { name: "Akbar Umarov", role: "Marketing direktori", desc: "Brend strategiyasi va raqamli marketing bo'yicha yetakchi" },
-            { name: "Ali Botirov", role: "Operatsion menejer", desc: "Mehmonxona operatsiyalari va xizmat ko'rsatish sifatini nazorat qiladi" },
-            { name: "Shahribonu Amirova", role: "HR menejeri", desc: "Iste'dodlarni jalb qilish va jamoa rivojlanishi bilan shug'ullanadi" },
+            { name: t("about.member1Name"), role: t("about.member1Role"), desc: t("about.member1Desc") },
+            { name: t("about.member2Name"), role: t("about.member2Role"), desc: t("about.member2Desc") },
+            { name: t("about.member3Name"), role: t("about.member3Role"), desc: t("about.member3Desc") },
+            { name: t("about.member4Name"), role: t("about.member4Role"), desc: t("about.member4Desc") },
           ].map((member, i) => (
             <div key={i} className='about-jamoa-card'>
               <div className='about-jamoa-avatar'>
@@ -209,23 +211,21 @@ export default function BizHaqimizda() {
         <div className='about-mission-content' data-aos="fade-right">
           <div className='about-section-badge'>
             <span className='about-badge-line' />
-            <span>Missiyamiz</span>
+            <span>{t("about.missionLabel")}</span>
             <span className='about-badge-line' />
           </div>
           <h2 className='about-section-title'>
-            Eng yaxshi <span className='gold-text'>xizmat</span> siz uchun
+            {t("about.missionTitle1")} <span className='gold-text'>{t("about.missionTitleGold")}</span> {t("about.missionTitle2")}
           </h2>
           <p className='about-section-text'>
-            Bizning asosiy maqsadimiz – O'zbekiston bo'ylab eng yaxshi mehmonxonalarni tanlab,
-            sayohatchilarga qulay va ishonchli xizmat ko'rsatish.
-            Har bir mijozimizni o'z uyimizdagidek his qilishimiz uchun bor kuchimiz bilan harakat qilamiz.
+            {t("about.missionText1")}
           </p>
           <p className='about-section-text'>
-            Sadrul jamoasi {cityCount} dan ortiq shaharlarda faoliyat yuritib, {hotels.length} dan ortiq mehmonxonalar bilan hamkorlik qiladi.
+            {t("about.missionText2").replace("{cityCount}", cityCount).replace("{hotels.length}", hotels.length)}
           </p>
         </div>
         <div className='about-mission-image' data-aos="fade-left">
-          <img src='/src/Assets/Images/sadrul-kompany.jpg' alt='Sadrul kompaniyasi' />
+          <img src='/src/Assets/Images/sadrul-kompany.jpg' alt={t("about.teamImgAlt")} />
           <div className='about-mission-image-overlay'></div>
         </div>
       </section>
@@ -234,11 +234,11 @@ export default function BizHaqimizda() {
       <section className='about-values'>
         <div className='about-section-badge' data-aos="fade-up">
           <span className='about-badge-line' />
-          <span>Qadriyatlarimiz</span>
+          <span>{t("about.valuesLabel")}</span>
           <span className='about-badge-line' />
         </div>
         <h2 className='about-section-title' data-aos="fade-up">
-          Nega aynan <span className='gold-text'>Sadrul</span>?
+          {t("about.valuesTitle1")} <span className='gold-text'>{t("about.valuesTitleGold")}</span> {t("about.valuesTitle2")}
         </h2>
         <div className='about-values-grid'>
           {values.map((v, i) => (
@@ -253,26 +253,26 @@ export default function BizHaqimizda() {
       <section className="about-karyera" id="karyera">
         <div className='about-section-badge' data-aos="fade-up">
           <span className='about-badge-line' />
-          <span>Karyera</span>
+          <span>{t("about.careerLabel")}</span>
           <span className='about-badge-line' />
         </div>
         <h2 className='about-section-title' data-aos="fade-up">
-          Biz bilan <span className='gold-text'>ishlang</span>
+          {t("about.careerTitle1")} <span className='gold-text'>{t("about.careerTitleGold")}</span> {t("about.careerTitle2")}
         </h2>
         <div className='about-karyera-grid'>
           {jobPositions.map((job, i) => (
             <div key={i} className='about-karyera-card'>
-              <div className='about-karyera-type'>{job.type}</div>
-              <h3 className='about-karyera-title'>{job.title}</h3>
+              <div className='about-karyera-type'>{tData("data.careers." + i + ".type", job.type)}</div>
+              <h3 className='about-karyera-title'>{tData("data.careers." + i + ".title", job.title)}</h3>
               <div className='about-karyera-loc'>
                 <svg viewBox='0 0 24 24' fill='none'>
                   <path d='M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z' stroke='currentColor' strokeWidth='2' />
                   <circle cx='12' cy='9' r='2.5' stroke='currentColor' strokeWidth='2' />
                 </svg>
-                {job.loc}
+                {tData("data.careers." + i + ".loc", job.loc)}
               </div>
-              <p className='about-karyera-desc'>{job.desc}</p>
-              <button className='about-karyera-btn' onClick={() => navigate(`/ariza?position=${encodeURIComponent(job.title)}`)}>Ariza topshirish</button>
+              <p className='about-karyera-desc'>{tData("data.careers." + i + ".desc", job.desc)}</p>
+              <button className='about-karyera-btn' onClick={() => navigate(`/ariza?position=${encodeURIComponent(job.title)}`)}>{t("about.applyBtn")}</button>
             </div>
           ))}
         </div>

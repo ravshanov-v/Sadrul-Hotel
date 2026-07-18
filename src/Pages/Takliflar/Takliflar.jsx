@@ -9,6 +9,7 @@ import { takliflar } from '../../data/takliflar'
 import { hotels } from '../../data/hotels'
 import { IoGiftSharp } from 'react-icons/io5'
 import { useAuth } from '../../components/Auth/useAuth'
+import { useLanguage } from "../../components/Language/useLanguage.js"
 import { useModal } from '../../components/SmallWindows/Modal/useModal'
 import { HiShieldCheck } from 'react-icons/hi'
 import { FiUserPlus, FiCheckCircle } from 'react-icons/fi'
@@ -27,13 +28,14 @@ function Toast({ message, show }) {
 }
 
 function OfferCard({ taklif, onCopyCode }) {
+  const { t, tData } = useLanguage()
   const navigate = useNavigate()
   const hotel = hotels.find(h => h.id === taklif.hotelId)
   const [imgLoaded, setImgLoaded] = useState(false)
 
   const formatDate = (dateStr) => {
     const d = new Date(dateStr)
-    const months = ["Yanvar", "Fevral", "Mart", "Aprel", "May", "Iyun", "Iyul", "Avgust", "Sentabr", "Oktyabr", "Noyabr", "Dekabr"]
+    const months = t("offers.months")
     return `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`
   }
 
@@ -43,7 +45,7 @@ function OfferCard({ taklif, onCopyCode }) {
         <div className={`tk-image-loader ${imgLoaded ? 'tk-image-loaded' : ''}`} />
         <img
           src={taklif.image}
-          alt={taklif.title}
+          alt={tData("data.offers." + taklif.id + ".title", taklif.title)}
           loading="lazy"
           onLoad={() => setImgLoaded(true)}
         />
@@ -52,7 +54,7 @@ function OfferCard({ taklif, onCopyCode }) {
           <span className="tk-discount-number">-{taklif.discount}%</span>
         </div>
         {taklif.badge && (
-          <div className="tk-card-badge">{taklif.badge}</div>
+          <div className="tk-card-badge">{tData("data.offers." + taklif.id + ".badge", taklif.badge)}</div>
         )}
       </div>
       <div className="tk-card-body">
@@ -64,16 +66,16 @@ function OfferCard({ taklif, onCopyCode }) {
             <svg viewBox="0 0 24 24" fill="none" className="tk-exclusive-star">
               <path d="M12 2l1.5 5.5L19 8l-4 3.5L16.5 17 12 13.5 7.5 17 9 11.5 5 8l5.5-.5L12 2z" fill="currentColor" />
             </svg>
-            Eksklyuziv Taklif
+            {t("offers.exclusive")}
           </span>
         </div>
-        <h3 className="tk-card-title">{taklif.title}</h3>
-        <p className="tk-card-subtitle">{taklif.subtitle}</p>
-        <p className="tk-card-desc">{taklif.description}</p>
+        <h3 className="tk-card-title">{tData("data.offers." + taklif.id + ".title", taklif.title)}</h3>
+        <p className="tk-card-subtitle">{tData("data.offers." + taklif.id + ".subtitle", taklif.subtitle)}</p>
+        <p className="tk-card-desc">{tData("data.offers." + taklif.id + ".description", taklif.description)}</p>
 
         <div className="tk-card-pricing">
           <div className="tk-pricing-col">
-            <span className="tk-price-label">Eski narx</span>
+            <span className="tk-price-label">{t("offers.oldPrice")}</span>
             <span className="tk-price-old">${taklif.oldPrice.toLocaleString()}</span>
           </div>
           <div className="tk-pricing-divider">
@@ -82,7 +84,7 @@ function OfferCard({ taklif, onCopyCode }) {
             </svg>
           </div>
           <div className="tk-pricing-col">
-            <span className="tk-price-label">Yangi narx</span>
+            <span className="tk-price-label">{t("offers.newPrice")}</span>
             <span className="tk-price-new">${taklif.newPrice.toLocaleString()}</span>
           </div>
         </div>
@@ -93,7 +95,7 @@ function OfferCard({ taklif, onCopyCode }) {
               <path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               <path d="M7 7h.01" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
             </svg>
-            <span className="tk-promo-label">PROMO KOD</span>
+            <span className="tk-promo-label">{t("offers.promoLabel")}</span>
           </div>
           <div className="tk-promo-code-row">
             <span className="tk-promo-code">{taklif.promoCode}</span>
@@ -102,7 +104,7 @@ function OfferCard({ taklif, onCopyCode }) {
                 <rect x="9" y="9" width="13" height="13" rx="2" stroke="currentColor" strokeWidth="1.5" />
                 <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
-              Copy
+              {t("offers.copyBtn")}
             </button>
           </div>
         </div>
@@ -113,7 +115,7 @@ function OfferCard({ taklif, onCopyCode }) {
             <path d="M3 10h18M8 2v4M16 2v4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
           </svg>
           <span className="tk-expiry-text">
-            <span className="tk-expiry-label">Amal qilish:</span>
+            <span className="tk-expiry-label">{t("offers.expires")}</span>
             {formatDate(taklif.expireDate)}
           </span>
         </div>
@@ -124,8 +126,8 @@ function OfferCard({ taklif, onCopyCode }) {
               <path d="M3 21V7l9-5 9 5v14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               <path d="M9 21V12h6v9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
-            <span>{hotel.name}</span>
-            <span className="tk-hotel-room">· {taklif.roomName}</span>
+            <span>{tData("data.hotels." + hotel.id + ".name", hotel.name)}</span>
+            <span className="tk-hotel-room">· {tData("data.offers." + taklif.id + ".roomName", taklif.roomName)}</span>
           </div>
         )}
 
@@ -133,7 +135,7 @@ function OfferCard({ taklif, onCopyCode }) {
           className="tk-card-cta"
           onClick={() => navigate(`/mehmonxona/${taklif.hotelId}?promo=${taklif.promoCode}&room=${taklif.roomId}&discount=${taklif.discount}`)}
         >
-          <span>Bron qilish</span>
+          <span>{t("offers.bookBtn")}</span>
           <svg viewBox="0 0 24 24" fill="none">
             <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
@@ -144,20 +146,22 @@ function OfferCard({ taklif, onCopyCode }) {
 }
 
 function MemberToast({ show }) {
+  const { t } = useLanguage()
   return (
     <div className={`tk-member-toast ${show ? 'tk-member-toast-visible' : ''}`}>
       <div className="tk-member-toast-icon">
         <FiCheckCircle />
       </div>
       <div className="tk-member-toast-content">
-        <span className="tk-member-toast-title">A'zolik tasdiqlandi</span>
-        <span className="tk-member-toast-msg">Siz allaqachon a'zo bo'lgansiz</span>
+        <span className="tk-member-toast-title">{t("nav.memberTitle")}</span>
+        <span className="tk-member-toast-msg">{t("nav.memberMsg")}</span>
       </div>
     </div>
   )
 }
 
 export default function Takliflar() {
+  const { t } = useLanguage()
   const { isAuthenticated } = useAuth()
   const { openModal } = useModal()
   const navigate = useNavigate()
@@ -167,11 +171,11 @@ export default function Takliflar() {
 
   const handleCopyCode = (code) => {
     navigator.clipboard.writeText(code).then(() => {
-      setToastMsg("Promo kod nusxalandi")
+      setToastMsg(t("offers.toastCopied"))
       setToastShow(true)
       setTimeout(() => setToastShow(false), 2500)
     }).catch(() => {
-      setToastMsg("Nusxalashda xatolik")
+      setToastMsg(t("offers.toastError"))
       setToastShow(true)
       setTimeout(() => setToastShow(false), 2500)
     })
@@ -193,11 +197,11 @@ export default function Takliflar() {
       <div className='tk-header' data-aos="zoom-in">
         <div className='tk-badge'>
           <span className='tk-badge-line' />
-          <span>Maxsus Takliflar</span>
+          <span>{t("offers.badge")}</span>
           <span className='tk-badge-line' />
         </div>
-        <h1 className='tk-title'>Eksklyuziv <span className='tk-gold'>Chegirmalar</span></h1>
-        <p className='tk-subtitle'>Cheklangan muddatli eng yaxshi takliflar faqat siz uchun</p>
+        <h1 className='tk-title'>{t("offers.heroTitle1")} <span className='tk-gold'>{t("offers.heroTitleGold")}</span> {t("offers.heroTitle2")}</h1>
+        <p className='tk-subtitle'>{t("offers.desc")}</p>
       </div>
       <div className='tk-swiper-wrap'>
         <Swiper
@@ -234,31 +238,31 @@ export default function Takliflar() {
         <div className="tk-bottom-content">
           <div className="tk-bottom-badge">
             <HiShieldCheck />
-            <span>Premium A'zolik</span>
+            <span>{t("offers.premiumBadge")}</span>
           </div>
           <h2 className="tk-bottom-title">
-            Sadrul <span className="tk-gold">Club</span>
+            {t("offers.clubTitle1")} <span className="tk-gold">{t("offers.clubTitleGold")}</span> {t("offers.clubTitle2")}
           </h2>
           <p className="tk-bottom-desc">
-            Har bir bron uchun ko'proq foyda va imtiyozlardan bahramand bo'ling
+            {t("offers.clubDesc")}
           </p>
           <div className="tk-bottom-features">
             <div className="tk-bottom-feature">
               <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l1.5 5.5L19 8l-4 3.5L16.5 17 12 13.5 7.5 17 9 11.5 5 8l5.5-.5L12 2z" fill="currentColor"/></svg>
-              <span>20% gacha chegirma</span>
+              <span>{t("offers.feature1")}</span>
             </div>
             <div className="tk-bottom-feature">
               <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l1.5 5.5L19 8l-4 3.5L16.5 17 12 13.5 7.5 17 9 11.5 5 8l5.5-.5L12 2z" fill="currentColor"/></svg>
-              <span>Eksklyuziv takliflar</span>
+              <span>{t("offers.feature2")}</span>
             </div>
             <div className="tk-bottom-feature">
               <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l1.5 5.5L19 8l-4 3.5L16.5 17 12 13.5 7.5 17 9 11.5 5 8l5.5-.5L12 2z" fill="currentColor"/></svg>
-              <span>Bepul xizmatlar</span>
+              <span>{t("offers.feature3")}</span>
             </div>
           </div>
           <button className="tk-bottom-cta" onClick={handleMemberClick}>
             <FiUserPlus />
-            <span>A'zo bo'lish</span>
+            <span>{t("offers.joinBtn")}</span>
             <svg viewBox="0 0 24 24" fill="none" className="tk-bottom-arrow">
               <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
             </svg>

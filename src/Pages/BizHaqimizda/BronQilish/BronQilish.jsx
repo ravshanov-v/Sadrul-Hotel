@@ -3,18 +3,29 @@ import { useParams, useNavigate, useSearchParams } from "react-router-dom"
 import { hotels } from "../../../data/hotels"
 import { useAuth } from "../../../components/Auth/useAuth.js"
 import { menuItems } from "../../../data/taomnoma"
-import { categoryMultiplier, getRoomLabel, extractCategory, roomTypes } from "../../../utils/roomData"
+import { categoryMultiplier, extractCategory, roomTypes } from "../../../utils/roomData"
 import { checkRoomAvailability, getSimilarRooms } from "../../../utils/availability"
 import { takliflar } from "../../../data/takliflar"
 import { generateBookingId, createBookingVoucher, prepareVoucherEmail, getCurrentUserEmail, sendVoucherEmail } from "../../../utils/auth"
 import "./BronQilish.css"
+import { useLanguage } from "../../../components/Language/useLanguage.js"
 
 export default function BronQilish() {
   const { hotelId } = useParams()
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
   const { user } = useAuth()
+  const { t, tData } = useLanguage()
   const hotel = hotels.find(h => h.id === Number(hotelId)) || hotels[0]
+
+  const roomLabel = (type) => ({
+    standart: t("booking.roomStandard"),
+    hashamatli: t("booking.roomLuxury"),
+    biznes: t("booking.roomBusiness"),
+    oilaviy: t("booking.roomFamily"),
+    lyuks: t("booking.roomDeluxe"),
+    prezident: t("booking.roomPresidential"),
+  }[type] || t("booking.roomStandard"))
 
   const roomParamRaw = searchParams.get("room") || "standart"
   const roomParam = roomParamRaw.includes("-") ? roomParamRaw.split("-")[0] : roomParamRaw
@@ -103,25 +114,25 @@ export default function BronQilish() {
 
   const validateCard = () => {
     const errs = {}
-    if (!form.cardName.trim()) errs.cardName = "Karta egasining ismini kiriting"
+    if (!form.cardName.trim()) errs.cardName = t("booking.cardNameError")
     const cardDigits = form.cardNumber.replace(/\s/g, "")
-    if (cardDigits.length !== 16) errs.cardNumber = "Karta raqami 16 ta raqamdan iborat bo'lishi kerak"
+    if (cardDigits.length !== 16) errs.cardNumber = t("booking.cardNumberError")
     const expParts = form.cardExpiry.split("/")
     if (expParts.length !== 2 || !expParts[0] || !expParts[1]) {
-      errs.cardExpiry = "MM/YY formatida kiriting"
+      errs.cardExpiry = t("booking.cardExpiryError")
     } else {
       const mm = parseInt(expParts[0], 10)
       let yy = parseInt(expParts[1], 10)
       if (yy > 99) yy = yy % 100
-      if (mm < 1 || mm > 12) errs.cardExpiry = "Oy noto'g'ri (01-12)"
+      if (mm < 1 || mm > 12) errs.cardExpiry = t("booking.cardExpiryMonthError")
       else {
         const now = new Date()
         const curYY = parseInt(now.getFullYear().toString().slice(-2), 10)
         const curMM = now.getMonth() + 1
-        if (yy < curYY || (yy === curYY && mm < curMM)) errs.cardExpiry = "Karta muddati o'tgan"
+        if (yy < curYY || (yy === curYY && mm < curMM)) errs.cardExpiry = t("booking.cardExpiredError")
       }
     }
-    if (form.cardPin.length !== 6) errs.cardPin = "Parol 6 ta raqamdan iborat bo'lishi kerak"
+    if (form.cardPin.length !== 6) errs.cardPin = t("booking.cardPinError")
     return errs
   }
 
@@ -136,7 +147,7 @@ export default function BronQilish() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     if (availability && !availability.available) {
-      setToast("Kechirasiz, tanlangan xona band. Iltimos, boshqa xona yoki sanani tanlang.")
+      setToast(t("booking.toastUnavailable"))
       return
     }
     if (form.paymentMethod === "karta") {
@@ -146,7 +157,7 @@ export default function BronQilish() {
     }
     const guestEmail = voucherEmail
     if (!guestEmail) {
-      setToast("Bron qilish uchun avval tizimga kiring yoki ro'yxatdan o'ting.")
+      setToast(t("booking.toastLogin"))
       return
     }
     let voucher
@@ -181,25 +192,25 @@ export default function BronQilish() {
     const hotelTakliflar = takliflar.filter(t => t.hotelId === hotel.id)
     const amenities = hotel.amenities || []
     const menu = menuItems.filter(m => m.available && m.image)
-    const hName = hotel.name
+    const hName = tData("data.hotels." + hotel.id + ".name", hotel.name)
     const recs = []
 
     if (menu.length > 0 && amenities.includes("Restoran")) {
       recs.push({
         id: "restaurant",
-        title: `${hName} restorani`,
-        desc: `Mehmonxonamizda ${menu.length} xil taom mavjud. Eng yaxshi taomlarni tatib ko'ring.`,
+        title: `${hName} ${t("booking.restaurantSuffix")}`,
+        desc: t("booking.restaurantDesc", { count: menu.length }),
         image: menu[0].image,
-        btnText: "Menyuni ko'rish",
+        btnText: t("booking.viewMenu"),
         action: () => navigate("/taomnoma")
       })
       const chefPick = menu[Math.floor(Math.random() * menu.length)]
       recs.push({
         id: "chef",
-        title: "Bugungi oshpaz tanlovi",
-        desc: `${chefPick.name} — ${chefPick.description}`,
+        title: t("booking.chefPick"),
+        desc: `${tData("data.menu." + chefPick.id + ".name", chefPick.name)} — ${tData("data.menu." + chefPick.id + ".description", chefPick.description)}`,
         image: chefPick.image,
-        btnText: "Buyurtma berish",
+        btnText: t("booking.orderNow"),
         action: () => navigate(`/taomnoma/${chefPick.id}`)
       })
     }
@@ -207,10 +218,10 @@ export default function BronQilish() {
     if (amenities.includes("SPA")) {
       recs.push({
         id: "spa",
-        title: `${hName} SPA & dam olish`,
-        desc: "Hashamatli SPA xizmatlarimizdan foydalaning. Massaj, hammom va relaksatsiya.",
+        title: `${hName} ${t("booking.spaSuffix")}`,
+        desc: t("booking.spaDesc"),
         image: "https://images.unsplash.com/photo-1560750588-73207b1ef5b8?w=400&q=80",
-        btnText: "SPA ga o'tish",
+        btnText: t("booking.goToSpa"),
         action: () => navigate(`/mehmonxona/${hotel.id}`)
       })
     }
@@ -218,10 +229,10 @@ export default function BronQilish() {
     if (amenities.includes("Basseyn")) {
       recs.push({
         id: "pool",
-        title: `${hName} basseyni`,
-        desc: "Ochiq va yopiq basseynlarimizdan foydalaning. Suzish va dam olish uchun ideal.",
+        title: `${hName} ${t("booking.poolTitle")}`,
+        desc: t("booking.poolDesc"),
         image: "https://images.unsplash.com/photo-1575429198097-0414ec08e8cd?w=400&q=80",
-        btnText: "Batafsil",
+        btnText: t("booking.moreInfo"),
         action: () => navigate(`/mehmonxona/${hotel.id}`)
       })
     }
@@ -229,10 +240,10 @@ export default function BronQilish() {
     if (amenities.includes("Fitness")) {
       recs.push({
         id: "fitness",
-        title: `${hName} fitness`,
-        desc: "Zamonaviy fitness zali bilan shug'ullaning. Shaxsiy murabbiy xizmati mavjud.",
+        title: `${hName} ${t("booking.fitnessTitle")}`,
+        desc: t("booking.fitnessDesc"),
         image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&q=80",
-        btnText: "Batafsil",
+        btnText: t("booking.moreInfo"),
         action: () => navigate(`/mehmonxona/${hotel.id}`)
       })
     }
@@ -241,40 +252,40 @@ export default function BronQilish() {
       const pkg = hotelTakliflar[0]
       recs.push({
         id: "package",
-        title: `${hName} maxsus taklifi`,
-        desc: `${pkg.title} — ${(pkg.description || "").substring(0, 80)}...`,
+        title: `${hName} ${t("booking.specialOffer")}`,
+        desc: `${tData("data.offers." + pkg.id + ".title", pkg.title)} — ${(tData("data.offers." + pkg.id + ".description", pkg.description || "")).substring(0, 80)}...`,
         image: pkg.image,
-        btnText: "Paketni ko'rish",
+        btnText: t("booking.viewPackage"),
         action: () => navigate(`/mehmonxona/${pkg.hotelId}?promo=${pkg.promoCode}&room=${pkg.roomId}&discount=${pkg.discount}`)
       })
     }
 
     recs.push({
       id: "transfer",
-      title: `${hName} transfer`,
-      desc: "Qulay va xavfsiz aeroport transfer xizmati. Sizni kutib olamiz va mehmonxonaga yetkazamiz.",
+      title: `${hName} ${t("booking.transferTitle")}`,
+      desc: t("booking.transferDesc"),
       image: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=400&q=80",
-      btnText: "Buyurtma qilish",
+      btnText: t("booking.orderTransfer"),
       action: () => navigate(`/mehmonxona/${hotel.id}`)
     })
 
     if (amenities.includes("Restoran")) {
       recs.push({
         id: "breakfast",
-        title: `${hName} nonushtasi`,
-        desc: "Ertalabki nonushta xonangizga yetkaziladi. Yengil va to'yimli nonushta tanlovlari.",
+        title: `${hName} ${t("booking.breakfastTitle")}`,
+        desc: t("booking.breakfastDesc"),
         image: "https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?w=400&q=80",
-        btnText: "Nonushta buyurtma",
+        btnText: t("booking.orderBreakfast"),
         action: () => navigate("/taomnoma")
       })
     }
 
     recs.push({
       id: "addons",
-      title: "Qo'shimcha xizmatlar",
-      desc: `Ekskursiyalar, shahar turlari va boshqa xizmatlar ${hName} da mavjud.`,
+      title: t("booking.addonsTitle"),
+      desc: t("booking.addonsDesc", { hotel: hName }),
       image: "https://images.unsplash.com/photo-1549633038-e0ca1d15e2e1?w=400&q=80",
-      btnText: "Batafsil",
+      btnText: t("booking.moreInfo"),
       action: () => navigate("/takliflar")
     })
 
@@ -293,9 +304,9 @@ export default function BronQilish() {
                   <path d="M8 12L11 15L16 9" stroke="#D4AF37" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </div>
-              <h1 className="bq-sc-title" data-aos="fade-up" data-aos-delay="100">Booking Confirmed!</h1>
+              <h1 className="bq-sc-title" data-aos="fade-up" data-aos-delay="100">{t("booking.successTitle")}</h1>
               <p className="bq-sc-sub" data-aos="fade-up" data-aos-delay="200">
-                Tabriklaymiz, <strong>{form.fullName}</strong>! <strong>{hotel?.name}</strong> ga bron qilindingiz.
+                {t("booking.successGreeting")} <strong>{form.fullName}</strong>! <strong>{tData("data.hotels." + hotel?.id + ".name", hotel?.name || "")}</strong> {t("booking.successBooked")}
               </p>
             </div>
 
@@ -305,35 +316,35 @@ export default function BronQilish() {
                   <rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" strokeWidth="1.5" />
                   <path d="M3 10h18M8 2v4M16 2v4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
                 </svg>
-                Bron ma'lumotlari
+                {t("booking.bookingInfo")}
               </div>
               <div className="bq-sc-rows">
                 <div className="bq-sc-row">
-                  <span className="bq-sc-label">Mehmonxona</span>
-                  <span className="bq-sc-value">{hotel?.name}</span>
+                  <span className="bq-sc-label">{t("booking.hotel")}</span>
+                  <span className="bq-sc-value">{tData("data.hotels." + hotel?.id + ".name", hotel?.name || "")}</span>
                 </div>
                 <div className="bq-sc-row">
-                  <span className="bq-sc-label">Kelish</span>
+                  <span className="bq-sc-label">{t("booking.checkIn")}</span>
                   <span className="bq-sc-value">{form.checkIn}</span>
                 </div>
                 <div className="bq-sc-row">
-                  <span className="bq-sc-label">Ketish</span>
+                  <span className="bq-sc-label">{t("booking.checkOut")}</span>
                   <span className="bq-sc-value">{form.checkOut}</span>
                 </div>
                 <div className="bq-sc-row">
-                  <span className="bq-sc-label">Mehmonlar</span>
-                  <span className="bq-sc-value">{form.guests} kishi</span>
+                  <span className="bq-sc-label">{t("booking.guests")}</span>
+                  <span className="bq-sc-value">{form.guests} {t("booking.guestsCount")}</span>
                 </div>
                 <div className="bq-sc-row">
-                  <span className="bq-sc-label">Xona turi</span>
-                  <span className="bq-sc-value">{getRoomLabel(form.roomType)}</span>
+                  <span className="bq-sc-label">{t("booking.roomType")}</span>
+                  <span className="bq-sc-value">{roomLabel(form.roomType)}</span>
                 </div>
                 <div className="bq-sc-row">
-                  <span className="bq-sc-label">To'lov turi</span>
-                  <span className="bq-sc-value">{form.paymentMethod === "naqt" ? "Naqt" : "Karta"}</span>
+                  <span className="bq-sc-label">{t("booking.paymentMethod")}</span>
+                  <span className="bq-sc-value">{form.paymentMethod === "naqt" ? t("booking.cash") : t("booking.card")}</span>
                 </div>
                 <div className="bq-sc-row bq-sc-total">
-                  <span className="bq-sc-label">Umumiy to'lov</span>
+                  <span className="bq-sc-label">{t("booking.total")}</span>
                   <span className="bq-sc-total-amount">${totalPrice}</span>
                 </div>
               </div>
@@ -343,13 +354,13 @@ export default function BronQilish() {
                     <rect x="2" y="4" width="20" height="16" rx="2" stroke="#D4AF37" strokeWidth="1.5" />
                     <path d="M22 6L12 13L2 6" stroke="#D4AF37" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
-                  <span>Elektron booking voucher quyidagi email manziliga yuboriladi:</span>
+                  <span>{t("booking.voucherTo")}</span>
                 </div>
                 <div className="bq-sc-voucher-email">{voucherEmail}</div>
                 {emailStatus === "sending" && (
                   <div className="bq-sc-voucher-sending">
                     <div className="bq-sc-voucher-spinner" />
-                    Voucher emailga yuborilmoqda...
+                    {t("booking.voucherSending")}
                   </div>
                 )}
                 {emailStatus === "sent" && (
@@ -358,7 +369,7 @@ export default function BronQilish() {
                       <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5" />
                       <path d="M8 12L11 15L16 9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
-                    Voucher muvaffaqiyatli yuborildi!
+                    {t("booking.voucherSent")}
                   </div>
                 )}
                 {emailStatus === "demo" && (
@@ -367,7 +378,7 @@ export default function BronQilish() {
                       <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5" />
                       <path d="M12 8v4M12 16h.01" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
                     </svg>
-                    Demo Mode — EmailJS sozlanmagan. Voucher mahalliy saqlandi.
+                    {t("booking.voucherDemo")}
                   </div>
                 )}
                 {emailStatus === "failed" && (
@@ -376,7 +387,7 @@ export default function BronQilish() {
                       <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5" />
                       <path d="M12 8v4M12 16h.01" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
                     </svg>
-                    Email yuborishda xatolik yuz berdi. Voucher mahalliy saqlandi.
+                    {t("booking.voucherFailed")}
                   </div>
                 )}
               </div>
@@ -384,7 +395,7 @@ export default function BronQilish() {
                 <svg viewBox="0 0 24 24" fill="none">
                   <path d="M19 12H5M12 19l-7-7 7-7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
-                Mehmonxonalarga qaytish
+                {t("booking.backToHotels")}
               </button>
             </div>
 
@@ -392,7 +403,7 @@ export default function BronQilish() {
               <div className="bq-sc-recs">
                 <div className="bq-sc-recs-header">
                   <span className="bq-sc-recs-line" />
-                  <span>Tavsiyalar</span>
+                  <span>{t("booking.recommendations")}</span>
                   <span className="bq-sc-recs-line" />
                 </div>
                 <div className="bq-sc-recs-track">
@@ -432,13 +443,13 @@ export default function BronQilish() {
             <svg viewBox="0 0 24 24" fill="none">
               <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="currentColor" />
             </svg>
-            Bron Qilish
+            {t("booking.heroBadge")}
             {promoCode && (
               <span className="bq-promo-hero-badge">{promoCode} · {promoDiscount}%</span>
             )}
           </div>
-          <h1>{hotel?.name || "Mehmonxona"}</h1>
-          <p className="bq-hero-sub">{hotel?.location}</p>
+          <h1>{tData("data.hotels." + hotel?.id + ".name", hotel?.name || t("booking.fallbackHotel"))}</h1>
+          <p className="bq-hero-sub">{tData("data.hotels." + hotel?.id + ".location", hotel?.location || "")}</p>
         </div>
       </div>
 
@@ -446,33 +457,33 @@ export default function BronQilish() {
         <div className="bq-container">
           <div className="bq-main">
             <div className="bq-hotel-preview" data-aos="fade-up">
-              <img src={hotel?.image} alt={hotel?.name} />
+              <img src={hotel?.image} alt={tData("data.hotels." + hotel?.id + ".name", hotel?.name || "")} />
               <div className="bq-hotel-info">
                 <div className="bq-hotel-rating">
                   <svg viewBox="0 0 24 24" fill="currentColor">
                     <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
                   </svg>
                   {hotel?.rating}
-                  <span className="bq-hotel-reviews">({hotel?.reviews} ta sharh)</span>
+                  <span className="bq-hotel-reviews">{t("booking.reviews", { count: hotel?.reviews })}</span>
                 </div>
-                <p className="bq-hotel-desc">{hotel?.description}</p>
+                <p className="bq-hotel-desc">{tData("data.hotels." + hotel?.id + ".description", hotel?.description || "")}</p>
                 <div className="bq-hotel-price">
                   <span className="bq-price-amount">${hotel?.price}</span>
-                  <span className="bq-price-unit">/ kecha</span>
+                  <span className="bq-price-unit">{t("booking.perNight")}</span>
                 </div>
               </div>
             </div>
 
             <form className="bq-form" onSubmit={handleSubmit} data-aos="fade-up" data-aos-delay="100">
-              <h2 className="bq-form-title">Shaxsiy ma'lumotlar</h2>
+              <h2 className="bq-form-title">{t("booking.personalInfo")}</h2>
               <div className="bq-form-grid">
                 <div className="bq-form-group bq-full">
-                  <label>To'liq ismingiz</label>
-                  <input type="text" name="fullName" value={form.fullName} onChange={handleChange} placeholder="Ali Aliyev" required />
+                  <label>{t("booking.fullName")}</label>
+                  <input type="text" name="fullName" value={form.fullName} onChange={handleChange} placeholder={t("booking.namePlaceholder")} required />
                 </div>
                 <div className="bq-form-group">
-                  <label>Telefon raqam</label>
-                  <input type="tel" name="phone" value={form.phone} onChange={handleChange} placeholder="+998 90 123 45 67" required />
+                  <label>{t("booking.phone")}</label>
+                  <input type="tel" name="phone" value={form.phone} onChange={handleChange} placeholder={t("booking.phonePlaceholder")} required />
                 </div>
               </div>
 
@@ -481,37 +492,37 @@ export default function BronQilish() {
                   <rect x="2" y="4" width="20" height="16" rx="2" stroke="#D4AF37" strokeWidth="1.5" />
                   <path d="M22 6L12 13L2 6" stroke="#D4AF37" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
-                <span>Voucher quyidagi manzilga yuboriladi: <strong>{voucherEmail || "Email topilmadi"}</strong></span>
+                <span>{t("booking.voucherTo")} <strong>{voucherEmail || t("booking.emailNotFound")}</strong></span>
               </div>
 
-              <h2 className="bq-form-title">Bron ma'lumotlari</h2>
+              <h2 className="bq-form-title">{t("booking.bookingInfo")}</h2>
               <div className="bq-form-grid">
                 <div className="bq-form-group">
-                  <label>Kelish sanasi</label>
+                  <label>{t("booking.checkIn")}</label>
                   <input type="date" name="checkIn" value={form.checkIn} onChange={handleChange} min={today} required />
                 </div>
                 <div className="bq-form-group">
-                  <label>Ketish sanasi</label>
+                  <label>{t("booking.checkOut")}</label>
                   <input type="date" name="checkOut" value={form.checkOut} onChange={handleChange} min={form.checkIn || today} required />
                 </div>
                 <div className="bq-form-group">
-                  <label>Mehmonlar soni</label>
+                  <label>{t("booking.guests")}</label>
                   <input type="number" name="guests" value={form.guests} onChange={handleChange} min="1" max="10" required />
                 </div>
                 <div className="bq-form-group">
-                  <label>Xona turi</label>
+                  <label>{t("booking.roomType")}</label>
                   <select name="roomType" value={form.roomType} onChange={handleChange}>
-                    <option value="standart">Standart</option>
-                    <option value="hashamatli">Hashamatli</option>
-                    <option value="biznes">Biznes</option>
-                    <option value="oilaviy">Oilaviy</option>
-                    <option value="lyuks">Lyuks</option>
-                    <option value="prezident">Prezident</option>
+                    <option value="standart">{t("booking.roomStandard")}</option>
+                    <option value="hashamatli">{t("booking.roomLuxury")}</option>
+                    <option value="biznes">{t("booking.roomBusiness")}</option>
+                    <option value="oilaviy">{t("booking.roomFamily")}</option>
+                    <option value="lyuks">{t("booking.roomDeluxe")}</option>
+                    <option value="prezident">{t("booking.roomPresidential")}</option>
                   </select>
                 </div>
               </div>
 
-              <h2 className="bq-form-title">To'lov turi</h2>
+              <h2 className="bq-form-title">{t("booking.paymentMethod")}</h2>
               <div className="bq-payment-grid">
                 <label className={`bq-payment-card ${form.paymentMethod === "naqt" ? "active" : ""}`} data-aos="fade-up" data-aos-delay="0">
                   <input type="radio" name="paymentMethod" value="naqt" checked={form.paymentMethod === "naqt"} onChange={handleChange} />
@@ -521,8 +532,8 @@ export default function BronQilish() {
                       <circle cx="12" cy="12" r="3" stroke="currentColor" strokeWidth="1.5" />
                     </svg>
                   </span>
-                  <span className="bq-payment-label">Naqt</span>
-                  <span className="bq-payment-desc">Qabulxonada naqd to'lov</span>
+                  <span className="bq-payment-label">{t("booking.cash")}</span>
+                  <span className="bq-payment-desc">{t("booking.cashDesc")}</span>
                 </label>
                 <label className={`bq-payment-card ${form.paymentMethod === "karta" ? "active" : ""}`} data-aos="fade-up" data-aos-delay="100">
                   <input type="radio" name="paymentMethod" value="karta" checked={form.paymentMethod === "karta"} onChange={handleChange} />
@@ -533,8 +544,8 @@ export default function BronQilish() {
                       <line x1="6" y1="16" x2="10" y2="16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
                     </svg>
                   </span>
-                  <span className="bq-payment-label">Karta</span>
-                  <span className="bq-payment-desc">Plastik karta orqali to'lov</span>
+                  <span className="bq-payment-label">{t("booking.card")}</span>
+                  <span className="bq-payment-desc">{t("booking.cardDesc")}</span>
                 </label>
               </div>
 
@@ -544,31 +555,31 @@ export default function BronQilish() {
                     <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5" />
                     <path d="M12 8v4M12 16h.01" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
                   </svg>
-                  <span>Mehmonxonaga borganingizda to'lovni amalga oshirasiz</span>
+                  <span>{t("booking.cashNotice")}</span>
                 </div>
               )}
 
               {form.paymentMethod === "karta" && (
                 <div className="bq-card-form" data-aos="fade-up">
-                  <h3 className="bq-card-form-title">Karta ma'lumotlari</h3>
+                  <h3 className="bq-card-form-title">{t("booking.cardFormTitle")}</h3>
                   <div className="bq-card-form-grid">
                     <div className="bq-form-group bq-full">
-                      <label>Karta egasining ismi</label>
-                      <input type="text" name="cardName" value={form.cardName} onChange={handleChange} placeholder="ALI ALIYEV" className={cardErrors.cardName ? 'bq-input-error' : ''} required />
+                      <label>{t("booking.cardName")}</label>
+                      <input type="text" name="cardName" value={form.cardName} onChange={handleChange} placeholder={t("booking.cardNamePlaceholder")} className={cardErrors.cardName ? 'bq-input-error' : ''} required />
                       {cardErrors.cardName && <span className="bq-field-error">{cardErrors.cardName}</span>}
                     </div>
                     <div className="bq-form-group bq-full">
-                      <label>Karta raqami</label>
-                      <input type="text" name="cardNumber" value={form.cardNumber} onChange={handleChange} placeholder="0000 0000 0000 0000" maxLength="19" className={cardErrors.cardNumber ? 'bq-input-error' : ''} required />
+                      <label>{t("booking.cardNumber")}</label>
+                      <input type="text" name="cardNumber" value={form.cardNumber} onChange={handleChange} placeholder={t("booking.cardNumberPlaceholder")} maxLength="19" className={cardErrors.cardNumber ? 'bq-input-error' : ''} required />
                       {cardErrors.cardNumber && <span className="bq-field-error">{cardErrors.cardNumber}</span>}
                     </div>
                     <div className="bq-form-group">
-                      <label>Amal qilish muddati</label>
-                      <input type="text" name="cardExpiry" value={form.cardExpiry} onChange={handleChange} placeholder="MM/YY" maxLength="5" className={cardErrors.cardExpiry ? 'bq-input-error' : ''} required />
+                      <label>{t("booking.cardExpiry")}</label>
+                      <input type="text" name="cardExpiry" value={form.cardExpiry} onChange={handleChange} placeholder={t("booking.cardExpiryPlaceholder")} maxLength="5" className={cardErrors.cardExpiry ? 'bq-input-error' : ''} required />
                       {cardErrors.cardExpiry && <span className="bq-field-error">{cardErrors.cardExpiry}</span>}
                     </div>
                     <div className="bq-form-group">
-                      <label>Parol (6 raqam)</label>
+                      <label>{t("booking.cardPin")}</label>
                       <input type="password" name="cardPin" value={form.cardPin} onChange={handleChange} placeholder="••••••" maxLength="6" className={cardErrors.cardPin ? 'bq-input-error' : ''} required />
                       {cardErrors.cardPin && <span className="bq-field-error">{cardErrors.cardPin}</span>}
                     </div>
@@ -577,7 +588,7 @@ export default function BronQilish() {
               )}
 
               <button type="submit" className="bq-btn bq-btn-primary bq-btn-submit" data-aos="zoom-in">
-                Bronni tasdiqlash
+                {t("booking.confirmBtn")}
                 <svg viewBox="0 0 24 24" fill="none">
                   <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
@@ -587,33 +598,33 @@ export default function BronQilish() {
 
           <div className="bq-sidebar" data-aos="fade-up" data-aos-delay="200">
             <div className="bq-summary">
-              <h3>Buyurtma summasi</h3>
+              <h3>{t("booking.summaryTitle")}</h3>
               <div className="bq-summary-row">
-                <span>{hotel?.name}</span>
-                <span>${hotel?.price} × {nights || 1} kecha</span>
+                <span>{tData("data.hotels." + hotel?.id + ".name", hotel?.name || "")}</span>
+                <span>${hotel?.price} × {nights || 1} {t("booking.nights")}</span>
               </div>
               <div className="bq-summary-row">
-                <span>Xona turi</span>
-                <span>{getRoomLabel(form.roomType)}</span>
+                <span>{t("booking.roomType")}</span>
+                <span>{roomLabel(form.roomType)}</span>
               </div>
               <div className="bq-summary-row">
-                <span>Mehmonlar</span>
-                <span>{form.guests} kishi</span>
+                <span>{t("booking.guests")}</span>
+                <span>{form.guests} {t("booking.guestsCount")}</span>
               </div>
               <div className="bq-summary-row">
-                <span>To'lov</span>
-                <span>{form.paymentMethod === "naqt" ? "Naqt" : "Karta"}</span>
+                <span>{t("booking.paymentMethod")}</span>
+                <span>{form.paymentMethod === "naqt" ? t("booking.cash") : t("booking.card")}</span>
               </div>
               {nights > 0 && (
                 <div className="bq-summary-row">
-                  <span>Kechalar soni</span>
+                  <span>{t("booking.nights")}</span>
                   <span>{nights}</span>
                 </div>
               )}
               {promoCode && nights > 0 && (
                 <>
                   <div className="bq-summary-row">
-                    <span>Asl narx</span>
+                    <span>{t("booking.originalPrice")}</span>
                     <span className="bq-price-old">${rawTotal}</span>
                   </div>
                   <div className="bq-summary-row bq-promo-row">
@@ -622,7 +633,7 @@ export default function BronQilish() {
                         <path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                         <path d="M7 7h.01" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
                       </svg>
-                      Promo {promoCode} (-{promoDiscount}%)
+                      {t("booking.promoActivated", { code: promoCode, discount: promoDiscount })}
                     </span>
                     <span className="bq-promo-amount">-${rawTotal - totalPrice}</span>
                   </div>
@@ -630,16 +641,16 @@ export default function BronQilish() {
               )}
               <div className="bq-summary-divider" />
               <div className="bq-summary-total">
-                <span>Umumiy to'lov</span>
+                <span>{t("booking.total")}</span>
                 <span className={`bq-total-amount ${promoDiscount ? 'bq-total-promo' : ''}`}>${totalPrice}</span>
               </div>
-              <p className="bq-summary-note">Bepul bekor qilish imkoniyati mavjud</p>
+              <p className="bq-summary-note">{t("booking.freeCancel")}</p>
             </div>
 
             {availChecking && (
               <div className="bq-avail-checking" data-aos="fade-up">
                 <div className="bq-avail-spinner" />
-                <span>Mavjudlik tekshirilmoqda...</span>
+                <span>{t("booking.availChecking")}</span>
               </div>
             )}
 
@@ -650,8 +661,8 @@ export default function BronQilish() {
                     <span className="bq-avail-dot" />
                     <span>
                       {availability.remaining >= availability.totalRooms
-                        ? 'Mavjud'
-                        : `${availability.remaining} ta xona qoldi`}
+                        ? t("booking.available")
+                        : t("booking.available", { remaining: availability.remaining })}
                     </span>
                   </>
                 ) : (
@@ -660,7 +671,7 @@ export default function BronQilish() {
                       <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5" />
                       <path d="M15 9l-6 6M9 9l6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
                     </svg>
-                    <span>Band</span>
+                    <span>{t("booking.booked")}</span>
                   </>
                 )}
               </div>
@@ -668,7 +679,7 @@ export default function BronQilish() {
 
             {availability && !availability.available && !availChecking && similarRooms.length > 0 && (
               <div className="bq-similar-rooms" data-aos="fade-up">
-                <h4 className="bq-similar-title">O'xshash mavjud xonalar</h4>
+                <h4 className="bq-similar-title">{t("booking.similarRooms")}</h4>
                 <div className="bq-similar-list">
                   {similarRooms.slice(0, 4).map(room => (
                     <div
@@ -678,10 +689,10 @@ export default function BronQilish() {
                         navigate(`/bron-qilish/${hotel.id}?room=${room.id}&checkIn=${form.checkIn}&checkOut=${form.checkOut}`)
                       }}
                     >
-                      <img src={room.image} alt={room.name} className="bq-similar-img" />
+                      <img src={room.image} alt={tData("data.rooms." + room.id + ".name", room.name)} className="bq-similar-img" />
                       <div className="bq-similar-info">
-                        <span className="bq-similar-name">{room.name}</span>
-                        <span className="bq-similar-price">${room.price}/kecha</span>
+                        <span className="bq-similar-name">{tData("data.rooms." + room.id + ".name", room.name)}</span>
+                        <span className="bq-similar-price">${room.price}{t("booking.perNight")}</span>
                       </div>
                     </div>
                   ))}

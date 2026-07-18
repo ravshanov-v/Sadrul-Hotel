@@ -8,6 +8,7 @@ import { FavoritesProvider } from "./components/Favorites/FavoritesProvider.jsx"
 import { ProphileProvider } from "./components/Prophile/ProphileProvider.jsx"
 import { DarkModeProvider } from "./components/DarkMode/DarkModeProvider.jsx"
 import { ModalProvider } from "./components/SmallWindows/Modal/ModalProvider.jsx"
+import { LanguageProvider } from "./components/Language/LanguageProvider.jsx"
 
 import BoshSahifa from "./Pages/BoshSahifa/BoshSahifa.jsx"
 import Mehmonxonalar from "./Pages/Mehmonxonalar/Mehmonxonalar.jsx"
@@ -50,37 +51,39 @@ export default function App() {
         <div>
             <BrowserRouter>
                 <AOSInit />
-                <Routes>
-                    <Route path="/" element={<Layout />}>
-                        <Route index element={<BoshSahifa />} />
-                        <Route path="mehmonxonalar" element={<Mehmonxonalar />} />
-                        <Route path="takliflar" element={<Takliflar />} />
-                        <Route path="mehmonxona/:hotelId" element={<MehmonxonaDetail />} />
-                        <Route path="biz-haqimizda" element={<BizHaqimizda />} />
-                        <Route path="taomnoma" element={<Taomnoma />}>
-                            <Route path=":id" element={<TaomBatafsil />} />
-                        </Route>
-                        <Route path="signup" element={<SignUp />} />
-                        <Route path="bron-qilish/:hotelId" element={<BronQilish />} />
-                        <Route path="ariza" element={<Ariza />} />
-                        <Route path="maxfiylik-siyosati" element={<Maxfiylik />} />
-                        <Route path="foydalanish-shartlari" element={<FoydalanishShartlari />} />
-                        <Route path="*" element={<NotFound />} />
-                    </Route>
-                    <Route path="/dashboard" element={
-                      <AuthProvider>
-                        <FavoritesProvider>
-                          <ProphileProvider>
-                            <DarkModeProvider>
-                              <ModalProvider>
-                                <Dashboard />
-                              </ModalProvider>
-                            </DarkModeProvider>
-                          </ProphileProvider>
-                        </FavoritesProvider>
-                      </AuthProvider>
-                    } />
-                </Routes>
+                <LanguageProvider>
+                  <Routes>
+                      <Route path="/" element={<Layout />}>
+                          <Route index element={<BoshSahifa />} />
+                          <Route path="mehmonxonalar" element={<Mehmonxonalar />} />
+                          <Route path="takliflar" element={<Takliflar />} />
+                          <Route path="mehmonxona/:hotelId" element={<MehmonxonaDetail />} />
+                          <Route path="biz-haqimizda" element={<BizHaqimizda />} />
+                          <Route path="taomnoma" element={<Taomnoma />}>
+                              <Route path=":id" element={<TaomBatafsil />} />
+                          </Route>
+                          <Route path="signup" element={<SignUp />} />
+                          <Route path="bron-qilish/:hotelId" element={<BronQilish />} />
+                          <Route path="ariza" element={<Ariza />} />
+                          <Route path="maxfiylik-siyosati" element={<Maxfiylik />} />
+                          <Route path="foydalanish-shartlari" element={<FoydalanishShartlari />} />
+                          <Route path="*" element={<NotFound />} />
+                      </Route>
+                      <Route path="/dashboard" element={
+                        <AuthProvider>
+                          <FavoritesProvider>
+                            <ProphileProvider>
+                              <DarkModeProvider>
+                                <ModalProvider>
+                                  <Dashboard />
+                                </ModalProvider>
+                              </DarkModeProvider>
+                            </ProphileProvider>
+                          </FavoritesProvider>
+                        </AuthProvider>
+                      } />
+                  </Routes>
+                </LanguageProvider>
             </BrowserRouter>
         </div>
     )

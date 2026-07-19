@@ -207,6 +207,7 @@ const uz = {
     feature2: "Eksklyuziv takliflar",
     feature3: "Bepul xizmatlar",
     joinBtn: "A'zo bo'lish",
+    joinRegister: "A'zo bo'lish uchun ro'yxatdan o'ting",
     months: ["Yanvar", "Fevral", "Mart", "Aprel", "May", "Iyun", "Iyul", "Avgust", "Sentabr", "Oktyabr", "Noyabr", "Dekabr"],
   },
   menu: {

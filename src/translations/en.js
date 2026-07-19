@@ -207,6 +207,7 @@ const en = {
     feature2: "Exclusive offers",
     feature3: "Free services",
     joinBtn: "Join Now",
+    joinRegister: "Register to become a member",
     months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
   },
   menu: {

@@ -17,7 +17,7 @@ import "./Takliflar.css"
 
 function Toast({ message, show }) {
   return (
-    <div className={`tk-toast ${show ? 'tk-toast-visible' : ''}`} data-aos="fade-up">
+    <div className={`tk-toast ${show ? 'tk-toast-visible' : ''}`}>
       <svg viewBox="0 0 24 24" fill="none" className="tk-toast-icon">
         <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5" />
         <path d="M8 12l3 3 5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -102,16 +102,16 @@ function OfferCard({ taklif, onCopyCode }) {
   )
 }
 
-function MemberToast({ show }) {
+function MemberToast({ show, message }) {
   const { t } = useLanguage()
   return (
-    <div className={`tk-member-toast ${show ? 'tk-member-toast-visible' : ''}`} data-aos="fade-up">
+    <div className={`tk-member-toast ${show ? 'tk-member-toast-visible' : ''}`}>
       <div className="tk-member-toast-icon">
         <FiCheckCircle />
       </div>
       <div className="tk-member-toast-content">
         <span className="tk-member-toast-title">{t("nav.memberTitle")}</span>
-        <span className="tk-member-toast-msg">{t("nav.memberMsg")}</span>
+        <span className="tk-member-toast-msg">{message || t("nav.memberMsg")}</span>
       </div>
     </div>
   )
@@ -143,6 +143,9 @@ export default function Takliflar() {
       setMemberToastShow(true)
       setTimeout(() => setMemberToastShow(false), 3500)
     } else {
+      setToastMsg(t("offers.joinRegister"))
+      setToastShow(true)
+      setTimeout(() => setToastShow(false), 3000)
       openModal('signup')
     }
   }

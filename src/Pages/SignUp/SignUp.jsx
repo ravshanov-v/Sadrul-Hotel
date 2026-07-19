@@ -4,7 +4,7 @@ import logoIconS from "../../Assets/Icons/logo-S-icon.png"
 import close from "../../Assets/Icons/close.svg"
 import { useModal } from "../../components/SmallWindows/Modal/useModal.js"
 import { useAuth } from "../../components/Auth/useAuth"
-import { validateEmail } from "../../utils/auth"
+import { validateEmail, getEmailErrorText } from "../../utils/auth"
 import { useLanguage } from "../../components/Language/useLanguage.js"
 
 import "./SignUp.css"
@@ -156,8 +156,8 @@ export default function SignUp() {
                 />
                 {touched.email && !validations.email && emailCheck.errors.length > 0 && (
                   <div className="signup-feedback-list">
-                    {emailCheck.errors.map((msg, i) => (
-                      <p key={i} className="signup-feedback error">{msg}</p>
+                    {emailCheck.errors.map((code, i) => (
+                      <p key={i} className="signup-field-error">{getEmailErrorText(code, t)}</p>
                     ))}
                   </div>
                 )}

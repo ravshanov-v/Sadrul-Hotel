@@ -3,7 +3,7 @@ import close from "../../../Assets/Icons/close.svg"
 import logoIconS from "../../../Assets/Icons/logo-S-icon.png"
 import { useModal } from "./useModal"
 import { useAuth } from "../../Auth/useAuth"
-import { validateEmail } from "../../../utils/auth"
+import { validateEmail, getEmailErrorText } from "../../../utils/auth"
 import { useLanguage } from "../../Language/useLanguage.js"
 import "./SignUpModal.css"
 
@@ -169,8 +169,8 @@ export default function SignUpModal() {
                   />
                   {touched.email && !validations.email && emailCheck.errors.length > 0 && (
                     <div className="su-feedback-list">
-                      {emailCheck.errors.map((msg, i) => (
-                        <p key={i} className="su-feedback error">{msg}</p>
+                      {emailCheck.errors.map((code, i) => (
+                        <p key={i} className="su-feedback error">{getEmailErrorText(code, t)}</p>
                       ))}
                     </div>
                   )}

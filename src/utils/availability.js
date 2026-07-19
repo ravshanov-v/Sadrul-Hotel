@@ -109,7 +109,7 @@ function generateAlternatives(from, duration) {
     alts.push({
       checkIn: start.toISOString().split("T")[0],
       checkOut: end.toISOString().split("T")[0],
-      label: offset === 0 ? "Hozirgi sana" : offset < 0 ? `${Math.abs(offset)} kun oldin` : `${offset} kun keyin`
+      label: offset === 0 ? "today" : offset < 0 ? `before:${Math.abs(offset)}` : `after:${offset}`
     })
   }
   return alts

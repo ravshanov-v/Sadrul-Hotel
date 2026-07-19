@@ -1,67 +1,86 @@
 export function validateEmail(email) {
-  const errors = []
+  const codes = []
 
   if (!email || typeof email !== "string") {
-    errors.push("Elektron pochta manzili kiritilmagan.")
-    return { valid: false, errors }
+    codes.push("EMAIL_EMPTY")
+    return { valid: false, errors: codes }
   }
 
   if (email.length > 254) {
-    errors.push("Elektron pochta manzili juda uzun (maksimal 254 belgi).")
-    return { valid: false, errors }
+    codes.push("EMAIL_TOO_LONG")
+    return { valid: false, errors: codes }
   }
 
   if (/\s/.test(email)) {
-    errors.push("Elektron pochta manzilida bo'sh joy bo'lmasligi kerak.")
+    codes.push("EMAIL_HAS_SPACES")
   }
 
   const atCount = (email.match(/@/g) || []).length
   if (atCount === 0) {
-    errors.push("Elektron pochta manzilida @ belgisi mavjud emas.")
+    codes.push("EMAIL_NO_AT")
   } else if (atCount > 1) {
-    errors.push("Elektron pochta manzilida faqat bitta @ belgisi bo'lishi kerak.")
+    codes.push("EMAIL_MULTIPLE_AT")
   }
 
-  if (errors.length > 0) return { valid: false, errors }
+  if (codes.length > 0) return { valid: false, errors: codes }
 
   const parts = email.split("@")
   const localPart = parts[0]
   const domain = parts[1]
 
   if (!localPart || localPart.length === 0) {
-    errors.push("@ belgisidan oldin qism mavjud emas.")
+    codes.push("EMAIL_NO_LOCAL_PART")
   } else if (localPart.length > 64) {
-    errors.push("Elektron pochtaning @ oldidagi qismi juda uzun (maksimal 64 belgi).")
+    codes.push("EMAIL_LOCAL_PART_TOO_LONG")
   }
 
   if (!domain || domain.length === 0) {
-    errors.push("@ belgisidan keyin domen mavjud emas.")
+    codes.push("EMAIL_NO_DOMAIN")
   } else {
     if (!domain.includes(".")) {
-      errors.push("Domen noto'g'ri formatda (masalan: gmail.com, mail.ru).")
+      codes.push("EMAIL_INVALID_DOMAIN")
     } else {
       const domainParts = domain.split(".")
       const tld = domainParts[domainParts.length - 1]
       if (tld.length < 2) {
-        errors.push("Domenning yuqori darajali qismi (TLD) kamida 2 belgidan iborat bo'lishi kerak.")
+        codes.push("EMAIL_TLD_TOO_SHORT")
       }
       if (domainParts.some(p => p.length === 0)) {
-        errors.push("Domen qismlari bo'sh bo'lmasligi kerak.")
+        codes.push("EMAIL_EMPTY_DOMAIN_PART")
       }
       if (domain.startsWith(".") || domain.endsWith(".")) {
-        errors.push("Domen nuqta bilan boshlanmasligi yoki tugamasligi kerak.")
+        codes.push("EMAIL_DOMAIN_DOTS")
       }
     }
   }
 
   const localValid = localPart && /^[a-zA-Z0-9._%+\-]+$/.test(localPart)
   if (localPart && !localValid) {
-    errors.push("Elektron pochta nomi faqat harflar, raqamlar va . _ % + - belgilaridan iborat bo'lishi mumkin.")
+    codes.push("EMAIL_INVALID_CHARS")
   }
 
-  if (errors.length > 0) return { valid: false, errors }
+  if (codes.length > 0) return { valid: false, errors: codes }
 
   return { valid: true, errors: [] }
+}
+
+export function getEmailErrorText(code, t) {
+  const map = {
+    EMAIL_EMPTY: t("validation.emailEmpty"),
+    EMAIL_TOO_LONG: t("validation.emailTooLong"),
+    EMAIL_HAS_SPACES: t("validation.emailHasSpaces"),
+    EMAIL_NO_AT: t("validation.emailNoAt"),
+    EMAIL_MULTIPLE_AT: t("validation.emailMultipleAt"),
+    EMAIL_NO_LOCAL_PART: t("validation.emailNoLocalPart"),
+    EMAIL_LOCAL_PART_TOO_LONG: t("validation.emailLocalPartTooLong"),
+    EMAIL_NO_DOMAIN: t("validation.emailNoDomain"),
+    EMAIL_INVALID_DOMAIN: t("validation.emailInvalidDomain"),
+    EMAIL_TLD_TOO_SHORT: t("validation.emailTldTooShort"),
+    EMAIL_EMPTY_DOMAIN_PART: t("validation.emailEmptyDomainPart"),
+    EMAIL_DOMAIN_DOTS: t("validation.emailDomainDots"),
+    EMAIL_INVALID_CHARS: t("validation.emailInvalidChars"),
+  }
+  return map[code] || code
 }
 
 export function getCurrentUserEmail() {
@@ -109,25 +128,41 @@ export async function sendVoucherEmail(voucher) {
     const { sendVoucherEmail: send } = await import("./emailService")
     return send(voucher)
   } catch {
-    console.log("[Demo Mode] Email xizmati yuklanmadi, voucher localStorage ga saqlandi.")
+    console.log("[Demo Mode] Email service not loaded, voucher saved to localStorage.")
     return { success: false, demo: true }
   }
 }
 
-export function prepareVoucherEmail(voucher) {
+export function prepareVoucherEmail(voucher, t) {
+  if (t) {
+    const subject = t("email.subject").replace("{id}", voucher.id)
+    const body =
+      t("email.greeting").replace("{name}", voucher.guestName) + "\n\n" +
+      t("email.confirmed") + "\n\n" +
+      t("email.hotel") + voucher.hotelName + "\n" +
+      t("email.room") + voucher.roomType + "\n" +
+      t("email.checkIn") + voucher.checkIn + "\n" +
+      t("email.checkOut") + voucher.checkOut + "\n" +
+      t("email.guests") + voucher.guests + " " + t("email.person") + "\n" +
+      t("email.total") + "$" + voucher.totalPrice + "\n\n" +
+      t("email.id") + voucher.id + "\n" +
+      t("email.sentTo") + voucher.guestEmail + "\n\n" +
+      t("email.footer")
+    return { to: voucher.guestEmail, subject, body }
+  }
   return {
     to: voucher.guestEmail,
-    subject: `Sadrul — Bron tasdiqnomasi #${voucher.id}`,
-    body: `Hurmatli ${voucher.guestName},\n\n` +
-      `Sizning broningiz tasdiqlandi!\n\n` +
-      `Mehmonxona: ${voucher.hotelName}\n` +
-      `Xona: ${voucher.roomType}\n` +
-      `Kelish: ${voucher.checkIn}\n` +
-      `Ketish: ${voucher.checkOut}\n` +
-      `Mehmonlar: ${voucher.guests} kishi\n` +
-      `Umumiy to'lov: $${voucher.totalPrice}\n\n` +
-      `Bron ID: ${voucher.id}\n` +
-      `Voucher quyidagi manzilga yuborildi: ${voucher.guestEmail}\n\n` +
-      `Sadrul mehmonxonasiga tashrifingizdan xursandmiz!`
+    subject: `Sadrul — Booking Confirmation #${voucher.id}`,
+    body: `Dear ${voucher.guestName},\n\n` +
+      `Your booking has been confirmed!\n\n` +
+      `Hotel: ${voucher.hotelName}\n` +
+      `Room: ${voucher.roomType}\n` +
+      `Check-in: ${voucher.checkIn}\n` +
+      `Check-out: ${voucher.checkOut}\n` +
+      `Guests: ${voucher.guests} person(s)\n` +
+      `Total: $${voucher.totalPrice}\n\n` +
+      `Booking ID: ${voucher.id}\n` +
+      `Voucher sent to: ${voucher.guestEmail}\n\n` +
+      `Thank you for choosing Sadrul Hotel!`
   }
 }

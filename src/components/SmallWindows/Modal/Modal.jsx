@@ -3,7 +3,7 @@ import close from "../../../Assets/Icons/close.svg"
 import logoIconS from "../../../Assets/Icons/logo-S-icon.png"
 import { useModal } from "./useModal"
 import { useAuth } from "../../Auth/useAuth"
-import { validateEmail } from "../../../utils/auth"
+import { validateEmail, getEmailErrorText } from "../../../utils/auth"
 import { useLanguage } from "../../Language/useLanguage.js"
 import "./Modal.css"
 
@@ -119,8 +119,8 @@ export default function Modal() {
                 />
                 {emailTouched && !emailValid && emailCheck.errors.length > 0 && (
                   <div className="modal-feedback-list">
-                    {emailCheck.errors.map((msg, i) => (
-                      <p key={i} className="modal-feedback error">{msg}</p>
+                    {emailCheck.errors.map((code, i) => (
+                      <p key={i} className="modal-feedback error">{getEmailErrorText(code, t)}</p>
                     ))}
                   </div>
                 )}

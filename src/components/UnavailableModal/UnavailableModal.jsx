@@ -100,7 +100,7 @@ export default function UnavailableModal({ hotelId, roomType, checkIn, checkOut,
                       <path d="M3 10h18M8 2v4M16 2v4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
                     </svg>
                     <span>
-                      <span className="uam-date-label">{alt.label}</span>
+                      <span className="uam-date-label">{alt.label === "today" ? t("date.today") : alt.label.startsWith("before:") ? t("date.before").replace("{n}", alt.label.split(":")[1]) : alt.label.startsWith("after:") ? t("date.after").replace("{n}", alt.label.split(":")[1]) : alt.label}</span>
                       {alt.checkIn} – {alt.checkOut}
                     </span>
                   </div>

@@ -33,7 +33,18 @@ const amenityIcons = {
   "Bolalar": <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" strokeWidth="1.5"/><path d="M5 22v-4a4 4 0 0 1 4-4h6a4 4 0 0 1 4 4v4" fill="none" stroke="currentColor" strokeWidth="1.5"/></svg>,
   "VIP": <svg viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="currentColor"/></svg>,
   "Sport": <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" strokeWidth="1.5"/><path d="M12 3v18M3 12h18" stroke="currentColor" strokeWidth="1.5"/></svg>,
-  "Turar joy": <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" fill="none" stroke="currentColor" strokeWidth="1.5"/><polyline points="9 22 9 12 15 12 15 22" fill="none" stroke="currentColor" strokeWidth="1.5"/></svg>
+  "Turar joy": <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" fill="none" stroke="currentColor" strokeWidth="1.5"/><polyline points="9 22 9 12 15 12 15 22" fill="none" stroke="currentColor" strokeWidth="1.5"/></svg>,
+  "Konferensiya": <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" fill="none" stroke="currentColor" strokeWidth="1.5"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" fill="none" stroke="currentColor" strokeWidth="1.5"/></svg>,
+  "Konferentsiya": <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" fill="none" stroke="currentColor" strokeWidth="1.5"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" fill="none" stroke="currentColor" strokeWidth="1.5"/></svg>,
+}
+
+function getAmenityIcon(name) {
+  const key = name.toLowerCase().replace(/[\s-]+/g, "")
+  const normalized = {}
+  for (const [k, v] of Object.entries(amenityIcons)) {
+    normalized[k.toLowerCase().replace(/[\s-]+/g, "")] = v
+  }
+  return normalized[key] || amenityIcons["VIP"]
 }
 
 export default function MehmonxonaDetail() {
@@ -254,9 +265,9 @@ export default function MehmonxonaDetail() {
             {hotel.amenities.map((amenity, i) => (
               <div key={i} className="md-amenity-card" data-aos="fade-up" data-aos-delay={i * 80}>
                 <div className="md-amenity-icon">
-                  {amenityIcons[amenity] || <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3" fill="currentColor"/></svg>}
+                  {getAmenityIcon(amenity)}
                 </div>
-                <span className="md-amenity-name">{amenity}</span>
+                <span className="md-amenity-name">{tData("data.hotels." + hotel.id + ".amenities." + i, amenity)}</span>
               </div>
             ))}
           </div>
@@ -307,7 +318,7 @@ export default function MehmonxonaDetail() {
                   className={`md-room-cat-btn ${roomCategory === cat ? "active" : ""}`}
                   onClick={() => setRoomCategory(cat)}
                 >
-                  {cat}
+                  {t("hotels.cat_" + cat)}
                 </button>
               ))}
             </div>
@@ -374,7 +385,7 @@ export default function MehmonxonaDetail() {
                       </div>
                       <div className="md-room-body">
                         <h3 className="md-room-name">{tData("data.rooms." + room.id + ".name", room.name)}</h3>
-                        <p className="md-room-desc">{room.description}</p>
+                        <p className="md-room-desc">{tData("data.rooms." + room.id + ".description", room.description)}</p>
                         <div className="md-room-bottom">
                           <div className="md-room-price">
                             {promoPrice ? (

@@ -27,7 +27,7 @@ const TM_PARTICLES = Array.from({ length: 15 }, (_, i) => ({
 function ParticleField() {
 
     return (
-        <div className="tm-particles">
+        <div className="tm-particles" data-aos="fade-up">
             {TM_PARTICLES.map(p => (
                 <div
                     key={p.id}
@@ -55,6 +55,7 @@ function MenuCard({ item }) {
     return (
         <div
             className="tm-card"
+            data-aos="fade-up"
             onClick={() => navigate(`/taomnoma/${item.id}`)}
         >
             <div className="tm-card-img">
@@ -71,10 +72,10 @@ function MenuCard({ item }) {
             </div>
             <div className="tm-card-body">
                 <div className="tm-card-top">
-                    <h3 className="tm-card-name">{tData("data.menu." + item.id + ".name", item.name)}</h3>
+                    <h3 className="tm-card-name" data-aos="fade-up">{tData("data.menu." + item.id + ".name", item.name)}</h3>
                     <span className="tm-card-cat-label">{tData("data.menu." + item.id + ".category", item.category)}</span>
                 </div>
-                <p className="tm-card-desc">{tData("data.menu." + item.id + ".description", item.description)}</p>
+                <p className="tm-card-desc" data-aos="fade-up">{tData("data.menu." + item.id + ".description", item.description)}</p>
                 <div className="tm-card-bottom">
                     <span className="tm-card-info">
                         <svg viewBox="0 0 24 24" fill="none">
@@ -198,11 +199,11 @@ export default function Taomnoma() {
     <div className="taomnoma" data-aos="fade-up">
       <section className="tm-hero" data-aos="fade-up">
         <ParticleField />
-                <div className="tm-hero-glow" />
-                <div className="tm-hero-overlay" />
+                <div className="tm-hero-glow" data-aos="fade-up" />
+                <div className="tm-hero-overlay" data-aos="fade-up" />
                 <div className="tm-hero-content" data-aos="zoom-in">
-                    <div className="tm-badge-wrap">
-                        <div className="tm-badge">
+                    <div className="tm-badge-wrap" data-aos="fade-up">
+                        <div className="tm-badge" data-aos="fade-up">
                             <input
                                 type="text"
                                 className="tm-badge-inp"
@@ -213,6 +214,7 @@ export default function Taomnoma() {
                             />
                             <button
                                 className="badge-btn"
+                                data-aos="zoom-in"
                                 onClick={handleSearch}
                                 disabled={searchLoading}
                             >
@@ -225,9 +227,9 @@ export default function Taomnoma() {
                             </button>
                         </div>
                         {(searchLoading || searchError) && (
-                            <div className={`tm-loading-panel visible`}>
+                            <div className={`tm-loading-panel visible`} data-aos="fade-up">
                                 {searchLoading && (
-                                    <div className="tm-lp-loader">
+                                    <div className="tm-lp-loader" data-aos="fade-up">
                                         <div className="tm-lp-ring" />
                                         <div className="tm-lp-text">
                                             <p className="tm-lp-title">{t("menu.loadingTitle")}</p>
@@ -236,7 +238,7 @@ export default function Taomnoma() {
                                     </div>
                                 )}
                                 {searchError && !searchLoading && (
-                                    <div className="tm-lp-warning">
+                                    <div className="tm-lp-warning" data-aos="fade-up">
                                         <div className="tm-lp-warn-icon">
                                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                                                 <circle cx="12" cy="12" r="10" />
@@ -252,30 +254,30 @@ export default function Taomnoma() {
                             </div>
                         )}
                     </div>
-                    <h1 className="tm-title">
+                    <h1 className="tm-title" data-aos="fade-up">
                         {t("menu.heroTitle1")} <span className="tm-gold">{t("menu.heroTitleGold")}</span> {t("menu.heroTitle2")}
                     </h1>
-                    <p className="tm-subtitle">
+                    <p className="tm-subtitle" data-aos="fade-up">
                         {t("menu.heroDesc")}
                     </p>
-                    <div className="tm-hero-actions">
-                        <button className="tm-hero-btn" onClick={() => bodyRef.current?.scrollIntoView({ behavior: "smooth" })}>
+                    <div className="tm-hero-actions" data-aos="fade-up">
+                        <button className="tm-hero-btn" data-aos="zoom-in" onClick={() => bodyRef.current?.scrollIntoView({ behavior: "smooth" })}>
                             {t("menu.viewMenu")}
                             <svg viewBox="0 0 24 24" fill="none">
                                 <path d="M19 14l-7 7m0 0l-7-7m7 7V3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                             </svg>
                         </button>
                     </div>
-                    <div className="tm-divider">
-                        <span /><div className="tm-diamond" /><span />
+                    <div className="tm-divider" data-aos="fade-up">
+                        <span data-aos="fade-up" /><div className="tm-diamond" data-aos="fade-up" /><span data-aos="fade-up" />
                     </div>
                 </div>
             </section>
             <section className="tm-body" ref={bodyRef} data-aos="fade-up">
                 <div className="tm-section-label" data-aos="fade-up">
-                    <span className="tm-label-line" />
-                    <span>{t("menu.menuLabel")}</span>
-                    <span className="tm-label-line" />
+                    <span className="tm-label-line" data-aos="fade-up" />
+                    <span data-aos="fade-up">{t("menu.menuLabel")}</span>
+                    <span className="tm-label-line" data-aos="fade-up" />
                 </div>
                 <h2 className="tm-section-title" data-aos="fade-up">{t("menu.availableTitle1")} <span className="tm-gold">{t("menu.availableTitleGold")}</span> {t("menu.availableTitle2")}</h2>
                 <div
@@ -284,11 +286,13 @@ export default function Taomnoma() {
                     data-aos="fade-up"
                     data-aos-delay="100"
                 >
-                    <div className="tm-cat-track">
-                        {menuCategories.map(cat => (
+                    <div className="tm-cat-track" data-aos="fade-up">
+                        {menuCategories.map((cat, ci) => (
                             <button
                                 key={cat}
                                 className={`tm-cat-btn ${activeCategory === cat ? "active" : ""}`}
+                                data-aos="fade-up"
+                                data-aos-delay={ci * 50}
                                 onClick={() => handleCategoryClick(cat)}
                             >
                                 {t("menu.cat_" + cat.replace(/ /g, "_"))}
@@ -299,8 +303,8 @@ export default function Taomnoma() {
                 <div className="tm-stats" data-aos="fade-up" data-aos-delay="150">
                     <span className="tm-stats-count">{filtered.length} {t("menu.found")}</span>
                 </div>
-                <div className="tm-grid-wrap">
-                    <div className="tm-grid">
+                <div className="tm-grid-wrap" data-aos="fade-up">
+                    <div className="tm-grid" data-aos="fade-up">
                         {Array.from({ length: Math.ceil(visible.length / 4) }, (_, i) => {
                             const rowItems = visible.slice(i * 4, i * 4 + 4)
                             return (
@@ -315,7 +319,7 @@ export default function Taomnoma() {
                 </div>
                 {hasMore && (
                     <div className="tm-load-more" data-aos="fade-up">
-                        <button className="tm-load-btn" onClick={() => setVisibleCount(prev => prev + 4)}>
+                        <button className="tm-load-btn" data-aos="zoom-in" onClick={() => setVisibleCount(prev => prev + 4)}>
                             {t("menu.viewMore")}
                             <svg viewBox="0 0 24 24" fill="none">
                                 <path d="M7 13l5 5 5-5M7 6l5 5 5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -324,7 +328,7 @@ export default function Taomnoma() {
                     </div>
                 )}
                 {filtered.length === 0 && !searchLoading && (
-                    <div className="tm-empty">
+                    <div className="tm-empty" data-aos="fade-up">
                         <svg viewBox="0 0 24 24" fill="none">
                             <circle cx="11" cy="11" r="8" stroke="currentColor" strokeWidth="2" />
                             <path d="M21 21l-4.35-4.35" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />

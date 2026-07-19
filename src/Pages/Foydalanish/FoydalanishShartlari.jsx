@@ -9,15 +9,15 @@ export default function FoydalanishShartlari() {
       <section className="terms-hero" data-aos="fade-up">
         <div className="terms-hero-overlay" />
         <div className="terms-hero-content" data-aos="zoom-in">
-          <div className="terms-badge">
+          <div className="terms-badge" data-aos="fade-up">
             <span className="terms-badge-line" />
             <span>{t("terms.badge")}</span>
             <span className="terms-badge-line" />
           </div>
-          <h1 className="terms-hero-title">
+          <h1 className="terms-hero-title" data-aos="fade-up" data-aos-delay="100">
             {t("terms.title")} <span className="gold-text">{t("terms.titleGold")}</span>
           </h1>
-          <p className="terms-hero-desc">
+          <p className="terms-hero-desc" data-aos="fade-up" data-aos-delay="200">
             {t("terms.desc")}
           </p>
         </div>

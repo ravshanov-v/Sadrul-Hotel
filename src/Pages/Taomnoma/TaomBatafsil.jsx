@@ -19,13 +19,13 @@ export default function TaomBatafsil() {
 
   if (!item) {
     return (
-      <div className="tb-empty">
+      <div className="tb-empty" data-aos="fade-up">
         <svg viewBox="0 0 24 24" fill="none">
           <circle cx="11" cy="11" r="8" stroke="currentColor" strokeWidth="2" />
           <path d="M21 21l-4.35-4.35" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
         </svg>
-        <h2>{t("menu.notFound")}</h2>
-        <button onClick={() => navigate("/taomnoma")}>{t("menu.back")}</button>
+        <h2 data-aos="fade-up">{t("menu.notFound")}</h2>
+        <button onClick={() => navigate("/taomnoma")} data-aos="fade-up">{t("menu.back")}</button>
       </div>
     )
   }
@@ -34,15 +34,15 @@ export default function TaomBatafsil() {
 
   return (
     <div className="tb-page">
-      <div className={`tb-main ${showVariants ? "shifted" : ""}`}>
-        <button className="tb-back" onClick={() => navigate("/taomnoma")}>
+      <div className={`tb-main ${showVariants ? "shifted" : ""}`} data-aos="fade-up">
+        <button className="tb-back" onClick={() => navigate("/taomnoma")} data-aos="fade-up">
           <svg viewBox="0 0 24 24" fill="none">
             <path d="M19 12H5M12 19l-7-7 7-7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
           {t("menu.back")}
         </button>
 
-        <div className="tb-hero">
+        <div className="tb-hero" data-aos="fade-up">
           <div className="tb-hero-img" data-aos="fade-left">
             <img src={item.image} alt={tData("data.menu." + item.id + ".name", item.name)} />
             <div className={`tb-avail ${item.available ? "yes" : "no"}`}>
@@ -50,10 +50,10 @@ export default function TaomBatafsil() {
             </div>
           </div>
           <div className="tb-hero-info" data-aos="fade-right">
-            <span className="tb-cat">{tData("data.menu." + item.id + ".category", item.category)}</span>
-            <h1 className="tb-name">{tData("data.menu." + item.id + ".name", item.name)}</h1>
-            <p className="tb-desc">{tData("data.menu." + item.id + ".description", item.description)}</p>
-            <div className="tb-meta">
+            <span className="tb-cat" data-aos="fade-up">{tData("data.menu." + item.id + ".category", item.category)}</span>
+            <h1 className="tb-name" data-aos="fade-up">{tData("data.menu." + item.id + ".name", item.name)}</h1>
+            <p className="tb-desc" data-aos="fade-up">{tData("data.menu." + item.id + ".description", item.description)}</p>
+            <div className="tb-meta" data-aos="fade-up">
               <span className="tb-meta-item">
                 <svg viewBox="0 0 24 24" fill="none">
                   <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5" />
@@ -90,21 +90,21 @@ export default function TaomBatafsil() {
         )}
       </div>
 
-      <div className={`tb-panel ${showVariants ? "open" : ""}`}>
-        <div className="tb-panel-header">
+      <div className={`tb-panel ${showVariants ? "open" : ""}`} data-aos="fade-up">
+        <div className="tb-panel-header" data-aos="fade-up">
           <h2>
             <svg viewBox="0 0 24 24" fill="none">
               <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
             {t("menu.variants")} ({item.variants.length})
           </h2>
-          <button className="tb-panel-close" onClick={() => setShowVariants(false)}>
+          <button className="tb-panel-close" onClick={() => setShowVariants(false)} data-aos="fade-up">
             <svg viewBox="0 0 24 24" fill="none">
               <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
             </svg>
           </button>
         </div>
-        <div className="tb-panel-body">
+        <div className="tb-panel-body" data-aos="fade-up">
           {item.variants.map((v, i) => (
             <div
               key={i}
@@ -125,7 +125,7 @@ export default function TaomBatafsil() {
         </div>
       </div>
 
-      {showVariants && <div className="tb-overlay" onClick={() => setShowVariants(false)} />}
+      {showVariants && <div className="tb-overlay" onClick={() => setShowVariants(false)} data-aos="fade-up" />}
     </div>
   )
 }

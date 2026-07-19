@@ -9,15 +9,15 @@ export default function Maxfiylik() {
       <section className="privacy-hero" data-aos="fade-up">
         <div className="privacy-hero-overlay" />
         <div className="privacy-hero-content" data-aos="zoom-in">
-          <div className="privacy-badge">
+          <div className="privacy-badge" data-aos="fade-up">
             <span className="privacy-badge-line" />
             <span>{t("privacy.badge")}</span>
             <span className="privacy-badge-line" />
           </div>
-          <h1 className="privacy-hero-title">
+          <h1 className="privacy-hero-title" data-aos="fade-up" data-aos-delay="100">
             {t("privacy.title")} <span className="gold-text">{t("privacy.titleGold")}</span>
           </h1>
-          <p className="privacy-hero-desc">
+          <p className="privacy-hero-desc" data-aos="fade-up" data-aos-delay="200">
             {t("privacy.desc")}
           </p>
         </div>

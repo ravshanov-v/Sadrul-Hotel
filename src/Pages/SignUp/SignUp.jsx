@@ -112,30 +112,30 @@ export default function SignUp() {
 
   return (
     <div className="signup-page">
-      <div className="signup-card">
-        <button className="signup-close-btn" onClick={() => navigate("/")}>
+      <div className="signup-card" data-aos="fade-up">
+        <button className="signup-close-btn" onClick={() => navigate("/")} data-aos="fade-up">
           <img className="close" src={close} alt={t("signup.closeAlt")} />
         </button>
-        <div className="signup-content">
+        <div className="signup-content" data-aos="fade-up">
           <div className="signup-left" data-aos="fade-right">
-            <div className="signup-left-logo">
-              <img className="signup-logo-img" src={logoIconS} alt={t("signup.logoAlt")} />
+            <div className="signup-left-logo" data-aos="fade-up">
+              <img className="signup-logo-img" src={logoIconS} alt={t("signup.logoAlt")} data-aos="zoom-in" />
               <p className="signup-logo-p">{t("signup.logoSpan")}</p>
             </div>
-            <span className="signup-left-decoration">
+            <span className="signup-left-decoration" data-aos="fade-up">
               <span>{t("signup.hotelSuffix")}</span>
             </span>
-            <div className="signup-left-quote">
+            <div className="signup-left-quote" data-aos="fade-up">
               <p>{t("signup.quote1")}</p>
               <p>{t("signup.quote2")}</p>
             </div>
           </div>
 
           <div className="signup-right" data-aos="fade-up">
-            <h1 className="signup-h">{t("signup.title")}</h1>
-            <p className="signup-desc">{t("signup.desc")}</p>
+            <h1 className="signup-h" data-aos="fade-up">{t("signup.title")}</h1>
+            <p className="signup-desc" data-aos="fade-up">{t("signup.desc")}</p>
 
-            <form className="signup-form" onSubmit={handleSubmit} noValidate autoComplete="off">
+            <form className="signup-form" onSubmit={handleSubmit} noValidate autoComplete="off" data-aos="fade-up">
               <div className="signup-field">
                 <input
                   className={inputClass("fullName")}
@@ -271,7 +271,7 @@ export default function SignUp() {
               <button className="signup-btn" type="submit" data-aos="zoom-in"><span>{t("signup.submit")}</span></button>
             </form>
 
-            <p className="signup-login-link">
+            <p className="signup-login-link" data-aos="fade-up">
               {t("signup.haveAccount")} <span className="signup-toggle-link" onClick={() => { openModal(); navigate("/", { state: { openModal: true } }) }}>{t("signup.loginLink")}</span>
             </p>
           </div>

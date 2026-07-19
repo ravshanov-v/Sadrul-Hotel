@@ -292,10 +292,10 @@ export default function BronQilish() {
 
   if (submitted) {
     return (
-      <div className="bq-page">
-        <div className="bq-sc">
-          <div className="bq-sc-inner">
-            <div className="bq-sc-hero">
+      <div className="bq-page" data-aos="fade-up">
+        <div className="bq-sc" data-aos="fade-up">
+          <div className="bq-sc-inner" data-aos="fade-up">
+            <div className="bq-sc-hero" data-aos="fade-up">
               <div className="bq-sc-check" data-aos="zoom-in">
                 <svg viewBox="0 0 24 24" fill="none">
                   <circle cx="12" cy="12" r="10" stroke="#D4AF37" strokeWidth="2" />
@@ -309,60 +309,60 @@ export default function BronQilish() {
             </div>
 
             <div className="bq-sc-card" data-aos="fade-up" data-aos-delay="300">
-              <div className="bq-sc-card-header">
+              <div className="bq-sc-card-header" data-aos="fade-up">
                 <svg viewBox="0 0 24 24" fill="none">
                   <rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" strokeWidth="1.5" />
                   <path d="M3 10h18M8 2v4M16 2v4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
                 </svg>
                 {t("booking.bookingInfo")}
               </div>
-              <div className="bq-sc-rows">
-                <div className="bq-sc-row">
+              <div className="bq-sc-rows" data-aos="fade-up">
+                <div className="bq-sc-row" data-aos="fade-up">
                   <span className="bq-sc-label">{t("booking.hotel")}</span>
                   <span className="bq-sc-value">{tData("data.hotels." + hotel?.id + ".name", hotel?.name || "")}</span>
                 </div>
-                <div className="bq-sc-row">
+                <div className="bq-sc-row" data-aos="fade-up">
                   <span className="bq-sc-label">{t("booking.checkIn")}</span>
                   <span className="bq-sc-value">{form.checkIn}</span>
                 </div>
-                <div className="bq-sc-row">
+                <div className="bq-sc-row" data-aos="fade-up">
                   <span className="bq-sc-label">{t("booking.checkOut")}</span>
                   <span className="bq-sc-value">{form.checkOut}</span>
                 </div>
-                <div className="bq-sc-row">
+                <div className="bq-sc-row" data-aos="fade-up">
                   <span className="bq-sc-label">{t("booking.guests")}</span>
                   <span className="bq-sc-value">{form.guests} {t("booking.guestsCount")}</span>
                 </div>
-                <div className="bq-sc-row">
+                <div className="bq-sc-row" data-aos="fade-up">
                   <span className="bq-sc-label">{t("booking.roomType")}</span>
                   <span className="bq-sc-value">{roomLabel(form.roomType)}</span>
                 </div>
-                <div className="bq-sc-row">
+                <div className="bq-sc-row" data-aos="fade-up">
                   <span className="bq-sc-label">{t("booking.paymentMethod")}</span>
                   <span className="bq-sc-value">{form.paymentMethod === "naqt" ? t("booking.cash") : t("booking.card")}</span>
                 </div>
-                <div className="bq-sc-row bq-sc-total">
+                <div className="bq-sc-row bq-sc-total" data-aos="fade-up">
                   <span className="bq-sc-label">{t("booking.total")}</span>
                   <span className="bq-sc-total-amount">${totalPrice}</span>
                 </div>
               </div>
-              <div className="bq-sc-voucher">
-                <div className="bq-sc-voucher-row">
+              <div className="bq-sc-voucher" data-aos="fade-up">
+                <div className="bq-sc-voucher-row" data-aos="fade-up">
                   <svg viewBox="0 0 24 24" fill="none" width="18" height="18">
                     <rect x="2" y="4" width="20" height="16" rx="2" stroke="#D4AF37" strokeWidth="1.5" />
                     <path d="M22 6L12 13L2 6" stroke="#D4AF37" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                   <span>{t("booking.voucherTo")}</span>
                 </div>
-                <div className="bq-sc-voucher-email">{voucherEmail}</div>
+                <div className="bq-sc-voucher-email" data-aos="fade-up">{voucherEmail}</div>
                 {emailStatus === "sending" && (
-                  <div className="bq-sc-voucher-sending">
+                  <div className="bq-sc-voucher-sending" data-aos="fade-up">
                     <div className="bq-sc-voucher-spinner" />
                     {t("booking.voucherSending")}
                   </div>
                 )}
                 {emailStatus === "sent" && (
-                  <div className="bq-sc-voucher-success">
+                  <div className="bq-sc-voucher-success" data-aos="fade-up">
                     <svg viewBox="0 0 24 24" fill="none" width="16" height="16">
                       <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5" />
                       <path d="M8 12L11 15L16 9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -371,7 +371,7 @@ export default function BronQilish() {
                   </div>
                 )}
                 {emailStatus === "demo" && (
-                  <div className="bq-sc-voucher-demo">
+                  <div className="bq-sc-voucher-demo" data-aos="fade-up">
                     <svg viewBox="0 0 24 24" fill="none" width="14" height="14">
                       <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5" />
                       <path d="M12 8v4M12 16h.01" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
@@ -380,7 +380,7 @@ export default function BronQilish() {
                   </div>
                 )}
                 {emailStatus === "failed" && (
-                  <div className="bq-sc-voucher-failed">
+                  <div className="bq-sc-voucher-failed" data-aos="fade-up">
                     <svg viewBox="0 0 24 24" fill="none" width="14" height="14">
                       <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5" />
                       <path d="M12 8v4M12 16h.01" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
@@ -389,7 +389,7 @@ export default function BronQilish() {
                   </div>
                 )}
               </div>
-              <button className="bq-sc-btn" onClick={() => navigate("/mehmonxonalar")}>
+              <button className="bq-sc-btn" data-aos="zoom-in" onClick={() => navigate("/mehmonxonalar")}>
                 <svg viewBox="0 0 24 24" fill="none">
                   <path d="M19 12H5M12 19l-7-7 7-7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
@@ -398,23 +398,23 @@ export default function BronQilish() {
             </div>
 
             {recommendations.length > 0 && (
-              <div className="bq-sc-recs">
-                <div className="bq-sc-recs-header">
-                  <span className="bq-sc-recs-line" />
-                  <span>{t("booking.recommendations")}</span>
-                  <span className="bq-sc-recs-line" />
+              <div className="bq-sc-recs" data-aos="fade-up">
+                <div className="bq-sc-recs-header" data-aos="fade-up">
+                  <span className="bq-sc-recs-line" data-aos="fade-up" />
+                  <span data-aos="fade-up">{t("booking.recommendations")}</span>
+                  <span className="bq-sc-recs-line" data-aos="fade-up" />
                 </div>
-                <div className="bq-sc-recs-track">
-                  {recommendations.map(rec => (
-                    <div key={rec.id} className="bq-sc-rec" onClick={rec.action}>
+                <div className="bq-sc-recs-track" data-aos="fade-up">
+                  {recommendations.map((rec, ridx) => (
+                    <div key={rec.id} className="bq-sc-rec" data-aos="fade-up" data-aos-delay={ridx * 50} onClick={rec.action}>
                       <div className="bq-sc-rec-img">
                         <img src={rec.image} alt={rec.title} loading="lazy" />
                         <div className="bq-sc-rec-overlay" />
                       </div>
                       <div className="bq-sc-rec-body">
-                        <h4>{rec.title}</h4>
-                        <p>{rec.desc}</p>
-                        <span className="bq-sc-rec-btn">
+                        <h4 data-aos="fade-up">{rec.title}</h4>
+                        <p data-aos="fade-up">{rec.desc}</p>
+                        <span className="bq-sc-rec-btn" data-aos="zoom-in">
                           {rec.btnText}
                           <svg viewBox="0 0 24 24" fill="none">
                             <path d="M5 12h14M19 12l-6-6M19 12l-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -433,39 +433,39 @@ export default function BronQilish() {
   }
 
   return (
-    <div className="bq-page">
-      <div className="bq-hero">
-        <div className="bq-hero-overlay" />
+    <div className="bq-page" data-aos="fade-up">
+      <div className="bq-hero" data-aos="fade-up">
+        <div className="bq-hero-overlay" data-aos="fade-up" />
         <div className="bq-hero-content" data-aos="zoom-in">
-          <div className="bq-badge">
+          <div className="bq-badge" data-aos="fade-up">
             <svg viewBox="0 0 24 24" fill="none">
               <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="currentColor" />
             </svg>
             {t("booking.heroBadge")}
             {promoCode && (
-              <span className="bq-promo-hero-badge">{promoCode} · {promoDiscount}%</span>
+              <span className="bq-promo-hero-badge" data-aos="fade-up">{promoCode} · {promoDiscount}%</span>
             )}
           </div>
-          <h1>{tData("data.hotels." + hotel?.id + ".name", hotel?.name || t("booking.fallbackHotel"))}</h1>
-          <p className="bq-hero-sub">{tData("data.hotels." + hotel?.id + ".location", hotel?.location || "")}</p>
+          <h1 data-aos="fade-up" data-aos-delay="100">{tData("data.hotels." + hotel?.id + ".name", hotel?.name || t("booking.fallbackHotel"))}</h1>
+          <p className="bq-hero-sub" data-aos="fade-up" data-aos-delay="200">{tData("data.hotels." + hotel?.id + ".location", hotel?.location || "")}</p>
         </div>
       </div>
 
-      <div className="bq-body">
-        <div className="bq-container">
-          <div className="bq-main">
+      <div className="bq-body" data-aos="fade-up">
+          <div className="bq-container" data-aos="fade-up">
+            <div className="bq-main" data-aos="fade-up">
             <div className="bq-hotel-preview" data-aos="fade-up">
-              <img src={hotel?.image} alt={tData("data.hotels." + hotel?.id + ".name", hotel?.name || "")} />
-              <div className="bq-hotel-info">
-                <div className="bq-hotel-rating">
+              <img src={hotel?.image} data-aos="fade-up" alt={tData("data.hotels." + hotel?.id + ".name", hotel?.name || "")} />
+              <div className="bq-hotel-info" data-aos="fade-up">
+                <div className="bq-hotel-rating" data-aos="fade-up">
                   <svg viewBox="0 0 24 24" fill="currentColor">
                     <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
                   </svg>
                   {hotel?.rating}
                   <span className="bq-hotel-reviews">{t("booking.reviews", { count: hotel?.reviews })}</span>
                 </div>
-                <p className="bq-hotel-desc">{tData("data.hotels." + hotel?.id + ".description", hotel?.description || "")}</p>
-                <div className="bq-hotel-price">
+                <p className="bq-hotel-desc" data-aos="fade-up">{tData("data.hotels." + hotel?.id + ".description", hotel?.description || "")}</p>
+                <div className="bq-hotel-price" data-aos="fade-up">
                   <span className="bq-price-amount">${hotel?.price}</span>
                   <span className="bq-price-unit">{t("booking.perNight")}</span>
                 </div>
@@ -473,19 +473,19 @@ export default function BronQilish() {
             </div>
 
             <form className="bq-form" onSubmit={handleSubmit} data-aos="fade-up" data-aos-delay="100">
-              <h2 className="bq-form-title">{t("booking.personalInfo")}</h2>
-              <div className="bq-form-grid">
-                <div className="bq-form-group bq-full">
+              <h2 className="bq-form-title" data-aos="fade-up">{t("booking.personalInfo")}</h2>
+              <div className="bq-form-grid" data-aos="fade-up">
+                <div className="bq-form-group bq-full" data-aos="fade-up">
                   <label>{t("booking.fullName")}</label>
                   <input type="text" name="fullName" value={form.fullName} onChange={handleChange} placeholder={t("booking.namePlaceholder")} required />
                 </div>
-                <div className="bq-form-group">
+                <div className="bq-form-group" data-aos="fade-up">
                   <label>{t("booking.phone")}</label>
                   <input type="tel" name="phone" value={form.phone} onChange={handleChange} placeholder={t("booking.phonePlaceholder")} required />
                 </div>
               </div>
 
-              <div className="bq-email-info">
+              <div className="bq-email-info" data-aos="fade-up">
                 <svg viewBox="0 0 24 24" fill="none" width="18" height="18">
                   <rect x="2" y="4" width="20" height="16" rx="2" stroke="#D4AF37" strokeWidth="1.5" />
                   <path d="M22 6L12 13L2 6" stroke="#D4AF37" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -493,21 +493,21 @@ export default function BronQilish() {
                 <span>{t("booking.voucherTo")} <strong>{voucherEmail || t("booking.emailNotFound")}</strong></span>
               </div>
 
-              <h2 className="bq-form-title">{t("booking.bookingInfo")}</h2>
-              <div className="bq-form-grid">
-                <div className="bq-form-group">
+              <h2 className="bq-form-title" data-aos="fade-up">{t("booking.bookingInfo")}</h2>
+              <div className="bq-form-grid" data-aos="fade-up">
+                <div className="bq-form-group" data-aos="fade-up">
                   <label>{t("booking.checkIn")}</label>
                   <input type="date" name="checkIn" value={form.checkIn} onChange={handleChange} min={today} required />
                 </div>
-                <div className="bq-form-group">
+                <div className="bq-form-group" data-aos="fade-up">
                   <label>{t("booking.checkOut")}</label>
                   <input type="date" name="checkOut" value={form.checkOut} onChange={handleChange} min={form.checkIn || today} required />
                 </div>
-                <div className="bq-form-group">
+                <div className="bq-form-group" data-aos="fade-up">
                   <label>{t("booking.guests")}</label>
                   <input type="number" name="guests" value={form.guests} onChange={handleChange} min="1" max="10" required />
                 </div>
-                <div className="bq-form-group">
+                <div className="bq-form-group" data-aos="fade-up">
                   <label>{t("booking.roomType")}</label>
                   <select name="roomType" value={form.roomType} onChange={handleChange}>
                     <option value="standart">{t("booking.roomStandard")}</option>
@@ -520,8 +520,8 @@ export default function BronQilish() {
                 </div>
               </div>
 
-              <h2 className="bq-form-title">{t("booking.paymentMethod")}</h2>
-              <div className="bq-payment-grid">
+              <h2 className="bq-form-title" data-aos="fade-up">{t("booking.paymentMethod")}</h2>
+              <div className="bq-payment-grid" data-aos="fade-up">
                 <label className={`bq-payment-card ${form.paymentMethod === "naqt" ? "active" : ""}`} data-aos="fade-up" data-aos-delay="0">
                   <input type="radio" name="paymentMethod" value="naqt" checked={form.paymentMethod === "naqt"} onChange={handleChange} />
                   <span className="bq-payment-icon">
@@ -559,24 +559,24 @@ export default function BronQilish() {
 
               {form.paymentMethod === "karta" && (
                 <div className="bq-card-form" data-aos="fade-up">
-                  <h3 className="bq-card-form-title">{t("booking.cardFormTitle")}</h3>
-                  <div className="bq-card-form-grid">
-                    <div className="bq-form-group bq-full">
+                  <h3 className="bq-card-form-title" data-aos="fade-up">{t("booking.cardFormTitle")}</h3>
+                  <div className="bq-card-form-grid" data-aos="fade-up">
+                    <div className="bq-form-group bq-full" data-aos="fade-up">
                       <label>{t("booking.cardName")}</label>
                       <input type="text" name="cardName" value={form.cardName} onChange={handleChange} placeholder={t("booking.cardNamePlaceholder")} className={cardErrors.cardName ? 'bq-input-error' : ''} required />
                       {cardErrors.cardName && <span className="bq-field-error">{cardErrors.cardName}</span>}
                     </div>
-                    <div className="bq-form-group bq-full">
+                    <div className="bq-form-group bq-full" data-aos="fade-up">
                       <label>{t("booking.cardNumber")}</label>
                       <input type="text" name="cardNumber" value={form.cardNumber} onChange={handleChange} placeholder={t("booking.cardNumberPlaceholder")} maxLength="19" className={cardErrors.cardNumber ? 'bq-input-error' : ''} required />
                       {cardErrors.cardNumber && <span className="bq-field-error">{cardErrors.cardNumber}</span>}
                     </div>
-                    <div className="bq-form-group">
+                    <div className="bq-form-group" data-aos="fade-up">
                       <label>{t("booking.cardExpiry")}</label>
                       <input type="text" name="cardExpiry" value={form.cardExpiry} onChange={handleChange} placeholder={t("booking.cardExpiryPlaceholder")} maxLength="5" className={cardErrors.cardExpiry ? 'bq-input-error' : ''} required />
                       {cardErrors.cardExpiry && <span className="bq-field-error">{cardErrors.cardExpiry}</span>}
                     </div>
-                    <div className="bq-form-group">
+                    <div className="bq-form-group" data-aos="fade-up">
                       <label>{t("booking.cardPin")}</label>
                       <input type="password" name="cardPin" value={form.cardPin} onChange={handleChange} placeholder="••••••" maxLength="6" className={cardErrors.cardPin ? 'bq-input-error' : ''} required />
                       {cardErrors.cardPin && <span className="bq-field-error">{cardErrors.cardPin}</span>}
@@ -595,37 +595,37 @@ export default function BronQilish() {
           </div>
 
           <div className="bq-sidebar" data-aos="fade-up" data-aos-delay="200">
-            <div className="bq-summary">
-              <h3>{t("booking.summaryTitle")}</h3>
-              <div className="bq-summary-row">
+            <div className="bq-summary" data-aos="fade-up">
+              <h3 data-aos="fade-up">{t("booking.summaryTitle")}</h3>
+              <div className="bq-summary-row" data-aos="fade-up">
                 <span>{tData("data.hotels." + hotel?.id + ".name", hotel?.name || "")}</span>
                 <span>${hotel?.price} × {nights || 1} {t("booking.nights")}</span>
               </div>
-              <div className="bq-summary-row">
+              <div className="bq-summary-row" data-aos="fade-up">
                 <span>{t("booking.roomType")}</span>
                 <span>{roomLabel(form.roomType)}</span>
               </div>
-              <div className="bq-summary-row">
+              <div className="bq-summary-row" data-aos="fade-up">
                 <span>{t("booking.guests")}</span>
                 <span>{form.guests} {t("booking.guestsCount")}</span>
               </div>
-              <div className="bq-summary-row">
+              <div className="bq-summary-row" data-aos="fade-up">
                 <span>{t("booking.paymentMethod")}</span>
                 <span>{form.paymentMethod === "naqt" ? t("booking.cash") : t("booking.card")}</span>
               </div>
               {nights > 0 && (
-                <div className="bq-summary-row">
+                <div className="bq-summary-row" data-aos="fade-up">
                   <span>{t("booking.nights")}</span>
                   <span>{nights}</span>
                 </div>
               )}
               {promoCode && nights > 0 && (
                 <>
-                  <div className="bq-summary-row">
+                  <div className="bq-summary-row" data-aos="fade-up">
                     <span>{t("booking.originalPrice")}</span>
                     <span className="bq-price-old">${rawTotal}</span>
                   </div>
-                  <div className="bq-summary-row bq-promo-row">
+                  <div className="bq-summary-row bq-promo-row" data-aos="fade-up">
                     <span>
                       <svg viewBox="0 0 24 24" fill="none" width="14" height="14" style={{marginRight: 6, verticalAlign: 'middle'}}>
                         <path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -637,12 +637,12 @@ export default function BronQilish() {
                   </div>
                 </>
               )}
-              <div className="bq-summary-divider" />
-              <div className="bq-summary-total">
+              <div className="bq-summary-divider" data-aos="fade-up" />
+              <div className="bq-summary-total" data-aos="fade-up">
                 <span>{t("booking.total")}</span>
                 <span className={`bq-total-amount ${promoDiscount ? 'bq-total-promo' : ''}`}>${totalPrice}</span>
               </div>
-              <p className="bq-summary-note">{t("booking.freeCancel")}</p>
+              <p className="bq-summary-note" data-aos="fade-up">{t("booking.freeCancel")}</p>
             </div>
 
             {availChecking && (
@@ -677,12 +677,14 @@ export default function BronQilish() {
 
             {availability && !availability.available && !availChecking && similarRooms.length > 0 && (
               <div className="bq-similar-rooms" data-aos="fade-up">
-                <h4 className="bq-similar-title">{t("booking.similarRooms")}</h4>
-                <div className="bq-similar-list">
-                  {similarRooms.slice(0, 4).map(room => (
+                <h4 className="bq-similar-title" data-aos="fade-up">{t("booking.similarRooms")}</h4>
+                <div className="bq-similar-list" data-aos="fade-up">
+                  {similarRooms.slice(0, 4).map((room, sidx) => (
                     <div
                       key={room.id}
                       className="bq-similar-item"
+                      data-aos="fade-up"
+                      data-aos-delay={sidx * 50}
                       onClick={() => {
                         navigate(`/bron-qilish/${hotel.id}?room=${room.id}&checkIn=${form.checkIn}&checkOut=${form.checkOut}`)
                       }}
@@ -701,7 +703,7 @@ export default function BronQilish() {
         </div>
       </div>
       {toast && (
-        <div className="bq-toast" onClick={() => setToast(null)}>
+        <div className="bq-toast" data-aos="fade-up" onClick={() => setToast(null)}>
           <svg viewBox="0 0 24 24" fill="none" className="bq-toast-icon">
             <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5" />
             <path d="M15 9l-6 6M9 9l6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />

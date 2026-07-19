@@ -17,7 +17,7 @@ import "./Takliflar.css"
 
 function Toast({ message, show }) {
   return (
-    <div className={`tk-toast ${show ? 'tk-toast-visible' : ''}`}>
+    <div className={`tk-toast ${show ? 'tk-toast-visible' : ''}`} data-aos="fade-up">
       <svg viewBox="0 0 24 24" fill="none" className="tk-toast-icon">
         <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5" />
         <path d="M8 12l3 3 5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -40,7 +40,7 @@ function OfferCard({ taklif, onCopyCode }) {
   }
 
   return (
-    <div className="tk-card">
+    <div className="tk-card" data-aos="fade-up">
       <div className="tk-card-image">
         <div className={`tk-image-loader ${imgLoaded ? 'tk-image-loaded' : ''}`} />
         <img
@@ -48,6 +48,7 @@ function OfferCard({ taklif, onCopyCode }) {
           alt={tData("data.offers." + taklif.id + ".title", taklif.title)}
           loading="lazy"
           onLoad={() => setImgLoaded(true)}
+          data-aos="zoom-in"
         />
         <div className="tk-card-overlay" />
         <div className="tk-discount-badge">
@@ -58,7 +59,7 @@ function OfferCard({ taklif, onCopyCode }) {
         )}
       </div>
       <div className="tk-card-body">
-        <h3 className="tk-card-title">{tData("data.offers." + taklif.id + ".title", taklif.title)}</h3>
+        <h3 className="tk-card-title" data-aos="fade-up">{tData("data.offers." + taklif.id + ".title", taklif.title)}</h3>
 
         <div className="tk-card-pricing">
           <div className="tk-pricing-col">
@@ -104,7 +105,7 @@ function OfferCard({ taklif, onCopyCode }) {
 function MemberToast({ show }) {
   const { t } = useLanguage()
   return (
-    <div className={`tk-member-toast ${show ? 'tk-member-toast-visible' : ''}`}>
+    <div className={`tk-member-toast ${show ? 'tk-member-toast-visible' : ''}`} data-aos="fade-up">
       <div className="tk-member-toast-icon">
         <FiCheckCircle />
       </div>
@@ -151,15 +152,15 @@ export default function Takliflar() {
       <Toast message={toastMsg} show={toastShow} />
       <MemberToast show={memberToastShow} />
       <div className='tk-header' data-aos="zoom-in">
-        <div className='tk-badge'>
+        <div className='tk-badge' data-aos="fade-up">
           <span className='tk-badge-line' />
           <span>{t("offers.badge")}</span>
           <span className='tk-badge-line' />
         </div>
-        <h1 className='tk-title'>{t("offers.heroTitle1")} <span className='tk-gold'>{t("offers.heroTitleGold")}</span> {t("offers.heroTitle2")}</h1>
-        <p className='tk-subtitle'>{t("offers.desc")}</p>
+        <h1 className='tk-title' data-aos="fade-up">{t("offers.heroTitle1")} <span className='tk-gold'>{t("offers.heroTitleGold")}</span> {t("offers.heroTitle2")}</h1>
+        <p className='tk-subtitle' data-aos="fade-up">{t("offers.desc")}</p>
       </div>
-      <div className='tk-swiper-wrap'>
+      <div className='tk-swiper-wrap' data-aos="fade-up">
         <Swiper
           grabCursor={true}
           slidesPerView={3}
@@ -192,31 +193,31 @@ export default function Takliflar() {
         <div className="tk-bottom-bg-pattern" />
         <div className="tk-bottom-glow" />
         <div className="tk-bottom-content">
-          <div className="tk-bottom-badge">
+          <div className="tk-bottom-badge" data-aos="fade-up">
             <HiShieldCheck />
             <span>{t("offers.premiumBadge")}</span>
           </div>
-          <h2 className="tk-bottom-title">
+          <h2 className="tk-bottom-title" data-aos="fade-up">
             {t("offers.clubTitle1")} <span className="tk-gold">{t("offers.clubTitleGold")}</span> {t("offers.clubTitle2")}
           </h2>
-          <p className="tk-bottom-desc">
+          <p className="tk-bottom-desc" data-aos="fade-up">
             {t("offers.clubDesc")}
           </p>
-          <div className="tk-bottom-features">
-            <div className="tk-bottom-feature">
+          <div className="tk-bottom-features" data-aos="fade-up">
+            <div className="tk-bottom-feature" data-aos="fade-up">
               <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l1.5 5.5L19 8l-4 3.5L16.5 17 12 13.5 7.5 17 9 11.5 5 8l5.5-.5L12 2z" fill="currentColor"/></svg>
               <span>{t("offers.feature1")}</span>
             </div>
-            <div className="tk-bottom-feature">
+            <div className="tk-bottom-feature" data-aos="fade-up">
               <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l1.5 5.5L19 8l-4 3.5L16.5 17 12 13.5 7.5 17 9 11.5 5 8l5.5-.5L12 2z" fill="currentColor"/></svg>
               <span>{t("offers.feature2")}</span>
             </div>
-            <div className="tk-bottom-feature">
+            <div className="tk-bottom-feature" data-aos="fade-up">
               <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l1.5 5.5L19 8l-4 3.5L16.5 17 12 13.5 7.5 17 9 11.5 5 8l5.5-.5L12 2z" fill="currentColor"/></svg>
               <span>{t("offers.feature3")}</span>
             </div>
           </div>
-          <button className="tk-bottom-cta" onClick={handleMemberClick}>
+          <button className="tk-bottom-cta" onClick={handleMemberClick} data-aos="zoom-in">
             <FiUserPlus />
             <span>{t("offers.joinBtn")}</span>
             <svg viewBox="0 0 24 24" fill="none" className="tk-bottom-arrow">

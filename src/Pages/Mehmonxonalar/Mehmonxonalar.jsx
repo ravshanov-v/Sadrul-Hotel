@@ -46,7 +46,7 @@ function FeaturedStrip({ hotels }) {
   const navigate = useNavigate()
 
   return (
-    <section className="mx-featured">
+    <section className="mx-featured" data-aos="fade-up">
       <div className="mx-section-label" data-aos="fade-up">
         <span className="mx-label-line" />
         <span>{t("hotels.featuredLabel")}</span>
@@ -54,26 +54,28 @@ function FeaturedStrip({ hotels }) {
       </div>
       <h2 className="mx-section-title" data-aos="fade-up" data-aos-delay="100">{t("hotels.featuredTitle")}</h2>
       <div className="mx-featured-track" data-aos="fade-up" data-aos-delay="200">
-        <div className="mx-featured-inner">
+        <div className="mx-featured-inner" data-aos="fade-up">
           {[...featured, ...featured].map((h, i) => (
             <article
               key={`${h.id}-${i}`}
               className="mx-feat-card"
               onClick={() => navigate(`/mehmonxona/${h.id}`)}
+              data-aos="fade-up"
+              data-aos-delay={i * 50}
             >
-              <div className="mx-feat-img">
+              <div className="mx-feat-img" data-aos="fade-up">
                 <img src={h.image} alt={tData("data.hotels." + h.id + ".name", h.name)} loading="lazy" />
-                <div className="mx-feat-rating-badge">
+                <div className="mx-feat-rating-badge" data-aos="fade-up" data-aos-delay="50">
                   <svg viewBox="0 0 24 24" fill="currentColor">
                     <path d={STAR_SVG} />
                   </svg>
                   {h.rating}
                 </div>
               </div>
-              <div className="mx-feat-body">
-                <h3>{tData("data.hotels." + h.id + ".name", h.name)}</h3>
-                <span className="mx-feat-loc">{tData("data.hotels." + h.id + ".location", h.location)}</span>
-                <span className="mx-feat-price">${h.price}<small>{t("hotels.perNight")}</small></span>
+              <div className="mx-feat-body" data-aos="fade-up" data-aos-delay="100">
+                <h3 data-aos="fade-up">{tData("data.hotels." + h.id + ".name", h.name)}</h3>
+                <span className="mx-feat-loc" data-aos="fade-up" data-aos-delay="50">{tData("data.hotels." + h.id + ".location", h.location)}</span>
+                <span className="mx-feat-price" data-aos="fade-up" data-aos-delay="100">${h.price}<small>{t("hotels.perNight")}</small></span>
               </div>
             </article>
           ))}
@@ -95,31 +97,32 @@ function HotelCard({ hotel }) {
     <article
       className="mx-card"
       onClick={goToHotel}
+      data-aos="fade-up"
     >
-      <div className="mx-card-image">
+      <div className="mx-card-image" data-aos="fade-up">
         <img
           src={imgError ? "https://placehold.co/600x400/1a1a2e/d4af37?text=Hotel" : hotel.image}
           alt={tData("data.hotels." + hotel.id + ".name", hotel.name)}
           loading="lazy"
           onError={() => setImgError(true)}
         />
-        <div className="mx-card-category">
+        <div className="mx-card-category" data-aos="fade-up">
           <svg viewBox="0 0 24 24" fill="none">
             <path d={STAR_SVG} fill="currentColor" />
           </svg>
           {tData("data.hotels." + hotel.id + ".category", hotel.category)}
         </div>
-        <div className="mx-card-image-rating">
+        <div className="mx-card-image-rating" data-aos="fade-up" data-aos-delay="50">
           <svg viewBox="0 0 24 24" fill="currentColor">
             <path d={STAR_SVG} />
           </svg>
           <span>{hotel.rating}</span>
         </div>
       </div>
-      <div className="mx-card-body">
-        <div className="mx-card-top">
-          <h3 className="mx-card-name">{tData("data.hotels." + hotel.id + ".name", hotel.name)}</h3>
-          <div className="mx-card-stars" title={`${hotel.stars} ${t("hotels.stars")}`}>
+      <div className="mx-card-body" data-aos="fade-up" data-aos-delay="100">
+        <div className="mx-card-top" data-aos="fade-up">
+          <h3 className="mx-card-name" data-aos="fade-up">{tData("data.hotels." + hotel.id + ".name", hotel.name)}</h3>
+          <div className="mx-card-stars" title={`${hotel.stars} ${t("hotels.stars")}`} data-aos="fade-up">
             {stars.map((_, i) => (
               <svg key={i} viewBox="0 0 24 24" fill="currentColor">
                 <path d={STAR_SVG} />
@@ -127,16 +130,16 @@ function HotelCard({ hotel }) {
             ))}
           </div>
         </div>
-        <div className="mx-card-location">
+        <div className="mx-card-location" data-aos="fade-up" data-aos-delay="50">
           <svg viewBox="0 0 24 24" fill="none">
             <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" stroke="currentColor" strokeWidth="2" />
             <circle cx="12" cy="9" r="2.5" stroke="currentColor" strokeWidth="2" />
           </svg>
           <span>{tData("data.hotels." + hotel.id + ".location", hotel.location)}</span>
         </div>
-        <p className="mx-card-desc">{tData("data.hotels." + hotel.id + ".description", hotel.description)}</p>
-        <div className="mx-card-bottom">
-          <button className="mx-card-btn" onClick={goToHotel}>
+        <p className="mx-card-desc" data-aos="fade-up" data-aos-delay="100">{tData("data.hotels." + hotel.id + ".description", hotel.description)}</p>
+        <div className="mx-card-bottom" data-aos="fade-up" data-aos-delay="150">
+          <button className="mx-card-btn" data-aos="zoom-in" data-aos-delay="300" onClick={goToHotel}>
             <span>{t("hotels.viewHotel")}</span>
             <svg viewBox="0 0 24 24" fill="none">
               <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -179,14 +182,14 @@ export default function Mehmonxonalar() {
   }, [filtered, activeCategory])
 
   return (
-    <div className="mehmonxonalar">
+    <div className="mehmonxonalar" data-aos="fade-up">
 
-      <section className="mx-hero">
+      <section className="mx-hero" data-aos="fade-up">
         <ParticleField />
         <div className="mx-hero-glow" />
         <div className="mx-hero-overlay" />
         <div className="mx-hero-content" data-aos="zoom-in">
-          <div className="mx-badge">
+          <div className="mx-badge" data-aos="fade-up">
             <svg viewBox="0 0 24 24" fill="none">
               <path d={STAR_SVG} fill="currentColor" />
             </svg>
@@ -197,21 +200,21 @@ export default function Mehmonxonalar() {
               <path d={STAR_SVG} fill="currentColor" />
             </svg>
           </div>
-          <h1 className="mx-title">
+          <h1 className="mx-title" data-aos="fade-up" data-aos-delay="100">
             {t("hotels.heroTitle1")} <span className="mx-gold">{t("hotels.heroTitleGold")}</span> {t("hotels.heroTitle2")}
           </h1>
-          <p className="mx-subtitle">
+          <p className="mx-subtitle" data-aos="fade-up" data-aos-delay="200">
             {t("hotels.heroDesc")}
           </p>
-          <div className="mx-hero-actions">
-            <button className="mx-hero-btn" onClick={() => bodyRef.current?.scrollIntoView({ behavior: "smooth" })}>
+          <div className="mx-hero-actions" data-aos="zoom-in" data-aos-delay="300">
+            <button className="mx-hero-btn" data-aos="zoom-in" data-aos-delay="300" onClick={() => bodyRef.current?.scrollIntoView({ behavior: "smooth" })}>
               {t("hotels.viewCatalog")}
               <svg viewBox="0 0 24 24" fill="none">
                 <path d="M19 14l-7 7m0 0l-7-7m7 7V3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </button>
           </div>
-          <div className="mx-divider">
+          <div className="mx-divider" data-aos="fade-up" data-aos-delay="400">
             <span /><div className="mx-diamond" /><span />
           </div>
         </div>
@@ -219,7 +222,7 @@ export default function Mehmonxonalar() {
 
       <FeaturedStrip hotels={hotels} />
 
-      <section className="mx-body" ref={bodyRef}>
+      <section className="mx-body" ref={bodyRef} data-aos="fade-up">
         <div className="mx-section-label" data-aos="fade-up">
           <span className="mx-label-line" />
           <span>{t("hotels.catalogLabel")}</span>
@@ -247,7 +250,7 @@ export default function Mehmonxonalar() {
           <span className="mx-stats-count">{filtered.length} {t("hotels.found")}</span>
         </div>
 
-        <div className="mx-grid">
+        <div className="mx-grid" data-aos="fade-up" data-aos-delay="350">
           {rows.map((row, rowIndex) => (
             <div
               key={rowIndex}
@@ -274,7 +277,7 @@ export default function Mehmonxonalar() {
         )}
       </section>
 
-      <section className="mx-booking">
+      <section className="mx-booking" data-aos="fade-up">
         <div className="mx-booking-bg" />
         <div className="mx-section-label" style={{ position: "relative", zIndex: 2 }} data-aos="fade-up">
           <span className="mx-label-line" />

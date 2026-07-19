@@ -127,10 +127,10 @@ export default function MehmonxonaDetail() {
 
   if (!hotel) {
     return (
-      <div className="md-page">
-        <div className="md-hero md-hero-simple">
-          <h1>{t("hotelDetail.notFound")}</h1>
-          <button className="md-btn md-btn-primary" onClick={() => navigate("/mehmonxonalar")}>
+      <div className="md-page" data-aos="fade-up">
+        <div className="md-hero md-hero-simple" data-aos="fade-up">
+          <h1 data-aos="fade-up" data-aos-delay="100">{t("hotelDetail.notFound")}</h1>
+          <button className="md-btn md-btn-primary" data-aos="fade-up" data-aos-delay="200" onClick={() => navigate("/mehmonxonalar")}>
             {t("hotelDetail.backToList")}
           </button>
         </div>
@@ -162,33 +162,33 @@ export default function MehmonxonaDetail() {
   }
 
   return (
-    <div className="md-page">
-      <section className="md-hero">
+    <div className="md-page" data-aos="fade-up">
+      <section className="md-hero" data-aos="fade-up">
         <div className="md-hero-bg" style={{ backgroundImage: `url(${hotel.image})` }} />
         <div className="md-hero-overlay" />
         <div className="md-hero-content" data-aos="zoom-in">
-          <div className="md-badge">
+          <div className="md-badge" data-aos="fade-up">
             <svg viewBox="0 0 24 24" fill="none">
               <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="currentColor" />
             </svg>
             {tData("data.hotels." + hotel.id + ".category", hotel.category)}
           </div>
-          <h1 className="md-title">{tData("data.hotels." + hotel.id + ".name", hotel.name)}</h1>
-          <div className="md-hero-meta">
-            <div className="md-stars">
+          <h1 className="md-title" data-aos="fade-up" data-aos-delay="100">{tData("data.hotels." + hotel.id + ".name", hotel.name)}</h1>
+          <div className="md-hero-meta" data-aos="fade-up" data-aos-delay="200">
+            <div className="md-stars" data-aos="fade-up">
               {stars.map((_, i) => (
                 <svg key={i} viewBox="0 0 24 24" fill="currentColor">
                   <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
                 </svg>
               ))}
             </div>
-            <span className="md-rating-badge">
+            <span className="md-rating-badge" data-aos="fade-up">
               <svg viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
               </svg>
               {hotel.rating}
             </span>
-            <span className="md-location">
+            <span className="md-location" data-aos="fade-up">
               <svg viewBox="0 0 24 24" fill="none">
                 <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" stroke="currentColor" strokeWidth="2" />
                 <circle cx="12" cy="9" r="2.5" stroke="currentColor" strokeWidth="2" />
@@ -196,18 +196,18 @@ export default function MehmonxonaDetail() {
               {tData("data.hotels." + hotel.id + ".location", hotel.location)}
             </span>
           </div>
-          <p className="md-subtitle">{tData("data.hotels." + hotel.id + ".description", hotel.description)}</p>
+          <p className="md-subtitle" data-aos="fade-up" data-aos-delay="300">{tData("data.hotels." + hotel.id + ".description", hotel.description)}</p>
         </div>
       </section>
 
       <section className="md-section md-gallery" data-aos="fade-up">
-        <div className="md-section-label">
+        <div className="md-section-label" data-aos="fade-up">
           <span className="md-label-line" />
           <span>{t("hotelDetail.gallery")}</span>
           <span className="md-label-line" />
         </div>
-        <h2 className="md-section-title"><span className="md-gold">{t("hotelDetail.galleryTitle")}</span></h2>
-        <div className="md-gallery-grid">
+        <h2 className="md-section-title" data-aos="fade-up" data-aos-delay="100"><span className="md-gold">{t("hotelDetail.galleryTitle")}</span></h2>
+        <div className="md-gallery-grid" data-aos="fade-up" data-aos-delay="200">
           {galleryImages.map((img, i) => (
             <div key={i} className="md-gallery-item" data-aos="zoom-in" data-aos-delay={i * 100}>
               <img src={img} alt={`${tData("data.hotels." + hotel.id + ".name", hotel.name)} ${i + 1}`} loading="lazy" />
@@ -217,34 +217,34 @@ export default function MehmonxonaDetail() {
       </section>
 
       <section className="md-section md-about" data-aos="fade-up">
-        <div className="md-container">
-          <div className="md-section-label">
+        <div className="md-container" data-aos="fade-up">
+          <div className="md-section-label" data-aos="fade-up">
             <span className="md-label-line" />
             <span>{t("hotelDetail.aboutLabel")}</span>
             <span className="md-label-line" />
           </div>
-          <h2 className="md-section-title"><span className="md-gold">{t("hotelDetail.aboutTitle")}</span></h2>
+          <h2 className="md-section-title" data-aos="fade-up" data-aos-delay="100"><span className="md-gold">{t("hotelDetail.aboutTitle")}</span></h2>
           <div className="md-about-content">
             <div className="md-about-text" data-aos="fade-right">
-              <p>{tData("data.hotels." + hotel.id + ".description", hotel.description)}</p>
-              <p>
+              <p data-aos="fade-up">{tData("data.hotels." + hotel.id + ".description", hotel.description)}</p>
+              <p data-aos="fade-up" data-aos-delay="100">
                 {t("hotelDetail.description").replace("{name}", tData("data.hotels." + hotel.id + ".name", hotel.name)).replace("{stars}", hotel.stars).replace("{rooms}", hotel.rooms)}
               </p>
             </div>
             <div className="md-about-stats" data-aos="fade-left">
-              <div className="md-stat-card">
+              <div className="md-stat-card" data-aos="fade-up">
                 <span className="md-stat-number">{hotel.rooms}</span>
                 <span className="md-stat-label">{t("hotelDetail.rooms")}</span>
               </div>
-              <div className="md-stat-card">
+              <div className="md-stat-card" data-aos="fade-up" data-aos-delay="100">
                 <span className="md-stat-number">{hotel.reviews}+</span>
                 <span className="md-stat-label">{t("hotelDetail.reviews")}</span>
               </div>
-              <div className="md-stat-card">
+              <div className="md-stat-card" data-aos="fade-up" data-aos-delay="200">
                 <span className="md-stat-number">{hotel.stars}</span>
                 <span className="md-stat-label">{t("hotelDetail.stars")}</span>
               </div>
-              <div className="md-stat-card">
+              <div className="md-stat-card" data-aos="fade-up" data-aos-delay="300">
                 <span className="md-stat-number">{hotel.rating}</span>
                 <span className="md-stat-label">{t("hotelDetail.rating")}</span>
               </div>
@@ -254,13 +254,13 @@ export default function MehmonxonaDetail() {
       </section>
 
       <section className="md-section md-amenities" data-aos="fade-up">
-        <div className="md-container">
-          <div className="md-section-label">
+        <div className="md-container" data-aos="fade-up">
+          <div className="md-section-label" data-aos="fade-up">
             <span className="md-label-line" />
             <span>{t("hotelDetail.amenitiesLabel")}</span>
             <span className="md-label-line" />
           </div>
-          <h2 className="md-section-title"><span className="md-gold">{t("hotelDetail.amenitiesTitle")}</span></h2>
+          <h2 className="md-section-title" data-aos="fade-up" data-aos-delay="100"><span className="md-gold">{t("hotelDetail.amenitiesTitle")}</span></h2>
           <div className="md-amenities-grid">
             {hotel.amenities.map((amenity, i) => (
               <div key={i} className="md-amenity-card" data-aos="fade-up" data-aos-delay={i * 80}>
@@ -275,24 +275,24 @@ export default function MehmonxonaDetail() {
       </section>
 
       <section className="md-section md-map" data-aos="fade-up">
-        <div className="md-container">
-          <div className="md-section-label">
+        <div className="md-container" data-aos="fade-up">
+          <div className="md-section-label" data-aos="fade-up">
             <span className="md-label-line" />
             <span>{t("hotelDetail.location")}</span>
             <span className="md-label-line" />
           </div>
-          <h2 className="md-section-title"><span className="md-gold">{t("hotelDetail.locationTitle")}</span></h2>
-          <div className="md-map-container">
+          <h2 className="md-section-title" data-aos="fade-up" data-aos-delay="100"><span className="md-gold">{t("hotelDetail.locationTitle")}</span></h2>
+          <div className="md-map-container" data-aos="fade-up" data-aos-delay="200">
             {hotel.coordinates ? (
-              <div ref={mapRef} className="md-map-iframe" />
+              <div ref={mapRef} className="md-map-iframe" data-aos="fade-up" />
             ) : (
-              <div className="md-map-placeholder">
+              <div className="md-map-placeholder" data-aos="fade-up">
                 <svg viewBox="0 0 24 24" fill="none">
                   <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" stroke="currentColor" strokeWidth="2" />
                   <circle cx="12" cy="9" r="2.5" stroke="currentColor" strokeWidth="2" />
                 </svg>
-                <h3>{tData("data.hotels." + hotel.id + ".location", hotel.location)}</h3>
-                <p>{tData("data.hotels." + hotel.id + ".name", hotel.name)}</p>
+                <h3 data-aos="fade-up">{tData("data.hotels." + hotel.id + ".location", hotel.location)}</h3>
+                <p data-aos="fade-up" data-aos-delay="100">{tData("data.hotels." + hotel.id + ".name", hotel.name)}</p>
               </div>
             )}
           </div>
@@ -300,14 +300,14 @@ export default function MehmonxonaDetail() {
       </section>
 
       <section className="md-section md-rooms" data-aos="fade-up">
-        <div className="md-container">
-          <div className="md-section-label">
+        <div className="md-container" data-aos="fade-up">
+          <div className="md-section-label" data-aos="fade-up">
             <span className="md-label-line" />
             <span>{t("hotelDetail.roomsLabel")}</span>
             <span className="md-label-line" />
           </div>
-          <h2 className="md-section-title"><span className="md-gold">{t("hotelDetail.roomsTitle")}</span></h2>
-          <p className="md-rooms-sub">
+          <h2 className="md-section-title" data-aos="fade-up" data-aos-delay="100"><span className="md-gold">{t("hotelDetail.roomsTitle")}</span></h2>
+          <p className="md-rooms-sub" data-aos="fade-up" data-aos-delay="200">
             {t("hotelDetail.roomsSub")}
           </p>
           <div className="md-room-categories" data-aos="fade-up">
@@ -317,6 +317,8 @@ export default function MehmonxonaDetail() {
                   key={cat}
                   className={`md-room-cat-btn ${roomCategory === cat ? "active" : ""}`}
                   onClick={() => setRoomCategory(cat)}
+                  data-aos="fade-up"
+                  data-aos-delay={i * 50}
                 >
                   {t("hotels.cat_" + cat)}
                 </button>
@@ -325,22 +327,22 @@ export default function MehmonxonaDetail() {
           </div>
           {promoCode && (
             <div className="md-promo-banner" data-aos="fade-up">
-              <div className="md-promo-banner-icon">
+              <div className="md-promo-banner-icon" data-aos="fade-up">
                 <svg viewBox="0 0 24 24" fill="none">
                   <path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                   <path d="M7 7h.01" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
                 </svg>
               </div>
-              <div className="md-promo-banner-text">
-                <span className="md-promo-banner-title">{t("hotelDetail.promoActivated")}</span>
-                <span className="md-promo-banner-code">{t("hotelDetail.promoInfo").replace("{code}", promoCode).replace("{discount}", promoDiscount)}</span>
+              <div className="md-promo-banner-text" data-aos="fade-up" data-aos-delay="100">
+                <span className="md-promo-banner-title" data-aos="fade-up">{t("hotelDetail.promoActivated")}</span>
+                <span className="md-promo-banner-code" data-aos="fade-up" data-aos-delay="50">{t("hotelDetail.promoInfo").replace("{code}", promoCode).replace("{discount}", promoDiscount)}</span>
               </div>
-              <button className="md-promo-banner-clear" onClick={() => navigate(`/mehmonxona/${hotelId}`, { replace: true })}>
+              <button className="md-promo-banner-clear" data-aos="fade-up" data-aos-delay="200" onClick={() => navigate(`/mehmonxona/${hotelId}`, { replace: true })}>
                 {t("hotelDetail.dismiss")}
               </button>
             </div>
           )}
-          <div className="md-rooms-grid">
+          <div className="md-rooms-grid" data-aos="fade-up" data-aos-delay="300">
             {roomRows.map((row, rowIndex) => (
               <div key={rowIndex} className="md-rooms-row" data-aos="row-reveal" data-aos-delay={rowIndex * 100} data-aos-offset="80">
                 {row.map(room => {
@@ -351,11 +353,11 @@ export default function MehmonxonaDetail() {
                   const roomCat = extractCategory(room.id)
                   const avail = availabilityMap[roomCat]
                   return (
-                    <div key={room.id} className={`md-room-card ${isPromoRoom ? 'md-room-promo' : ''} ${avail && !avail.available ? 'md-room-card-unavailable' : ''}`} id={isPromoRoom ? 'md-promo-room' : ''}>
-                      {isPromoRoom && <div className="md-room-promo-tag">{t("hotelDetail.specialOffer")}</div>}
-                      <div className="md-room-image">
+                    <div key={room.id} className={`md-room-card ${isPromoRoom ? 'md-room-promo' : ''} ${avail && !avail.available ? 'md-room-card-unavailable' : ''}`} id={isPromoRoom ? 'md-promo-room' : ''} data-aos="fade-up" data-aos-delay={rowIndex * 50}>
+                      {isPromoRoom && <div className="md-room-promo-tag" data-aos="fade-up">{t("hotelDetail.specialOffer")}</div>}
+                      <div className="md-room-image" data-aos="fade-up" data-aos-delay={rowIndex * 50}>
                         {avail && (
-                          <div className={`md-avail-badge ${avail.available ? (avail.remaining <= Math.ceil(avail.totalRooms / 3) ? 'md-avail-limited' : 'md-avail-available') : 'md-avail-booked'}`}>
+                          <div className={`md-avail-badge ${avail.available ? (avail.remaining <= Math.ceil(avail.totalRooms / 3) ? 'md-avail-limited' : 'md-avail-available') : 'md-avail-booked'}`} data-aos="fade-up">
                             {avail.available ? (
                               <>
                                 <span className="md-avail-dot" />
@@ -377,17 +379,19 @@ export default function MehmonxonaDetail() {
                           className={`md-like-btn ${isFav('room_' + room.id) ? 'liked' : ''}`}
                           onClick={(e) => { e.stopPropagation(); toggleFav('room_' + room.id) }}
                           aria-label={t("common.like")}
+                          data-aos="fade-up"
+                          data-aos-delay={rowIndex * 50 + 50}
                         >
                           <svg viewBox="0 0 24 24">
                             <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" strokeLinecap="round" strokeLinejoin="round" />
                           </svg>
                         </button>
                       </div>
-                      <div className="md-room-body">
-                        <h3 className="md-room-name">{tData("data.rooms." + room.id + ".name", room.name)}</h3>
-                        <p className="md-room-desc">{tData("data.rooms." + room.id + ".description", room.description)}</p>
-                        <div className="md-room-bottom">
-                          <div className="md-room-price">
+                      <div className="md-room-body" data-aos="fade-up" data-aos-delay={rowIndex * 50 + 100}>
+                        <h3 className="md-room-name" data-aos="fade-up">{tData("data.rooms." + room.id + ".name", room.name)}</h3>
+                        <p className="md-room-desc" data-aos="fade-up" data-aos-delay="50">{tData("data.rooms." + room.id + ".description", room.description)}</p>
+                        <div className="md-room-bottom" data-aos="fade-up" data-aos-delay="100">
+                          <div className="md-room-price" data-aos="fade-up">
                             {promoPrice ? (
                               <>
                                 <span className="md-room-price-label">{t("hotelDetail.from")}</span>
@@ -403,7 +407,7 @@ export default function MehmonxonaDetail() {
                               </>
                             )}
                           </div>
-                          <button className={`md-room-btn ${avail && !avail.available ? 'md-room-btn-disabled' : ''} ${bookLoading === room.id ? 'md-room-btn-loading' : ''}`}
+                          <button className={`md-room-btn ${avail && !avail.available ? 'md-room-btn-disabled' : ''} ${bookLoading === room.id ? 'md-room-btn-loading' : ''}`} data-aos="zoom-in" data-aos-delay="300"
                             disabled={avail && !avail.available}
                             onClick={() => {
                               if (!user) { openModal('login', t("hotelDetail.loginPrompt")); return }
@@ -444,7 +448,7 @@ export default function MehmonxonaDetail() {
           </div>
           {hasMore && (
             <div className="md-load-wrap" data-aos="fade-up">
-              <button className="md-load-btn" onClick={() => setVisibleCount(prev => prev + 6)}>
+              <button className="md-load-btn" data-aos="fade-up" data-aos-delay="100" onClick={() => setVisibleCount(prev => prev + 6)}>
                 {t("hotelDetail.viewMore")}
                 <svg viewBox="0 0 24 24" fill="none">
                   <path d="M7 13l5 5 5-5M7 6l5 5 5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -455,21 +459,21 @@ export default function MehmonxonaDetail() {
         </div>
       </section>
 
-      <section className="md-cta">
+      <section className="md-cta" data-aos="fade-up">
         <div className="md-cta-bg" />
         <div className="md-cta-content" data-aos="zoom-in">
-          <h2>
+          <h2 data-aos="fade-up" data-aos-delay="100">
             <span className="md-gold">{tData("data.hotels." + hotel.id + ".name", hotel.name)}</span> {t("hotelDetail.ctaTitle")}
           </h2>
-          <p>{t("hotelDetail.ctaDesc")}</p>
-          <div className="md-cta-actions">
-            <button className="md-btn md-btn-gold" onClick={() => {
+          <p data-aos="fade-up" data-aos-delay="200">{t("hotelDetail.ctaDesc")}</p>
+          <div className="md-cta-actions" data-aos="fade-up" data-aos-delay="300">
+            <button className="md-btn md-btn-gold" data-aos="zoom-in" data-aos-delay="300" onClick={() => {
               const el = document.querySelector(".md-rooms")
               if (el) el.scrollIntoView({ behavior: "smooth" })
             }}>
               {t("hotelDetail.bookRoom")}
             </button>
-            <button className="md-btn md-btn-outline" onClick={() => navigate("/mehmonxonalar")}>
+            <button className="md-btn md-btn-outline" data-aos="zoom-in" data-aos-delay="400" onClick={() => navigate("/mehmonxonalar")}>
               {t("hotelDetail.allHotels")}
             </button>
           </div>

@@ -20,7 +20,7 @@ export default function BoshSahifa() {
     <div data-aos="fade-up">
       <div className='page-1' data-aos="fade-up">
         <article className='page-1-art' data-aos="zoom-in">
-          <div className='page-1-badge'>
+          <div className='page-1-badge' data-aos="fade-up">
             <svg viewBox='0 0 24 24' fill='none'>
               <path d='M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z' fill='currentColor' />
             </svg>
@@ -31,9 +31,9 @@ export default function BoshSahifa() {
               <path d='M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z' fill='currentColor' />
             </svg>
           </div>
-          <h1 className='main-h1'>{t("home.heroTitle1")} <span className='gold-text'>{t("home.heroTitleGold")}</span> {t("home.heroTitle2")}</h1>
-           <p className='main-p'>{t("home.heroDesc")}</p>
-          <div className='page-1-divider'>
+          <h1 className='main-h1' data-aos="fade-up" data-aos-delay="100">{t("home.heroTitle1")} <span className='gold-text'>{t("home.heroTitleGold")}</span> {t("home.heroTitle2")}</h1>
+           <p className='main-p' data-aos="fade-up" data-aos-delay="200">{t("home.heroDesc")}</p>
+          <div className='page-1-divider' data-aos="fade-up" data-aos-delay="300">
             <span /><div className='page-1-diamond' /><span />
           </div>
         </article>
@@ -52,11 +52,11 @@ export default function BoshSahifa() {
         <h2 className='hp-title' data-aos="fade-up">{t("home.popularTitle1")} <span className='hp-gold'>{t("home.popularTitleGold")}</span> {t("home.popularTitle2")}</h2>
         <p className='hp-desc' data-aos="fade-up" data-aos-delay="100">{t("home.popularDesc")}</p>
 
-        <div className='hp-grid'>
+        <div className='hp-grid' data-aos="fade-up">
           {preview.map((hotel, i) => (
-            <article key={hotel.id} className='hp-card'>
+            <article key={hotel.id} className='hp-card' data-aos="fade-up" data-aos-delay={i * 100}>
                 <div className='hp-card-img'>
-                <img src={hotel.image} alt={tData("data.hotels." + hotel.id + ".name", hotel.name)} loading='lazy' />
+                <img src={hotel.image} alt={tData("data.hotels." + hotel.id + ".name", hotel.name)} loading='lazy' data-aos="zoom-in" />
                 <div className='hp-card-cat'>{tData("data.hotels." + hotel.id + ".category", hotel.category)}</div>
               </div>
               <div className='hp-card-body'>
@@ -96,11 +96,11 @@ export default function BoshSahifa() {
         <h2 className='tp-title' data-aos="fade-up">{t("home.menuTitle1")} <span className='tp-gold'>{t("home.menuTitleGold")}</span> {t("home.menuTitle2")}</h2>
         <p className='tp-desc' data-aos="fade-up" data-aos-delay="100">{t("home.menuDesc")}</p>
 
-        <div className='tp-grid'>
+        <div className='tp-grid' data-aos="fade-up">
           {foodPreview.map((item, i) => (
-            <article key={item.id} className='tp-card'>
+            <article key={item.id} className='tp-card' data-aos="fade-up" data-aos-delay={i * 100}>
               <div className='tp-card-img'>
-                <img src={item.image} alt={tData("data.menu." + item.id + ".name", item.name)} loading='lazy' />
+                <img src={item.image} alt={tData("data.menu." + item.id + ".name", item.name)} loading='lazy' data-aos="zoom-in" />
                 <div className='tp-card-cat'>{tData("data.menu." + item.id + ".category", item.category)}</div>
               </div>
               <div className='tp-card-body'>
@@ -152,11 +152,11 @@ export default function BoshSahifa() {
         <h2 className='op-title' data-aos="fade-up">{t("home.offersTitle1")} <span className='op-gold'>{t("home.offersTitleGold")}</span> {t("home.offersTitle2")}</h2>
         <p className='op-desc' data-aos="fade-up" data-aos-delay="100">{t("home.offersDesc")}</p>
 
-        <div className='op-grid'>
+        <div className='op-grid' data-aos="fade-up">
           {takliflar.slice(0, 3).map((taklif, i) => (
-            <article key={taklif.id} className='op-card'>
+            <article key={taklif.id} className='op-card' data-aos="fade-up" data-aos-delay={i * 100}>
               <div className='op-card-img'>
-                <img src={taklif.image} alt={tData("data.offers." + taklif.id + ".title", taklif.title)} loading='lazy' />
+                <img src={taklif.image} alt={tData("data.offers." + taklif.id + ".title", taklif.title)} loading='lazy' data-aos="zoom-in" />
                 <div className='op-discount'>-{taklif.discount}%</div>
               </div>
               <div className='op-card-body'>
@@ -190,14 +190,14 @@ export default function BoshSahifa() {
         <h2 className='ap-title' data-aos="fade-up">{t("home.aboutTitle1")} <span className='ap-gold'>{t("home.aboutTitleGold")}</span> {t("home.aboutTitle2")}</h2>
         <p className='ap-desc' data-aos="fade-up" data-aos-delay="100">{t("home.aboutDesc")}</p>
 
-        <div className='ap-stats'>
+        <div className='ap-stats' data-aos="fade-up">
           {[
             { icon: <BsBuildings />, value: `${hotelCount}+`, label: t("home.statsHotels") },
             { icon: <BsPeople />, value: `${hotels.reduce((s, h) => s + (h.rooms || 0), 0)}+`, label: t("home.statsRooms") },
             { icon: <BsStar />, value: `${cityCount}+`, label: t("home.statsCities") },
             { icon: <BsShieldCheck />, value: `${offerCount}+`, label: t("home.statsOffers") },
           ].map((s, i) => (
-            <div key={i} className='ap-stat-card'>
+            <div key={i} className='ap-stat-card' data-aos="fade-up" data-aos-delay={i * 100}>
               <div className='ap-stat-icon'>{s.icon}</div>
               <span className='ap-stat-value'>{s.value}</span>
               <span className='ap-stat-label'>{s.label}</span>
@@ -208,18 +208,18 @@ export default function BoshSahifa() {
         {/* ===== MISSIYA ===== */}
         <div className='ap-mission' data-aos="fade-up">
           <div className='ap-mission-content' data-aos="fade-right">
-            <div className='ap-sub-label'>
+            <div className='ap-sub-label' data-aos="fade-up">
               <span className='ap-sub-label-line' />
               <span>{t("home.missionLabel")}</span>
               <span className='ap-sub-label-line' />
             </div>
-            <h3 className='ap-sub-title'>{t("home.missionSub")} <span className='ap-gold'>{t("home.missionSubGold")}</span> {t("home.missionSub2")}</h3>
-            <p className='ap-sub-text'>
+            <h3 className='ap-sub-title' data-aos="fade-up" data-aos-delay="100">{t("home.missionSub")} <span className='ap-gold'>{t("home.missionSubGold")}</span> {t("home.missionSub2")}</h3>
+            <p className='ap-sub-text' data-aos="fade-up" data-aos-delay="200">
               {t("home.missionText")}
             </p>
           </div>
           <div className='ap-mission-image' data-aos="fade-left">
-            <img src='/src/Assets/Images/sadrul-kompany.jpg' alt={t("home.aboutImgAlt")} />
+            <img src='/src/Assets/Images/sadrul-kompany.jpg' alt={t("home.aboutImgAlt")} data-aos="zoom-in" />
           </div>
         </div>
 
@@ -231,14 +231,14 @@ export default function BoshSahifa() {
             <span className='ap-sub-label-line' />
           </div>
           <h3 className='ap-sub-title' data-aos="fade-up">{t("home.valuesSub")} <span className='ap-gold'>{t("home.valuesSubGold")}</span> {t("home.valuesSub2")}</h3>
-          <div className='ap-values-grid'>
+          <div className='ap-values-grid' data-aos="fade-up">
             {[
               { title: t("home.valueTrust"), desc: t("home.valueTrustDesc") },
               { title: t("home.valueQuality"), desc: t("home.valueQualityDesc") },
               { title: t("home.valueInnovation"), desc: t("home.valueInnovationDesc") },
               { title: t("home.valueResult"), desc: t("home.valueResultDesc") },
             ].map((v, i) => (
-              <div key={i} className='ap-value-card'>
+              <div key={i} className='ap-value-card' data-aos="fade-up" data-aos-delay={i * 100}>
                 <div className='ap-value-num'>0{i + 1}</div>
                 <h4 className='ap-value-title'>{v.title}</h4>
                 <p className='ap-value-desc'>{v.desc}</p>
@@ -255,14 +255,14 @@ export default function BoshSahifa() {
             <span className='ap-sub-label-line' />
           </div>
           <h3 className='ap-sub-title' data-aos="fade-up">{t("home.careerSub")} <span className='ap-gold'>{t("home.careerSubGold")}</span> {t("home.careerSub2")}</h3>
-          <div className='ap-karyera-grid'>
+          <div className='ap-karyera-grid' data-aos="fade-up">
             {[
               { title: t("home.job1"), type: t("home.fullTime"), loc: t("home.cityTashkent") },
               { title: t("home.job2"), type: t("home.fullTime"), loc: t("home.cityTashkent") },
               { title: t("home.job3"), type: t("home.fullTime"), loc: t("home.cityTashkent") },
               { title: t("home.job4"), type: t("home.fullTime"), loc: t("home.cityTashkent") },
             ].map((job, i) => (
-              <Link key={i} to={`/ariza?position=${encodeURIComponent(job.title)}`} className='ap-karyera-card'>
+              <Link key={i} to={`/ariza?position=${encodeURIComponent(job.title)}`} className='ap-karyera-card' data-aos="fade-up" data-aos-delay={i * 100}>
                 <div className='ap-karyera-type'>{job.type}</div>
                 <h4 className='ap-karyera-title'>{job.title}</h4>
                 <div className='ap-karyera-loc'>

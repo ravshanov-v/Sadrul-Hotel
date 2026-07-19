@@ -40,10 +40,10 @@ export default function Footer() {
             <span className="foot-brand-s">S</span>
             <span className="foot-brand-adrul">adrul</span>
           </div>
-          <p className="foot-desc">
+          <p className="foot-desc" data-aos="fade-up">
             {t("footer.desc")}
           </p>
-          <div className="foot-social">
+          <div className="foot-social" data-aos="fade-up">
             {socialIcons.map((icon) => (
               <a key={icon.name} href={icon.href} target="_blank" rel="noopener noreferrer" className="foot-social-link">
                 <svg viewBox="0 0 24 24" fill="currentColor" className="foot-social-icon">
@@ -55,7 +55,7 @@ export default function Footer() {
         </div>
 
         <div className="footer-section" data-aos="fade-up" data-aos-delay="100">
-          <h3 className="foot-section-title">{t("footer.company")}</h3>
+          <h3 className="foot-section-title" data-aos="fade-up" data-aos-delay="100">{t("footer.company")}</h3>
           <ul className="foot-links">
             <li><NavLink to="/biz-haqimizda">{t("footer.about")}</NavLink></li>
             <li><NavLink to="/biz-haqimizda#missiyamiz">{t("footer.mission")}</NavLink></li>
@@ -65,7 +65,7 @@ export default function Footer() {
         </div>
 
         <div className="footer-section" data-aos="fade-up" data-aos-delay="200">
-          <h3 className="foot-section-title">{t("footer.hotels")}</h3>
+          <h3 className="foot-section-title" data-aos="fade-up" data-aos-delay="200">{t("footer.hotels")}</h3>
           <ul className="foot-links">
             <li><NavLink to="/mehmonxonalar">{t("footer.hotels")}</NavLink></li>
             <li><NavLink to="/takliflar">{t("footer.offers")}</NavLink></li>
@@ -74,7 +74,7 @@ export default function Footer() {
         </div>
 
         <div className="footer-section" data-aos="fade-up" data-aos-delay="300">
-          <h3 className="foot-section-title">{t("footer.contact")}</h3>
+          <h3 className="foot-section-title" data-aos="fade-up" data-aos-delay="300">{t("footer.contact")}</h3>
           <ul className="foot-contact">
             <li className="foot-contact-item">
               <img className="foot-contact-icon" src={phone} alt={t("footer.phoneAlt")} />
@@ -91,10 +91,10 @@ export default function Footer() {
           </ul>
         </div>
 
-        <div className="foot-divider" />
+        <div className="foot-divider" data-aos="fade-up" />
 
-        <div className="foot-bottom">
-          <ul className="foot-bottom-links">
+        <div className="foot-bottom" data-aos="fade-up">
+          <ul className="foot-bottom-links" data-aos="fade-up">
             <li><NavLink to="/maxfiylik-siyosati">{t("footer.privacy")}</NavLink></li>
             <li><NavLink to="/foydalanish-shartlari">{t("footer.terms")}</NavLink></li>
 

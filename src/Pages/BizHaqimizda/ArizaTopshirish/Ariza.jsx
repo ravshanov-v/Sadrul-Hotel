@@ -80,14 +80,14 @@ ${form.coverLetter}
   if (submitted) {
     return (
       <div className="ariza-page">
-        <div className="ariza-hero">
+        <div className="ariza-hero" data-aos="fade-up">
           <div className="ariza-hero-overlay" />
-          <div className="ariza-hero-content">
-            <h1>{t("ariza.successTitle")}</h1>
-            <p className="ariza-hero-sub">{t("ariza.successSub")}</p>
+          <div className="ariza-hero-content" data-aos="fade-up">
+            <h1 data-aos="fade-up">{t("ariza.successTitle")}</h1>
+            <p className="ariza-hero-sub" data-aos="fade-up">{t("ariza.successSub")}</p>
           </div>
         </div>
-        <div className="ariza-body">
+        <div className="ariza-body" data-aos="fade-up">
           <div className="ariza-success-card" data-aos="fade-up">
             <div className="ariza-success-icon" data-aos="zoom-in" data-aos-delay="100">
               <svg viewBox="0 0 24 24" fill="none">
@@ -111,19 +111,19 @@ ${form.coverLetter}
 
   return (
     <div className="ariza-page">
-      <div className="ariza-hero">
+      <div className="ariza-hero" data-aos="fade-up">
         <div className="ariza-hero-overlay" />
         <div className="ariza-hero-content" data-aos="zoom-in">
           <div className="ariza-badge" data-aos="fade-up" data-aos-delay="0">{t("ariza.heroBadge")}</div>
-          <h1>{t("ariza.heroTitle")}</h1>
-          <p className="ariza-hero-sub">{t("ariza.heroDesc")}</p>
+          <h1 data-aos="fade-up">{t("ariza.heroTitle")}</h1>
+          <p className="ariza-hero-sub" data-aos="fade-up">{t("ariza.heroDesc")}</p>
         </div>
       </div>
 
-      <div className="ariza-body">
-        <div className="ariza-container">
+      <div className="ariza-body" data-aos="fade-up">
+          <div className="ariza-container" data-aos="fade-up">
           <form className="ariza-form" onSubmit={handleSubmit} data-aos="fade-up">
-            <h2 className="ariza-form-title">{t("ariza.formTitle")}</h2>
+            <h2 className="ariza-form-title" data-aos="fade-up">{t("ariza.formTitle")}</h2>
             <div className="ariza-form-grid">
               <div className="ariza-form-group ariza-full">
                 <label>{t("ariza.fullName")}</label>

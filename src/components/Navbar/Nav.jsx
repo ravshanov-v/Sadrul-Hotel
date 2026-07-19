@@ -51,24 +51,24 @@ export default function Nav() {
   }
 
   return (
-    <nav>
+    <nav data-aos="fade-down">
       <NavMemberToast show={memberToastShow} />
-      <article className="logo-art">
+      <article className="logo-art" data-aos="fade-down">
         <NavLink to="/">
           <img className="logo-icon" src={iconLogo} alt={t("nav.logoAlt")} />
           <span className="logo-text">adrul</span>
         </NavLink>
       </article>
 
-      <ul className="nav-links">
-        <li><NavLink to="/">{t("nav.home")}</NavLink></li>
-        <li><NavLink to="/mehmonxonalar">{t("nav.hotels")}</NavLink></li>
-        <li><NavLink to="/taomnoma">{t("nav.menu")}</NavLink></li>
-        <li><NavLink to="/takliflar">{t("nav.offers")}</NavLink></li>
-        <li><NavLink to="/biz-haqimizda">{t("nav.about")}</NavLink></li>
+      <ul className="nav-links" data-aos="fade-down">
+        <li data-aos="fade-down" data-aos-delay="0"><NavLink to="/">{t("nav.home")}</NavLink></li>
+        <li data-aos="fade-down" data-aos-delay="50"><NavLink to="/mehmonxonalar">{t("nav.hotels")}</NavLink></li>
+        <li data-aos="fade-down" data-aos-delay="100"><NavLink to="/taomnoma">{t("nav.menu")}</NavLink></li>
+        <li data-aos="fade-down" data-aos-delay="150"><NavLink to="/takliflar">{t("nav.offers")}</NavLink></li>
+        <li data-aos="fade-down" data-aos-delay="200"><NavLink to="/biz-haqimizda">{t("nav.about")}</NavLink></li>
       </ul>
 
-      <div className="nav-actions">
+      <div className="nav-actions" data-aos="fade-down">
         <button className="btn-darcmode" onClick={toggleDark}>
           {isDark ? (
             <img className="dark-sun" src={sun} alt={t("nav.sunAlt")} />

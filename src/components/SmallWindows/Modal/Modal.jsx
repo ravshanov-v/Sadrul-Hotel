@@ -80,8 +80,8 @@ export default function Modal() {
   if (!isOpen || modalType !== 'login') return null
 
   return (
-    <div className="modal-backdrop" onClick={closeModal} role="dialog" aria-modal="true">
-      <div className="modal-window" onClick={(e) => e.stopPropagation()}>
+    <div className="modal-backdrop" onClick={closeModal}>
+      <div className="modal-window" onClick={(e) => e.stopPropagation()} role="dialog" aria-modal="true">
         <button className="modal-close-btn" onClick={closeModal}>
           <img className="close" src={close} alt={t("modal.closeAlt")} />
         </button>

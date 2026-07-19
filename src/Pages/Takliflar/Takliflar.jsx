@@ -187,7 +187,7 @@ export default function Takliflar() {
         >
           {takliflar.map(taklif => (
             <SwiperSlide key={taklif.id}>
-              <OfferCard taklif={taklif} onCopyCode={handleCopyCode} />
+              <OfferCard taklif={taklif} />
             </SwiperSlide>
           ))}
         </Swiper>

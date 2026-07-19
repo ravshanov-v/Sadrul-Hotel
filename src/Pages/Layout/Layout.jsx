@@ -40,7 +40,7 @@ function LayoutContent() {
   const prevPath = useRef(location.pathname)
   const isSignup = location.pathname === "/signup"
   const hideFrame = isNotFound(location.pathname)
-  const { openModal, closeModal } = useModal()
+  const { openModal } = useModal()
 
 
   useLayoutEffect(() => {
@@ -66,12 +66,9 @@ function LayoutContent() {
   }, [location.pathname])
 
   useEffect(() => {
-
     if (location.state?.openModal) {
       openModal()
       window.history.replaceState({}, document.title)
-    } else {
-      closeModal()
     }
   }, [location.pathname])
 

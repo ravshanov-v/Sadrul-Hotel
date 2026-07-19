@@ -353,13 +353,13 @@
   font-family: 'Playfair Display', serif;
   font-size: 40px;
   font-weight: 900;
-  color: rgba(212,175,55,0.15);
+  color: rgba(212,175,55,0.5);
   line-height: 1;
   margin-bottom: 12px;
 }
 
 .dark .about-value-num {
-  color: rgba(212,175,55,0.1);
+  color: rgba(212,175,55,0.4);
 }
 
 .about-value-title {

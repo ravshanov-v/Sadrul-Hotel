@@ -123,8 +123,8 @@ export default function SignUpModal() {
   const pwdFeedback = getPasswordFeedback(form.password)
 
   return (
-    <div className="modal-backdrop" onClick={closeModal} role="dialog" aria-modal="true">
-      <div className="su-modal-window" onClick={(e) => e.stopPropagation()}>
+    <div className="modal-backdrop" onClick={closeModal}>
+      <div className="su-modal-window" onClick={(e) => e.stopPropagation()} role="dialog" aria-modal="true">
         <button className="modal-close-btn" onClick={closeModal}>
           <img className="close" src={close} alt={t("signupModal.closeAlt")} />
         </button>

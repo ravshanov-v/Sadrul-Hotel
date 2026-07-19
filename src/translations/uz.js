@@ -13,6 +13,10 @@ const uz = {
     langUZ: "UZ",
     langRU: "RU",
     langEN: "EN",
+    logoAlt: "Sadrul",
+    sunAlt: "Yorug' rejim",
+    moonAlt: "Tungi rejim",
+    userAlt: "Foydalanuvchi profili",
   },
   footer: {
     brand: "Sadrul",
@@ -32,6 +36,9 @@ const uz = {
     privacy: "Maxfiylik siyosati",
     terms: "Foydalanish shartlari",
     copyright: "Barcha huquqlar himoyalangan.",
+    phoneAlt: "Telefon",
+    emailAlt: "Email",
+    addressAlt: "Manzil",
   },
   home: {
     heroBadge: "Noyob Sayohat Tajribasi",
@@ -570,6 +577,8 @@ const uz = {
     helpFAQ3A: "Naqd pul, plastik karta va o'tkazma orqali to'lash mumkin.",
     logout: "Hisobdan chiqish",
     closeAlt: "Yopish",
+    sunAlt: "Yorug' rejim",
+    moonAlt: "Tungi rejim",
     count: "ta",
   },
   bookingForm: {
@@ -626,6 +635,10 @@ const uz = {
     rooms: "xona",
     view: "Ko'rish",
     alternativeDates: "Alternativ sanalar",
+    km: "km",
+  },
+  common: {
+    like: "Yoqdi",
   },
   validation: {
     emailEmpty: "Elektron pochta manzili kiritilmagan.",

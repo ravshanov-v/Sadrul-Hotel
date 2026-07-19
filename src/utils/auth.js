@@ -128,7 +128,6 @@ export async function sendVoucherEmail(voucher) {
     const { sendVoucherEmail: send } = await import("./emailService")
     return send(voucher)
   } catch {
-    console.log("[Demo Mode] Email service not loaded, voucher saved to localStorage.")
     return { success: false, demo: true }
   }
 }

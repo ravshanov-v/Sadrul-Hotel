@@ -3,10 +3,10 @@ import { useParams, useNavigate, useSearchParams } from "react-router-dom"
 import { hotels } from "../../../data/hotels"
 import { useAuth } from "../../../components/Auth/useAuth.js"
 import { menuItems } from "../../../data/taomnoma"
-import { categoryMultiplier, extractCategory, roomTypes } from "../../../utils/roomData"
+import { categoryMultiplier, roomTypes } from "../../../utils/roomData"
 import { checkRoomAvailability, getSimilarRooms } from "../../../utils/availability"
 import { takliflar } from "../../../data/takliflar"
-import { generateBookingId, createBookingVoucher, prepareVoucherEmail, getCurrentUserEmail, sendVoucherEmail } from "../../../utils/auth"
+import { createBookingVoucher, getCurrentUserEmail, sendVoucherEmail } from "../../../utils/auth"
 import "./BronQilish.css"
 import { useLanguage } from "../../../components/Language/useLanguage.js"
 
@@ -52,7 +52,6 @@ export default function BronQilish() {
   const [similarRooms, setSimilarRooms] = useState([])
   const [submitted, setSubmitted] = useState(false)
   const [emailStatus, setEmailStatus] = useState("idle")
-  const [createdVoucher, setCreatedVoucher] = useState(null)
   const [availChecking, setAvailChecking] = useState(false)
   const [toast, setToast] = useState(null)
 
@@ -138,7 +137,7 @@ export default function BronQilish() {
 
   const checkInDate = new Date(form.checkIn)
   const checkOutDate = new Date(form.checkOut)
-  const nights = Math.max(0, (checkOutDate - checkInDate) / (1000 * 60 * 60 * 24))
+  const nights = form.checkIn && form.checkOut ? Math.max(0, (checkOutDate - checkInDate) / (1000 * 60 * 60 * 24)) : 0
   const rawTotal = hotel ? Math.round(hotel.price * nights * (categoryMultiplier[form.roomType] || 1)) : 0
   const totalPrice = promoDiscount ? Math.round(rawTotal * (1 - promoDiscount / 100)) : rawTotal
 
@@ -173,7 +172,6 @@ export default function BronQilish() {
       localStorage.setItem(bk, JSON.stringify(existing))
     } catch {}
     setSubmitted(true)
-    setCreatedVoucher(voucher)
     setEmailStatus("sending")
     const result = await sendVoucherEmail(voucher)
     if (result.success) {

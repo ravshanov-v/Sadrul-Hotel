@@ -13,6 +13,10 @@ const en = {
     langUZ: "UZ",
     langRU: "RU",
     langEN: "EN",
+    logoAlt: "Sadrul",
+    sunAlt: "Light mode",
+    moonAlt: "Dark mode",
+    userAlt: "User profile",
   },
   footer: {
     brand: "Sadrul",
@@ -32,6 +36,9 @@ const en = {
     privacy: "Privacy Policy",
     terms: "Terms of Service",
     copyright: "All rights reserved.",
+    phoneAlt: "Phone",
+    emailAlt: "Email",
+    addressAlt: "Address",
   },
   home: {
     heroBadge: "Unique Travel Experience",
@@ -570,7 +577,9 @@ const en = {
     helpFAQ3A: "Cash, plastic card, and bank transfer.",
     logout: "Logout",
     closeAlt: "Close",
-    count: "",
+    sunAlt: "Light mode",
+    moonAlt: "Dark mode",
+    count: "pc",
   },
   bookingForm: {
     destination: "Where to?",
@@ -626,6 +635,10 @@ const en = {
     rooms: "rooms",
     view: "View",
     alternativeDates: "Alternative Dates",
+    km: "km",
+  },
+  common: {
+    like: "Like",
   },
   validation: {
     emailEmpty: "Email address is required.",

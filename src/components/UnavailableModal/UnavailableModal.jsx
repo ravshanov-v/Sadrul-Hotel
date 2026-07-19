@@ -143,7 +143,7 @@ export default function UnavailableModal({ hotelId, roomType, checkIn, checkOut,
                           <svg viewBox="0 0 24 24" fill="none">
                             <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="none" stroke="currentColor" strokeWidth="1.5" />
                           </svg>
-                          {h.distance} km
+                          {h.distance} {t("unavailable.km")}
                         </span>
                       </div>
                     </div>

@@ -1,7 +1,3 @@
-*, *::before, *::after {
-  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
 body {
   background-color: #ffffff;
   color: #333333;
@@ -15,4 +11,61 @@ body {
 
 .dark main {
   background-color: #0f0f1a;
+}
+
+html.dark-transition *,
+html.dark-transition *::before,
+html.dark-transition *::after {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+@keyframes loaderPulse {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.04); }
+}
+
+@keyframes loaderRing {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.page-loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  gap: 24px;
+  animation: loaderPulse 2s ease-in-out infinite;
+}
+
+.page-loader-ring {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(212, 175, 55, 0.12);
+  border-top: 3px solid #D4AF37;
+  border-right: 3px solid rgba(212, 175, 55, 0.5);
+  border-radius: 50%;
+  animation: loaderRing 0.9s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.06);
+}
+
+.page-loader-brand {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  opacity: 0.7;
+}
+
+.page-loader-crown {
+  width: 22px;
+  height: 22px;
+}
+
+.page-loader-text {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: #D4AF37;
+  letter-spacing: 1px;
 }

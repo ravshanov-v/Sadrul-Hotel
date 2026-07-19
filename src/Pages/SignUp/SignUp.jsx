@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { NavLink, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import logoIconS from "../../Assets/Icons/logo-S-icon.png"
 import close from "../../Assets/Icons/close.svg"
 import { useModal } from "../../components/SmallWindows/Modal/useModal.js"
@@ -107,6 +107,9 @@ export default function SignUp() {
     }
   }
 
+  const pwdStrength = getPasswordStrength(form.password)
+  const pwdFeedback = getPasswordFeedback(form.password)
+
   return (
     <div className="signup-page">
       <div className="signup-card">
@@ -213,16 +216,16 @@ export default function SignUp() {
                   )}
                   {touched.password && validations.password && (
                     <>
-                      {getPasswordFeedback(form.password).length > 0 && (
+                      {pwdFeedback.length > 0 && (
                         <div className="signup-feedback-list">
-                          {getPasswordFeedback(form.password).map(item => (
+                          {pwdFeedback.map(item => (
                             <p key={item.key} className="signup-feedback error">{item.text}</p>
                           ))}
                         </div>
                       )}
-                      {getPasswordFeedback(form.password).length === 0 && getPasswordStrength(form.password) && (
-                        <p className={`signup-feedback ${getPasswordStrength(form.password).level}`}>
-                          {t(getPasswordStrength(form.password).level === 'oddiy' ? 'signup.weakPwd' : getPasswordStrength(form.password).level === 'normal' ? 'signup.mediumPwd' : 'signup.strongPwd')}
+                      {pwdFeedback.length === 0 && pwdStrength && (
+                        <p className={`signup-feedback ${pwdStrength.level}`}>
+                          {t(pwdStrength.level === 'oddiy' ? 'signup.weakPwd' : pwdStrength.level === 'normal' ? 'signup.mediumPwd' : 'signup.strongPwd')}
                         </p>
                       )}
                     </>

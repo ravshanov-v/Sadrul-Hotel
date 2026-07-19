@@ -379,7 +379,7 @@ export default function Prophile() {
           </button>
           <span className="prophile-title">{t("prophile.title")}</span>
           <button className="prophile-dark-toggle" onClick={toggleDark}>
-            <img src={isDark ? sun : moon} alt={isDark ? "sun" : "moon"} />
+            <img src={isDark ? sun : moon} alt={isDark ? t("prophile.sunAlt") : t("prophile.moonAlt")} />
           </button>
         </div>
 
@@ -400,7 +400,7 @@ export default function Prophile() {
               {serviceItems.map((item, i) => (
                 <button
                   key={item.key}
-                  className={`prophile-service-card ${activeKey === item.key ? "active" : ""}`}
+                  className="prophile-service-card"
                   onClick={() => handleServiceClick(item.key)}
                   style={{ animationDelay: `${i * 70}ms` }}
                 >

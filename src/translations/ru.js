@@ -13,6 +13,10 @@ const ru = {
     langUZ: "UZ",
     langRU: "RU",
     langEN: "EN",
+    logoAlt: "Sadrul",
+    sunAlt: "Светлый режим",
+    moonAlt: "Тёмный режим",
+    userAlt: "Профиль пользователя",
   },
   footer: {
     brand: "Sadrul",
@@ -32,6 +36,9 @@ const ru = {
     privacy: "Конфиденциальность",
     terms: "Условия использования",
     copyright: "Все права защищены.",
+    phoneAlt: "Телефон",
+    emailAlt: "Эл. почта",
+    addressAlt: "Адрес",
   },
   home: {
     heroBadge: "Уникальный Опыт Путешествий",
@@ -570,6 +577,8 @@ const ru = {
     helpFAQ3A: "Наличные, пластиковая карта и банковский перевод.",
     logout: "Выйти",
     closeAlt: "Закрыть",
+    sunAlt: "Светлый режим",
+    moonAlt: "Тёмный режим",
     count: "шт",
   },
   bookingForm: {
@@ -626,6 +635,10 @@ const ru = {
     rooms: "номера",
     view: "Смотреть",
     alternativeDates: "Альтернативные даты",
+    km: "км",
+  },
+  common: {
+    like: "Нравится",
   },
   validation: {
     emailEmpty: "Введите адрес электронной почты.",

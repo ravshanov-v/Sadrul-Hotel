@@ -1,5 +1,7 @@
-import { useEffect, useRef } from "react"
+import { useEffect, useLayoutEffect, useRef } from "react"
 import { Outlet, useLocation } from "react-router-dom"
+import AOS from "aos"
+import "aos/dist/aos.css"
 
 import Nav from "../../components/Navbar/Nav.jsx"
 import Footer from "../../components/Footer/Footer.jsx"
@@ -41,7 +43,22 @@ function LayoutContent() {
   const { openModal, closeModal } = useModal()
 
 
-  useEffect(() => {
+  useLayoutEffect(() => {
+    AOS.init({
+      duration: 800,
+      once: true,
+      offset: 120,
+      easing: "ease-out-cubic",
+      mirror: false,
+      anchorPlacement: "top-bottom",
+    })
+  }, [])
+
+  useLayoutEffect(() => {
+    AOS.refresh()
+  }, [location.pathname])
+
+  useLayoutEffect(() => {
     if (location.pathname !== prevPath.current) {
       prevPath.current = location.pathname
       window.scrollTo(0, 0)

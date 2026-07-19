@@ -1,4 +1,3 @@
-import React from 'react'
 import { NavLink } from "react-router-dom"
 import { useLanguage } from "../Language/useLanguage.js"
 
@@ -78,15 +77,15 @@ export default function Footer() {
           <h3 className="foot-section-title">{t("footer.contact")}</h3>
           <ul className="foot-contact">
             <li className="foot-contact-item">
-              <img className="foot-contact-icon" src={phone} alt="Phone" />
+              <img className="foot-contact-icon" src={phone} alt={t("footer.phoneAlt")} />
               <span>{t("footer.phone")}</span>
             </li>
             <li className="foot-contact-item">
-              <img className="foot-contact-icon" src={email} alt="Email" />
+              <img className="foot-contact-icon" src={email} alt={t("footer.emailAlt")} />
               <span>{t("footer.email")}</span>
             </li>
             <li className="foot-contact-item">
-              <img className="foot-contact-icon" src={adres} alt="Address" />
+              <img className="foot-contact-icon" src={adres} alt={t("footer.addressAlt")} />
               <span>{t("footer.address")}</span>
             </li>
           </ul>

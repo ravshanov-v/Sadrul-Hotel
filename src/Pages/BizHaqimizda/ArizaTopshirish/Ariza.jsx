@@ -17,7 +17,7 @@ export default function Ariza() {
     coverLetter: "",
   })
   const [submitted, setSubmitted] = useState(false)
-  const { t, tData } = useLanguage()
+  const { t } = useLanguage()
 
   useEffect(() => {
     window.scrollTo(0, 0)

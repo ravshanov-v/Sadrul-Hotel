@@ -6,7 +6,7 @@ import { useLanguage } from "../Language/useLanguage.js"
 export default function BookingForm({ variant = "light" }) {
   const { t } = useLanguage()
 
-  const fields = [
+  const fields = useMemo(() => [
     {
       id: "destination",
       label: t("bookingForm.destination"),
@@ -56,9 +56,9 @@ export default function BookingForm({ variant = "light" }) {
         </svg>
       )
     }
-  ]
+  ], [t])
 
-  const refs = useMemo(() => fields.map(() => createRef()), [])
+  const refs = useMemo(() => fields.map(() => createRef()), [fields])
 
   return (
     <form className={`bf-form bf-${variant}`} onSubmit={e => e.preventDefault()}>

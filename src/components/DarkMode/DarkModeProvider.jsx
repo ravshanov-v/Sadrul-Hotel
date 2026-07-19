@@ -10,6 +10,11 @@ export function DarkModeProvider({ children }) {
   useEffect(() => {
     localStorage.setItem("darkMode", JSON.stringify(isDark))
     document.documentElement.classList.toggle("dark", isDark)
+    document.documentElement.classList.add("dark-transition")
+    const timer = setTimeout(() => {
+      document.documentElement.classList.remove("dark-transition")
+    }, 400)
+    return () => clearTimeout(timer)
   }, [isDark])
 
   const toggleDark = () => setIsDark(prev => !prev)

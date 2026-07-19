@@ -3,11 +3,6 @@ import EMAIL_CONFIG, { isEmailConfigured } from "./emailConfig"
 
 export async function sendVoucherEmail(voucher) {
   if (!isEmailConfigured()) {
-    console.log(
-      "[EmailJS Demo Mode] Voucher tayyor, lekin EmailJS sozlanmagan.",
-      "emailConfig.js faylini ochib SERVICE_ID, TEMPLATE_ID va PUBLIC_KEY ni kiriting."
-    )
-    console.log("Voucher ma'lumotlari:", voucher)
     return { success: false, demo: true }
   }
 

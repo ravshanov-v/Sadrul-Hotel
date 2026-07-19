@@ -20,8 +20,6 @@
     "https://images.unsplash.com/photo-XXXXXXXXXX?w=400&q=80"
 */
 
-const img = (id, w) => `https://images.unsplash.com/${id}?w=${w}&q=80`
-
 export const menuItems = [
 
 

@@ -119,6 +119,9 @@ export default function SignUpModal() {
 
   if (!isOpen || modalType !== 'signup') return null
 
+  const pwdStrength = getPasswordStrength(form.password)
+  const pwdFeedback = getPasswordFeedback(form.password)
+
   return (
     <div className="modal-backdrop" onClick={closeModal} role="dialog" aria-modal="true">
       <div className="su-modal-window" onClick={(e) => e.stopPropagation()}>
@@ -223,16 +226,16 @@ export default function SignUpModal() {
                   )}
                   {touched.password && validations.password && (
                     <>
-                      {getPasswordFeedback(form.password).length > 0 && (
+                      {pwdFeedback.length > 0 && (
                         <div className="su-feedback-list">
-                          {getPasswordFeedback(form.password).map(item => (
+                          {pwdFeedback.map(item => (
                             <p key={item.key} className="su-feedback error">{item.text}</p>
                           ))}
                         </div>
                       )}
-                      {getPasswordFeedback(form.password).length === 0 && getPasswordStrength(form.password) && (
-                        <p className={`su-feedback ${getPasswordStrength(form.password).level}`}>
-                          {getPasswordStrength(form.password).level === 'weak' ? t("signupModal.weakPwd") : getPasswordStrength(form.password).level === 'medium' ? t("signupModal.mediumPwd") : t("signupModal.strongPwd")}
+                      {pwdFeedback.length === 0 && pwdStrength && (
+                        <p className={`su-feedback ${pwdStrength.level}`}>
+                          {t(pwdStrength.level === 'weak' ? 'signupModal.weakPwd' : pwdStrength.level === 'medium' ? 'signupModal.mediumPwd' : 'signupModal.strongPwd')}
                         </p>
                       )}
                     </>

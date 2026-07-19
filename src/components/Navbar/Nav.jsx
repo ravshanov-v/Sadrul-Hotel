@@ -55,7 +55,7 @@ export default function Nav() {
       <NavMemberToast show={memberToastShow} />
       <article className="logo-art">
         <NavLink to="/">
-          <img className="logo-icon" src={iconLogo} alt="Crown" />
+          <img className="logo-icon" src={iconLogo} alt={t("nav.logoAlt")} />
           <span className="logo-text">adrul</span>
         </NavLink>
       </article>
@@ -71,9 +71,9 @@ export default function Nav() {
       <div className="nav-actions">
         <button className="btn-darcmode" onClick={toggleDark}>
           {isDark ? (
-            <img className="dark-sun" src={sun} alt="sun" />
+            <img className="dark-sun" src={sun} alt={t("nav.sunAlt")} />
           ) : (
-            <img className="dark-moon" src={moon} alt="moon" />
+            <img className="dark-moon" src={moon} alt={t("nav.moonAlt")} />
           )}
         </button>
         <article className="lang-wrap">
@@ -102,7 +102,7 @@ export default function Nav() {
           </div>
         ) : (
           <button className="btn-login" onClick={handleLoginClick}>
-            <img className="nav-btn-login" src={userIcon} alt="user" /><p>{t("nav.login")}</p>
+            <img className="nav-btn-login" src={userIcon} alt={t("nav.userAlt")} /><span>{t("nav.login")}</span>
           </button>
         )}
       </div>

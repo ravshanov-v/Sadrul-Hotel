@@ -7,7 +7,7 @@ import 'swiper/css/navigation'
 import { Pagination, Navigation, Autoplay } from 'swiper/modules'
 import { takliflar } from '../../data/takliflar'
 import { hotels } from '../../data/hotels'
-import { IoGiftSharp } from 'react-icons/io5'
+
 import { useAuth } from '../../components/Auth/useAuth'
 import { useLanguage } from "../../components/Language/useLanguage.js"
 import { useModal } from '../../components/SmallWindows/Modal/useModal'
@@ -58,20 +58,7 @@ function OfferCard({ taklif, onCopyCode }) {
         )}
       </div>
       <div className="tk-card-body">
-        <div className="tk-card-icon-row">
-          <div className="tk-card-icon">
-            <IoGiftSharp />
-          </div>
-          <span className="tk-card-exclusive">
-            <svg viewBox="0 0 24 24" fill="none" className="tk-exclusive-star">
-              <path d="M12 2l1.5 5.5L19 8l-4 3.5L16.5 17 12 13.5 7.5 17 9 11.5 5 8l5.5-.5L12 2z" fill="currentColor" />
-            </svg>
-            {t("offers.exclusive")}
-          </span>
-        </div>
         <h3 className="tk-card-title">{tData("data.offers." + taklif.id + ".title", taklif.title)}</h3>
-        <p className="tk-card-subtitle">{tData("data.offers." + taklif.id + ".subtitle", taklif.subtitle)}</p>
-        <p className="tk-card-desc">{tData("data.offers." + taklif.id + ".description", taklif.description)}</p>
 
         <div className="tk-card-pricing">
           <div className="tk-pricing-col">
@@ -86,26 +73,6 @@ function OfferCard({ taklif, onCopyCode }) {
           <div className="tk-pricing-col">
             <span className="tk-price-label">{t("offers.newPrice")}</span>
             <span className="tk-price-new">${taklif.newPrice.toLocaleString()}</span>
-          </div>
-        </div>
-
-        <div className="tk-card-promo">
-          <div className="tk-promo-header">
-            <svg viewBox="0 0 24 24" fill="none" className="tk-promo-tag">
-              <path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-              <path d="M7 7h.01" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-            </svg>
-            <span className="tk-promo-label">{t("offers.promoLabel")}</span>
-          </div>
-          <div className="tk-promo-code-row">
-            <span className="tk-promo-code">{taklif.promoCode}</span>
-            <button className="tk-promo-copy" onClick={() => onCopyCode(taklif.promoCode)}>
-              <svg viewBox="0 0 24 24" fill="none">
-                <rect x="9" y="9" width="13" height="13" rx="2" stroke="currentColor" strokeWidth="1.5" />
-                <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-              {t("offers.copyBtn")}
-            </button>
           </div>
         </div>
 
@@ -127,19 +94,8 @@ function OfferCard({ taklif, onCopyCode }) {
               <path d="M9 21V12h6v9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
             <span>{tData("data.hotels." + hotel.id + ".name", hotel.name)}</span>
-            <span className="tk-hotel-room">· {tData("data.offers." + taklif.id + ".roomName", taklif.roomName)}</span>
           </div>
         )}
-
-        <button
-          className="tk-card-cta"
-          onClick={() => navigate(`/mehmonxona/${taklif.hotelId}?promo=${taklif.promoCode}&room=${taklif.roomId}&discount=${taklif.discount}`)}
-        >
-          <span>{t("offers.bookBtn")}</span>
-          <svg viewBox="0 0 24 24" fill="none">
-            <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </button>
       </div>
     </div>
   )

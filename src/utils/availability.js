@@ -1,6 +1,6 @@
 import { extractCategory, categoryMultiplier } from "./roomData"
 
-export function checkRoomAvailability(hotelId, roomType, checkIn, checkOut, userEmail, roomTypes) {
+export function checkRoomAvailability(hotelId, roomType, checkIn, checkOut, _userEmail, roomTypes) {
   const allBookings = []
   try {
     const keys = Object.keys(localStorage).filter(k => k.startsWith("bookings_"))
@@ -109,7 +109,7 @@ function generateAlternatives(from, duration) {
     alts.push({
       checkIn: start.toISOString().split("T")[0],
       checkOut: end.toISOString().split("T")[0],
-      label: offset === 0 ? "today" : offset < 0 ? `before:${Math.abs(offset)}` : `after:${offset}`
+      label: offset < 0 ? `before:${Math.abs(offset)}` : `after:${offset}`
     })
   }
   return alts

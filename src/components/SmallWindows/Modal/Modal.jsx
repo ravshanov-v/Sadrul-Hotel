@@ -88,7 +88,7 @@ export default function Modal() {
         <div className="modal-content">
           <article className="modal-left">
             <article className="modal-left-logo">
-              <img className="left-logo-img" src={logoIconS} alt="Logo" />
+              <img className="left-logo-img" src={logoIconS} alt={t("modal.logoAlt")} />
               <p className="left-logo-p">{t("modal.logoSpan")}</p>
             </article>
             <div className="modal-left-decoration">

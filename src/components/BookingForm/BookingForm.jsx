@@ -1,4 +1,4 @@
-import { createRef, useMemo } from "react"
+import { createRef, useRef, useMemo } from "react"
 import searchIcon from "../../Assets/Icons/search.svg"
 import "./BookingForm.css"
 import { useLanguage } from "../Language/useLanguage.js"
@@ -58,7 +58,7 @@ export default function BookingForm({ variant = "light" }) {
     }
   ], [t])
 
-  const refs = useMemo(() => fields.map(() => createRef()), [fields])
+  const refs = useRef(fields.map(() => createRef())).current
 
   return (
     <form className={`bf-form bf-${variant}`} onSubmit={e => e.preventDefault()}>

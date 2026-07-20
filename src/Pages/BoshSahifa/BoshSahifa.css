@@ -446,9 +446,9 @@
   animation: page-1-fadeInUp 1s ease-out 0.55s both;
 }
 
-/* ========== HOTEL PREVIEW SECTION ========== */
 
-/* ========== HOTEL PREVIEW SECTION ========== */
+
+
 .hp-section {
   max-width: 1300px;
   margin: 0 auto;
@@ -695,7 +695,7 @@
   transform: translateX(5px);
 }
 
-/* ========== DARK MODE ========== */
+
 .dark .hp-section {
   background: transparent;
 }
@@ -766,7 +766,7 @@
   }
 }
 
-/* ========== TAOMNOMA PREVIEW SECTION ========== */
+
 .tp-section {
   max-width: 1300px;
   margin: 0 auto;
@@ -1098,7 +1098,7 @@
   transform: translateX(5px);
 }
 
-/* DARK MODE */
+
 .dark .tp-title {
   color: #e8e8e8;
 }
@@ -1198,7 +1198,7 @@
   }
 }
 
-/* ========== TAKLIFLAR PREVIEW SECTION ========== */
+
 .op-section {
   max-width: 1300px;
   margin: 0 auto;
@@ -1394,7 +1394,7 @@
   transform: translateX(5px);
 }
 
-/* DARK MODE */
+
 .dark .op-title {
   color: #e8e8e8;
 }
@@ -1459,7 +1459,7 @@
   }
 }
 
-/* ========== ABOUT PREVIEW SECTION ========== */
+
 .ap-section {
   max-width: 1300px;
   margin: 0 auto;
@@ -1609,7 +1609,7 @@
   transform: translateX(5px);
 }
 
-/* DARK MODE */
+
 .dark .ap-title {
   color: #e8e8e8;
 }
@@ -1676,7 +1676,7 @@
   max-width: 500px;
 }
 
-/* MISSIYA */
+
 .ap-mission {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1713,7 +1713,7 @@
   transform: scale(1.05);
 }
 
-/* QADRIYATLAR */
+
 .ap-values {
   margin: 60px 0;
   text-align: center;
@@ -1814,7 +1814,7 @@
   color: rgba(255,255,255,0.45);
 }
 
-/* KARYERA */
+
 .ap-karyera {
   margin: 60px 0;
   text-align: center;
@@ -1923,7 +1923,7 @@
   flex-shrink: 0;
 }
 
-/* DARK MODE additions */
+
 .dark .ap-sub-title { color: #e8e8e8; }
 .dark .ap-sub-text { color: rgba(255,255,255,0.5); }
 
@@ -1945,4 +1945,129 @@
   .ap-sub-title { font-size: 24px; }
   .ap-values-grid { grid-template-columns: 1fr; }
   .ap-karyera-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 1200px) {
+  .page-1 { min-height: 520px; }
+  .page-1 .main-h1 { font-size: 56px; }
+  .page-1 .main-p { font-size: 18px; }
+  .hp-section, .tp-section, .op-section, .ap-section { padding-inline: 32px; }
+  .hp-grid { grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .hp-title, .tp-title, .op-title, .ap-title { font-size: 34px; }
+  .hp-all-btn, .tp-all-btn, .op-all-btn, .ap-all-btn { padding: 14px 36px; font-size: 14px; }
+  .page-1 .surov-art { padding: 28px 32px; }
+  .page-1 .search-btn { padding: 16px 48px; }
+}
+@media (max-width: 992px) {
+  .page-1 { min-height: 440px; }
+  .page-1 .main-h1 { font-size: 44px; max-width: 600px; }
+  .page-1 .main-p { font-size: 16px; max-width: 420px; }
+  .page-1 .page-1-badge { padding: 8px 22px; font-size: 12px; }
+  .page-1 .surov-art { padding: 24px 24px; width: 95%; }
+  .page-1 .search-input-wrap { height: 54px; }
+  .page-1 .search-input { font-size: 15px; }
+  .page-1 .search-btn { padding: 14px 36px; font-size: 15px; }
+  .hp-section { padding: 60px 24px 48px; }
+  .tp-section { padding: 0 24px 48px; }
+  .op-section { padding: 0 24px 48px; }
+  .ap-section { padding: 0 24px 48px; }
+  .hp-grid { grid-template-columns: repeat(2, 1fr); gap: 18px; }
+  .hp-title, .tp-title, .op-title, .ap-title { font-size: 30px; }
+  .hp-desc, .tp-desc, .op-desc, .ap-desc { font-size: 15px; }
+  .hp-card-img { height: 180px; }
+  .hp-card-body { padding: 18px 18px 20px; }
+  .hp-card-name { font-size: 17px; }
+  .tp-grid, .op-grid { grid-template-columns: repeat(2, 1fr); gap: 18px; }
+  .tp-card-img, .op-card-img { height: 160px; }
+  .tp-card-body, .op-card-body { padding: 16px 18px 18px; }
+  .ap-stats { grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .ap-stat-card { padding: 26px 18px; }
+  .ap-stat-value { font-size: 28px; }
+  .ap-values-grid { grid-template-columns: repeat(2, 1fr); gap: 18px; }
+  .ap-value-card { padding: 24px 20px; }
+  .ap-value-num { font-size: 30px; }
+  .ap-value-title { font-size: 16px; }
+  .ap-karyera-grid { grid-template-columns: repeat(2, 1fr); gap: 18px; }
+  .ap-karyera-card { padding: 24px 20px; }
+  .ap-sub-title { font-size: 24px; }
+  .page-1 .search-label { font-size: 11px; }
+}
+@media (max-width: 768px) {
+  .page-1 { min-height: 360px; }
+  .page-1 .main-h1 { font-size: 34px; max-width: 440px; }
+  .page-1 .main-p { font-size: 14px; max-width: 340px; padding: 0 16px; }
+  .page-1 .surov-art { padding: 20px 20px; width: 98%; }
+  .page-1 .search-input-wrap { height: 48px; }
+  .page-1 .search-input { font-size: 14px; }
+  .page-1 .search-btn { padding: 12px 28px; font-size: 14px; width: 60%; }
+  .hp-section { padding: 48px 16px 40px; }
+  .tp-section { padding: 0 16px 40px; }
+  .op-section { padding: 0 16px 40px; }
+  .ap-section { padding: 0 16px 40px; }
+  .hp-grid { grid-template-columns: 1fr; gap: 16px; }
+  .hp-title, .tp-title, .op-title, .ap-title { font-size: 26px; }
+  .hp-card-img { height: 200px; }
+  .tp-grid { grid-template-columns: 1fr; gap: 16px; }
+  .op-grid { grid-template-columns: 1fr; gap: 16px; }
+  .tp-card-img, .op-card-img { height: 180px; }
+  .ap-mission { flex-direction: column; gap: 24px; }
+  .ap-mission-image { height: 260px; width: 100%; }
+  .ap-section-text { font-size: 14px; }
+  .ap-stats { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .ap-stat-card { padding: 22px 16px; }
+  .ap-values-grid { grid-template-columns: 1fr; gap: 16px; }
+  .ap-value-card { padding: 22px 20px; }
+  .ap-karyera-grid { grid-template-columns: 1fr; gap: 16px; }
+  .ap-sub-title { font-size: 22px; }
+  .ap-sub-text { font-size: 13px; }
+  .page-1-stats { flex-direction: column; gap: 12px; }
+  .page-1::after { height: 180px; }
+}
+@media (max-width: 576px) {
+  .page-1 { min-height: 300px; }
+  .page-1 .main-h1 { font-size: 26px; max-width: 320px; }
+  .page-1 .main-p { font-size: 13px; max-width: 280px; }
+  .page-1 .surov-art { padding: 16px 16px; }
+  .page-1 .search-input-wrap { height: 44px; }
+  .page-1 .search-input { font-size: 13px; }
+  .page-1 .search-label { font-size: 10px; }
+  .page-1 .search-btn { padding: 10px 20px; font-size: 13px; width: 100%; }
+  .page-1 .page-1-badge { font-size: 11px; padding: 6px 16px; }
+  .hp-section { padding: 36px 12px 32px; }
+  .tp-section { padding: 0 12px 32px; }
+  .op-section { padding: 0 12px 32px; }
+  .ap-section { padding: 0 12px 32px; }
+  .hp-title, .tp-title, .op-title, .ap-title { font-size: 22px; }
+  .hp-card-img { height: 180px; }
+  .hp-card-body { padding: 16px 16px 18px; }
+  .hp-card-name { font-size: 16px; }
+  .hp-card-price strong { font-size: 20px; }
+  .tp-card-img, .op-card-img { height: 160px; }
+  .tp-card-body, .op-card-body { padding: 14px 16px 16px; }
+  .ap-mission-image { height: 220px; }
+  .ap-stats { grid-template-columns: 1fr; gap: 10px; }
+  .ap-stat-card { padding: 18px 14px; }
+  .ap-stat-value { font-size: 26px; }
+  .ap-stat-label { font-size: 12px; }
+  .ap-value-card { padding: 20px 16px; }
+  .ap-value-num { font-size: 28px; }
+  .ap-value-title { font-size: 15px; }
+  .ap-karyera-card { padding: 20px 16px; }
+  .hp-all-btn, .tp-all-btn, .op-all-btn, .ap-all-btn { padding: 12px 28px; font-size: 13px; width: 100%; justify-content: center; }
+  .ap-sub-title { font-size: 20px; }
+  .page-1 .search-btn { border-radius: 10px; }
+}
+@media (max-width: 360px) {
+  .page-1 { min-height: 260px; }
+  .page-1 .main-h1 { font-size: 22px; max-width: 260px; }
+  .page-1 .main-p { font-size: 12px; }
+  .page-1 .surov-art { padding: 12px 12px; }
+  .hp-card-img { height: 160px; }
+  .tp-card-img, .op-card-img { height: 140px; }
+  .hp-section { padding: 28px 8px 24px; }
+  .tp-section { padding: 0 8px 24px; }
+  .op-section { padding: 0 8px 24px; }
+  .ap-section { padding: 0 8px 24px; }
+  .hp-title, .tp-title, .op-title, .ap-title { font-size: 18px; }
+  .ap-mission-image { height: 180px; }
 }

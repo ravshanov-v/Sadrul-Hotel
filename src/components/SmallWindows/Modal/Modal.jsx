@@ -51,6 +51,17 @@ export default function Modal() {
     ? passwordValid ? "modal-input-password success" : "modal-input-password error"
     : "modal-input-password"
 
+  function getPasswordFeedback(pass) {
+    const items = []
+    if (pass.length < 6) items.push({ key: "length", text: t("modal.pwdMinChars") })
+    if (!/[a-zA-Z]/.test(pass)) items.push({ key: "letter", text: t("modal.pwdLetter") })
+    if (!/[0-9]/.test(pass)) items.push({ key: "number", text: t("modal.pwdNumber") })
+    if (!/[^a-zA-Z0-9]/.test(pass)) items.push({ key: "special", text: t("modal.pwdSpecial") })
+    return items
+  }
+
+  const pwdFeedback = getPasswordFeedback(password)
+
   function handleEmailChange(e) {
     setEmail(e.target.value)
     setEmailTouched(prev => prev ? prev : true)
@@ -159,7 +170,11 @@ export default function Modal() {
                   </button>
                 </div>
                 {passwordTouched && !passwordValid && (
-                  <p className="modal-feedback error">{t("modal.passwordError")}</p>
+                  <div className="modal-feedback-list">
+                    {pwdFeedback.map(item => (
+                      <p key={item.key} className="modal-feedback error">{item.text}</p>
+                    ))}
+                  </div>
                 )}
                 {passwordTouched && passwordValid && (
                   <p className="modal-feedback success">{t("modal.validLabel")}</p>

@@ -80,7 +80,7 @@
   letter-spacing: 0.3px;
 }
 
-/* BODY */
+
 .ariza-body {
   max-width: 800px;
   margin: 0 auto;
@@ -91,7 +91,7 @@
   width: 100%;
 }
 
-/* FORM */
+
 .ariza-form {
   background: #fff;
   border-radius: 24px;
@@ -207,7 +207,7 @@
   padding-right: 44px;
 }
 
-/* BTN */
+
 .ariza-btn {
   display: inline-flex;
   align-items: center;
@@ -250,7 +250,7 @@
   width: 100%;
 }
 
-/* SUCCESS */
+
 .ariza-success-card {
   background: #fff;
   border-radius: 24px;
@@ -329,4 +329,52 @@
   .ariza-success-card {
     padding: 40px 24px;
   }
+}
+
+@media (max-width: 1200px) {
+  .ariza-hero { padding: 80px 20px 50px; }
+  .ariza-hero-content h1 { font-size: 48px; }
+  .ariza-body { padding: 50px 32px 80px; }
+  .ariza-form-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+}
+@media (max-width: 992px) {
+  .ariza-hero { min-height: 35vh; padding: 70px 16px 40px; }
+  .ariza-hero-content h1 { font-size: 40px; }
+  .ariza-hero-sub { font-size: 15px; }
+  .ariza-badge { font-size: 12px; }
+  .ariza-body { padding: 40px 24px 70px; }
+  .ariza-form { padding: 36px; }
+  .ariza-form-title { font-size: 22px; }
+  .ariza-btn { padding: 14px 36px; font-size: 14px; }
+}
+@media (max-width: 768px) {
+  .ariza-hero { min-height: 30vh; padding: 60px 12px 32px; }
+  .ariza-hero-content h1 { font-size: 34px; }
+  .ariza-body { padding: 32px 16px 60px; }
+  .ariza-form { padding: 28px 24px; }
+  .ariza-form-grid { grid-template-columns: 1fr; gap: 14px; }
+  .ariza-form-title { font-size: 20px; }
+  .ariza-form-group input, .ariza-form-group select, .ariza-form-group textarea { padding: 12px 16px; font-size: 13px; }
+}
+@media (max-width: 576px) {
+  .ariza-hero { min-height: 35vh; padding: 50px 12px 24px; }
+  .ariza-hero-content h1 { font-size: 26px; }
+  .ariza-hero-sub { font-size: 13px; }
+  .ariza-badge { font-size: 11px; }
+  .ariza-body { padding: 24px 12px 50px; }
+  .ariza-form { padding: 24px 16px; }
+  .ariza-form-title { font-size: 18px; }
+  .ariza-form-group label { font-size: 11px; }
+  .ariza-btn { padding: 12px 28px; font-size: 13px; width: 100%; justify-content: center; }
+  .ariza-success-card { padding: 40px 24px; }
+  .ariza-success-card h2 { font-size: 22px; }
+  .ariza-success-text { font-size: 14px; }
+}
+@media (max-width: 360px) {
+  .ariza-hero-content h1 { font-size: 22px; }
+  .ariza-body { padding: 20px 8px 40px; }
+  .ariza-form { padding: 20px 12px; }
+  .ariza-form-title { font-size: 16px; }
+  .ariza-success-card { padding: 32px 16px; }
+  .ariza-success-card h2 { font-size: 18px; }
 }

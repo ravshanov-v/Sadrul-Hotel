@@ -6,7 +6,7 @@ import { useModal } from "../../components/SmallWindows/Modal/useModal.js"
 import { useFavorites } from "../../components/Favorites/useFavorites.js"
 import { useLanguage } from "../../components/Language/useLanguage.js"
 import { checkRoomAvailability } from "../../utils/availability"
-import { roomCategories, categoryMultiplier, extractCategory, roomTypes } from "../../utils/roomData"
+import { roomCategories, categoryMultiplier, extractCategory, roomTypes as globalRoomTypes } from "../../utils/roomData"
 import UnavailableModal from "../../components/UnavailableModal/UnavailableModal"
 import L from "leaflet"
 import "leaflet/dist/leaflet.css"
@@ -59,20 +59,17 @@ export default function MehmonxonaDetail() {
   const promoCode = searchParams.get("promo") || ""
   const promoRoom = searchParams.get("room") || ""
   const promoDiscount = Number(searchParams.get("discount")) || 0
+  const hotelRooms = hotel?.rooms || globalRoomTypes
 
-  const [visibleCount, setVisibleCount] = useState(promoRoom ? roomTypes.length : 12)
+  const [visibleCount, setVisibleCount] = useState(promoRoom ? (hotelRooms.length || 99) : 12)
   const [unavailableRoom, setUnavailableRoom] = useState(null)
   const [bookLoading, setBookLoading] = useState(null)
-
-  useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [])
 
   useEffect(() => {
     if (promoRoom) {
       setTimeout(() => {
         const el = document.getElementById('md-promo-room')
-        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' })
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
       }, 600)
     }
   }, [])
@@ -81,7 +78,6 @@ export default function MehmonxonaDetail() {
     if (!promoRoom) setVisibleCount(12)
   }, [roomCategory])
 
-  // Pre-calculate availability for each room category
   const availabilityMap = useMemo(() => {
     if (!hotel) return {}
     const map = {}
@@ -92,13 +88,13 @@ export default function MehmonxonaDetail() {
     const ci = tomorrow.toISOString().split("T")[0]
     const co = weekLater.toISOString().split("T")[0]
 
-    const categories = [...new Set(roomTypes.map(r => extractCategory(r.id)))]
+    const categories = [...new Set(hotelRooms.map(r => extractCategory(r.id)))]
     for (const cat of categories) {
-      const result = checkRoomAvailability(hotel.id, cat + "-1", ci, co, user?.email, roomTypes)
+      const result = checkRoomAvailability(hotel.id, cat + "-1", ci, co, user?.email, hotelRooms)
       map[cat] = result
     }
     return map
-  }, [hotel?.id, user?.email])
+  }, [hotel?.id, user?.email, hotelRooms])
 
   const mapRef = useRef(null)
   const mapInstance = useRef(null)
@@ -138,18 +134,14 @@ export default function MehmonxonaDetail() {
   }
 
   const stars = Array.from({ length: hotel.stars || 5 })
-  const galleryImages = [
-    hotel.image,
-    "https://images.unsplash.com/photo-1590073242678-70ee3fc28f8e?w=600&q=80",
-    "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=600&q=80",
-    "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=600&q=80"
-  ]
+  const galleryImages = hotel.gallery || [hotel.image]
 
-  const allRooms = roomTypes
-    .filter(rt => roomCategory === "Barchasi" || rt.category === roomCategory)
+  const allRooms = hotelRooms
+    .filter(rt => roomCategory === "Barchasi" || (rt.category || extractCategory(rt.id)).toLowerCase() === roomCategory.toLowerCase())
     .map(rt => ({
       ...rt,
-      price: Math.round(hotel.price * (categoryMultiplier[rt.category.toLowerCase()] || 1))
+      category: rt.category || extractCategory(rt.id),
+      price: rt.price || Math.round(hotel.price * (categoryMultiplier[(rt.category || extractCategory(rt.id)).toLowerCase()] || 1))
     }))
 
   const visible = allRooms.slice(0, visibleCount)
@@ -227,12 +219,12 @@ export default function MehmonxonaDetail() {
             <div className="md-about-text" data-aos="fade-right">
               <p data-aos="fade-up">{tData("data.hotels." + hotel.id + ".description", hotel.description)}</p>
               <p data-aos="fade-up" data-aos-delay="100">
-                {t("hotelDetail.description").replace("{name}", tData("data.hotels." + hotel.id + ".name", hotel.name)).replace("{stars}", hotel.stars).replace("{rooms}", hotel.rooms)}
+                {t("hotelDetail.description").replace("{name}", tData("data.hotels." + hotel.id + ".name", hotel.name)).replace("{stars}", hotel.stars).replace("{rooms}", hotel.totalRooms)}
               </p>
             </div>
             <div className="md-about-stats" data-aos="fade-left">
               <div className="md-stat-card" data-aos="fade-up">
-                <span className="md-stat-number">{hotel.rooms}</span>
+                <span className="md-stat-number">{hotel.totalRooms}</span>
                 <span className="md-stat-label">{t("hotelDetail.rooms")}</span>
               </div>
               <div className="md-stat-card" data-aos="fade-up" data-aos-delay="100">
@@ -378,8 +370,6 @@ export default function MehmonxonaDetail() {
                           className={`md-like-btn ${isFav('room_' + room.id) ? 'liked' : ''}`}
                           onClick={(e) => { e.stopPropagation(); toggleFav('room_' + room.id) }}
                           aria-label={t("common.like")}
-                          data-aos="fade-up"
-                          data-aos-delay={rowIndex * 50 + 50}
                         >
                           <svg viewBox="0 0 24 24">
                             <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" strokeLinecap="round" strokeLinejoin="round" />
@@ -417,7 +407,7 @@ export default function MehmonxonaDetail() {
                               weekLater.setDate(weekLater.getDate() + 3)
                               const ci = tomorrow.toISOString().split("T")[0]
                               const co = weekLater.toISOString().split("T")[0]
-                              const result = checkRoomAvailability(hotel.id, room.id, ci, co, user?.email, roomTypes)
+                              const result = checkRoomAvailability(hotel.id, room.id, ci, co, user?.email, hotelRooms)
                               if (!result.available) {
                                 setBookLoading(null)
                                 setUnavailableRoom({ hotelId: hotel.id, roomType: room.id, checkIn: ci, checkOut: co })

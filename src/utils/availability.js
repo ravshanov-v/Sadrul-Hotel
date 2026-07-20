@@ -35,19 +35,21 @@ export function checkRoomAvailability(hotelId, roomType, checkIn, checkOut, _use
 }
 
 export function getSimilarRooms(hotelId, roomType, roomTypes, hotelPrice) {
-  const addPrice = r => ({ ...r, price: Math.round(hotelPrice * (categoryMultiplier[r.category.toLowerCase()] || 1)) })
+  const getCategory = r => r.category || extractCategory(r.id)
+  const addPrice = r => ({ ...r, price: r.price || Math.round(hotelPrice * (categoryMultiplier[getCategory(r).toLowerCase()] || 1)) })
 
   const selected = roomTypes.find(r => r.id === roomType)
   if (!selected) return roomTypes.slice(0, 3).map(addPrice)
 
   const selectedWithPrice = addPrice(selected)
+  const selectedCategory = getCategory(selected)
 
   const sameCategory = roomTypes
-    .filter(r => r.category === selected.category && r.id !== roomType)
+    .filter(r => getCategory(r) === selectedCategory && r.id !== roomType)
     .map(addPrice)
 
   const otherCategory = roomTypes
-    .filter(r => r.category !== selected.category && r.id !== roomType)
+    .filter(r => getCategory(r) !== selectedCategory && r.id !== roomType)
     .map(addPrice)
 
   const byClosestPrice = (a, b) => Math.abs(a.price - selectedWithPrice.price) - Math.abs(b.price - selectedWithPrice.price)

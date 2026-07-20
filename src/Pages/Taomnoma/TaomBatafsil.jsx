@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom"
 import { menuItems } from "../../data/taomnoma"
 import "./TaomBatafsil.css"
 import { useLanguage } from "../../components/Language/useLanguage.js"
+import AOS from "aos"
 
 export default function TaomBatafsil() {
   const { id } = useParams()
@@ -14,8 +15,8 @@ export default function TaomBatafsil() {
   const item = menuItems.find(i => i.id === Number(id))
 
   useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [id])
+    AOS.refresh()
+  }, [showVariants])
 
   if (!item) {
     return (
@@ -90,8 +91,8 @@ export default function TaomBatafsil() {
         )}
       </div>
 
-      <div className={`tb-panel ${showVariants ? "open" : ""}`} data-aos="fade-up">
-        <div className="tb-panel-header" data-aos="fade-up">
+      <div className={`tb-panel ${showVariants ? "open" : ""}`}>
+        <div className="tb-panel-header">
           <h2>
             <svg viewBox="0 0 24 24" fill="none">
               <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -104,7 +105,7 @@ export default function TaomBatafsil() {
             </svg>
           </button>
         </div>
-        <div className="tb-panel-body" data-aos="fade-up">
+        <div className="tb-panel-body">
           {item.variants.map((v, i) => (
             <div
               key={i}
@@ -125,7 +126,7 @@ export default function TaomBatafsil() {
         </div>
       </div>
 
-      {showVariants && <div className="tb-overlay" onClick={() => setShowVariants(false)} data-aos="fade-up" />}
+      {showVariants && <div className="tb-overlay" onClick={() => setShowVariants(false)} />}
     </div>
   )
 }

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { hotels } from "../../data/hotels"
 import { getSimilarRooms, getNearbyHotels, getAlternativeDates } from "../../utils/availability"
-import { categoryMultiplier, roomTypes } from "../../utils/roomData"
+import { categoryMultiplier, extractCategory, roomTypes as globalRoomTypes } from "../../utils/roomData"
 import { useLanguage } from "../Language/useLanguage.js"
 import "./UnavailableModal.css"
 
@@ -10,8 +10,9 @@ export default function UnavailableModal({ hotelId, roomType, checkIn, checkOut,
   const navigate = useNavigate()
   const { t, tData } = useLanguage()
   const hotel = hotels.find(h => h.id === Number(hotelId)) || hotels[0]
+  const hotelRooms = hotel?.rooms || globalRoomTypes
 
-  const [similarRooms] = useState(() => getSimilarRooms(hotelId, roomType, roomTypes, hotel?.price || 0))
+  const [similarRooms] = useState(() => getSimilarRooms(hotelId, roomType, hotelRooms, hotel?.price || 0))
   const [nearbyHotels] = useState(() => getNearbyHotels(hotel, hotels))
   const [alternativeDates] = useState(() => getAlternativeDates(checkIn, checkOut))
 
@@ -66,7 +67,7 @@ export default function UnavailableModal({ hotelId, roomType, checkIn, checkOut,
                       <h4>{tData("data.rooms." + room.id + ".name", room.name)}</h4>
                       <div className="uam-room-cat">{tData("data.rooms." + room.id + ".category", room.category)}</div>
                       <div className="uam-room-price">
-                        ${Math.round(hotel.price * (categoryMultiplier[room.category] || 1))}
+                        ${room.price || Math.round(hotel.price * (categoryMultiplier[(room.category || extractCategory(room.id)).toLowerCase()] || 1))}
                         <small>{t("unavailable.perNight")}</small>
                       </div>
                     </div>
@@ -138,7 +139,7 @@ export default function UnavailableModal({ hotelId, roomType, checkIn, checkOut,
                           </svg>
                           {h.rating}
                         </span>
-                        <span>{h.rooms} {t("unavailable.rooms")}</span>
+                        <span>{h.totalRooms || h.rooms?.length || 0} {t("unavailable.rooms")}</span>
                         <span className="uam-hotel-distance">
                           <svg viewBox="0 0 24 24" fill="none">
                             <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="none" stroke="currentColor" strokeWidth="1.5" />

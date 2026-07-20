@@ -7,7 +7,7 @@
   position: relative;
 }
 
-/* ===== HEADER ===== */
+
 .tk-header {
   text-align: center;
   margin-bottom: 50px;
@@ -67,7 +67,7 @@
   color: #777;
 }
 
-/* ===== SWIPER ===== */
+
 .tk-swiper-wrap {
   width: 100%;
   padding: 20px 0 60px;
@@ -84,7 +84,7 @@
   display: flex;
 }
 
-/* ===== TOAST ===== */
+
 .tk-toast {
   position: fixed;
   bottom: 32px;
@@ -121,7 +121,7 @@
   flex-shrink: 0;
 }
 
-/* ===== CARD ===== */
+
 .tk-card {
   background: #ffffff;
   border-radius: 20px;
@@ -160,7 +160,7 @@
   border-color: rgba(212, 175, 55, 0.15);
 }
 
-/* ===== CARD IMAGE ===== */
+
 .tk-card-image {
   position: relative;
   width: 100%;
@@ -215,7 +215,7 @@
   opacity: 0.7;
 }
 
-/* ===== DISCOUNT BADGE ===== */
+
 .tk-discount-badge {
   position: absolute;
   top: 14px;
@@ -246,7 +246,7 @@
   letter-spacing: -0.5px;
 }
 
-/* ===== CARD BADGE ===== */
+
 .tk-card-badge {
   position: absolute;
   top: 14px;
@@ -266,7 +266,7 @@
   text-transform: uppercase;
 }
 
-/* ===== CARD BODY ===== */
+
 .tk-card-body {
   padding: 16px 20px 18px;
   flex: 1;
@@ -288,7 +288,7 @@
   color: #f0f0f0;
 }
 
-/* ===== PRICING ===== */
+
 .tk-card-pricing {
   display: flex;
   align-items: center;
@@ -364,7 +364,7 @@
 
 
 
-/* ===== EXPIRY ===== */
+
 .tk-card-expiry {
   display: flex;
   align-items: center;
@@ -404,7 +404,7 @@
   color: #555;
 }
 
-/* ===== HOTEL INFO ===== */
+
 .tk-card-hotel {
   display: flex;
   align-items: center;
@@ -428,7 +428,7 @@
 
 
 
-/* ===== PAGINATION ===== */
+
 .tk-swiper-wrap .swiper-pagination {
   position: relative;
   margin-top: 20px;
@@ -458,7 +458,7 @@
   box-shadow: 0 2px 10px rgba(212, 175, 55, 0.4);
 }
 
-/* ===== NAVIGATION ===== */
+
 .tk-swiper-wrap .swiper-button-next,
 .tk-swiper-wrap .swiper-button-prev {
   width: 40px;
@@ -513,7 +513,7 @@
   left: -6px;
 }
 
-/* ===== MEMBER TOAST (right side green notification) ===== */
+
 .tk-member-toast {
   position: fixed;
   top: 100px;
@@ -576,7 +576,7 @@
   letter-spacing: 0.2px;
 }
 
-/* ===== PREMIUM BOTTOM SECTION ===== */
+
 .tk-bottom {
   position: relative;
   margin-top: 80px;
@@ -818,7 +818,7 @@
   to { transform: rotate(360deg); }
 }
 
-/* ===== RESPONSIVE ===== */
+
 @media (max-width: 1200px) {
   .tk-title {
     font-size: 44px;
@@ -967,4 +967,71 @@
   .tk-member-toast-msg {
     font-size: 11px;
   }
+}
+
+@media (max-width: 1200px) {
+  .tk-page { padding: 50px 16px 80px; }
+  .tk-title { font-size: 44px; }
+  .tk-card-image { height: 190px; }
+  .tk-bottom { padding: 50px 36px; }
+  .tk-bottom-title { font-size: 46px; }
+}
+@media (max-width: 992px) {
+  .tk-page { padding: 40px 16px 70px; }
+  .tk-title { font-size: 36px; }
+  .tk-subtitle { font-size: 15px; }
+  .tk-badge { font-size: 11px; }
+  .tk-card-image { height: 170px; }
+  .tk-card-body { padding: 14px 18px 16px; }
+  .tk-card-title { font-size: 18px; }
+  .tk-discount-badge { width: 50px; height: 50px; }
+  .tk-discount-number { font-size: 14px; }
+  .tk-price-old { font-size: 14px; }
+  .tk-price-new { font-size: 18px; }
+  .tk-bottom { padding: 40px 28px; }
+  .tk-bottom-title { font-size: 38px; }
+  .tk-bottom-desc { font-size: 15px; }
+  .tk-bottom-cta { padding: 14px 34px; font-size: 14px; }
+}
+@media (max-width: 768px) {
+  .tk-page { padding: 32px 16px 60px; }
+  .tk-title { font-size: 30px; }
+  .tk-subtitle { font-size: 14px; }
+  .tk-card { flex-direction: column; }
+  .tk-card-image { width: 100%; height: 200px; }
+  .tk-card-body { padding: 16px 18px 18px; }
+  .tk-filter-bar { flex-wrap: wrap; justify-content: center; gap: 8px; }
+  .tk-filter-btn { font-size: 12px; padding: 6px 16px; }
+  .tk-bottom { padding: 36px 24px; }
+  .tk-bottom-title { font-size: 32px; }
+  .tk-bottom-desc { font-size: 14px; }
+}
+@media (max-width: 576px) {
+  .tk-page { padding: 24px 12px 50px; }
+  .tk-title { font-size: 24px; }
+  .tk-subtitle { font-size: 13px; }
+  .tk-badge { font-size: 10px; }
+  .tk-card-image { height: 180px; }
+  .tk-card-body { padding: 14px 16px 16px; }
+  .tk-card-title { font-size: 16px; }
+  .tk-discount-badge { width: 44px; height: 44px; }
+  .tk-discount-number { font-size: 12px; }
+  .tk-price-old { font-size: 13px; }
+  .tk-price-new { font-size: 16px; }
+  .tk-expiry-text { font-size: 11px; }
+  .tk-card-hotel { font-size: 11px; }
+  .tk-bottom { padding: 28px 16px; }
+  .tk-bottom-title { font-size: 26px; }
+  .tk-bottom-desc { font-size: 13px; }
+  .tk-bottom-cta { padding: 12px 28px; font-size: 13px; width: 100%; justify-content: center; }
+  .tk-filter-btn { font-size: 11px; padding: 5px 12px; }
+  .tk-member-toast { max-width: 320px; }
+}
+@media (max-width: 360px) {
+  .tk-page { padding: 20px 8px 40px; }
+  .tk-title { font-size: 20px; }
+  .tk-card-image { height: 160px; }
+  .tk-bottom { padding: 20px 12px; }
+  .tk-bottom-title { font-size: 22px; }
+  .tk-bottom-cta { padding: 10px 24px; font-size: 12px; }
 }

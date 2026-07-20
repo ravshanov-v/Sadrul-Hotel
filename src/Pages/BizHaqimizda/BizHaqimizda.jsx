@@ -6,9 +6,10 @@ import "./BizHaqimizda.css"
 import { BsBuildings, BsPeople, BsShieldCheck, BsStar } from 'react-icons/bs'
 import { jobPositions } from "../../data/karyera"
 import { useLanguage } from "../../components/Language/useLanguage"
+import companyImage from "../../Assets/Images/sadrul-kompany.jpg"
 
 const cityCount = [...new Set(hotels.map(h => h.location?.split(",")[0]?.trim()).filter(Boolean))].length
-const roomCount = hotels.reduce((s, h) => s + (h.rooms || 0), 0)
+const roomCount = hotels.reduce((s, h) => s + (h.totalRooms || 0), 0)
 
 export default function BizHaqimizda() {
   const navigate = useNavigate()
@@ -226,7 +227,7 @@ export default function BizHaqimizda() {
           </p>
         </div>
         <div className='about-mission-image' data-aos="fade-left">
-          <img src='/src/Assets/Images/sadrul-kompany.jpg' alt={t("about.teamImgAlt")} data-aos="zoom-in" />
+          <img src={companyImage} alt={t("about.teamImgAlt")} data-aos="zoom-in" />
           <div className='about-mission-image-overlay'></div>
         </div>
       </section>

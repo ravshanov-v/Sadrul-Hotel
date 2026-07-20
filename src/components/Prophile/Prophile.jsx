@@ -379,7 +379,8 @@ export default function Prophile() {
           </button>
           <span className="prophile-title">{t("prophile.title")}</span>
           <button className="prophile-dark-toggle" onClick={toggleDark}>
-            <img src={isDark ? sun : moon} alt={isDark ? t("prophile.sunAlt") : t("prophile.moonAlt")} />
+            <img className="prophile-dark-sun" src={sun} alt={t("prophile.sunAlt")} />
+            <img className="prophile-dark-moon" src={moon} alt={t("prophile.moonAlt")} />
           </button>
         </div>
 

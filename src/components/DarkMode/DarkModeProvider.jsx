@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useLayoutEffect } from "react"
 import { DarkModeContext } from "./DarkModeContext.jsx"
 
 export function DarkModeProvider({ children }) {
@@ -7,7 +7,7 @@ export function DarkModeProvider({ children }) {
     return saved ? JSON.parse(saved) : false
   })
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     localStorage.setItem("darkMode", JSON.stringify(isDark))
     document.documentElement.classList.toggle("dark", isDark)
     document.documentElement.classList.add("dark-transition")

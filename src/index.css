@@ -69,3 +69,10 @@ html.dark-transition *::after {
   color: #D4AF37;
   letter-spacing: 1px;
 }
+
+
+@media (max-width: 1200px) { html { font-size: 15.5px; } }
+@media (max-width: 992px) { html { font-size: 15px; } }
+@media (max-width: 768px) { html { font-size: 14px; } }
+@media (max-width: 576px) { html { font-size: 13px; } }
+@media (max-width: 360px) { html { font-size: 12px; } }

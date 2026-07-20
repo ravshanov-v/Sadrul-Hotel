@@ -385,7 +385,7 @@
   color: rgba(255,255,255,0.45);
 }
 
-/* ========== JAMOA ========== */
+
 .about-jamoa {
   max-width: 1200px;
   margin: 0 auto 80px;
@@ -533,7 +533,7 @@
   .about-stat-card { padding: 20px 12px; }
 }
 
-/* ========== VIDEO CARD ========== */
+
 .about-video-wrap {
   max-width: 1200px;
   margin: 80px auto 120px;
@@ -669,7 +669,7 @@
   pointer-events: auto;
 }
 
-/* Animated ring */
+
 .about-video-ring {
   position: absolute;
   width: 120px;
@@ -790,7 +790,7 @@
   }
 }
 
-/* ========== KARYERA ========== */
+
 .about-karyera {
   max-width: 1200px;
   margin: 0 auto 100px;
@@ -949,4 +949,87 @@
 @media (max-width: 768px) {
   .about-karyera-grid { grid-template-columns: 1fr; }
   .about-karyera { padding: 0 16px; margin-bottom: 60px; }
+}
+
+@media (max-width: 1200px) {
+  .about-hero-title { font-size: 54px; }
+  .about-hero { padding: 70px 20px 20px; }
+  .about-mission { padding: 0 32px; }
+  .about-jamoa-grid { grid-template-columns: repeat(3, 1fr); }
+  .about-karyera-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 992px) {
+  .about-hero { min-height: 25vh; padding: 60px 16px 20px; }
+  .about-hero-title { font-size: 44px; }
+  .about-hero-desc { font-size: 15px; }
+  .about-badge { font-size: 12px; }
+  .about-stats { grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .about-stat-card { padding: 26px 18px; }
+  .about-stat-value { font-size: 28px; }
+  .about-mission { padding: 0 24px; gap: 36px; }
+  .about-mission-image { height: 360px; }
+  .about-section-title { font-size: 30px; }
+  .about-section-text { font-size: 14px; }
+  .about-values-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .about-value-card { padding: 28px 22px; }
+  .about-value-num { font-size: 34px; }
+  .about-value-title { font-size: 18px; }
+  .about-jamoa-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .about-jamoa-card { padding: 28px 20px; }
+  .about-karyera-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .about-karyera-card { padding: 26px 20px; }
+}
+@media (max-width: 768px) {
+  .about-hero { min-height: 30vh; padding: 50px 12px 20px; }
+  .about-hero-title { font-size: 34px; }
+  .about-hero-desc { font-size: 14px; }
+  .about-stats { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .about-stat-card { padding: 22px 16px; }
+  .about-mission { flex-direction: column; padding: 0 16px; gap: 24px; }
+  .about-mission-image { width: 100%; height: 280px; }
+  .about-section-title { font-size: 26px; }
+  .about-values-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .about-value-card { padding: 22px 18px; }
+  .about-video-card { padding: 36px 28px 28px; }
+  .about-video-btn { width: 64px; height: 64px; }
+  .about-jamoa-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .about-jamoa-card { padding: 24px 18px; }
+  .about-jamoa-avatar { width: 60px; height: 60px; }
+  .about-karyera-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+}
+@media (max-width: 576px) {
+  .about-hero { min-height: 35vh; padding: 40px 12px 20px; }
+  .about-hero-title { font-size: 26px; }
+  .about-hero-desc { font-size: 13px; }
+  .about-badge { font-size: 11px; }
+  .about-stats { grid-template-columns: 1fr; gap: 10px; }
+  .about-stat-card { padding: 18px 14px; }
+  .about-stat-value { font-size: 26px; }
+  .about-stat-label { font-size: 12px; }
+  .about-mission { padding: 0 12px; gap: 20px; }
+  .about-mission-image { height: 240px; }
+  .about-section-title { font-size: 22px; }
+  .about-section-text { font-size: 13px; }
+  .about-values-grid { grid-template-columns: 1fr; gap: 14px; }
+  .about-value-card { padding: 20px 18px; }
+  .about-value-num { font-size: 30px; }
+  .about-value-title { font-size: 16px; }
+  .about-value-desc { font-size: 13px; }
+  .about-jamoa-grid { grid-template-columns: 1fr; gap: 14px; }
+  .about-jamoa-card { padding: 20px 16px; }
+  .about-jamoa-name { font-size: 16px; }
+  .about-jamoa-role { font-size: 11px; }
+  .about-karyera-grid { grid-template-columns: 1fr; gap: 14px; }
+  .about-karyera-card { padding: 20px 16px; }
+  .about-karyera-title { font-size: 16px; }
+  .about-karyera-btn { padding: 8px 16px; font-size: 12px; width: 100%; justify-content: center; }
+  .about-video-card { padding: 28px 20px 24px; }
+}
+@media (max-width: 360px) {
+  .about-hero-title { font-size: 22px; }
+  .about-mission-image { height: 200px; }
+  .about-section-title { font-size: 18px; }
+  .about-value-card { padding: 16px 14px; }
+  .about-jamoa-card { padding: 16px 14px; }
+  .about-karyera-card { padding: 16px 14px; }
 }

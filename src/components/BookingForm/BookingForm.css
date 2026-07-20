@@ -233,3 +233,40 @@
     border-radius: 18px;
   }
 }
+
+
+@media (max-width: 1200px) {
+  .bf-form { padding: 30px 32px; }
+  .bf-grid { gap: 14px; }
+  .bf-input-wrap { height: 50px; }
+  .bf-btn { height: 50px; padding: 0 28px; }
+}
+@media (max-width: 992px) {
+  .bf-form { padding: 24px 24px; }
+  .bf-grid { flex-wrap: wrap; gap: 12px; }
+  .bf-field { min-width: 140px; flex: 1; }
+  .bf-input-wrap { height: 46px; }
+  .bf-input { font-size: 13px; }
+  .bf-btn { height: 46px; padding: 0 24px; font-size: 13px; }
+  .bf-action { min-width: 120px; }
+}
+@media (max-width: 768px) {
+  .bf-form { padding: 20px 16px; border-radius: 18px; }
+  .bf-grid { flex-direction: column; gap: 10px; }
+  .bf-field { min-width: 100%; }
+  .bf-input-wrap { height: 44px; }
+  .bf-input { font-size: 13px; }
+  .bf-label { font-size: 11px; }
+  .bf-btn { height: 44px; font-size: 13px; width: 100%; justify-content: center; }
+  .bf-action { min-width: 100%; }
+}
+@media (max-width: 576px) {
+  .bf-form { padding: 16px 12px; border-radius: 14px; }
+  .bf-input-wrap { height: 42px; }
+  .bf-input { font-size: 12px; }
+  .bf-btn { height: 42px; font-size: 12px; padding: 0 20px; }
+}
+@media (max-width: 360px) {
+  .bf-form { padding: 12px 8px; }
+  .bf-input-wrap { height: 38px; }
+}

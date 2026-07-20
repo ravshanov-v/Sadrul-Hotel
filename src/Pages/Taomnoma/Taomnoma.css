@@ -1388,7 +1388,7 @@
   }
 }
 
-/* ========== LIKE BUTTON ========== */
+
 .tm-like-btn {
   position: absolute;
   top: 12px;
@@ -1428,4 +1428,79 @@
 }
 .dark .tm-like-btn:not(.liked) svg {
   stroke: rgba(255, 255, 255, 0.4);
+}
+
+@media (max-width: 1200px) {
+  .tm-hero { min-height: 440px; }
+  .tm-hero-content { padding: 80px 32px 60px; }
+  .tm-title { font-size: 54px; }
+  .tm-grid-row { grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .tm-body { padding: 50px 32px 70px; }
+}
+@media (max-width: 992px) {
+  .tm-hero { min-height: 380px; }
+  .tm-hero-content { padding: 70px 24px 50px; }
+  .tm-title { font-size: 44px; }
+  .tm-subtitle { font-size: 16px; max-width: 420px; }
+  .tm-badge { font-size: 12px; padding: 8px 22px; }
+  .tm-hero-btn { padding: 14px 30px; font-size: 14px; }
+  .tm-body { padding: 40px 24px 60px; }
+  .tm-section-title { font-size: 30px; }
+  .tm-section-label { font-size: 12px; }
+  .tm-grid-row { grid-template-columns: repeat(2, 1fr); gap: 18px; }
+  .tm-card-img { height: 180px; }
+  .tm-card-body { padding: 16px 18px 18px; }
+  .tm-card-name { font-size: 17px; }
+  .tm-cat-btn { padding: 8px 22px; font-size: 13px; }
+  .swiper-art .swiper { height: 480px; }
+}
+@media (max-width: 768px) {
+  .tm-hero { min-height: 320px; }
+  .tm-hero-content { padding: 60px 16px 40px; }
+  .tm-title { font-size: 34px; }
+  .tm-subtitle { font-size: 14px; }
+  .tm-badge { font-size: 11px; padding: 6px 18px; }
+  .tm-hero-btn { padding: 12px 24px; font-size: 13px; }
+  .tm-body { padding: 32px 16px 50px; }
+  .tm-grid-row { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .tm-card-img { height: 160px; }
+  .tm-card-body { padding: 14px 16px 16px; }
+  .tm-card-name { font-size: 16px; }
+  .tm-section-title { font-size: 26px; }
+  .tm-cat-btn { font-size: 12px; padding: 6px 16px; }
+  .tm-search-wrap { flex-direction: column; gap: 12px; }
+  .tm-search-wrap input { width: 100%; }
+  .tm-search-wrap button { width: 100%; justify-content: center; }
+  .swiper-art .swiper { height: 400px; }
+  .tm-stats-count { font-size: 14px; }
+}
+@media (max-width: 576px) {
+  .tm-hero { min-height: 260px; }
+  .tm-hero-content { padding: 50px 12px 32px; }
+  .tm-title { font-size: 26px; }
+  .tm-subtitle { font-size: 13px; }
+  .tm-badge { font-size: 10px; padding: 5px 14px; }
+  .tm-hero-btn { padding: 10px 20px; font-size: 12px; width: 100%; justify-content: center; }
+  .tm-body { padding: 24px 12px 40px; }
+  .tm-grid-row { grid-template-columns: 1fr; gap: 16px; }
+  .tm-card-img { height: 200px; }
+  .tm-card-body { padding: 14px 16px 16px; }
+  .tm-card-name { font-size: 18px; }
+  .tm-card-desc { font-size: 12px; }
+  .tm-about-btn { padding: 7px 18px; font-size: 11px; }
+  .tm-load-btn { padding: 12px 36px; font-size: 14px; width: 100%; justify-content: center; }
+  .tm-section-title { font-size: 22px; }
+  .tm-cat-btn { font-size: 11px; padding: 5px 12px; }
+  .swiper-art .swiper { height: 340px; }
+  .tm-stats-count { font-size: 13px; }
+}
+@media (max-width: 360px) {
+  .tm-hero { min-height: 220px; }
+  .tm-hero-content { padding: 40px 8px 24px; }
+  .tm-title { font-size: 22px; }
+  .tm-body { padding: 20px 8px 32px; }
+  .tm-grid-row { gap: 14px; }
+  .tm-card-img { height: 180px; }
+  .swiper-art .swiper { height: 280px; }
+  .tm-section-title { font-size: 18px; }
 }

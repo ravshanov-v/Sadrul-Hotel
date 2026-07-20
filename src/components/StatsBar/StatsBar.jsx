@@ -64,7 +64,7 @@ export default function StatsBar() {
   const variantCount = menuItems.reduce((s, item) => s + (item.variants?.length || 0), 0)
   const cityCount = [...new Set(hotels.map(h => h.location?.split(",")[0]?.trim()).filter(Boolean))].length
   const offerCount = takliflar.length
-  const roomCount = hotels.reduce((s, h) => s + (h.rooms || 0), 0)
+  const roomCount = hotels.reduce((s, h) => s + (h.totalRooms || 0), 0)
 
   const stats = [
     {

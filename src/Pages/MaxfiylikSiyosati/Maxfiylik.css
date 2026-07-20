@@ -151,3 +151,10 @@
   font-size: 0.85rem;
   font-style: italic;
 }
+
+
+@media (max-width: 1200px) { .privacy-body { padding-inline: 32px; } }
+@media (max-width: 992px) { .privacy-body { padding-inline: 24px; } .privacy-section { padding: 28px 24px; } }
+@media (max-width: 768px) { .privacy-body { padding-inline: 16px; } .privacy-section { padding: 24px 20px; } }
+@media (max-width: 576px) { .privacy-body { padding-inline: 12px; } .privacy-section { padding: 20px 14px; font-size: 13px; } }
+@media (max-width: 360px) { .privacy-body { padding-inline: 8px; } .privacy-section { padding: 16px 10px; } }

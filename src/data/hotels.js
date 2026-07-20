@@ -8,9 +8,23 @@ export const hotels = [
     price: 520,
     category: "Hashamatli",
     image: "https://api.tashkent.uz/upload/city/seesight/2026/Hyatt-4.jpg",
+    gallery: [
+      "https://assets.hyatt.com/content/dam/hyatt/hyattdam/images/2025/04/11/0259/TASRT-P0163-King-Bedroom.jpg/TASRT-P0163-King-Bedroom.16x9.jpg?imwidth=2560",
+      "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/11/b6/90/db/hyatt-regency-tashkent.jpg?w=700&h=-1&s=1",
+      "https://solevitatravel.uz/hotels/2023-03-27/64210eda2ad1c.jpg",
+      "https://res.cloudinary.com/lastminute/image/upload/q_auto/v1769758137/droclgkn29hjnybj3sba.jpg"
+    ],
     description: "Toshkent markazida joylashgan 5 yulduzli premium mehmonxona. Hashamatli SPA, restoran, basseyn va biznes xizmatlari bilan mashhur.",
     stars: 5,
-    rooms: 300,
+    totalRooms: 300,
+    rooms: [
+      
+      { id: "standart-1", price: 180, image: "" },
+      { id: "hashamatli-1", price: 320, image: "https://images.unsplash.com/photo-1590490359683-658d3d23f972?w=600&q=80" },
+      { id: "biznes-1", price: 260, image: "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=600&q=80" },
+      { id: "lyuks-1", price: 500, image: "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=600&q=80" },
+      { id: "prezident-1", price: 800, image: "https://images.unsplash.com/photo-1590073242678-70ee3fc28f8e?w=600&q=80" }
+    ],
     amenities: ["Basseyn", "Restoran", "SPA", "Fitness"],
     coordinates: { lat: 41.3112, lng: 69.2797 }
   },
@@ -23,9 +37,22 @@ export const hotels = [
     price: 490,
     category: "Hashamatli",
     image: "https://elleuzbekistan.com/wp-content/uploads/2024/10/Dizajn-bez-nazvaniya-4-8.png",
+    gallery: [
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHzUk-LBUZC-PmnzWCjnndTuZnftOzvvy1NDzEew1cixAE1doJfMzgwKCa&s=10",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3jn4b3kjyV2fHo44Dn8imAXRUSByiUUGnetzGonyGAKCuEJdT-Vnv2VQ&s=10",
+      "https://digital.ihg.com/is/image/ihg/intercontinental-tashkent-8938761948-2x1",
+      "https://digital.ihg.com/is/image/ihg/intercontinental-tashkent-8938762017-2x1"
+    ],
     description: "Zamonaviy interyer va xalqaro darajadagi xizmatlari bilan ajralib turadigan premium mehmonxona.",
     stars: 5,
-    rooms: 250,
+    totalRooms: 250,
+    rooms: [
+      { id: "standart-1", price: 170, image: "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=600&q=80" },
+      { id: "hashamatli-1", price: 310, image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&q=80" },
+      { id: "biznes-1", price: 250, image: "https://images.unsplash.com/photo-1522771739015-7c97a2f3fc1b?w=600&q=80" },
+      { id: "lyuks-1", price: 480, image: "https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=600&q=80" },
+      { id: "prezident-1", price: 750, image: "https://images.unsplash.com/photo-1590490359683-658d3d23f972?w=600&q=80" }
+    ],
     amenities: ["SPA", "Restoran", "Fitness", "Basseyn"],
     coordinates: { lat: 41.3045, lng: 69.2734 }
   },
@@ -38,9 +65,21 @@ export const hotels = [
     price: 470,
     category: "Biznes",
     image: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/490863210.jpg?k=b3bea5ebfb77b11883233c8ef85ce96a0c7f16a0725ec9c61b2a1129650f0d27&o=",
+    gallery: [
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpMHgec9lrn6IKyzMN9CCeGE-uLS2f3dOaQr5LddFbXGDZtJGW4qlwc2I&s=10",
+      "https://www.hilton.com/im/en/TASTCHI/19166685/presidential-suite-european-style-1-living-room-angle-2.jpg?impolicy=crop&cw=5000&ch=2799&gravity=NorthWest&xposition=0&yposition=268&rw=768&rh=430",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWjNL24IOZqyHd_YWtcDcCdwXCYqkdwWySUrcCoq-SjQ&s",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcr0OiSiEPFEmOc2PUBthOIutzfKpy1cpHItcbJjNl6aYVvV7255PSZzJc&s=10"
+    ],
     description: "Tashkent City markazida joylashgan zamonaviy biznes mehmonxonasi. Premium xizmat va qulay joylashuvga ega.",
     stars: 5,
-    rooms: 258,
+    totalRooms: 258,
+    rooms: [
+      { id: "standart-1", price: 160, image: "https://images.unsplash.com/photo-1587985064135-0366536eab42?w=600&q=80" },
+      { id: "biznes-1", price: 240, image: "https://images.unsplash.com/photo-1595576508898-0ad5c879a061?w=600&q=80" },
+      { id: "hashamatli-1", price: 300, image: "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=600&q=80" },
+      { id: "lyuks-1", price: 450, image: "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=600&q=80" }
+    ],
     amenities: ["Biznes", "SPA", "Restoran", "Fitness"],
     coordinates: { lat: 41.3005, lng: 69.2664 }
   },
@@ -53,9 +92,20 @@ export const hotels = [
     price: 260,
     category: "Biznes",
     image: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/492961953.jpg?k=f1bcbd99fcab41236e6030bf9fa6084d74ba9e2645b16e30956c705545ced7e6&o=",
+    gallery: [
+      "https://mdktravel.com/uploads/images/hotels/org/WmdSo52mix8N.jpg",
+      "https://x.cdrst.com/foto/hotel-sf/12e085cb/granderesp/foto-hotel-12e07b21.jpg",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFyIVIwGK0QoMmMfH-xXZm1leuTplH9Mv_Ko4H14QBHuF3-T-KfqJhz70&s=10",
+      "https://x.cdrst.com/foto/hotel-sf/12e085ac/granderesp/foto-hotel-12e07b02.jpg"
+    ],
     description: "Ishbilarmonlar va sayyohlar uchun qulay joylashuvga ega zamonaviy mehmonxona.",
     stars: 4,
-    rooms: 195,
+    totalRooms: 195,
+    rooms: [
+      { id: "standart-1", price: 90, image: "https://images.unsplash.com/photo-1590073242678-70ee3fc28f8e?w=600&q=80" },
+      { id: "biznes-1", price: 140, image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&q=80" },
+      { id: "oilaviy-1", price: 120, image: "https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=600&q=80" }
+    ],
     amenities: ["Restoran", "Biznes", "Fitness", "Wi-Fi"],
     coordinates: { lat: 41.3078, lng: 69.2712 }
   },
@@ -68,9 +118,20 @@ export const hotels = [
     price: 180,
     category: "Tarixiy",
     image: "https://tests2.tashkent.uz/_next/image?url=https%3A%2F%2Fapi.tashkent.uz%2Fupload%2Fcity%2Fseesight%2F2025%2F%25D0%2593%25D0%25BE%25D1%2581%25D1%2582%25D0%25B8%25D0%25BD%25D0%25B8%25D1%2586%25D0%25B0_%25D0%25A3%25D0%25B7%25D0%25B1%25D0%25B5%25D0%25BA%25D0%25B8%25D1%2581%25D1%2582%25D0%25B0%25D0%25BD_Russian.jpg&w=3840&q=75",
+    gallery: [
+      "https://uzbek-travel.com/images/uz/Hotels/Tashkent/Uzbekistan_Hotel/62239161.jpg",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpPa2XadbFLj5o0g_2huatmovEC7hO1A4yWlFuFUFQFYu7etRNh1ghFQ8&s=10",
+      "https://cf.bstatic.com/xdata/images/hotel/max1024x768/131734200.jpg?k=c0a7d1fe878ff2237ee5551632d1a623216af5a4126fde341977ddec6b727b8f&o=",
+      "https://uzbek-travel.com/images/uz/Hotels/Tashkent/Uzbekistan_Hotel/62246367.jpg"
+    ],
     description: "Poytaxtning ramziy mehmonxonalaridan biri. Shaharning markazida joylashgan va ko'p yillik tarixga ega.",
     stars: 4,
-    rooms: 278,
+    totalRooms: 278,
+    rooms: [
+      { id: "standart-1", price: 60, image: "https://images.unsplash.com/photo-1522771739015-7c97a2f3fc1b?w=600&q=80" },
+      { id: "biznes-1", price: 100, image: "https://images.unsplash.com/photo-1587985064135-0366536eab42?w=600&q=80" },
+      { id: "oilaviy-1", price: 85, image: "https://images.unsplash.com/photo-1595576508898-0ad5c879a061?w=600&q=80" }
+    ],
     amenities: ["Restoran", "Konferensiya", "Wi-Fi", "Avtoturargoh"],
     coordinates: { lat: 41.3032, lng: 69.2685 }
   },
@@ -83,9 +144,20 @@ export const hotels = [
     price: 340,
     category: "Biznes",
     image: "https://cache.marriott.com/content/dam/marriott-digital/cy/emea/hws/t/tascy/en_us/photo/unlimited/assets/tascy-exterior-6760.jpg",
+    gallery: [
+      "https://www.mdktravel.com/uploads/images/hotels/org/s8Wns98weKz6.jpg",
+      "https://cache.marriott.com/content/dam/marriott-renditions/TASCY/tascy-fitness-center-6796-hor-wide.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=1318px:*",
+      "https://cache.marriott.com/content/dam/marriott-renditions/TASCY/tascy-lobby-bar-6799-hor-feat.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=1920px:*",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHpP2Lr2dd4K3dfVbm5PhsiPHkFnK5cky3nxZFQrcBxuMDpxMVaow0fod_&s=10"
+    ],
     description: "Marriott tarmog'iga mansub zamonaviy mehmonxona. Xalqaro standartdagi xizmat va qulay infratuzilmaga ega.",
     stars: 5,
-    rooms: 140,
+    totalRooms: 140,
+    rooms: [
+      { id: "standart-1", price: 120, image: "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=600&q=80" },
+      { id: "biznes-1", price: 180, image: "https://images.unsplash.com/photo-1590073242678-70ee3fc28f8e?w=600&q=80" },
+      { id: "hashamatli-1", price: 230, image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&q=80" }
+    ],
     amenities: ["Fitness", "Restoran", "SPA", "Biznes"],
     coordinates: { lat: 41.3095, lng: 69.2818 }
   },
@@ -98,9 +170,22 @@ export const hotels = [
     price: 330,
     category: "Hashamatli",
     image: "https://www.occrp.org/interactives/the-shadow-investor-abdukadyr/assets/static/Movenpick_Samarkand_25b2e5a01d.e98d130.371e8d741039c239c7ab59553b923b7c.jpg",
+    gallery: [
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHuk8pn3iLk9ljXWTnQ4p8clOBXxEQEOzuD3lXACugW4ZUv7xPBFrTXn-n&s=10",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwVw9YYL03MzE3br8dpeiKxOjXKKDxp8eBBzgkcFF9sLJZ1VDPJYdPHe8j&s=10",
+      "https://m.ahstatic.com/is/image/accorhotels/6565-74:3by2?wid=378&hei=252&dpr=on,2.625&qlt=75&resMode=sharp2&op_usm=0.5,0.3,2,0&iccEmbed=true&icc=sRGB",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRga9Lk4vAHE959Gwenha2OgTqrNu8dD3mAtrYsGrYscEE9HVvr5FONkZHT&s=10"
+    ],
     description: "Registon maydoniga yaqin joylashgan zamonaviy premium mehmonxona. Sayyohlar orasida juda mashhur.",
     stars: 5,
-    rooms: 165,
+    totalRooms: 165,
+    rooms: [
+      { id: "standart-1", price: 120, image: "https://images.unsplash.com/photo-1595576508898-0ad5c879a061?w=600&q=80" },
+      { id: "hashamatli-1", price: 220, image: "https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=600&q=80" },
+      { id: "biznes-1", price: 170, image: "https://images.unsplash.com/photo-1590490359683-658d3d23f972?w=600&q=80" },
+      { id: "lyuks-1", price: 350, image: "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=600&q=80" },
+      { id: "prezident-1", price: 600, image: "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=600&q=80" }
+    ],
     amenities: ["SPA", "Restoran", "Basseyn", "Fitness"],
     coordinates: { lat: 39.6542, lng: 66.9597 }
   },
@@ -113,9 +198,21 @@ export const hotels = [
     price: 550,
     category: "Hashamatli",
     image: "https://podrobno.uz/upload/iblock/f81/x7gqwibqukgcpo9zgm6z7qxn5uyeaawu/IMG_9767.JPG",
+    gallery: [
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHWM3N63ZSKpDEGR_014FLuiqSgTRE6o0c69pjAShTbA&s=10",
+      "https://www.silkroad-samarkand.com/upload/iblock/8ac/5ncbab2p8vv8mqpvpxyhyb5tbrk07lsm.jpg",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAxEpW8H0yMJ4CQEw5hNbwVlMBeh7rxWmtWk4ayTuSy_CMK8dca-IbpkI&s=10",
+      "https://www.silkroad-samarkand.com/upload/iblock/885/0kmysf5ii1n5phpg990mljdc5tokeeqy.jpg"
+    ],
     description: "Silk Road Samarkand majmuasidagi eng hashamatli mehmonxonalardan biri.",
     stars: 5,
-    rooms: 232,
+    totalRooms: 232,
+    rooms: [
+      { id: "standart-1", price: 190, image: "https://images.unsplash.com/photo-1590073242678-70ee3fc28f8e?w=600&q=80" },
+      { id: "hashamatli-1", price: 350, image: "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=600&q=80" },
+      { id: "lyuks-1", price: 550, image: "https://images.unsplash.com/photo-1522771739015-7c97a2f3fc1b?w=600&q=80" },
+      { id: "prezident-1", price: 900, image: "https://images.unsplash.com/photo-1587985064135-0366536eab42?w=600&q=80" }
+    ],
     amenities: ["SPA", "Basseyn", "VIP", "Restoran"],
     coordinates: { lat: 39.6482, lng: 66.9638 }
   },
@@ -128,9 +225,22 @@ export const hotels = [
     price: 420,
     category: "Resort",
     image: "https://images.trvl-media.com/lodging/82000000/81070000/81067800/81067748/90933e09.jpg?impolicy=resizecrop&rw=575&rh=575&ra=fill",
+    gallery: [
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0WKyIlVE4kKZTuBn4Se_PegLtPbZfAvEx6IFDlLZgNZRse5TECfhJrFuQ&s=10",
+      "https://www.silkroad-samarkand.com/upload/iblock/664/l51xunfijdldp0a3hv0xjfp4ac0thjwx.jpg",
+      "https://www.silkroad-samarkand.com/upload/iblock/a17/bejd0d5vmwpvuo68qgn7il91w0faucq5.jpg",
+      "https://www.mdktravel.com/uploads/images/hotels/org/RkcIJ94kZ3rs.jpg"
+    ],
     description: "Silk Road Samarkand turistik majmuasining premium mehmonxonalaridan biri.",
     stars: 5,
-    rooms: 221,
+    totalRooms: 221,
+    rooms: [
+      { id: "standart-1", price: 150, image: "https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=600&q=80" },
+      { id: "hashamatli-1", price: 280, image: "https://images.unsplash.com/photo-1590490359683-658d3d23f972?w=600&q=80" },
+      { id: "biznes-1", price: 220, image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&q=80" },
+      { id: "oilaviy-1", price: 200, image: "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=600&q=80" },
+      { id: "lyuks-1", price: 420, image: "https://images.unsplash.com/photo-1595576508898-0ad5c879a061?w=600&q=80" }
+    ],
     amenities: ["Basseyn", "SPA", "Restoran", "Fitness"],
     coordinates: { lat: 39.6505, lng: 66.9602 }
   },
@@ -143,9 +253,22 @@ export const hotels = [
     price: 570,
     category: "Hashamatli",
     image: "https://www.silkroad-samarkand.com/upload/iblock/caa/be0esmz7tw32h1xxg4dhg03ysyoz2v03.jpg",
+    gallery: [
+      "https://www.tourstouzbekistan.com/storage/hotels/photogallery/1765540810_4.jpg",
+      "https://www.hilton.com/im/en/SKDSRHI/22729402/emir-bath.jpg?impolicy=crop&cw=5000&ch=2812&gravity=NorthWest&xposition=0&yposition=0&rw=1200&rh=675",
+      "https://www.hilton.com/im/en/SKDSRHI/19432161/skdsr-lobby2.jpg?impolicy=crop&cw=4872&ch=2727&gravity=NorthWest&xposition=0&yposition=136&rw=768&rh=430",
+      "https://www.silkroad-samarkand.com/upload/resize_cache/iblock/6bf/1920_1080_1/jj7vpr4se170th9fd85zf352tr75nbv2.jpg"
+    ],
     description: "Hilton brendining Samarqanddagi premium mehmonxonasi. Hashamat va yuqori darajadagi servisni taklif etadi.",
     stars: 5,
-    rooms: 240,
+    totalRooms: 240,
+    rooms: [
+      { id: "standart-1", price: 200, image: "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=600&q=80" },
+      { id: "hashamatli-1", price: 360, image: "https://images.unsplash.com/photo-1590073242678-70ee3fc28f8e?w=600&q=80" },
+      { id: "biznes-1", price: 290, image: "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=600&q=80" },
+      { id: "lyuks-1", price: 570, image: "https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=600&q=80" },
+      { id: "prezident-1", price: 950, image: "https://images.unsplash.com/photo-1590490359683-658d3d23f972?w=600&q=80" }
+    ],
     amenities: ["SPA", "Fitness", "Restoran", "Basseyn"],
     coordinates: { lat: 39.6468, lng: 66.9655 }
   },
@@ -158,9 +281,21 @@ export const hotels = [
     price: 290,
     category: "Hashamatli",
     image: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/466626569.jpg?k=c2a037c4ec0735025e821fb37cd5c5f6eac45180a292b573b70ad39ab53e3108&o=",
+    gallery: [
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTH76mAzL2IXi_VMMxwK8In_P8flLxnPB8e6Hprh1XGpEJ385c9TryWG1M&s=10",
+      "https://y.cdrst.com/foto/hotel-sf/10fe4164/granderesp/foto-hotel-10fe36ba.jpg",
+      "https://cdn-zen.readytotrip.com/t/1024x768/extranet/40/8a/408a715d547cacf0648cea27e02e3d811bf46c1d.jpeg",
+      "https://www.wyndhamhotels.com/content/dam/property-images/en-us/hr/uz/others/bukhara/55885/55885_pool_bar_1.jpg?downsize=720:*"
+    ],
     description: "Buxoroning tarixiy obidalariga yaqin joylashgan xalqaro Wyndham tarmog'iga mansub mehmonxona.",
     stars: 5,
-    rooms: 120,
+    totalRooms: 120,
+    rooms: [
+      { id: "standart-1", price: 100, image: "https://images.unsplash.com/photo-1587985064135-0366536eab42?w=600&q=80" },
+      { id: "hashamatli-1", price: 190, image: "https://images.unsplash.com/photo-1595576508898-0ad5c879a061?w=600&q=80" },
+      { id: "biznes-1", price: 150, image: "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=600&q=80" },
+      { id: "lyuks-1", price: 300, image: "https://images.unsplash.com/photo-1522771739015-7c97a2f3fc1b?w=600&q=80" }
+    ],
     amenities: ["SPA", "Restoran", "Fitness", "Basseyn"],
     coordinates: { lat: 39.7681, lng: 64.4219 }
   },
@@ -173,9 +308,21 @@ export const hotels = [
     price: 310,
     category: "Hashamatli",
     image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOy9pEloZ7aaOH_XdMeax2WWrGj8ROWL1gzszeyLc2NWBd8HZd5ak39gq7&s=10",
+    gallery: [
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQH5uxoS7kWN8skAec1yruxSsGT6EZq0drEtdfEdjQaIA&s",
+      "https://cf.bstatic.com/xdata/images/hotel/max1024x768/884283050.jpg?k=c067fd3a32af9a6761bc285501ff810c144dd6340c086705bdf022cd5a6ab4fb&o=",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQX0x7cfg9FlcR84Ok6SPHAO74k8qpOiLyANYE33oFnl-yfwXin44_EfxcX&s=10",
+      "https://cdn-zen.readytotrip.com/t/1024x768/extranet/89/54/8954232e047fe1be45960596904c2381d6ecabad.jpeg"
+    ],
     description: "Ichan-Qal'a yaqinida joylashgan zamonaviy premium mehmonxona. Milliy uslub va zamonaviy qulayliklarni uyg'unlashtirgan.",
     stars: 5,
-    rooms: 106,
+    totalRooms: 106,
+    rooms: [
+      { id: "standart-1", price: 110, image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&q=80" },
+      { id: "hashamatli-1", price: 210, image: "https://images.unsplash.com/photo-1590073242678-70ee3fc28f8e?w=600&q=80" },
+      { id: "biznes-1", price: 160, image: "https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=600&q=80" },
+      { id: "oilaviy-1", price: 140, image: "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=600&q=80" }
+    ],
     amenities: ["SPA", "Restoran", "Basseyn", "Fitness"],
     coordinates: { lat: 41.3789, lng: 60.3604 }
   }

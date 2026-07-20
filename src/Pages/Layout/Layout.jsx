@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef } from "react"
+import { useEffect, useLayoutEffect } from "react"
 import { Outlet, useLocation } from "react-router-dom"
 import AOS from "aos"
 import "aos/dist/aos.css"
@@ -37,7 +37,6 @@ function isNotFound(pathname) {
 
 function LayoutContent() {
   const location = useLocation()
-  const prevPath = useRef(location.pathname)
   const isSignup = location.pathname === "/signup"
   const hideFrame = isNotFound(location.pathname)
   const { openModal } = useModal()
@@ -59,10 +58,7 @@ function LayoutContent() {
   }, [location.pathname])
 
   useLayoutEffect(() => {
-    if (location.pathname !== prevPath.current) {
-      prevPath.current = location.pathname
-      window.scrollTo(0, 0)
-    }
+    window.scrollTo(0, 0)
   }, [location.pathname])
 
   useEffect(() => {
@@ -70,7 +66,7 @@ function LayoutContent() {
       openModal()
       window.history.replaceState({}, document.title)
     }
-  }, [location.pathname])
+  }, [location.pathname, openModal])
 
   return (
     <>

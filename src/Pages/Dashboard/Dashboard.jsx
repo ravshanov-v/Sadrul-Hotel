@@ -19,7 +19,7 @@ import {
 import "./Dashboard.css"
 
 const uniqueCities = [...new Set(hotels.map(h => h.location?.split(",")[0]?.trim()).filter(Boolean))]
-const roomCount = hotels.reduce((s, h) => s + (h.rooms || 0), 0)
+const roomCount = hotels.reduce((s, h) => s + (h.totalRooms || 0), 0)
 
 function CountUp({ end, suffix, duration = 2000 }) {
   const [value, setValue] = useState(0)

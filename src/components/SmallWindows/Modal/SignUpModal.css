@@ -487,3 +487,37 @@
     font-size: 12px;
   }
 }
+
+
+@media (max-width: 1200px) { .su-modal-window { width: 750px; } }
+@media (max-width: 992px) {
+  .su-modal-window { width: 90%; }
+  .su-modal-content { min-height: 480px; }
+  .su-right-h { font-size: 22px; }
+}
+@media (max-width: 768px) {
+  .su-modal-window { width: 95%; max-width: 480px; }
+  .su-modal-left { display: none; }
+  .su-modal-right { width: 100%; padding: 32px 24px; }
+  .su-modal-content { min-height: auto; }
+  .su-right-h { font-size: 22px; }
+  .su-submit-btn { width: 100%; justify-content: center; }
+  .su-modal-row { flex-direction: column; gap: 14px; }
+}
+@media (max-width: 576px) {
+  .su-modal-window { width: 100vw; height: 100dvh; border-radius: 0; max-width: 100vw; }
+  .su-modal-right { padding: 24px 16px; }
+  .su-right-h { font-size: 20px; }
+  .su-right-desc { font-size: 12px; }
+  .su-modal-field .signup-input { height: 42px; font-size: 12px; }
+  .su-submit-btn { height: 42px; font-size: 14px; }
+  .su-feedback { font-size: 9px; }
+  .su-login-link { font-size: 11px; }
+}
+@media (max-width: 360px) {
+  .su-modal-window { width: 100vw; }
+  .su-modal-right { padding: 20px 12px; }
+  .su-right-h { font-size: 18px; }
+  .su-modal-field .signup-input { height: 38px; font-size: 11px; }
+  .su-submit-btn { height: 38px; font-size: 13px; }
+}

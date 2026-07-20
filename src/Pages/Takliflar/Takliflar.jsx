@@ -97,6 +97,12 @@ function OfferCard({ taklif, onCopyCode }) {
             <span>{tData("data.hotels." + hotel.id + ".name", hotel.name)}</span>
           </div>
         )}
+        <button
+          className="tk-card-book-btn"
+          onClick={() => navigate(`/mehmonxona/${taklif.hotelId}?promo=${taklif.promoCode}&room=${taklif.roomId}&discount=${taklif.discount}`)}
+        >
+          {t("offers.bookBtn")}
+        </button>
       </div>
     </div>
   )

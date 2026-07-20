@@ -327,7 +327,7 @@
   height: 20px;
 }
 
-/* ===== PAYMENT METHOD ===== */
+
 .bq-payment-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -482,7 +482,7 @@
   text-align: center;
 }
 
-/* ===== SUCCESS CONFIRMATION ===== */
+
 .bq-sc {
   min-height: 100vh;
   background: var(--bq-sc-bg);
@@ -752,7 +752,7 @@
   height: 18px;
 }
 
-/* RECOMMENDATIONS */
+
 .bq-sc-recs {
   margin-top: 50px;
   animation: bqScFade 0.6s ease 0.65s both;
@@ -879,7 +879,7 @@
   height: 14px;
 }
 
-/* ===== CASH NOTICE ===== */
+
 .bq-cash-notice {
   display: flex;
   align-items: center;
@@ -899,7 +899,7 @@
   color: #4ade80;
 }
 
-/* ===== CARD FORM ===== */
+
 .bq-card-form {
   margin-top: 20px;
   padding: 20px;
@@ -985,7 +985,7 @@
   .bq-sc-rec { flex: 0 0 220px; }
 }
 
-/* ===== AVAILABILITY BADGE ===== */
+
 .bq-avail-checking {
   display: flex;
   align-items: center;
@@ -1055,7 +1055,7 @@
   box-shadow: 0 0 8px rgba(251, 191, 36, 0.4);
 }
 
-/* ===== SIMILAR ROOMS ===== */
+
 .bq-similar-rooms {
   margin-top: 20px;
   padding-top: 16px;
@@ -1124,7 +1124,7 @@
   color: #D4AF37;
 }
 
-/* ===== TOAST ===== */
+
 .bq-toast {
   position: fixed;
   top: 24px;
@@ -1167,4 +1167,67 @@
     font-size: 13px;
     padding: 12px 20px;
   }
+}
+
+@media (max-width: 1200px) {
+  .bq-hero { min-height: 280px; }
+  .bq-hero-content { padding: 70px 20px; }
+  .bq-hero-content h1 { font-size: 42px; }
+  .bq-body { padding: 50px 20px 80px; }
+  .bq-container { gap: 32px; }
+}
+@media (max-width: 992px) {
+  .bq-hero { min-height: 250px; }
+  .bq-hero-content { padding: 60px 16px; }
+  .bq-hero-content h1 { font-size: 36px; }
+  .bq-hero-sub { font-size: 16px; }
+  .bq-badge { font-size: 12px; padding: 6px 16px; }
+  .bq-body { padding: 40px 16px 70px; }
+  .bq-container { grid-template-columns: 1fr; gap: 28px; }
+  .bq-form { padding: 28px; }
+  .bq-form-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+  .bq-payment-methods { flex-direction: column; gap: 12px; }
+  .bq-payment-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 768px) {
+  .bq-hero { min-height: 220px; }
+  .bq-hero-content { padding: 50px 12px; }
+  .bq-hero-content h1 { font-size: 30px; }
+  .bq-hero-sub { font-size: 14px; }
+  .bq-body { padding: 32px 12px 60px; }
+  .bq-container { gap: 24px; }
+  .bq-form { padding: 24px 20px; }
+  .bq-form-title { font-size: 16px; }
+  .bq-form-group input, .bq-form-group select { height: 44px; font-size: 13px; }
+  .bq-similar-rooms { grid-template-columns: 1fr; gap: 16px; }
+  .bq-hotel-preview img { width: 100%; height: auto; }
+}
+@media (max-width: 576px) {
+  .bq-hero { min-height: 200px; }
+  .bq-hero-content { padding: 40px 12px; }
+  .bq-hero-content h1 { font-size: 24px; }
+  .bq-hero-sub { font-size: 13px; }
+  .bq-badge { font-size: 11px; padding: 5px 14px; }
+  .bq-body { padding: 24px 12px 50px; }
+  .bq-form { padding: 20px 14px; }
+  .bq-form-grid { grid-template-columns: 1fr; gap: 14px; }
+  .bq-form-group label { font-size: 11px; }
+  .bq-form-group input, .bq-form-group select { height: 42px; font-size: 12px; padding: 0 14px; }
+  .bq-btn { padding: 12px 24px; font-size: 14px; width: 100%; justify-content: center; }
+  .bq-btn-submit { font-size: 14px; width: 100%; justify-content: center; }
+  .bq-payment-card { padding: 18px 14px 16px; }
+  .bq-card-form { padding: 16px; }
+  .bq-card-form-grid { grid-template-columns: 1fr; gap: 12px; }
+  .bq-summary { padding: 20px; }
+  .bq-summary h3 { font-size: 16px; }
+  .bq-total-amount { font-size: 20px; }
+  .bq-price-amount { font-size: 24px; }
+  .bq-hotel-desc { font-size: 13px; }
+  .bq-cash-notice { font-size: 11px; }
+}
+@media (max-width: 360px) {
+  .bq-hero-content h1 { font-size: 20px; }
+  .bq-body { padding: 20px 8px 40px; }
+  .bq-form { padding: 16px 10px; }
+  .bq-summary { padding: 16px; }
 }

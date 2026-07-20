@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { useNavigate, useSearchParams } from "react-router-dom"
 import { positionNames } from "../../../data/karyera"
 import { useLanguage } from "../../../components/Language/useLanguage.js"
+import { validateEmail } from "../../../utils/auth"
 import "./Ariza.css"
 
 export default function Ariza() {
@@ -17,23 +18,46 @@ export default function Ariza() {
     coverLetter: "",
   })
   const [submitted, setSubmitted] = useState(false)
+  const [touched, setTouched] = useState({
+    fullName: false,
+    phone: false,
+    email: false,
+    position: false,
+  })
   const { t, tData } = useLanguage()
 
-  useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [])
+  const emailCheck = form.email ? validateEmail(form.email) : { valid: false, errors: [] }
 
+  const validations = {
+    fullName: form.fullName.trim().length >= 2,
+    phone: /^[\d\s+\-()]{7,15}$/.test(form.phone),
+    email: emailCheck.valid,
+    position: form.position !== "",
+  }
 
+  const allValid = Object.values(validations).every(Boolean)
 
   const handleChange = (e) => {
-    setForm(prev => ({ ...prev, [e.target.name]: e.target.value }))
+    const { name, value } = e.target
+    setForm(prev => ({ ...prev, [name]: value }))
+    setTouched(prev => prev[name] ? prev : { ...prev, [name]: true })
+  }
+
+  function inputClass(field) {
+    const val = validations[field]
+    return touched[field]
+      ? `ariza-input ${val ? "success" : "error"}`
+      : "ariza-input"
   }
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
+    setTouched({ fullName: true, phone: true, email: true, position: true })
+    if (!allValid) return
 
-    const BOT_TOKEN = import.meta.env.VITE_TELEGRAM_BOT_TOKEN || "8660545473:AAGY89rv43RrDkXL7y5D-QfeAupQj6izoUA";
-    const CHAT_ID = import.meta.env.VITE_TELEGRAM_CHAT_ID || "7483038020";
+    const BOT_TOKEN = import.meta.env.VITE_TELEGRAM_BOT_TOKEN;
+    const CHAT_ID = import.meta.env.VITE_TELEGRAM_CHAT_ID;
+    if (!BOT_TOKEN || !CHAT_ID) { alert(t("ariza.errorConfig")); return }
 
     const text = `
 📩 ${t("ariza.telegramNewApp")}
@@ -127,24 +151,36 @@ ${form.coverLetter}
             <div className="ariza-form-grid">
               <div className="ariza-form-group ariza-full">
                 <label>{t("ariza.fullName")}</label>
-                <input type="text" name="fullName" value={form.fullName} onChange={handleChange} placeholder={t("ariza.namePlaceholder")} required />
+                <input type="text" name="fullName" value={form.fullName} onChange={handleChange} placeholder={t("ariza.namePlaceholder")} className={inputClass("fullName")} />
+                {touched.fullName && !validations.fullName && (
+                  <p className="ariza-feedback error">{t("ariza.nameError")}</p>
+                )}
               </div>
               <div className="ariza-form-group">
                 <label>{t("ariza.phone")}</label>
-                <input type="tel" name="phone" value={form.phone} onChange={handleChange} placeholder={t("ariza.phonePlaceholder")} required />
+                <input type="tel" name="phone" value={form.phone} onChange={handleChange} placeholder={t("ariza.phonePlaceholder")} className={inputClass("phone")} />
+                {touched.phone && !validations.phone && (
+                  <p className="ariza-feedback error">{t("ariza.phoneError")}</p>
+                )}
               </div>
               <div className="ariza-form-group">
                 <label>{t("ariza.email")}</label>
-                <input type="email" name="email" value={form.email} onChange={handleChange} placeholder={t("ariza.emailPlaceholder")} required />
+                <input type="email" name="email" value={form.email} onChange={handleChange} placeholder={t("ariza.emailPlaceholder")} className={inputClass("email")} />
+                {touched.email && !validations.email && (
+                  <p className="ariza-feedback error">{t("ariza.emailError")}</p>
+                )}
               </div>
               <div className="ariza-form-group ariza-full">
                 <label>{t("ariza.position")}</label>
-                <select name="position" value={form.position} onChange={handleChange} required>
+                <select name="position" value={form.position} onChange={handleChange} className={inputClass("position")}>
                   <option value="" disabled>{t("ariza.selectDefault")}</option>
                   {positionNames.map((p, idx) => (
                     <option key={p} value={p}>{tData("data.careers." + idx + ".title", p)}</option>
                   ))}
                 </select>
+                {touched.position && !validations.position && (
+                  <p className="ariza-feedback error">{t("ariza.positionError")}</p>
+                )}
               </div>
               <div className="ariza-form-group ariza-full">
                 <label>{t("ariza.coverLetter")}</label>

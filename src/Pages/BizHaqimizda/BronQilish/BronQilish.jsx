@@ -1,11 +1,9 @@
-import { useState, useEffect, useMemo } from "react"
+import { useState, useEffect } from "react"
 import { useParams, useNavigate, useSearchParams } from "react-router-dom"
 import { hotels } from "../../../data/hotels"
 import { useAuth } from "../../../components/Auth/useAuth.js"
-import { menuItems } from "../../../data/taomnoma"
-import { categoryMultiplier, roomTypes } from "../../../utils/roomData"
+import { categoryMultiplier, roomTypes as globalRoomTypes } from "../../../utils/roomData"
 import { checkRoomAvailability, getSimilarRooms } from "../../../utils/availability"
-import { takliflar } from "../../../data/takliflar"
 import { createBookingVoucher, getCurrentUserEmail, sendVoucherEmail } from "../../../utils/auth"
 import "./BronQilish.css"
 import { useLanguage } from "../../../components/Language/useLanguage.js"
@@ -17,6 +15,7 @@ export default function BronQilish() {
   const { user } = useAuth()
   const { t, tData } = useLanguage()
   const hotel = hotels.find(h => h.id === Number(hotelId)) || hotels[0]
+  const hotelRooms = hotel?.rooms || globalRoomTypes
 
   const roomLabel = (type) => ({
     standart: t("booking.roomStandard"),
@@ -56,10 +55,6 @@ export default function BronQilish() {
   const [toast, setToast] = useState(null)
 
   useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [])
-
-  useEffect(() => {
     if (!form.checkIn || !form.checkOut || !form.roomType || !hotel) {
       setAvailability(null)
       setSimilarRooms([])
@@ -67,10 +62,10 @@ export default function BronQilish() {
     }
     setAvailChecking(true)
     const timer = setTimeout(() => {
-      const result = checkRoomAvailability(hotel.id, form.roomType + "-1", form.checkIn, form.checkOut, user?.email, roomTypes)
+      const result = checkRoomAvailability(hotel.id, form.roomType + "-1", form.checkIn, form.checkOut, user?.email, hotelRooms)
       setAvailability(result)
       if (!result.available) {
-        const similar = getSimilarRooms(hotel.id, form.roomType + "-1", roomTypes, hotel.price)
+        const similar = getSimilarRooms(hotel.id, form.roomType + "-1", hotelRooms, hotel.price)
         setSimilarRooms(similar)
       } else {
         setSimilarRooms([])
@@ -78,7 +73,7 @@ export default function BronQilish() {
       setAvailChecking(false)
     }, 300)
     return () => clearTimeout(timer)
-  }, [form.checkIn, form.checkOut, form.roomType, hotel?.id, user?.email])
+  }, [form.checkIn, form.checkOut, form.roomType, hotel?.id, user?.email, hotelRooms])
 
   useEffect(() => {
     if (!toast) return
@@ -138,7 +133,9 @@ export default function BronQilish() {
   const checkInDate = new Date(form.checkIn)
   const checkOutDate = new Date(form.checkOut)
   const nights = form.checkIn && form.checkOut ? Math.max(0, (checkOutDate - checkInDate) / (1000 * 60 * 60 * 24)) : 0
-  const rawTotal = hotel ? Math.round(hotel.price * nights * (categoryMultiplier[form.roomType] || 1)) : 0
+  const selectedRoom = hotelRooms.find(r => r.id.startsWith(form.roomType))
+  const roomPrice = selectedRoom?.price || Math.round(hotel.price * (categoryMultiplier[form.roomType] || 1))
+  const rawTotal = hotel ? Math.round(roomPrice * nights) : 0
   const totalPrice = promoDiscount ? Math.round(rawTotal * (1 - promoDiscount / 100)) : rawTotal
 
   const voucherEmail = getCurrentUserEmail()
@@ -172,6 +169,7 @@ export default function BronQilish() {
       localStorage.setItem(bk, JSON.stringify(existing))
     } catch {}
     setSubmitted(true)
+    window.scrollTo(0, 0)
     setEmailStatus("sending")
     const result = await sendVoucherEmail(voucher)
     if (result.success) {
@@ -185,110 +183,7 @@ export default function BronQilish() {
 
   const today = new Date().toISOString().split("T")[0]
 
-  const recommendations = useMemo(() => {
-    if (!submitted || !hotel) return []
-    const hotelTakliflar = takliflar.filter(t => t.hotelId === hotel.id)
-    const amenities = hotel.amenities || []
-    const menu = menuItems.filter(m => m.available && m.image)
-    const hName = tData("data.hotels." + hotel.id + ".name", hotel.name)
-    const recs = []
 
-    if (menu.length > 0 && amenities.includes("Restoran")) {
-      recs.push({
-        id: "restaurant",
-        title: `${hName} ${t("booking.restaurantSuffix")}`,
-        desc: t("booking.restaurantDesc", { count: menu.length }),
-        image: menu[0].image,
-        btnText: t("booking.viewMenu"),
-        action: () => navigate("/taomnoma")
-      })
-      const chefPick = menu[Math.floor(Math.random() * menu.length)]
-      recs.push({
-        id: "chef",
-        title: t("booking.chefPick"),
-        desc: `${tData("data.menu." + chefPick.id + ".name", chefPick.name)} — ${tData("data.menu." + chefPick.id + ".description", chefPick.description)}`,
-        image: chefPick.image,
-        btnText: t("booking.orderNow"),
-        action: () => navigate(`/taomnoma/${chefPick.id}`)
-      })
-    }
-
-    if (amenities.includes("SPA")) {
-      recs.push({
-        id: "spa",
-        title: `${hName} ${t("booking.spaSuffix")}`,
-        desc: t("booking.spaDesc"),
-        image: "https://images.unsplash.com/photo-1560750588-73207b1ef5b8?w=400&q=80",
-        btnText: t("booking.goToSpa"),
-        action: () => navigate(`/mehmonxona/${hotel.id}`)
-      })
-    }
-
-    if (amenities.includes("Basseyn")) {
-      recs.push({
-        id: "pool",
-        title: `${hName} ${t("booking.poolTitle")}`,
-        desc: t("booking.poolDesc"),
-        image: "https://images.unsplash.com/photo-1575429198097-0414ec08e8cd?w=400&q=80",
-        btnText: t("booking.moreInfo"),
-        action: () => navigate(`/mehmonxona/${hotel.id}`)
-      })
-    }
-
-    if (amenities.includes("Fitness")) {
-      recs.push({
-        id: "fitness",
-        title: `${hName} ${t("booking.fitnessTitle")}`,
-        desc: t("booking.fitnessDesc"),
-        image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&q=80",
-        btnText: t("booking.moreInfo"),
-        action: () => navigate(`/mehmonxona/${hotel.id}`)
-      })
-    }
-
-    if (hotelTakliflar.length > 0) {
-      const pkg = hotelTakliflar[0]
-      recs.push({
-        id: "package",
-        title: `${hName} ${t("booking.specialOffer")}`,
-        desc: `${tData("data.offers." + pkg.id + ".title", pkg.title)} — ${(tData("data.offers." + pkg.id + ".description", pkg.description || "")).substring(0, 80)}...`,
-        image: pkg.image,
-        btnText: t("booking.viewPackage"),
-        action: () => navigate(`/mehmonxona/${pkg.hotelId}?promo=${pkg.promoCode}&room=${pkg.roomId}&discount=${pkg.discount}`)
-      })
-    }
-
-    recs.push({
-      id: "transfer",
-      title: `${hName} ${t("booking.transferTitle")}`,
-      desc: t("booking.transferDesc"),
-      image: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=400&q=80",
-      btnText: t("booking.orderTransfer"),
-      action: () => navigate(`/mehmonxona/${hotel.id}`)
-    })
-
-    if (amenities.includes("Restoran")) {
-      recs.push({
-        id: "breakfast",
-        title: `${hName} ${t("booking.breakfastTitle")}`,
-        desc: t("booking.breakfastDesc"),
-        image: "https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?w=400&q=80",
-        btnText: t("booking.orderBreakfast"),
-        action: () => navigate("/taomnoma")
-      })
-    }
-
-    recs.push({
-      id: "addons",
-      title: t("booking.addonsTitle"),
-      desc: t("booking.addonsDesc", { hotel: hName }),
-      image: "https://images.unsplash.com/photo-1549633038-e0ca1d15e2e1?w=400&q=80",
-      btnText: t("booking.moreInfo"),
-      action: () => navigate("/takliflar")
-    })
-
-    return recs
-  }, [submitted, hotel])
 
   if (submitted) {
     return (
@@ -397,35 +292,6 @@ export default function BronQilish() {
               </button>
             </div>
 
-            {recommendations.length > 0 && (
-              <div className="bq-sc-recs" data-aos="fade-up">
-                <div className="bq-sc-recs-header" data-aos="fade-up">
-                  <span className="bq-sc-recs-line" data-aos="fade-up" />
-                  <span data-aos="fade-up">{t("booking.recommendations")}</span>
-                  <span className="bq-sc-recs-line" data-aos="fade-up" />
-                </div>
-                <div className="bq-sc-recs-track" data-aos="fade-up">
-                  {recommendations.map((rec, ridx) => (
-                    <div key={rec.id} className="bq-sc-rec" data-aos="fade-up" data-aos-delay={ridx * 50} onClick={rec.action}>
-                      <div className="bq-sc-rec-img">
-                        <img src={rec.image} alt={rec.title} loading="lazy" />
-                        <div className="bq-sc-rec-overlay" />
-                      </div>
-                      <div className="bq-sc-rec-body">
-                        <h4 data-aos="fade-up">{rec.title}</h4>
-                        <p data-aos="fade-up">{rec.desc}</p>
-                        <span className="bq-sc-rec-btn" data-aos="zoom-in">
-                          {rec.btnText}
-                          <svg viewBox="0 0 24 24" fill="none">
-                            <path d="M5 12h14M19 12l-6-6M19 12l-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                          </svg>
-                        </span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
           </div>
         </div>
       </div>

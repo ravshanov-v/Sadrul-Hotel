@@ -671,3 +671,66 @@
     justify-content: center;
   }
 }
+
+
+@media (max-width: 1200px) {
+  .tb-page { padding: 36px 32px 70px; }
+  .tb-hero { gap: 32px; }
+  .tb-hero-img { width: 360px; min-height: 320px; }
+  .tb-name { font-size: 32px; }
+}
+@media (max-width: 992px) {
+  .tb-page { padding: 28px 24px 60px; }
+  .tb-hero { gap: 24px; }
+  .tb-hero-img { width: 300px; min-height: 280px; }
+  .tb-hero-info { padding: 28px 24px 28px 0; }
+  .tb-name { font-size: 28px; }
+  .tb-desc { font-size: 14px; }
+  .tb-variants-btn { padding: 12px 28px; font-size: 13px; }
+  .tb-panel { width: 360px; }
+  .tb-panel-header { padding: 20px 24px; }
+  .tb-panel-header h2 { font-size: 19px; }
+  .tb-panel-body { padding: 16px 24px 24px; }
+}
+@media (max-width: 768px) {
+  .tb-page { padding: 24px 16px 50px; }
+  .tb-hero { flex-direction: column; gap: 0; }
+  .tb-hero-img { width: 100%; min-height: 260px; }
+  .tb-hero-info { padding: 24px 0; }
+  .tb-name { font-size: 26px; }
+  .tb-desc { font-size: 14px; }
+  .tb-variants-grid { gap: 12px; }
+  .tb-variants-btn { padding: 12px 24px; font-size: 13px; }
+  .tb-panel { width: 100%; max-width: 420px; margin-top: 20px; }
+  .tb-back { padding: 8px 20px; font-size: 12px; }
+}
+@media (max-width: 576px) {
+  .tb-page { padding: 20px 12px 40px; }
+  .tb-hero-img { min-height: 220px; }
+  .tb-name { font-size: 22px; }
+  .tb-desc { font-size: 13px; }
+  .tb-cat { font-size: 10px; }
+  .tb-meta-item { font-size: 12px; }
+  .tb-variants-grid { grid-template-columns: 1fr; gap: 10px; }
+  .tb-variants-btn { width: 100%; justify-content: center; padding: 10px 20px; font-size: 12px; }
+  .tb-panel-header { padding: 16px 20px; }
+  .tb-panel-header h2 { font-size: 17px; }
+  .tb-panel-body { padding: 14px 20px 20px; }
+  .tb-panel-item { padding: 12px; }
+  .tb-panel-item-img { width: 64px; height: 64px; }
+  .tb-panel-item-info h4 { font-size: 14px; }
+  .tb-panel-item-price { font-size: 15px; }
+  .tb-selected { padding: 14px; }
+  .tb-selected-img { width: 80px; height: 80px; }
+  .tb-selected-info h3 { font-size: 16px; }
+  .tb-selected-price { font-size: 16px; }
+  .tb-back { padding: 6px 16px; font-size: 11px; }
+}
+@media (max-width: 360px) {
+  .tb-page { padding: 16px 8px 32px; }
+  .tb-hero-img { min-height: 180px; }
+  .tb-name { font-size: 18px; }
+  .tb-panel-header { padding: 14px 16px; }
+  .tb-panel-body { padding: 12px 16px 16px; }
+  .tb-variants-grid { gap: 8px; }
+}

@@ -388,7 +388,7 @@ nav {
     box-shadow: 0 2px 8px rgba(212, 175, 55, 0.15);
 }
 
-/* ===== MEMBER TOAST (shared with Takliflar) ===== */
+
 .tk-member-toast {
   position: fixed;
   top: 100px;
@@ -486,4 +486,40 @@ nav {
 @media (max-width: 768px) {
     .profile-name { display: none; }
     .btn-profile { padding: 4px; }
+}
+
+@media (max-width: 1200px) { nav { padding: 0 32px; } .nav-links { gap: 28px; } }
+@media (max-width: 992px) {
+  nav { padding: 0 24px; height: 64px; }
+  .nav-links { gap: 20px; }
+  .nav-links a { font-size: 15px; }
+  .logo-text { font-size: 15px; }
+  .logo-icon { width: 30px; height: 38px; }
+}
+@media (max-width: 768px) {
+  nav { padding: 0 16px; height: 60px; }
+  .nav-links { display: none; }
+  .nav-menu-btn { display: flex; }
+  .btn-login { width: 80px; height: 34px; font-size: 13px; }
+  .btn-lang { font-size: 13px; }
+  .profile-avatar { width: 28px; height: 28px; }
+  .profile-name { font-size: 12px; }
+}
+@media (max-width: 576px) {
+  nav { padding: 0 12px; height: 56px; }
+  .btn-login { width: 72px; height: 32px; font-size: 12px; }
+  .btn-darcmode { width: 26px; height: 26px; }
+  .btn-lang { font-size: 12px; }
+  .logo-text { font-size: 14px; }
+  .logo-icon { width: 26px; height: 34px; }
+  .nav-slide-header { padding: 16px; }
+  .nav-slide-body { padding: 20px 16px; }
+  .nav-slide-link { font-size: 15px; }
+  .btn-logout { width: 30px; height: 30px; }
+}
+@media (max-width: 360px) {
+  nav { padding: 0 8px; height: 50px; }
+  .logo-text { font-size: 13px; }
+  .logo-icon { width: 22px; height: 30px; }
+  .btn-login { width: 64px; height: 28px; font-size: 11px; }
 }

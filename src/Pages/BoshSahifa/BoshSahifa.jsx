@@ -5,6 +5,8 @@ import { takliflar } from "../../data/takliflar"
 import { BsBuildings, BsPeople, BsShieldCheck, BsStar } from 'react-icons/bs'
 import StatsBar from "../../components/StatsBar/StatsBar"
 import { useLanguage } from "../../components/Language/useLanguage.js"
+import { useFavorites } from "../../components/Favorites/useFavorites.js"
+import companyImage from "../../Assets/Images/sadrul-kompany.jpg"
 import "./BoshSahifa.css"
 
 const hotelCount = hotels.length
@@ -13,6 +15,7 @@ const offerCount = takliflar.length
 
 export default function BoshSahifa() {
   const { t, tData } = useLanguage()
+  const { isFav, toggleFav } = useFavorites()
   const preview = hotels.slice(0, 4)
   const foodPreview = menuItems.filter(i => i.available).slice(0, 6)
 
@@ -56,6 +59,15 @@ export default function BoshSahifa() {
           {preview.map((hotel, i) => (
             <article key={hotel.id} className='hp-card' data-aos="fade-up" data-aos-delay={i * 100}>
                 <div className='hp-card-img'>
+                  <button
+                    className={`hp-like-btn ${isFav('hotel_' + hotel.id) ? 'liked' : ''}`}
+                    onClick={(e) => { e.stopPropagation(); toggleFav('hotel_' + hotel.id) }}
+                    aria-label="Like"
+                  >
+                    <svg viewBox="0 0 24 24">
+                      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </button>
                 <img src={hotel.image} alt={tData("data.hotels." + hotel.id + ".name", hotel.name)} loading='lazy' data-aos="zoom-in" />
                 <div className='hp-card-cat'>{tData("data.hotels." + hotel.id + ".category", hotel.category)}</div>
               </div>
@@ -86,7 +98,6 @@ export default function BoshSahifa() {
         </div>
       </section>
 
-      {/* ========== TAOMNOMA PREVIEW ========== */}
       <section className='tp-section' data-aos="fade-up">
         <div className='tp-label' data-aos="fade-up">
           <span className='tp-label-line' />
@@ -142,7 +153,6 @@ export default function BoshSahifa() {
         </div>
       </section>
 
-      {/* ========== TAKLIFLAR PREVIEW ========== */}
       <section className='op-section' data-aos="fade-up">
         <div className='op-label' data-aos="fade-up">
           <span className='op-label-line' />
@@ -180,7 +190,6 @@ export default function BoshSahifa() {
         </div>
       </section>
 
-      {/* ========== BIZ HAQIMIZDA PREVIEW ========== */}
       <section className='ap-section' data-aos="fade-up">
         <div className='ap-label' data-aos="fade-up">
           <span className='ap-label-line' />
@@ -193,7 +202,7 @@ export default function BoshSahifa() {
         <div className='ap-stats' data-aos="fade-up">
           {[
             { icon: <BsBuildings />, value: `${hotelCount}+`, label: t("home.statsHotels") },
-            { icon: <BsPeople />, value: `${hotels.reduce((s, h) => s + (h.rooms || 0), 0)}+`, label: t("home.statsRooms") },
+            { icon: <BsPeople />, value: `${hotels.reduce((s, h) => s + (h.totalRooms || 0), 0)}+`, label: t("home.statsRooms") },
             { icon: <BsStar />, value: `${cityCount}+`, label: t("home.statsCities") },
             { icon: <BsShieldCheck />, value: `${offerCount}+`, label: t("home.statsOffers") },
           ].map((s, i) => (
@@ -205,7 +214,6 @@ export default function BoshSahifa() {
           ))}
         </div>
 
-        {/* ===== MISSIYA ===== */}
         <div className='ap-mission' data-aos="fade-up">
           <div className='ap-mission-content' data-aos="fade-right">
             <div className='ap-sub-label' data-aos="fade-up">
@@ -219,11 +227,10 @@ export default function BoshSahifa() {
             </p>
           </div>
           <div className='ap-mission-image' data-aos="fade-left">
-            <img src='/src/Assets/Images/sadrul-kompany.jpg' alt={t("home.aboutImgAlt")} data-aos="zoom-in" />
+            <img src={companyImage} alt={t("home.aboutImgAlt")} data-aos="zoom-in" />
           </div>
         </div>
 
-        {/* ===== QADRIYATLAR ===== */}
         <div className='ap-values' data-aos="fade-up">
           <div className='ap-sub-label' data-aos="fade-up">
             <span className='ap-sub-label-line' />
@@ -247,7 +254,6 @@ export default function BoshSahifa() {
           </div>
         </div>
 
-        {/* ===== KARYERA ===== */}
         <div className='ap-karyera' data-aos="fade-up">
           <div className='ap-sub-label' data-aos="fade-up">
             <span className='ap-sub-label-line' />

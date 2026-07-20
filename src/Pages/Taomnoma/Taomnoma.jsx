@@ -8,7 +8,6 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import "./Taomnoma.css"
 import { EffectFade, Navigation, Pagination, Autoplay } from 'swiper/modules';
-import AOS from "aos"
 import { useFavorites } from "../../components/Favorites/useFavorites.js"
 import { useLanguage } from "../../components/Language/useLanguage.js"
 
@@ -59,15 +58,15 @@ function MenuCard({ item }) {
             onClick={() => navigate(`/taomnoma/${item.id}`)}
         >
             <div className="tm-card-img">
-                <img src={item.image} alt={tData("data.menu." + item.id + ".name", item.name)} loading="lazy" />
+                <img src={item.image || "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&q=80"} alt={tData("data.menu." + item.id + ".name", item.name)} loading="lazy" onError={(e) => { e.target.src = "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&q=80" }} />
                 <button
-                  className={`tm-like-btn ${isFav('food_' + item.id) ? 'liked' : ''}`}
-                  onClick={(e) => { e.stopPropagation(); toggleFav('food_' + item.id) }}
-                  aria-label={t("common.like")}
+                    className={`tm-like-btn ${isFav('food_' + item.id) ? 'liked' : ''}`}
+                    onClick={(e) => { e.stopPropagation(); toggleFav('food_' + item.id) }}
+                    aria-label={t("common.like")}
                 >
-                  <svg viewBox="0 0 24 24">
-                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
+                    <svg viewBox="0 0 24 24">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
                 </button>
             </div>
             <div className="tm-card-body">
@@ -77,12 +76,15 @@ function MenuCard({ item }) {
                 </div>
                 <p className="tm-card-desc" data-aos="fade-up">{tData("data.menu." + item.id + ".description", item.description)}</p>
                 <div className="tm-card-bottom">
-                    <span className="tm-card-info">
-                        <svg viewBox="0 0 24 24" fill="none">
-                            <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5" />
-                            <path d="M12 6v6l4 2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                        </svg>
-                        {tData("data.menu." + item.id + ".info", item.info)}
+                    <span className="tm-card-price">
+                        {item.variants && item.variants.length > 0 ? (
+                            (() => {
+                                const prices = item.variants.filter(v => v.available).map(v => parseInt(v.price.replace(/\D/g, '')))
+                                const min = Math.min(...prices)
+                                const max = Math.max(...prices)
+                                return min === max ? `${min.toLocaleString()} so'm` : `${min.toLocaleString()} - ${max.toLocaleString()} so'm`
+                            })()
+                        ) : ''}
                     </span>
                 </div>
                 <div className="tm-var-wrap">
@@ -115,8 +117,6 @@ export default function Taomnoma() {
     const filtered = activeCategory === "Barchasi"
         ? menuItems
         : menuItems.filter(i => i.category === activeCategory)
-
-    useEffect(() => { AOS.refresh() }, [filtered])
 
     useEffect(() => {
         if (activeCategory !== "Barchasi") {
@@ -196,9 +196,9 @@ export default function Taomnoma() {
     const hasMore = visibleCount < filtered.length
 
     return (
-    <div className="taomnoma" data-aos="fade-up">
-      <section className="tm-hero" data-aos="fade-up">
-        <ParticleField />
+        <div className="taomnoma" data-aos="fade-up">
+            <section className="tm-hero" data-aos="fade-up">
+                <ParticleField />
                 <div className="tm-hero-glow" data-aos="fade-up" />
                 <div className="tm-hero-overlay" data-aos="fade-up" />
                 <div className="tm-hero-content" data-aos="zoom-in">

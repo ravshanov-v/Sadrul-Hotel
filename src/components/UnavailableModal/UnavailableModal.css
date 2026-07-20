@@ -135,7 +135,7 @@
   flex-shrink: 0;
 }
 
-/* Similar Rooms */
+
 .uam-rooms-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -200,7 +200,7 @@
   color: rgba(255, 255, 255, 0.4);
 }
 
-/* Alternative Dates */
+
 .uam-dates-list {
   display: flex;
   flex-wrap: wrap;
@@ -245,7 +245,7 @@
   margin-right: 4px;
 }
 
-/* Nearby Hotels */
+
 .uam-hotels-grid {
   display: flex;
   flex-direction: column;
@@ -353,4 +353,33 @@
   .uam-header-text h2 { font-size: 17px; }
   .uam-dates-list { flex-direction: column; }
   .uam-hotel-card { flex-wrap: wrap; }
+}
+
+@media (max-width: 1200px) { .uam-modal { max-width: 700px; } }
+@media (max-width: 992px) { .uam-modal { max-width: 90vw; } }
+@media (max-width: 768px) {
+  .uam-modal { margin: 20px 16px; max-height: 85vh; }
+  .uam-header { padding: 20px 24px 14px; }
+  .uam-header-text h2 { font-size: 18px; }
+  .uam-body { padding: 6px 24px 24px; }
+  .uam-rooms-grid { grid-template-columns: 1fr; }
+  .uam-hotels-grid { gap: 10px; }
+}
+@media (max-width: 576px) {
+  .uam-modal { margin: 12px; }
+  .uam-header { padding: 16px 16px 12px; }
+  .uam-header-text h2 { font-size: 16px; }
+  .uam-body { padding: 4px 16px 20px; }
+  .uam-room-card { padding: 10px; }
+  .uam-room-img { width: 64px; height: 56px; }
+  .uam-room-name { font-size: 13px; }
+  .uam-hotel-card { padding: 12px; }
+  .uam-section-title { font-size: 13px; }
+}
+@media (max-width: 360px) {
+  .uam-modal { margin: 8px; }
+  .uam-header { padding: 14px 12px 10px; }
+  .uam-body { padding: 2px 12px 16px; }
+  .uam-room-card { padding: 8px; }
+  .uam-room-img { width: 56px; height: 48px; }
 }

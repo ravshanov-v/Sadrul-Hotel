@@ -380,63 +380,6 @@
     z-index: 1;
 }
 
-@media (max-width: 1024px) {
-    .page-1 .main-h1 {
-        font-size: 52px;
-    }
-
-    .page-1 .inp-art-parent {
-        flex-direction: column;
-    }
-
-    .page-1 .surov-art {
-        padding: 28px 24px;
-    }
-
-    .page-1 .search-btn {
-        width: 100%;
-    }
-
-    .page-1 .main-p {
-        font-size: 16px;
-        padding: 0 20px;
-    }
-}
-
-@media (max-width: 768px) {
-    .page-1 .main-h1 {
-        font-size: 38px;
-    }
-
-    .page-1 .page-1-art {
-        margin-bottom: 30px;
-    }
-
-    .page-1 .page-1-badge {
-        font-size: 11px;
-        padding: 8px 20px;
-    }
-
-    .page-1 .surov-art {
-        padding: 24px 18px;
-        width: 95%;
-    }
-}
-
-@media (max-width: 480px) {
-    .page-1 .main-h1 {
-        font-size: 28px;
-    }
-
-    .page-1 .search-input-wrap {
-        height: 54px;
-    }
-
-    .page-1 .search-input {
-        font-size: 14px;
-    }
-}
-
 .page-1-stats {
   margin: 20px auto 0;
   max-width: 1100px;
@@ -737,35 +680,6 @@
 .dark .hp-all-btn:hover {
   color: #D4AF37;
 }
-
-@media (max-width: 1024px) {
-  .hp-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .hp-title {
-    font-size: 32px;
-  }
-  .hp-section {
-    padding: 60px 20px 48px;
-  }
-}
-
-@media (max-width: 768px) {
-  .hp-grid {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-  .hp-title {
-    font-size: 28px;
-  }
-  .hp-section {
-    padding: 50px 16px 40px;
-  }
-  .hp-card-img {
-    height: 200px;
-  }
-}
-
 
 .tp-section {
   max-width: 1300px;
@@ -1161,44 +1075,6 @@
   color: #D4AF37;
 }
 
-@media (max-width: 1024px) {
-  .tp-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .tp-title {
-    font-size: 32px;
-  }
-  .tp-section {
-    padding: 0 20px 48px;
-  }
-  .tp-card-body {
-    padding: 16px 18px 18px;
-  }
-  .tp-card-name {
-    font-size: 16px;
-  }
-}
-
-@media (max-width: 768px) {
-  .tp-grid {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-  .tp-title {
-    font-size: 28px;
-  }
-  .tp-section {
-    padding: 0 16px 40px;
-  }
-  .tp-card-img {
-    height: 200px;
-  }
-  .tp-card-body {
-    padding: 14px 16px 16px;
-  }
-}
-
-
 .op-section {
   max-width: 1300px;
   margin: 0 auto;
@@ -1430,35 +1306,6 @@
 .dark .op-all-btn:hover {
   color: #D4AF37;
 }
-
-@media (max-width: 1024px) {
-  .op-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .op-title {
-    font-size: 32px;
-  }
-  .op-section {
-    padding: 0 20px 48px;
-  }
-}
-
-@media (max-width: 768px) {
-  .op-grid {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-  .op-title {
-    font-size: 28px;
-  }
-  .op-section {
-    padding: 0 16px 40px;
-  }
-  .op-card-img {
-    height: 200px;
-  }
-}
-
 
 .ap-section {
   max-width: 1300px;
@@ -1927,30 +1774,10 @@
 .dark .ap-sub-title { color: #e8e8e8; }
 .dark .ap-sub-text { color: rgba(255,255,255,0.5); }
 
-@media (max-width: 1024px) {
-  .ap-stats { grid-template-columns: repeat(2, 1fr); }
-  .ap-title { font-size: 32px; }
-  .ap-section { padding: 0 20px 80px; }
-  .ap-mission { grid-template-columns: 1fr; gap: 32px; }
-  .ap-mission-image { height: 240px; }
-  .ap-values-grid { grid-template-columns: repeat(2, 1fr); }
-  .ap-karyera-grid { grid-template-columns: repeat(2, 1fr); }
-}
-
-@media (max-width: 768px) {
-  .ap-title { font-size: 28px; }
-  .ap-section { padding: 0 16px 60px; }
-  .ap-stat-card { padding: 24px 16px; }
-  .ap-stat-value { font-size: 28px; }
-  .ap-sub-title { font-size: 24px; }
-  .ap-values-grid { grid-template-columns: 1fr; }
-  .ap-karyera-grid { grid-template-columns: 1fr; }
-}
-
 @media (max-width: 1200px) {
   .page-1 { min-height: 520px; }
   .page-1 .main-h1 { font-size: 56px; }
-  .page-1 .main-p { font-size: 18px; }
+  .page-1 .main-p { font-size: 18px; line-height: 1.5; }
   .hp-section, .tp-section, .op-section, .ap-section { padding-inline: 32px; }
   .hp-grid { grid-template-columns: repeat(3, 1fr); gap: 20px; }
   .hp-title, .tp-title, .op-title, .ap-title { font-size: 34px; }
@@ -2053,7 +1880,7 @@
   .ap-value-num { font-size: 28px; }
   .ap-value-title { font-size: 15px; }
   .ap-karyera-card { padding: 20px 16px; }
-  .hp-all-btn, .tp-all-btn, .op-all-btn, .ap-all-btn { padding: 12px 28px; font-size: 13px; width: 100%; justify-content: center; }
+  .hp-all-btn, .tp-all-btn, .op-all-btn, .ap-all-btn { padding: 12px 28px; font-size: 13px; width: 100%; }
   .ap-sub-title { font-size: 20px; }
   .page-1 .search-btn { border-radius: 10px; }
 }

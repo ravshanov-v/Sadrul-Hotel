@@ -92,47 +92,6 @@
   background: rgba(212, 175, 55, 0.1);
 }
 
-
-@media (max-width: 1024px) {
-  .sb-bar {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .sb-stat-item:first-child {
-    border-radius: 20px 0 0 0;
-  }
-  .sb-stat-item:nth-child(2) {
-    border-radius: 0 20px 0 0;
-    border-right: 1px solid rgba(212, 175, 55, 0.12);
-  }
-  .sb-stat-item:nth-child(3) {
-    border-radius: 0 0 0 20px;
-  }
-  .sb-stat-item:last-child {
-    border-radius: 0 0 20px 0;
-  }
-}
-
-@media (max-width: 768px) {
-  .sb-bar {
-    grid-template-columns: 1fr 1fr;
-  }
-  .sb-stat-item {
-    padding: 28px 16px;
-  }
-  .sb-stat-num {
-    font-size: 28px;
-  }
-}
-
-@media (max-width: 480px) {
-  .sb-stat-item {
-    padding: 24px 12px;
-  }
-  .sb-stat-num {
-    font-size: 24px;
-  }
-}
-
 @media (max-width: 1200px) {
   .sb-bar { max-width: 950px; gap: 12px; }
   .sb-stat-item { padding: 24px 16px; }

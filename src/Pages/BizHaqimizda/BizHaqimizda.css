@@ -501,39 +501,6 @@
   color: rgba(255,255,255,0.45);
 }
 
-@media (max-width: 1024px) {
-  .about-hero-title { font-size: 48px; }
-  .about-stats { grid-template-columns: repeat(2, 1fr); }
-  .about-mission { grid-template-columns: 1fr; gap: 40px; }
-  .about-mission-image { height: 320px; }
-  .about-values-grid { grid-template-columns: repeat(2, 1fr); }
-  .about-jamoa-grid { grid-template-columns: repeat(2, 1fr); }
-}
-
-@media (max-width: 768px) {
-  .about-hero-title { font-size: 36px; }
-  .about-hero { min-height: 60vh; }
-  .about-hero-desc { font-size: 15px; }
-  .about-stats { grid-template-columns: repeat(2, 1fr); margin-top: -30px; }
-  .about-stat-card { padding: 24px 16px; }
-  .about-stat-value { font-size: 28px; }
-  .about-mission { margin: 60px auto; padding: 0 20px; }
-  .about-mission-image { height: 260px; }
-  .about-section-title { font-size: 30px; }
-  .about-values { margin-bottom: 60px; padding: 0 20px; }
-  .about-values-grid { grid-template-columns: 1fr; }
-  .about-value-card { padding: 28px 22px; }
-  .about-jamoa { padding: 0 20px; margin-bottom: 60px; }
-  .about-jamoa-grid { grid-template-columns: 1fr; }
-}
-
-@media (max-width: 480px) {
-  .about-hero-title { font-size: 28px; }
-  .about-stats { grid-template-columns: 1fr 1fr; }
-  .about-stat-card { padding: 20px 12px; }
-}
-
-
 .about-video-wrap {
   max-width: 1200px;
   margin: 80px auto 120px;
@@ -757,40 +724,6 @@
   height: 26px;
 }
 
-@media (max-width: 768px) {
-  .about-video-wrap {
-    padding: 0 20px;
-    margin-bottom: 60px;
-  }
-  .about-video-card {
-    padding: 36px 20px 28px;
-    border-radius: 24px;
-  }
-  .about-video-container {
-    border-radius: 16px;
-  }
-  .about-video-btn {
-    width: 72px;
-    height: 72px;
-  }
-  .about-video-btn svg {
-    width: 30px;
-    height: 30px;
-  }
-  .about-video-btn-small {
-    width: 52px;
-    height: 52px;
-  }
-  .about-video-btn-small svg {
-    width: 22px;
-    height: 22px;
-  }
-  .about-video-ring {
-    display: none;
-  }
-}
-
-
 .about-karyera {
   max-width: 1200px;
   margin: 0 auto 100px;
@@ -941,16 +874,6 @@
   box-shadow: 0 8px 25px rgba(212,175,55,0.3);
 }
 
-@media (max-width: 1024px) {
-  .about-karyera-grid { grid-template-columns: repeat(2, 1fr); }
-  .about-karyera { padding: 0 20px; margin-bottom: 60px; }
-}
-
-@media (max-width: 768px) {
-  .about-karyera-grid { grid-template-columns: 1fr; }
-  .about-karyera { padding: 0 16px; margin-bottom: 60px; }
-}
-
 @media (max-width: 1200px) {
   .about-hero-title { font-size: 54px; }
   .about-hero { padding: 70px 20px 20px; }
@@ -1022,7 +945,7 @@
   .about-karyera-grid { grid-template-columns: 1fr; gap: 14px; }
   .about-karyera-card { padding: 20px 16px; }
   .about-karyera-title { font-size: 16px; }
-  .about-karyera-btn { padding: 8px 16px; font-size: 12px; width: 100%; justify-content: center; }
+  .about-karyera-btn { padding: 8px 16px; font-size: 12px; width: 100%; }
   .about-video-card { padding: 28px 20px 24px; }
 }
 @media (max-width: 360px) {

@@ -344,17 +344,6 @@
   to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-@media (max-width: 640px) {
-  .uam-overlay { padding: 12px; }
-  .uam-modal { max-height: 85vh; }
-  .uam-header { padding: 16px 18px 12px; }
-  .uam-body { padding: 4px 18px 18px; }
-  .uam-rooms-grid { grid-template-columns: 1fr; }
-  .uam-header-text h2 { font-size: 17px; }
-  .uam-dates-list { flex-direction: column; }
-  .uam-hotel-card { flex-wrap: wrap; }
-}
-
 @media (max-width: 1200px) { .uam-modal { max-width: 700px; } }
 @media (max-width: 992px) { .uam-modal { max-width: 90vw; } }
 @media (max-width: 768px) {

@@ -530,52 +530,6 @@
   text-decoration: underline;
 }
 
-@media (max-width: 860px) {
-  .modal-window {
-    width: 95%;
-  }
-
-  .modal-content {
-    flex-direction: column;
-    min-height: auto;
-  }
-
-  .modal-left {
-    width: 100%;
-    padding: 28px 20px;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-  }
-
-  .modal-left::after {
-    display: none;
-  }
-
-  .left-logo-img {
-    width: 65px;
-  }
-
-  .left-logo-p {
-    font-size: 16px;
-    letter-spacing: 6px;
-  }
-
-  .modal-left-quote {
-    display: none;
-  }
-
-  .modal-right {
-    width: 100%;
-    padding: 24px 20px 28px;
-  }
-
-  .right-h {
-    font-size: 20px;
-  }
-}
-
 @media (max-width: 1200px) { .modal-window { width: 750px; } }
 @media (max-width: 992px) {
   .modal-window { width: 90%; }
@@ -588,7 +542,7 @@
   .modal-right { width: 100%; padding: 32px 24px; }
   .modal-content { min-height: auto; }
   .right-h { font-size: 22px; }
-  .login-btn { width: 100%; justify-content: center; }
+  .login-btn { width: 100%; }
 }
 @media (max-width: 576px) {
   .modal-window { width: 100vw; height: 100dvh; border-radius: 0; max-width: 100vw; }

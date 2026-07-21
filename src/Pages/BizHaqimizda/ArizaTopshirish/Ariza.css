@@ -309,28 +309,6 @@
   font-weight: 500;
 }
 
-@media (max-width: 768px) {
-  .ariza-hero-content h1 {
-    font-size: 36px;
-  }
-
-  .ariza-body {
-    padding: 40px 20px 80px;
-  }
-
-  .ariza-form {
-    padding: 32px 24px;
-  }
-
-  .ariza-form-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .ariza-success-card {
-    padding: 40px 24px;
-  }
-}
-
 @media (max-width: 1200px) {
   .ariza-hero { padding: 80px 20px 50px; }
   .ariza-hero-content h1 { font-size: 48px; }
@@ -365,7 +343,7 @@
   .ariza-form { padding: 24px 16px; }
   .ariza-form-title { font-size: 18px; }
   .ariza-form-group label { font-size: 11px; }
-  .ariza-btn { padding: 12px 28px; font-size: 13px; width: 100%; justify-content: center; }
+  .ariza-btn { padding: 12px 28px; font-size: 13px; width: 100%; }
   .ariza-success-card { padding: 40px 24px; }
   .ariza-success-card h2 { font-size: 22px; }
   .ariza-success-text { font-size: 14px; }

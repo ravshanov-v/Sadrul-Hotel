@@ -972,59 +972,6 @@
 
 .dark .mx-feat-body h3 { color: #e8e8e8; }
 
-
-@media (max-width: 1200px) {
-  .mx-grid-row { grid-template-columns: repeat(2, 1fr); }
-  .mx-title { font-size: 50px; }
-}
-
-@media (max-width: 1024px) {
-  .mx-hero { min-height: 420px; }
-  .mx-hero-content { padding: 80px 20px 60px; }
-  .mx-title { font-size: 42px; }
-  .mx-body { padding: 50px 20px 60px; }
-  .mx-section-title { font-size: 32px; }
-  .mx-booking { margin: 40px 20px 50px; padding: 50px 30px 60px; }
-  .mx-featured { padding: 50px 20px 0; }
-}
-
-@media (max-width: 768px) {
-  .mx-hero { min-height: 360px; }
-  .mx-hero-content { padding: 60px 16px 40px; }
-  .mx-title { font-size: 32px; }
-  .mx-subtitle { font-size: 15px; }
-  .mx-badge { font-size: 11px; padding: 8px 20px; gap: 8px; }
-  .mx-hero-actions { flex-direction: column; align-items: center; }
-  .mx-grid-row { grid-template-columns: 1fr; }
-  .mx-grid { gap: 24px; }
-  .mx-grid-row { gap: 24px; }
-  .mx-categories { gap: 8px; }
-  .mx-cat-btn { padding: 8px 20px; font-size: 13px; }
-  .mx-card-image { height: 230px; }
-  .mx-card-name { font-size: 20px; }
-  .mx-section-title { font-size: 28px; }
-  .mx-booking { margin: 30px 16px 40px; border-radius: 20px; padding: 40px 20px 50px; }
-  .mx-booking-sub { font-size: 14px; margin: -20px auto 28px; }
-  .mx-featured { padding: 40px 16px 0; }
-}
-
-@media (max-width: 480px) {
-  .mx-hero { min-height: 300px; }
-  .mx-hero-content { padding: 50px 12px 30px; }
-  .mx-title { font-size: 26px; }
-  .mx-badge { font-size: 10px; padding: 6px 16px; }
-  .mx-cat-btn { padding: 6px 16px; font-size: 12px; }
-  .mx-card-body { padding: 20px 18px 20px; }
-  .mx-card-stars svg { width: 13px; height: 13px; }
-  .mx-card-image { height: 210px; }
-  .mx-card-image-rating { top: 12px; right: 12px; padding: 5px 12px; font-size: 12px; }
-  .mx-card-bottom { padding-top: 14px; }
-  .mx-card-btn { padding: 12px 24px; font-size: 13px; }
-
-  .mx-booking { margin: 20px 12px 30px; border-radius: 16px; padding: 30px 14px 40px; }
-  .mx-hero-btn { width: 100%; justify-content: center; }
-}
-
 @media (max-width: 1200px) {
   .mx-hero { min-height: 460px; }
   .mx-hero-content { padding: 80px 32px 60px; }
@@ -1080,14 +1027,14 @@
   .mx-hero-content { padding: 50px 12px 32px; }
   .mx-title { font-size: 26px; }
   .mx-subtitle { font-size: 13px; }
-  .mx-hero-btn { padding: 10px 20px; font-size: 12px; width: 100%; justify-content: center; }
+  .mx-hero-btn { padding: 10px 20px; font-size: 12px; width: 100%; }
   .mx-body { padding: 24px 12px 40px; }
   .mx-grid-row { gap: 16px; }
   .mx-card-image { height: 200px; }
   .mx-card-body { padding: 16px 16px 16px; }
   .mx-card-name { font-size: 16px; }
   .mx-card-desc { font-size: 12.5px; }
-  .mx-card-btn { padding: 10px 20px; font-size: 12px; width: 100%; justify-content: center; }
+  .mx-card-btn { padding: 10px 20px; font-size: 12px; width: 100%; }
   .mx-section-title { font-size: 22px; }
   .mx-section-label { font-size: 11px; }
   .mx-featured { padding: 32px 12px 0; }

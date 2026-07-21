@@ -152,9 +152,20 @@
   font-style: italic;
 }
 
-
 @media (max-width: 1200px) { .terms-body { padding-inline: 32px; } }
 @media (max-width: 992px) { .terms-body { padding-inline: 24px; } .terms-section { padding: 28px 24px; } }
 @media (max-width: 768px) { .terms-body { padding-inline: 16px; } .terms-section { padding: 24px 20px; } }
-@media (max-width: 576px) { .terms-body { padding-inline: 12px; } .terms-section { padding: 20px 14px; font-size: 13px; } }
-@media (max-width: 360px) { .terms-body { padding-inline: 8px; } .terms-section { padding: 16px 10px; } }
+@media (max-width: 576px) {
+  .terms-body { padding-inline: 12px; }
+  .terms-section { padding: 20px 14px; font-size: 13px; }
+  .terms-hero { padding: 2rem 1rem; min-height: 220px; }
+  .terms-hero-title { font-size: 1.5rem; }
+  .terms-article { padding: 1.25rem; }
+}
+@media (max-width: 360px) {
+  .terms-body { padding-inline: 8px; }
+  .terms-section { padding: 16px 10px; }
+  .terms-hero { padding: 1.5rem 0.75rem; min-height: 180px; }
+  .terms-hero-title { font-size: 1.25rem; }
+  .terms-article { padding: 1rem; }
+}

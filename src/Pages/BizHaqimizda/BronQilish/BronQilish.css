@@ -956,36 +956,6 @@
   line-height: 1.3;
 }
 
-@media (max-width: 1024px) {
-  .bq-container { grid-template-columns: 1fr; }
-  .bq-sidebar { position: static; }
-  .bq-hero-content h1 { font-size: 36px; }
-}
-
-@media (max-width: 768px) {
-  .bq-hero { min-height: 240px; }
-  .bq-hero-content h1 { font-size: 28px; }
-  .bq-hotel-preview { flex-direction: column; }
-  .bq-hotel-preview img { width: 100%; height: 200px; }
-  .bq-form-grid { grid-template-columns: 1fr; }
-  .bq-payment-grid { grid-template-columns: 1fr; }
-  .bq-form { padding: 20px; }
-  .bq-body { padding: 40px 16px 80px; }
-  .bq-sc-title { font-size: 30px; }
-  .bq-sc-inner { padding: 40px 0 80px; }
-  .bq-sc-card { padding: 20px; }
-  .bq-sc-total-amount { font-size: 18px; }
-  .bq-sc-rec { flex: 0 0 240px; }
-}
-
-@media (max-width: 480px) {
-  .bq-sc-title { font-size: 26px; }
-  .bq-sc-check { width: 56px; height: 56px; }
-  .bq-sc-check svg { width: 28px; height: 28px; }
-  .bq-sc-rec { flex: 0 0 220px; }
-}
-
-
 .bq-avail-checking {
   display: flex;
   align-items: center;
@@ -1158,17 +1128,6 @@
   to { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
 }
 
-@media (max-width: 768px) {
-  .bq-toast {
-    top: 16px;
-    left: 16px;
-    right: 16px;
-    transform: none;
-    font-size: 13px;
-    padding: 12px 20px;
-  }
-}
-
 @media (max-width: 1200px) {
   .bq-hero { min-height: 280px; }
   .bq-hero-content { padding: 70px 20px; }
@@ -1213,8 +1172,8 @@
   .bq-form-grid { grid-template-columns: 1fr; gap: 14px; }
   .bq-form-group label { font-size: 11px; }
   .bq-form-group input, .bq-form-group select { height: 42px; font-size: 12px; padding: 0 14px; }
-  .bq-btn { padding: 12px 24px; font-size: 14px; width: 100%; justify-content: center; }
-  .bq-btn-submit { font-size: 14px; width: 100%; justify-content: center; }
+  .bq-btn { padding: 12px 24px; font-size: 14px; width: 100%; }
+  .bq-btn-submit { font-size: 14px; width: 100%; }
   .bq-payment-card { padding: 18px 14px 16px; }
   .bq-card-form { padding: 16px; }
   .bq-card-form-grid { grid-template-columns: 1fr; gap: 12px; }

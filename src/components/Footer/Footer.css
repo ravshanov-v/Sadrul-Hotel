@@ -207,7 +207,6 @@
     color: #D4AF37;
 }
 
-
 @media (max-width: 1200px) {
   .footer-parent { padding: 36px 32px; }
   .footer-grid { gap: 24px; }

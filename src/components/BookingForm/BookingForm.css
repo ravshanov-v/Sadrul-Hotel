@@ -209,32 +209,6 @@
   filter: brightness(0) saturate(100%);
 }
 
-@media (max-width: 1024px) {
-  .bf-form {
-    padding: 28px 24px;
-  }
-  .bf-grid {
-    flex-direction: column;
-  }
-  .bf-field {
-    min-width: 100%;
-  }
-  .bf-action {
-    min-width: 100%;
-  }
-  .bf-btn {
-    width: 100%;
-  }
-}
-
-@media (max-width: 768px) {
-  .bf-form {
-    padding: 24px 18px;
-    border-radius: 18px;
-  }
-}
-
-
 @media (max-width: 1200px) {
   .bf-form { padding: 30px 32px; }
   .bf-grid { gap: 14px; }
@@ -257,7 +231,7 @@
   .bf-input-wrap { height: 44px; }
   .bf-input { font-size: 13px; }
   .bf-label { font-size: 11px; }
-  .bf-btn { height: 44px; font-size: 13px; width: 100%; justify-content: center; }
+  .bf-btn { height: 44px; font-size: 13px; width: 100%; }
   .bf-action { min-width: 100%; }
 }
 @media (max-width: 576px) {

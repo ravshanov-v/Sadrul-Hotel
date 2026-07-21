@@ -451,43 +451,6 @@ nav {
   letter-spacing: 0.2px;
 }
 
-@media (max-width: 900px) {
-  .tk-member-toast {
-    top: 80px;
-    right: 16px;
-    left: 16px;
-    max-width: none;
-  }
-}
-
-@media (max-width: 640px) {
-  .tk-member-toast {
-    top: 70px;
-    right: 12px;
-    left: 12px;
-    padding: 14px 18px;
-  }
-
-  .tk-member-toast-icon {
-    width: 36px;
-    height: 36px;
-    font-size: 18px;
-  }
-
-  .tk-member-toast-title {
-    font-size: 13px;
-  }
-
-  .tk-member-toast-msg {
-    font-size: 11px;
-  }
-}
-
-@media (max-width: 768px) {
-    .profile-name { display: none; }
-    .btn-profile { padding: 4px; }
-}
-
 @media (max-width: 1200px) { nav { padding: 0 32px; } .nav-links { gap: 28px; } }
 @media (max-width: 992px) {
   nav { padding: 0 24px; height: 64px; }

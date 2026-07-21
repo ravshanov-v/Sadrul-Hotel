@@ -1234,161 +1234,6 @@
     0 0 0 1px rgba(212, 175, 55, 0.12);
 }
 
-@media (max-width: 768px) {
-  .swiper-art .swiper {
-    height: 420px;
-    border-radius: 16px;
-  }
-
-  .swiper-art .swiper-button-next,
-  .swiper-art .swiper-button-prev {
-    display: none;
-  }
-}
-
-@media (max-width: 480px) {
-  .swiper-art .swiper {
-    height: 320px;
-  }
-}
-
-
-@media (max-width: 1200px) {
-  .tm-grid-row {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-  }
-
-  .tm-title {
-    font-size: 50px;
-  }
-}
-
-@media (max-width: 1024px) {
-  .tm-hero {
-    min-height: 420px;
-    margin: -1px -20px 0;
-    padding: 0 20px;
-  }
-
-  .tm-hero-content {
-    padding: 80px 20px 60px;
-  }
-
-  .tm-title {
-    font-size: 42px;
-  }
-
-  .tm-body {
-    padding: 50px 20px 60px;
-  }
-
-  .tm-section-title {
-    font-size: 32px;
-  }
-}
-
-@media (max-width: 992px) {
-  .tm-grid-row {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-  }
-
-  .tm-var-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 768px) {
-  .tm-hero {
-    min-height: 360px;
-  }
-
-  .tm-hero-content {
-    padding: 60px 16px 40px;
-  }
-
-  .tm-title {
-    font-size: 32px;
-  }
-
-  .tm-subtitle {
-    font-size: 15px;
-  }
-
-  .tm-badge {
-    font-size: 11px;
-    padding: 8px 20px;
-    gap: 8px;
-  }
-
-  .tm-hero-actions {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .tm-grid-row {
-    grid-template-columns: 1fr;
-    gap: 22px;
-  }
-
-  .tm-cat-btn {
-    padding: 8px 20px;
-    font-size: 13px;
-  }
-
-  .tm-card-img {
-    height: 180px;
-  }
-
-  .tm-card-name {
-    font-size: 17px;
-  }
-
-  .tm-section-title {
-    font-size: 28px;
-  }
-}
-
-@media (max-width: 480px) {
-  .tm-hero {
-    min-height: 300px;
-  }
-
-  .tm-hero-content {
-    padding: 50px 12px 30px;
-  }
-
-  .tm-title {
-    font-size: 26px;
-  }
-
-  .tm-badge {
-    font-size: 10px;
-    padding: 6px 16px;
-  }
-
-  .tm-cat-btn {
-    padding: 6px 16px;
-    font-size: 12px;
-  }
-
-  .tm-card-body {
-    padding: 16px 16px 18px;
-  }
-
-  .tm-load-btn {
-    width: 100%;
-    justify-content: center;
-  }
-
-  .tm-hero-btn {
-    width: 100%;
-    justify-content: center;
-  }
-}
-
-
 .tm-like-btn {
   position: absolute;
   top: 12px;
@@ -1455,7 +1300,7 @@
   .swiper-art .swiper { height: 480px; }
 }
 @media (max-width: 768px) {
-  .tm-hero { min-height: 320px; }
+  .tm-hero { min-height: 320px; background-attachment: scroll; }
   .tm-hero-content { padding: 60px 16px 40px; }
   .tm-title { font-size: 34px; }
   .tm-subtitle { font-size: 14px; }
@@ -1470,17 +1315,17 @@
   .tm-cat-btn { font-size: 12px; padding: 6px 16px; }
   .tm-search-wrap { flex-direction: column; gap: 12px; }
   .tm-search-wrap input { width: 100%; }
-  .tm-search-wrap button { width: 100%; justify-content: center; }
+  .tm-search-wrap button { width: 100%; }
   .swiper-art .swiper { height: 400px; }
   .tm-stats-count { font-size: 14px; }
 }
 @media (max-width: 576px) {
-  .tm-hero { min-height: 260px; }
+  .tm-hero { min-height: 260px; background-attachment: scroll; }
   .tm-hero-content { padding: 50px 12px 32px; }
   .tm-title { font-size: 26px; }
   .tm-subtitle { font-size: 13px; }
   .tm-badge { font-size: 10px; padding: 5px 14px; }
-  .tm-hero-btn { padding: 10px 20px; font-size: 12px; width: 100%; justify-content: center; }
+  .tm-hero-btn { padding: 10px 20px; font-size: 12px; width: 100%; }
   .tm-body { padding: 24px 12px 40px; }
   .tm-grid-row { grid-template-columns: 1fr; gap: 16px; }
   .tm-card-img { height: 200px; }
@@ -1488,9 +1333,10 @@
   .tm-card-name { font-size: 18px; }
   .tm-card-desc { font-size: 12px; }
   .tm-about-btn { padding: 7px 18px; font-size: 11px; }
-  .tm-load-btn { padding: 12px 36px; font-size: 14px; width: 100%; justify-content: center; }
+  .tm-load-btn { padding: 12px 36px; font-size: 14px; width: 100%; }
   .tm-section-title { font-size: 22px; }
   .tm-cat-btn { font-size: 11px; padding: 5px 12px; }
+  .tm-badge-inp { width: 100%; max-width: 100%; }
   .swiper-art .swiper { height: 340px; }
   .tm-stats-count { font-size: 13px; }
 }

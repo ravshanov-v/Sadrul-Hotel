@@ -591,88 +591,6 @@
   color: #e8e8e8;
 }
 
-@media (max-width: 1024px) {
-  .tb-hero {
-    flex-direction: column;
-  }
-
-  .tb-hero-img {
-    width: 100%;
-    height: 300px;
-    min-height: auto;
-  }
-
-  .tb-hero-info {
-    padding: 0 28px 32px;
-  }
-
-  .tb-name {
-    font-size: 30px;
-  }
-
-  .tb-panel {
-    width: 360px;
-  }
-}
-
-@media (max-width: 768px) {
-  .tb-page {
-    padding: 24px 16px 60px;
-  }
-
-  .tb-hero-img {
-    height: 220px;
-  }
-
-  .tb-hero-info {
-    padding: 0 20px 24px;
-  }
-
-  .tb-name {
-    font-size: 26px;
-  }
-
-  .tb-panel {
-    width: 100%;
-    max-width: 100%;
-  }
-
-  .tb-panel-body {
-    padding: 16px 20px 20px;
-  }
-
-  .tb-panel-header {
-    padding: 18px 20px;
-  }
-
-  .tb-selected {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-
-  .tb-selected-img {
-    width: 80px;
-    height: 80px;
-  }
-}
-
-@media (max-width: 480px) {
-  .tb-hero-img {
-    height: 180px;
-  }
-
-  .tb-name {
-    font-size: 22px;
-  }
-
-  .tb-variants-btn {
-    width: 100%;
-    justify-content: center;
-  }
-}
-
-
 @media (max-width: 1200px) {
   .tb-page { padding: 36px 32px 70px; }
   .tb-hero { gap: 32px; }
@@ -712,7 +630,7 @@
   .tb-cat { font-size: 10px; }
   .tb-meta-item { font-size: 12px; }
   .tb-variants-grid { grid-template-columns: 1fr; gap: 10px; }
-  .tb-variants-btn { width: 100%; justify-content: center; padding: 10px 20px; font-size: 12px; }
+  .tb-variants-btn { width: 100%; padding: 10px 20px; font-size: 12px; }
   .tb-panel-header { padding: 16px 20px; }
   .tb-panel-header h2 { font-size: 17px; }
   .tb-panel-body { padding: 14px 20px 20px; }

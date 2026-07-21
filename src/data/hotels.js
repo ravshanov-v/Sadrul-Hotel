@@ -116,7 +116,7 @@ export const hotels = [
     reviews: 580,
     price: 180,
     category: "Tarixiy",
-    image: "https://tests2.tashkent.uz/_next/image?url=https%3A%2F%2Fapi.tashkent.uz%2Fupload%2Fcity%2Fseesight%2F2025%2F%25D0%2593%25D0%25BE%25D1%2581%25D1%2582%25D0%25B8%25D0%25BD%25D0%25B8%25D1%2586%25D0%25B0_%25D0%25A3%25D0%25B7%25D0%25B1%25D0%25B5%25D0%25BA%25D0%25B8%25D1%2581%25D1%2582%25D0%25B0%25D0%25BD_Russian.jpg&w=3840&q=75",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTeup-gsWCsHyPnbGvCKbqWEJg-1E78ZG6X2Qvj_Jtv19dZbyiImNSJUKL&s=10",
     gallery: [
       "https://uzbek-travel.com/images/uz/Hotels/Tashkent/Uzbekistan_Hotel/62239161.jpg",
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpPa2XadbFLj5o0g_2huatmovEC7hO1A4yWlFuFUFQFYu7etRNh1ghFQ8&s=10",

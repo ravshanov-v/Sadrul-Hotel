@@ -18,12 +18,11 @@ export const hotels = [
     stars: 5,
     totalRooms: 300,
     rooms: [
-      
-      { id: "standart-1", price: 180, image: "" },
-      { id: "hashamatli-1", price: 320, image: "https://images.unsplash.com/photo-1590490359683-658d3d23f972?w=600&q=80" },
-      { id: "biznes-1", price: 260, image: "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=600&q=80" },
-      { id: "lyuks-1", price: 500, image: "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=600&q=80" },
-      { id: "prezident-1", price: 800, image: "https://images.unsplash.com/photo-1590073242678-70ee3fc28f8e?w=600&q=80" }
+      { id: "standart-1", price: 180, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5Bv4Uejaf3HhaJs7iLcZkwZIfFzxHyJmEmjX9vxschw&s" },
+      { id: "hashamatli-1", price: 320, image: "https://assets.hyatt.com/content/dam/hyatt/hyattdam/images/2025/02/25/0434/TASRT-P0128-Presidential-Suite-Bedroom.jpg/TASRT-P0128-Presidential-Suite-Bedroom.16x9.jpg" },
+      { id: "biznes-1", price: 260, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSW2cyyCEgM3UWcx6nkVyTe5wLqWq2ENpoltOPN1Wcxbw&s" },
+      { id: "lyuks-1", price: 500, image: "https://imgcy.trivago.com/c_fill,d_dummy.jpeg,e_sharpen:60,f_auto,h_627,q_auto,w_1200/hotelier-images/b8/a6/7c94b6e19637533693cb21d00460b54abe92907b9364919bf25af869ed5a.jpeg" },
+      { id: "prezident-1", price: 800, image: "https://assets.hyatt.com/content/dam/hyatt/hyattdam/images/2025/02/25/0434/TASRT-P0131-Presidential-Suite-Dining-Room-Table.jpg/TASRT-P0131-Presidential-Suite-Dining-Room-Table.16x9.jpg" }
     ],
     amenities: ["Basseyn", "Restoran", "SPA", "Fitness"],
     coordinates: { lat: 41.3112, lng: 69.2797 }
@@ -47,11 +46,11 @@ export const hotels = [
     stars: 5,
     totalRooms: 250,
     rooms: [
-      { id: "standart-1", price: 170, image: "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=600&q=80" },
-      { id: "hashamatli-1", price: 310, image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&q=80" },
-      { id: "biznes-1", price: 250, image: "https://images.unsplash.com/photo-1522771739015-7c97a2f3fc1b?w=600&q=80" },
-      { id: "lyuks-1", price: 480, image: "https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=600&q=80" },
-      { id: "prezident-1", price: 750, image: "https://images.unsplash.com/photo-1590490359683-658d3d23f972?w=600&q=80" }
+      { id: "standart-1", price: 170, image: "https://q-xx.bstatic.com/xdata/images/hotel/max500/287051313.jpg?k=3f05a0096e44ec3a4e547abc303921c19478730dd79dd526c4dcacc430869707&o=" },
+      { id: "hashamatli-1", price: 310, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTluLDWaBgJI3vHOuEolnvZO7xWw_xCsgQ7lNY9B5Tv6MWHiRt9CUlaTinl&s=10" },
+      { id: "biznes-1", price: 250, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDC4qsxi9Z3wk_-pMeySS24i7BjCBM8ihqVdpK-CDvjg&s" },
+      { id: "lyuks-1", price: 480, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSR2NHnuN4VziiVR8vAS25AY-EXhfZ2Qs0tOvXzPMr6Qw&s=10" },
+      { id: "prezident-1", price: 750, image: "https://images.trvl-media.com/lodging/89000000/88300000/88291900/88291882/7c0a9eae.jpg?impolicy=resizecrop&rw=575&rh=575&ra=fill" }
     ],
     amenities: ["SPA", "Restoran", "Fitness", "Basseyn"],
     coordinates: { lat: 41.3045, lng: 69.2734 }
@@ -75,10 +74,10 @@ export const hotels = [
     stars: 5,
     totalRooms: 258,
     rooms: [
-      { id: "standart-1", price: 160, image: "https://images.unsplash.com/photo-1587985064135-0366536eab42?w=600&q=80" },
-      { id: "biznes-1", price: 240, image: "https://images.unsplash.com/photo-1595576508898-0ad5c879a061?w=600&q=80" },
-      { id: "hashamatli-1", price: 300, image: "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=600&q=80" },
-      { id: "lyuks-1", price: 450, image: "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=600&q=80" }
+      { id: "standart-1", price: 160, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1AkdrJEICdeKhJFSK7RR_d__JkTngs91b7A2mJjYxn69i5LZ9tUy0lAA&s=10" },
+      { id: "biznes-1", price: 240, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbIj7dVfw1Pjq5m1z6fMaPQ_cbqfhvkfdwabKJ0IywTQ&s=10" },
+      { id: "hashamatli-1", price: 300, image: "https://www.hilton.com/im/en/TASTCHI/19321760/reviseddsc-2745.jpg?impolicy=crop&cw=5000&ch=2812&gravity=NorthWest&xposition=0&yposition=0&rw=1200&rh=675" },
+      { id: "lyuks-1", price: 450, image: "https://media-cdn.tripadvisor.com/media/photo-s/1b/33/85/85/presidential-suite-in.jpg" }
     ],
     amenities: ["Biznes", "SPA", "Restoran", "Fitness"],
     coordinates: { lat: 41.3005, lng: 69.2664 }
@@ -102,9 +101,9 @@ export const hotels = [
     stars: 4,
     totalRooms: 195,
     rooms: [
-      { id: "standart-1", price: 90, image: "https://images.unsplash.com/photo-1590073242678-70ee3fc28f8e?w=600&q=80" },
-      { id: "biznes-1", price: 140, image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&q=80" },
-      { id: "oilaviy-1", price: 120, image: "https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=600&q=80" }
+      { id: "standart-1", price: 90, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROdSeV2v4nW_CjsjEN91QdNPhzhRjZV9tT8DjGumC2pqgAbUPTB0NZqwAv&s=10" },
+      { id: "biznes-1", price: 140, image: "https://www.mdktravel.com/uploads/images/hotels/org/gw3LF6NFk72G.jpg" },
+      { id: "oilaviy-1", price: 120, image: "https://cdn-zen.readytotrip.com/t/1024x768/extranet/45/58/4558729c12c23c73e4d60afd84e5cd004950be40.JPEG" }
     ],
     amenities: ["Restoran", "Biznes", "Fitness", "Wi-Fi"],
     coordinates: { lat: 41.3078, lng: 69.2712 }
@@ -128,9 +127,9 @@ export const hotels = [
     stars: 4,
     totalRooms: 278,
     rooms: [
-      { id: "standart-1", price: 60, image: "https://images.unsplash.com/photo-1522771739015-7c97a2f3fc1b?w=600&q=80" },
-      { id: "biznes-1", price: 100, image: "https://images.unsplash.com/photo-1587985064135-0366536eab42?w=600&q=80" },
-      { id: "oilaviy-1", price: 85, image: "https://images.unsplash.com/photo-1595576508898-0ad5c879a061?w=600&q=80" }
+      { id: "standart-1", price: 60, image: "https://images.trvl-media.com/lodging/1000000/50000/47900/47872/a0b9f67a.jpg?impolicy=fcrop&w=1200&h=800&quality=medium" },
+      { id: "biznes-1", price: 100, image: "https://uzbek-travel.com/images/uz/Hotels/Tashkent/Uzbekistan_Hotel/62239731.jpg" },
+      { id: "oilaviy-1", price: 85, image: "https://images.trvl-media.com/lodging/1000000/50000/47900/47872/3b527bd7.jpg?impolicy=fcrop&w=1200&h=800&quality=medium" }
     ],
     amenities: ["Restoran", "Konferensiya", "Wi-Fi", "Avtoturargoh"],
     coordinates: { lat: 41.3032, lng: 69.2685 }
@@ -154,9 +153,9 @@ export const hotels = [
     stars: 5,
     totalRooms: 140,
     rooms: [
-      { id: "standart-1", price: 120, image: "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=600&q=80" },
-      { id: "biznes-1", price: 180, image: "https://images.unsplash.com/photo-1590073242678-70ee3fc28f8e?w=600&q=80" },
-      { id: "hashamatli-1", price: 230, image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&q=80" }
+      { id: "standart-1", price: 120, image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/d2/19/5c/courtyard-by-marriott.jpg?w=700&h=-1&s=1" },
+      { id: "biznes-1", price: 180, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRI7ug6_Zs-Cj6ApyQ594im10yWN7U2yzOVdw3UiX6PkXnYO0M25XnG5Tc&s=10" },
+      { id: "hashamatli-1", price: 230, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFZK-cAgGRKZEFCHK3lZ9ReSIkAM4NAUaHKyxlwdXHR0UN1W9M53n5eNQ&s=10" }
     ],
     amenities: ["Fitness", "Restoran", "SPA", "Biznes"],
     coordinates: { lat: 41.3095, lng: 69.2818 }
@@ -180,11 +179,11 @@ export const hotels = [
     stars: 5,
     totalRooms: 165,
     rooms: [
-      { id: "standart-1", price: 120, image: "https://images.unsplash.com/photo-1595576508898-0ad5c879a061?w=600&q=80" },
-      { id: "hashamatli-1", price: 220, image: "https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=600&q=80" },
-      { id: "biznes-1", price: 170, image: "https://images.unsplash.com/photo-1590490359683-658d3d23f972?w=600&q=80" },
-      { id: "lyuks-1", price: 350, image: "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=600&q=80" },
-      { id: "prezident-1", price: 600, image: "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=600&q=80" }
+      { id: "standart-1", price: 120, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJughAi1RUlIFM4z3_0bouOdh5CmeDWl_p30hDz0Z4mWrdMQjf2o0rzfc&s=10" },
+      { id: "hashamatli-1", price: 220, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjcyflpomWY_2iVZ2YyQSEpqelELq0Lt6aUCesdTW1kQqi053HMOXRKp_d&s=10" },
+      { id: "biznes-1", price: 170, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStGWfC84mNkvx_1JLZDSc9LHhzGZf8CVG0aWElusmcyP-igc-eA3Asu4sK&s=10" },
+      { id: "lyuks-1", price: 350, image: "https://z.cdrst.com/foto/hotel-sf/125b87ac/granderesp/foto-hotel-125b7d02.jpg" },
+      { id: "prezident-1", price: 600, image: "https://dolorestravel.com/uploads/Slider/2206/slider_room-65145bb50701a.jpg" }
     ],
     amenities: ["SPA", "Restoran", "Basseyn", "Fitness"],
     coordinates: { lat: 39.6542, lng: 66.9597 }
@@ -208,10 +207,10 @@ export const hotels = [
     stars: 5,
     totalRooms: 232,
     rooms: [
-      { id: "standart-1", price: 190, image: "https://images.unsplash.com/photo-1590073242678-70ee3fc28f8e?w=600&q=80" },
-      { id: "hashamatli-1", price: 350, image: "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=600&q=80" },
-      { id: "lyuks-1", price: 550, image: "https://images.unsplash.com/photo-1522771739015-7c97a2f3fc1b?w=600&q=80" },
-      { id: "prezident-1", price: 900, image: "https://images.unsplash.com/photo-1587985064135-0366536eab42?w=600&q=80" }
+      { id: "standart-1", price: 190, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTV2iwzfBESrhONZV5V8j2IS2rCMOtyCyvAfQ-46tw8s327Ny8cLClqn2-u&s=10" },
+      { id: "hashamatli-1", price: 350, image: "https://www.silkroad-samarkand.com/upload/iblock/cc1/mc63kugnt4plk3ue1s3mb4ciyl0fohf1.jpg" },
+      { id: "lyuks-1", price: 550, image: "https://mdktravel.com/uploads/images/hotels/org/fOVPrqdRucCo.jpg" },
+      { id: "prezident-1", price: 900, image: "https://kompastour.com/useruploads/hotels/hotel_1436b3f550.jpg" }
     ],
     amenities: ["SPA", "Basseyn", "VIP", "Restoran"],
     coordinates: { lat: 39.6482, lng: 66.9638 }
@@ -235,11 +234,11 @@ export const hotels = [
     stars: 5,
     totalRooms: 221,
     rooms: [
-      { id: "standart-1", price: 150, image: "https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=600&q=80" },
-      { id: "hashamatli-1", price: 280, image: "https://images.unsplash.com/photo-1590490359683-658d3d23f972?w=600&q=80" },
-      { id: "biznes-1", price: 220, image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&q=80" },
-      { id: "oilaviy-1", price: 200, image: "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=600&q=80" },
-      { id: "lyuks-1", price: 420, image: "https://images.unsplash.com/photo-1595576508898-0ad5c879a061?w=600&q=80" }
+      { id: "standart-1", price: 150, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9gENl2qea9Jymc_g5aofUOHm1O_NhNjSlHxw6zLFc2m0HNZq7WL0lJkE&s=10" },
+      { id: "hashamatli-1", price: 280, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRx6thoXbyJHdAJpPbXkLARTnFZa74hjABJsPibhEE4Npf8Mv_zpmj8j6s&s=10" },
+      { id: "biznes-1", price: 220, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxslOTEOPcaP1xQwnQ6U1JvxLzktMYI3qCjEm8N_Z8LRz84REsSpfCumaX&s=10" },
+      { id: "oilaviy-1", price: 200, image: "https://y.cdrst.com/foto/hotel-sf/13d591cf/granderesp/foto-hotel-13d58725.jpg" },
+      { id: "lyuks-1", price: 420, image: "https://www.silkroad-samarkand.com/upload/iblock/bad/6m7qgk6euyyxhwaobowxoe2yp96kd1hr.jpg" }
     ],
     amenities: ["Basseyn", "SPA", "Restoran", "Fitness"],
     coordinates: { lat: 39.6505, lng: 66.9602 }
@@ -263,11 +262,11 @@ export const hotels = [
     stars: 5,
     totalRooms: 240,
     rooms: [
-      { id: "standart-1", price: 200, image: "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=600&q=80" },
-      { id: "hashamatli-1", price: 360, image: "https://images.unsplash.com/photo-1590073242678-70ee3fc28f8e?w=600&q=80" },
-      { id: "biznes-1", price: 290, image: "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=600&q=80" },
-      { id: "lyuks-1", price: 570, image: "https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=600&q=80" },
-      { id: "prezident-1", price: 950, image: "https://images.unsplash.com/photo-1590490359683-658d3d23f972?w=600&q=80" }
+      { id: "standart-1", price: 200, image: "https://www.hilton.com/im/en/SKDSRHI/28036528/deluxe-suite-1.jpg?impolicy=crop&cw=5000&ch=2799&gravity=NorthWest&xposition=0&yposition=266&rw=768&rh=430" },
+      { id: "hashamatli-1", price: 360, image: "https://ihg-uae.com/wp-content/uploads/2024/01/491418843.jpg" },
+      { id: "biznes-1", price: 290, image: "https://cdn-zen.readytotrip.com/t/1024x768/extranet/71/87/7187e124e0779733a2a88d1cdce84cf4134464f3.JPEG" },
+      { id: "lyuks-1", price: 570, image: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/701033279.jpg?k=4b8c9316447424ab25a6344bee364d94496c93d54c140ba0268e73b5a70748b5&o=" },
+      { id: "prezident-1", price: 950, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcr0OiSiEPFEmOc2PUBthOIutzfKpy1cpHItcbJjNl6aYVvV7255PSZzJc&s=10" }
     ],
     amenities: ["SPA", "Fitness", "Restoran", "Basseyn"],
     coordinates: { lat: 39.6468, lng: 66.9655 }
@@ -291,10 +290,10 @@ export const hotels = [
     stars: 5,
     totalRooms: 120,
     rooms: [
-      { id: "standart-1", price: 100, image: "https://images.unsplash.com/photo-1587985064135-0366536eab42?w=600&q=80" },
-      { id: "hashamatli-1", price: 190, image: "https://images.unsplash.com/photo-1595576508898-0ad5c879a061?w=600&q=80" },
-      { id: "biznes-1", price: 150, image: "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=600&q=80" },
-      { id: "lyuks-1", price: 300, image: "https://images.unsplash.com/photo-1522771739015-7c97a2f3fc1b?w=600&q=80" }
+      { id: "standart-1", price: 100, image: "https://wyndhambukhara.com/img/bda62c9e86fa559e.webp" },
+      { id: "hashamatli-1", price: 190, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTERoCrdmz2fNqu-BsuOHNDmBzqpwLXZFFxNY0-ldMbWqpNmfCBmR7F4D4&s=10" },
+      { id: "biznes-1", price: 150, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSn-0XQNyhw1vmSXQhl0eRbb_mrWgg1Py5_ckn1kBDJlUA8N5qeQfhEUA_a&s=10" },
+      { id: "lyuks-1", price: 300, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTlBEWGz3RA8dlY8IdpeVzPhrlOzvs3e5kozfr6YG51-Q&s=10" }
     ],
     amenities: ["SPA", "Restoran", "Fitness", "Basseyn"],
     coordinates: { lat: 39.7681, lng: 64.4219 }
@@ -318,10 +317,10 @@ export const hotels = [
     stars: 5,
     totalRooms: 106,
     rooms: [
-      { id: "standart-1", price: 110, image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&q=80" },
-      { id: "hashamatli-1", price: 210, image: "https://images.unsplash.com/photo-1590073242678-70ee3fc28f8e?w=600&q=80" },
-      { id: "biznes-1", price: 160, image: "https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=600&q=80" },
-      { id: "oilaviy-1", price: 140, image: "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=600&q=80" }
+      { id: "standart-1", price: 110, image: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/550402230.jpg?k=891fcb107c1520eef7edaf5434f0659b3bd446d4116190b750d3a04487d08d73&o=" },
+      { id: "hashamatli-1", price: 210, image: "https://images.trvl-media.com/lodging/74000000/73410000/73405800/73405788/8275dc29.jpg?impolicy=resizecrop&rw=575&rh=575&ra=fill" },
+      { id: "biznes-1", price: 160, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXL635EredIM3-lumgZmECpbOcFbmsJaDRoxWAy68RhSiDWvc5rLOFnDg&s=10" },
+      { id: "oilaviy-1", price: 140, image: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/884283028.jpg?k=24f5abeb6873e331205eecf8b5ac1e6442d81c0c96545aa69e892e0586b22dc0&o=" }
     ],
     amenities: ["SPA", "Restoran", "Basseyn", "Fitness"],
     coordinates: { lat: 41.3789, lng: 60.3604 }

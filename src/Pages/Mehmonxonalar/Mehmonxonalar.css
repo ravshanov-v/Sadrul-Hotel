@@ -333,6 +333,7 @@
 
 .mx-feat-img {
   position: relative;
+  width: 100%;
   height: 160px;
   overflow: hidden;
 }
@@ -341,6 +342,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
   transition: transform 0.6s;
 }
 
@@ -557,6 +559,7 @@
 
 .mx-card-image {
   position: relative;
+  width: 100%;
   height: 260px;
   overflow: hidden;
   flex-shrink: 0;
@@ -566,6 +569,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
   transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
 }
 

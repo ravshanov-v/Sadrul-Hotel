@@ -113,6 +113,10 @@ export default function SignUpModal() {
     })
     if (allValid) {
       login({ fullName: form.fullName, email: form.email, phone: form.phone })
+      setForm({ fullName: "", email: "", phone: "", password: "", confirmPassword: "" })
+      setTouched({ fullName: false, email: false, phone: false, password: false, confirmPassword: false })
+      setShowPassword(false)
+      setShowConfirm(false)
       closeModal()
     }
   }

@@ -2,7 +2,6 @@
 
 .ariza-page {
   font-family: 'Poppins', sans-serif;
-  overflow-x: hidden;
 }
 
 .gold-text {
@@ -205,6 +204,25 @@
   background-position: right 16px center;
   background-size: 16px;
   padding-right: 44px;
+}
+
+.ariza-form-group select option {
+  color: #1A1A2E;
+  background: #fff;
+  padding: 10px;
+}
+
+.dark .ariza-form-group select option {
+  color: #e8e8e8;
+  background: #1a1a2e;
+}
+
+.ariza-form-group select option:disabled {
+  color: #B8A88A;
+}
+
+.dark .ariza-form-group select option:disabled {
+  color: rgba(255, 255, 255, 0.35);
 }
 
 

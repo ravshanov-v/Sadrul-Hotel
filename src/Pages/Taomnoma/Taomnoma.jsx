@@ -113,19 +113,25 @@ export default function Taomnoma() {
     const [searchError, setSearchError] = useState("")
     const [highlightedCat, setHighlightedCat] = useState("")
     const bodyRef = useRef(null)
+    const catClickRef = useRef(false)
+
+    useEffect(() => { window.scrollTo(0, 0) }, [])
 
     const filtered = activeCategory === "Barchasi"
         ? menuItems
         : menuItems.filter(i => i.category === activeCategory)
 
     useEffect(() => {
-        if (activeCategory !== "Barchasi") {
-            const id = getCategoryId(activeCategory)
+        if (!catClickRef.current) { catClickRef.current = true; return }
+        const id = getCategoryId(activeCategory)
+        setTimeout(() => {
             const el = document.getElementById(id)
             if (el) {
-                setTimeout(() => el.scrollIntoView({ behavior: "smooth", block: "start" }), 100)
+                const offset = 90
+                const rect = el.getBoundingClientRect()
+                window.scrollTo({ top: rect.top + window.scrollY - offset, behavior: "smooth" })
             }
-        }
+        }, 100)
     }, [activeCategory])
 
     useEffect(() => {
@@ -283,16 +289,12 @@ export default function Taomnoma() {
                 <div
                     className={`tm-categories ${highlightedCat ? "tm-section-highlight" : ""}`}
                     id={getCategoryId(activeCategory)}
-                    data-aos="fade-up"
-                    data-aos-delay="100"
                 >
-                    <div className="tm-cat-track" data-aos="fade-up">
+                    <div className="tm-cat-track">
                         {menuCategories.map((cat, ci) => (
                             <button
                                 key={cat}
                                 className={`tm-cat-btn ${activeCategory === cat ? "active" : ""}`}
-                                data-aos="fade-up"
-                                data-aos-delay={ci * 50}
                                 onClick={() => handleCategoryClick(cat)}
                             >
                                 {t("menu.cat_" + cat.replace(/ /g, "_"))}

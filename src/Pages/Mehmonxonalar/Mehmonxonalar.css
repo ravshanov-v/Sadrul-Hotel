@@ -296,6 +296,16 @@
   padding: 0 40px;
 }
 
+@media (max-width: 992px) {
+  .mx-featured-track { margin: 0 -24px; padding: 0 24px; }
+}
+@media (max-width: 576px) {
+  .mx-featured-track { margin: 0 -12px; padding: 0 12px; }
+}
+@media (max-width: 480px) {
+  .mx-featured-track { margin: 0; padding: 0; }
+}
+
 .mx-featured-inner {
   display: flex;
   gap: 24px;
@@ -1019,8 +1029,7 @@
   .mx-card-name { font-size: 18px; }
   .mx-section-title { font-size: 26px; }
   .mx-featured { padding: 40px 16px 0; }
-  .mx-featured-grid { grid-template-columns: 1fr; }
-  .mx-feat-card { width: 100%; }
+.mx-feat-card { width: 100%; }
   .mx-feat-img { height: 180px; }
   .mx-booking { margin: 40px 16px; padding: 40px 24px 50px; }
   .mx-booking-sub { font-size: 14px; }

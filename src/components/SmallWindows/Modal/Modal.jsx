@@ -9,14 +9,7 @@ import "./Modal.css"
 
 export default function Modal() {
 
-  const { isOpen, modalType, modalReason, openModal, closeModal } = useModal()
-  const { login } = useAuth()
-  const { t } = useLanguage()
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [showPassword, setShowPassword] = useState(false)
-  const [emailTouched, setEmailTouched] = useState(false)
-  const [passwordTouched, setPasswordTouched] = useState(false)
+  const { isOpen, modalType } = useModal()
 
   useEffect(() => {
     if (isOpen) {
@@ -29,15 +22,20 @@ export default function Modal() {
     }
   }, [isOpen])
 
-  useEffect(() => {
-    if (!isOpen) {
-      setEmail("")
-      setPassword("")
-      setShowPassword(false)
-      setEmailTouched(false)
-      setPasswordTouched(false)
-    }
-  }, [isOpen])
+  if (!isOpen || modalType !== 'login') return null
+
+  return <LoginForm />
+}
+
+function LoginForm() {
+  const { modalReason, openModal, closeModal } = useModal()
+  const { login } = useAuth()
+  const { t } = useLanguage()
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [showPassword, setShowPassword] = useState(false)
+  const [emailTouched, setEmailTouched] = useState(false)
+  const [passwordTouched, setPasswordTouched] = useState(false)
 
 
 
@@ -80,15 +78,9 @@ export default function Modal() {
       const nameFromEmail = email.split("@")[0].replace(/[._]/g, " ")
       const fullName = nameFromEmail.charAt(0).toUpperCase() + nameFromEmail.slice(1)
       login({ fullName, email })
-      setEmail("")
-      setPassword("")
-      setEmailTouched(false)
-      setPasswordTouched(false)
       closeModal()
     }
   }
-
-  if (!isOpen || modalType !== 'login') return null
 
   return (
     <div className="modal-backdrop" onClick={closeModal}>

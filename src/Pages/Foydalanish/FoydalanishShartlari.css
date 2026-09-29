@@ -152,20 +152,21 @@
   font-style: italic;
 }
 
-@media (max-width: 1200px) { .terms-body { padding-inline: 32px; } }
-@media (max-width: 992px) { .terms-body { padding-inline: 24px; } .terms-section { padding: 28px 24px; } }
-@media (max-width: 768px) { .terms-body { padding-inline: 16px; } .terms-section { padding: 24px 20px; } }
+@media (max-width: 1200px) { .terms-content { padding-inline: 1.5rem; } }
+@media (max-width: 992px) { .terms-content { padding-inline: 1.25rem; } .terms-article { padding: 1.75rem; } }
+@media (max-width: 768px) { .terms-content { padding-inline: 1rem; } .terms-article { padding: 1.5rem 1.25rem; } }
 @media (max-width: 576px) {
-  .terms-body { padding-inline: 12px; }
-  .terms-section { padding: 20px 14px; font-size: 13px; }
+  .terms-content { padding-inline: 0.75rem; gap: 1rem; }
+  .terms-article { padding: 1.25rem 1rem; font-size: 0.95rem; }
   .terms-hero { padding: 2rem 1rem; min-height: 220px; }
   .terms-hero-title { font-size: 1.5rem; }
-  .terms-article { padding: 1.25rem; }
+  .terms-article-title { font-size: 1.05rem; }
 }
 @media (max-width: 360px) {
-  .terms-body { padding-inline: 8px; }
-  .terms-section { padding: 16px 10px; }
+  .terms-content { padding-inline: 0.5rem; }
+  .terms-article { padding: 1rem 0.75rem; }
   .terms-hero { padding: 1.5rem 0.75rem; min-height: 180px; }
   .terms-hero-title { font-size: 1.25rem; }
-  .terms-article { padding: 1rem; }
+  .terms-badge { font-size: 0.7rem; letter-spacing: 1.5px; }
+  .terms-updated { padding: 1.25rem 0.75rem; }
 }

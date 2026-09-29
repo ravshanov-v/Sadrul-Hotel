@@ -2,7 +2,6 @@ import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import logoIconS from "../../Assets/Icons/logo-S-icon.png"
 import close from "../../Assets/Icons/close.svg"
-import { useModal } from "../../components/SmallWindows/Modal/useModal.js"
 import { useAuth } from "../../components/Auth/useAuth"
 import { validateEmail, getEmailErrorText } from "../../utils/auth"
 import { useLanguage } from "../../components/Language/useLanguage.js"
@@ -11,7 +10,6 @@ import "./SignUp.css"
 
 export default function SignUp() {
   const navigate = useNavigate()
-  const { openModal } = useModal()
   const { login } = useAuth()
   const { t } = useLanguage()
 
@@ -272,7 +270,7 @@ export default function SignUp() {
             </form>
 
             <p className="signup-login-link" data-aos="fade-up">
-              {t("signup.haveAccount")} <span className="signup-toggle-link" onClick={() => { openModal(); navigate("/", { state: { openModal: true } }) }}>{t("signup.loginLink")}</span>
+              {t("signup.haveAccount")} <span className="signup-toggle-link" onClick={() => navigate("/", { state: { openModal: true } })}>{t("signup.loginLink")}</span>
             </p>
           </div>
         </div>

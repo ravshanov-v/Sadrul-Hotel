@@ -3,12 +3,20 @@ import { DarkModeContext } from "./DarkModeContext.jsx"
 
 export function DarkModeProvider({ children }) {
   const [isDark, setIsDark] = useState(() => {
-    const saved = localStorage.getItem("darkMode")
-    return saved ? JSON.parse(saved) : false
+    try {
+      const saved = localStorage.getItem("darkMode")
+      return saved ? JSON.parse(saved) : false
+    } catch {
+      return false
+    }
   })
 
   useLayoutEffect(() => {
-    localStorage.setItem("darkMode", JSON.stringify(isDark))
+    try {
+      localStorage.setItem("darkMode", JSON.stringify(isDark))
+    } catch {
+      // storage unavailable
+    }
     document.documentElement.classList.toggle("dark", isDark)
     document.documentElement.classList.add("dark-transition")
     const timer = setTimeout(() => {

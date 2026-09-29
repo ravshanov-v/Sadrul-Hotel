@@ -753,131 +753,6 @@
 }
 
 
-.bq-sc-recs {
-  margin-top: 50px;
-  animation: bqScFade 0.6s ease 0.65s both;
-}
-
-.bq-sc-recs-header {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  justify-content: center;
-  margin-bottom: 24px;
-}
-
-.bq-sc-recs-line {
-  width: 32px;
-  height: 1px;
-  background: rgba(212, 175, 55, 0.25);
-}
-
-.bq-sc-recs-header span {
-  font-size: 12px;
-  font-weight: 600;
-  color: #D4AF37;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-}
-
-.bq-sc-recs-track {
-  display: flex;
-  gap: 16px;
-  overflow-x: auto;
-  padding-bottom: 8px;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-}
-
-.bq-sc-recs-track::-webkit-scrollbar {
-  height: 4px;
-}
-
-.bq-sc-recs-track::-webkit-scrollbar-thumb {
-  background: rgba(212, 175, 55, 0.2);
-  border-radius: 2px;
-}
-
-.bq-sc-rec {
-  flex: 0 0 280px;
-  scroll-snap-align: start;
-  border-radius: 16px;
-  border: 1px solid rgba(212, 175, 55, 0.08);
-  background: var(--bq-sc-bg-card);
-  overflow: hidden;
-  cursor: pointer;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.bq-sc-rec:hover {
-  border-color: rgba(212, 175, 55, 0.2);
-  transform: translateY(-4px);
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.4);
-}
-
-.bq-sc-rec-img {
-  position: relative;
-  height: 150px;
-  overflow: hidden;
-}
-
-.bq-sc-rec-img img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.6s;
-}
-
-.bq-sc-rec:hover .bq-sc-rec-img img {
-  transform: scale(1.08);
-}
-
-.bq-sc-rec-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, transparent 50%, rgba(0, 0, 0, 0.6));
-}
-
-.bq-sc-rec-body {
-  padding: 16px 18px 18px;
-}
-
-.bq-sc-rec-body h4 {
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--bq-text);
-  margin: 0 0 6px;
-}
-
-.bq-sc-rec-body p {
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.45);
-  line-height: 1.5;
-  margin: 0 0 14px;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.bq-sc-rec-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 12px;
-  font-weight: 600;
-  color: #D4AF37;
-  transition: gap 0.3s;
-}
-
-.bq-sc-rec:hover .bq-sc-rec-btn {
-  gap: 10px;
-}
-
-.bq-sc-rec-btn svg {
-  width: 14px;
-  height: 14px;
-}
 
 
 .bq-cash-notice {
@@ -956,28 +831,7 @@
   line-height: 1.3;
 }
 
-.bq-avail-checking {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 14px 20px;
-  margin-top: 16px;
-  border-radius: 12px;
-  background: var(--bq-surface);
-  border: 1px solid rgba(212, 175, 55, 0.1);
-  font-size: 13px;
-  color: var(--bq-text-mid);
-}
 
-.bq-avail-spinner {
-  width: 16px;
-  height: 16px;
-  border: 2px solid rgba(212, 175, 55, 0.2);
-  border-top-color: #D4AF37;
-  border-radius: 50%;
-  animation: bqScSpin 0.7s linear infinite;
-  flex-shrink: 0;
-}
 
 .bq-avail-badge {
   display: flex;
@@ -1145,8 +999,7 @@
   .bq-container { grid-template-columns: 1fr; gap: 28px; }
   .bq-form { padding: 28px; }
   .bq-form-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
-  .bq-payment-methods { flex-direction: column; gap: 12px; }
-  .bq-payment-grid { grid-template-columns: 1fr; }
+.bq-payment-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 768px) {
   .bq-hero { min-height: 220px; }
@@ -1159,7 +1012,16 @@
   .bq-form-title { font-size: 16px; }
   .bq-form-group input, .bq-form-group select { height: 44px; font-size: 13px; }
   .bq-similar-rooms { grid-template-columns: 1fr; gap: 16px; }
-  .bq-hotel-preview img { width: 100%; height: auto; }
+  .bq-hotel-preview { flex-direction: column; gap: 16px; padding: 16px; }
+  .bq-hotel-preview img { width: 100%; height: 200px; }
+  .bq-sc-inner { padding: 24px 12px; }
+  .bq-sc-title { font-size: 32px; }
+  .bq-sc-card { padding: 20px 16px; }
+  .bq-sc-row { flex-direction: column; gap: 4px; align-items: flex-start; }
+  .bq-sc-voucher { padding: 16px 14px; }
+  .bq-sc-voucher-email { font-size: 13px; word-break: break-all; }
+
+  .bq-toast { max-width: calc(100vw - 32px); padding: 12px 18px; font-size: 13px; }
 }
 @media (max-width: 576px) {
   .bq-hero { min-height: 200px; }
@@ -1181,12 +1043,23 @@
   .bq-summary h3 { font-size: 16px; }
   .bq-total-amount { font-size: 20px; }
   .bq-price-amount { font-size: 24px; }
+  .bq-hotel-preview img { height: 170px; }
   .bq-hotel-desc { font-size: 13px; }
   .bq-cash-notice { font-size: 11px; }
+  .bq-sc-title { font-size: 26px; }
+  .bq-sc-card { padding: 18px 14px; }
+  .bq-toast { top: 16px; padding: 12px 16px; font-size: 12px; }
 }
 @media (max-width: 360px) {
   .bq-hero-content h1 { font-size: 20px; }
   .bq-body { padding: 20px 8px 40px; }
   .bq-form { padding: 16px 10px; }
-  .bq-summary { padding: 16px; }
+  .bq-summary { padding: 16px 14px; }
+  .bq-hotel-preview { padding: 12px; }
+  .bq-hotel-preview img { height: 150px; }
+  .bq-sc-inner { padding: 20px 8px; }
+  .bq-sc-title { font-size: 22px; }
+  .bq-sc-card { padding: 16px 12px; }
+  .bq-sc-btn { padding: 12px 20px; font-size: 13px; }
+  .bq-toast { max-width: calc(100vw - 16px); padding: 10px 14px; }
 }

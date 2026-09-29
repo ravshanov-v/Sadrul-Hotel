@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from "react"
 import { useNavigate } from "react-router-dom"
 import { hotels } from "../../data/hotels"
-import { menuItems } from "../../data/taomnoma"
 import { takliflar } from "../../data/takliflar"
 import { useLanguage } from "../../components/Language/useLanguage"
 import { useProphile } from "../../components/Prophile/useProphile"
@@ -10,6 +9,7 @@ import Nav from "../../components/Navbar/Nav.jsx"
 import Footer from "../../components/Footer/Footer.jsx"
 import Modal from "../../components/SmallWindows/Modal/Modal.jsx"
 import SignUpModal from "../../components/SmallWindows/Modal/SignUpModal.jsx"
+import { cityCount, totalRoomCount, dishVariantCount } from "../../utils/stats"
 import {
   BsStar, BsHeart, BsCalendarCheck, BsArrowRight,
   BsBuilding, BsPeople, BsGlobe,
@@ -17,9 +17,6 @@ import {
   BsChatDots
 } from 'react-icons/bs'
 import "./Dashboard.css"
-
-const uniqueCities = [...new Set(hotels.map(h => h.location?.split(",")[0]?.trim()).filter(Boolean))]
-const roomCount = hotels.reduce((s, h) => s + (h.totalRooms || 0), 0)
 
 function CountUp({ end, suffix, duration = 2000 }) {
   const [value, setValue] = useState(0)
@@ -55,12 +52,11 @@ export default function Dashboard() {
   const { openProphile } = useProphile()
 
   const avgRating = parseFloat((hotels.reduce((s, h) => s + (h.rating || 0), 0) / hotels.length).toFixed(1))
-  const totalVariants = menuItems.reduce((s, item) => s + (item.variants?.length || 0), 0)
   const platformStats = [
     { value: hotels.length, suffix: "+", label: t("dashboard.partnerHotels"), icon: <BsBuilding /> },
-    { value: totalVariants, suffix: "+", label: t("dashboard.nationalDishes"), icon: <BsCupHot /> },
-    { value: roomCount, suffix: "+", label: t("dashboard.cozyRooms"), icon: <BsPeople /> },
-    { value: uniqueCities.length, suffix: "+", label: t("dashboard.cities"), icon: <BsMap /> },
+    { value: dishVariantCount, suffix: "+", label: t("dashboard.nationalDishes"), icon: <BsCupHot /> },
+    { value: totalRoomCount, suffix: "+", label: t("dashboard.cozyRooms"), icon: <BsPeople /> },
+    { value: cityCount, suffix: "+", label: t("dashboard.cities"), icon: <BsMap /> },
     { value: 1, suffix: "+", label: t("dashboard.countries"), icon: <BsGlobe /> },
     { value: avgRating, suffix: "", label: t("dashboard.avgRating"), icon: <BsStar />, isRating: true },
     { value: takliflar.length, suffix: "+", label: t("dashboard.activeDiscounts"), icon: <BsTag /> },

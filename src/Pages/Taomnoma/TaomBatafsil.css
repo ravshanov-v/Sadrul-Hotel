@@ -617,8 +617,7 @@
   .tb-hero-info { padding: 24px 0; }
   .tb-name { font-size: 26px; }
   .tb-desc { font-size: 14px; }
-  .tb-variants-grid { gap: 12px; }
-  .tb-variants-btn { padding: 12px 24px; font-size: 13px; }
+.tb-variants-btn { padding: 12px 24px; font-size: 13px; }
   .tb-panel { width: 100%; max-width: 420px; margin-top: 20px; }
   .tb-back { padding: 8px 20px; font-size: 12px; }
 }
@@ -629,8 +628,7 @@
   .tb-desc { font-size: 13px; }
   .tb-cat { font-size: 10px; }
   .tb-meta-item { font-size: 12px; }
-  .tb-variants-grid { grid-template-columns: 1fr; gap: 10px; }
-  .tb-variants-btn { width: 100%; padding: 10px 20px; font-size: 12px; }
+.tb-variants-btn { width: 100%; padding: 10px 20px; font-size: 12px; }
   .tb-panel-header { padding: 16px 20px; }
   .tb-panel-header h2 { font-size: 17px; }
   .tb-panel-body { padding: 14px 20px 20px; }
@@ -650,5 +648,4 @@
   .tb-name { font-size: 18px; }
   .tb-panel-header { padding: 14px 16px; }
   .tb-panel-body { padding: 12px 16px 16px; }
-  .tb-variants-grid { gap: 8px; }
 }

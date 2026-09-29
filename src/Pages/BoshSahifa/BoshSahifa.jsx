@@ -2,16 +2,20 @@ import { Link } from "react-router-dom"
 import { hotels } from "../../data/hotels"
 import { menuItems } from "../../data/taomnoma"
 import { takliflar } from "../../data/takliflar"
+import { jobPositions } from "../../data/karyera"
 import { BsBuildings, BsPeople, BsShieldCheck, BsStar } from 'react-icons/bs'
 import StatsBar from "../../components/StatsBar/StatsBar"
 import { useLanguage } from "../../components/Language/useLanguage.js"
 import { useFavorites } from "../../components/Favorites/useFavorites.js"
+import {
+  StarIcon,
+  PinIcon,
+  ArrowRightIcon,
+  HeartIcon,
+} from "../../components/ui/icons"
+import { hotelCount, cityCount, offerCount, totalRoomCount } from "../../utils/stats"
 import companyImage from "../../Assets/Images/sadrul-kompany.jpg"
 import "./BoshSahifa.css"
-
-const hotelCount = hotels.length
-const cityCount = [...new Set(hotels.map(h => h.location?.split(",")[0]?.trim()).filter(Boolean))].length
-const offerCount = takliflar.length
 
 export default function BoshSahifa() {
   const { t, tData } = useLanguage()
@@ -24,15 +28,11 @@ export default function BoshSahifa() {
       <div className='page-1' data-aos="fade-up">
         <article className='page-1-art' data-aos="zoom-in">
           <div className='page-1-badge' data-aos="fade-up">
-            <svg viewBox='0 0 24 24' fill='none'>
-              <path d='M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z' fill='currentColor' />
-            </svg>
+            <StarIcon />
             <span className='page-1-badge-line' />
             {t("home.heroBadge")}
             <span className='page-1-badge-line' />
-            <svg viewBox='0 0 24 24' fill='none'>
-              <path d='M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z' fill='currentColor' />
-            </svg>
+            <StarIcon />
           </div>
           <h1 className='main-h1' data-aos="fade-up" data-aos-delay="100">{t("home.heroTitle1")} <span className='gold-text'>{t("home.heroTitleGold")}</span> {t("home.heroTitle2")}</h1>
            <p className='main-p' data-aos="fade-up" data-aos-delay="200">{t("home.heroDesc")}</p>
@@ -64,9 +64,7 @@ export default function BoshSahifa() {
                     onClick={(e) => { e.stopPropagation(); toggleFav('hotel_' + hotel.id) }}
                     aria-label="Like"
                   >
-                    <svg viewBox="0 0 24 24">
-                      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
+                    <HeartIcon />
                   </button>
                 <img src={hotel.image} alt={tData("data.hotels." + hotel.id + ".name", hotel.name)} loading='lazy' data-aos="zoom-in" />
                 <div className='hp-card-cat'>{tData("data.hotels." + hotel.id + ".category", hotel.category)}</div>
@@ -74,10 +72,7 @@ export default function BoshSahifa() {
               <div className='hp-card-body'>
                 <h3 className='hp-card-name'>{tData("data.hotels." + hotel.id + ".name", hotel.name)}</h3>
                 <div className='hp-card-loc'>
-                  <svg viewBox='0 0 24 24' fill='none'>
-                    <path d='M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z' stroke='currentColor' strokeWidth='2' />
-                    <circle cx='12' cy='9' r='2.5' stroke='currentColor' strokeWidth='2' />
-                  </svg>
+                  <PinIcon />
                   {tData("data.hotels." + hotel.id + ".location", hotel.location)}
                 </div>
                 <div className='hp-card-bottom'>
@@ -91,9 +86,7 @@ export default function BoshSahifa() {
         <div className='hp-actions' data-aos="zoom-in">
           <Link to='/mehmonxonalar' className='hp-all-btn'>
             {t("home.viewAllHotels")}
-            <svg viewBox='0 0 24 24' fill='none'>
-              <path d='M5 12h14M12 5l7 7-7 7' stroke='currentColor' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round' />
-            </svg>
+            <ArrowRightIcon />
           </Link>
         </div>
       </section>
@@ -146,9 +139,7 @@ export default function BoshSahifa() {
         <div className='tp-actions' data-aos="zoom-in">
           <Link to='/taomnoma' className='tp-all-btn'>
             {t("home.fullMenu")}
-            <svg viewBox='0 0 24 24' fill='none'>
-              <path d='M5 12h14M12 5l7 7-7 7' stroke='currentColor' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round' />
-            </svg>
+            <ArrowRightIcon />
           </Link>
         </div>
       </section>
@@ -173,7 +164,7 @@ export default function BoshSahifa() {
                 <h3 className='op-card-name'>{tData("data.offers." + taklif.id + ".title", taklif.title)}</h3>
                 <p className='op-card-sub'>{tData("data.offers." + taklif.id + ".subtitle", taklif.subtitle)}</p>
                 <div className='op-card-footer'>
-                  <span className='op-card-code'>{taklif.code}</span>
+                  <span className='op-card-code'>{taklif.promoCode}</span>
                 </div>
               </div>
             </article>
@@ -183,9 +174,7 @@ export default function BoshSahifa() {
         <div className='op-actions' data-aos="zoom-in">
           <Link to='/takliflar' className='op-all-btn'>
             {t("home.details")}
-            <svg viewBox='0 0 24 24' fill='none'>
-              <path d='M5 12h14M12 5l7 7-7 7' stroke='currentColor' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round' />
-            </svg>
+            <ArrowRightIcon />
           </Link>
         </div>
       </section>
@@ -202,7 +191,7 @@ export default function BoshSahifa() {
         <div className='ap-stats' data-aos="fade-up">
           {[
             { icon: <BsBuildings />, value: `${hotelCount}+`, label: t("home.statsHotels") },
-            { icon: <BsPeople />, value: `${hotels.reduce((s, h) => s + (h.totalRooms || 0), 0)}+`, label: t("home.statsRooms") },
+            { icon: <BsPeople />, value: `${totalRoomCount}+`, label: t("home.statsRooms") },
             { icon: <BsStar />, value: `${cityCount}+`, label: t("home.statsCities") },
             { icon: <BsShieldCheck />, value: `${offerCount}+`, label: t("home.statsOffers") },
           ].map((s, i) => (
@@ -262,21 +251,13 @@ export default function BoshSahifa() {
           </div>
           <h3 className='ap-sub-title' data-aos="fade-up">{t("home.careerSub")} <span className='ap-gold'>{t("home.careerSubGold")}</span> {t("home.careerSub2")}</h3>
           <div className='ap-karyera-grid' data-aos="fade-up">
-            {[
-              { title: t("home.job1"), type: t("home.fullTime"), loc: t("home.cityTashkent") },
-              { title: t("home.job2"), type: t("home.fullTime"), loc: t("home.cityTashkent") },
-              { title: t("home.job3"), type: t("home.fullTime"), loc: t("home.cityTashkent") },
-              { title: t("home.job4"), type: t("home.fullTime"), loc: t("home.cityTashkent") },
-            ].map((job, i) => (
-              <Link key={i} to={`/ariza?position=${encodeURIComponent(job.title)}`} className='ap-karyera-card' data-aos="fade-up" data-aos-delay={i * 100}>
-                <div className='ap-karyera-type'>{job.type}</div>
-                <h4 className='ap-karyera-title'>{job.title}</h4>
+            {jobPositions.map((job, i) => (
+              <Link key={job.title} to={`/ariza?position=${encodeURIComponent(job.title)}`} className='ap-karyera-card' data-aos="fade-up" data-aos-delay={i * 100}>
+                <div className='ap-karyera-type'>{tData("data.careers." + i + ".type", job.type)}</div>
+                <h4 className='ap-karyera-title'>{tData("data.careers." + i + ".title", job.title)}</h4>
                 <div className='ap-karyera-loc'>
-                  <svg viewBox='0 0 24 24' fill='none'>
-                    <path d='M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z' stroke='currentColor' strokeWidth='2' />
-                    <circle cx='12' cy='9' r='2.5' stroke='currentColor' strokeWidth='2' />
-                  </svg>
-                  {job.loc}
+                  <PinIcon />
+                  {tData("data.careers." + i + ".loc", job.loc)}
                 </div>
               </Link>
             ))}
@@ -286,9 +267,7 @@ export default function BoshSahifa() {
         <div className='ap-actions' data-aos="zoom-in">
           <Link to='/biz-haqimizda' className='ap-all-btn'>
             {t("home.careerBtn")}
-            <svg viewBox='0 0 24 24' fill='none'>
-              <path d='M5 12h14M12 5l7 7-7 7' stroke='currentColor' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round' />
-            </svg>
+            <ArrowRightIcon />
           </Link>
         </div>
       </section>

@@ -1,31 +1,45 @@
 import { extractCategory, categoryMultiplier } from "./roomData"
 
-export function checkRoomAvailability(hotelId, roomType, checkIn, checkOut, _userEmail, roomTypes) {
-  const allBookings = []
+function readAllBookings() {
+  const bookings = []
   try {
-    const keys = Object.keys(localStorage).filter(k => k.startsWith("bookings_"))
-    for (const key of keys) {
-      const bk = JSON.parse(localStorage.getItem(key) || "[]")
-      allBookings.push(...bk)
+    for (const key of Object.keys(localStorage)) {
+      if (!key.startsWith("bookings_")) continue
+      try {
+        const parsed = JSON.parse(localStorage.getItem(key) || "[]")
+        if (Array.isArray(parsed)) bookings.push(...parsed)
+      } catch {
+        // skip a single corrupt record instead of dropping every booking
+      }
     }
-  } catch {}
+  } catch {
+    // storage unavailable — no bookings can be read
+  }
+  return bookings
+}
+
+export function checkRoomAvailability(hotelId, roomType, checkIn, checkOut, roomTypes) {
+  const allBookings = readAllBookings()
 
   const roomCat = extractCategory(roomType)
 
   const ci = new Date(checkIn)
   const co = new Date(checkOut)
+  const rangeValid = !isNaN(ci) && !isNaN(co)
 
   const categoryRooms = (roomTypes || []).filter(r => extractCategory(r.id) === roomCat)
   const totalRooms = categoryRooms.length || 6
 
-  const conflicting = allBookings.filter(b => {
-    const bCat = extractCategory(b.roomType || b.xonaTuri || "")
-    if (Number(b.hotelId) !== Number(hotelId) || bCat !== roomCat) return false
-    const bci = new Date(b.checkIn)
-    const bco = new Date(b.checkOut)
-    if (isNaN(bci) || isNaN(bco)) return true
-    return bci < co && bco > ci
-  })
+  const conflicting = rangeValid
+    ? allBookings.filter(b => {
+        if (Number(b.hotelId) !== Number(hotelId)) return false
+        if (extractCategory(b.roomType || b.xonaTuri || "") !== roomCat) return false
+        const bci = new Date(b.checkIn)
+        const bco = new Date(b.checkOut)
+        if (isNaN(bci) || isNaN(bco)) return false
+        return bci < co && bco > ci
+      })
+    : []
 
   return {
     available: conflicting.length < totalRooms,
@@ -66,13 +80,11 @@ export function getSimilarRooms(hotelId, roomType, roomTypes, hotelPrice) {
 export function getNearbyHotels(currentHotel, allHotels) {
   const city = currentHotel.location?.split(",")[0]?.trim() || ""
   return allHotels
-    .filter(h => h.id !== currentHotel.id && h.location?.includes(city))
-    .map(h => {
-      const dist = h.coordinates && currentHotel.coordinates
-        ? haversine(currentHotel.coordinates.lat, currentHotel.coordinates.lng, h.coordinates.lat, h.coordinates.lng)
-        : Math.round(Math.random() * 5 + 1)
-      return { ...h, distance: dist }
-    })
+    .filter(h => h.id !== currentHotel.id && h.coordinates && currentHotel.coordinates && h.location?.includes(city))
+    .map(h => ({
+      ...h,
+      distance: haversine(currentHotel.coordinates.lat, currentHotel.coordinates.lng, h.coordinates.lat, h.coordinates.lng)
+    }))
     .sort((a, b) => a.distance - b.distance)
     .slice(0, 4)
 }
@@ -99,8 +111,7 @@ function generateAlternatives(from, duration) {
   const today = new Date()
   today.setHours(0, 0, 0, 0)
   const alts = []
-  const offsets = [-7, -3, 3, 7, 14]
-  for (const offset of offsets) {
+  for (const offset of [-7, -3, 0, 3, 7, 14]) {
     const start = new Date(from)
     start.setDate(start.getDate() + offset)
     if (start < today) {
@@ -111,7 +122,7 @@ function generateAlternatives(from, duration) {
     alts.push({
       checkIn: start.toISOString().split("T")[0],
       checkOut: end.toISOString().split("T")[0],
-      label: offset < 0 ? `before:${Math.abs(offset)}` : `after:${offset}`
+      label: offset === 0 ? "today" : offset < 0 ? `before:${Math.abs(offset)}` : `after:${offset}`
     })
   }
   return alts

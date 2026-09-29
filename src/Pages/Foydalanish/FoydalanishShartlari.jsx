@@ -3,7 +3,8 @@ import "./FoydalanishShartlari.css"
 
 export default function FoydalanishShartlari() {
   const { t } = useLanguage()
-  const sections = t("terms.sections")
+  const raw = t("terms.sections")
+  const sections = Array.isArray(raw) ? raw : []
   return (
     <div className="terms-page" data-aos="fade-up">
       <section className="terms-hero" data-aos="fade-up">

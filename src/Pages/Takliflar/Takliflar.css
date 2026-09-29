@@ -430,6 +430,51 @@
 
 
 
+.tk-card-promo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 10px 14px;
+  margin-top: 4px;
+  border: 1.5px dashed rgba(212, 175, 55, 0.5);
+  border-radius: 10px;
+  background: rgba(212, 175, 55, 0.06);
+  color: #D4AF37;
+  font-family: 'Poppins', sans-serif;
+  font-size: 12px;
+  cursor: copy;
+  transition: all 0.3s ease;
+}
+
+.tk-card-promo:hover {
+  border-color: #D4AF37;
+  background: rgba(212, 175, 55, 0.12);
+}
+
+.tk-card-promo svg {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+}
+
+.tk-card-promo-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: #999;
+}
+
+.tk-card-promo-code {
+  margin-left: auto;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+.dark .tk-card-promo-label {
+  color: #666;
+}
+
 .tk-card-book-btn {
   display: flex;
   align-items: center;
@@ -545,69 +590,6 @@
 
 .tk-swiper-wrap .swiper-button-prev {
   left: -6px;
-}
-
-
-.tk-member-toast {
-  position: fixed;
-  top: 100px;
-  right: 32px;
-  z-index: 99999;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 16px 24px 16px 20px;
-  background: linear-gradient(135deg, #059669, #10b981);
-  border-radius: 16px;
-  box-shadow:
-    0 12px 48px rgba(5, 150, 105, 0.35),
-    0 4px 12px rgba(0, 0, 0, 0.1);
-  transform: translateX(120%);
-  opacity: 0;
-  transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  max-width: 380px;
-  backdrop-filter: blur(20px);
-}
-
-.tk-member-toast-visible {
-  transform: translateX(0);
-  opacity: 1;
-}
-
-.tk-member-toast-icon {
-  width: 42px;
-  height: 42px;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  font-size: 22px;
-  color: #fff;
-}
-
-.tk-member-toast-content {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.tk-member-toast-title {
-  font-family: 'Poppins', sans-serif;
-  font-size: 14px;
-  font-weight: 700;
-  color: #fff;
-  letter-spacing: 0.3px;
-}
-
-.tk-member-toast-msg {
-  font-family: 'Poppins', sans-serif;
-  font-size: 12px;
-  font-weight: 400;
-  color: rgba(255, 255, 255, 0.85);
-  letter-spacing: 0.2px;
 }
 
 
@@ -883,9 +865,7 @@
   .tk-card { flex-direction: column; }
   .tk-card-image { width: 100%; height: 200px; }
   .tk-card-body { padding: 16px 18px 18px; }
-  .tk-filter-bar { flex-wrap: wrap; justify-content: center; gap: 8px; }
-  .tk-filter-btn { font-size: 12px; padding: 6px 16px; }
-  .tk-bottom { padding: 36px 24px; }
+.tk-bottom { padding: 36px 24px; }
   .tk-bottom-title { font-size: 32px; }
   .tk-bottom-desc { font-size: 14px; }
 }
@@ -907,8 +887,7 @@
   .tk-bottom-title { font-size: 26px; }
   .tk-bottom-desc { font-size: 13px; }
   .tk-bottom-cta { padding: 12px 28px; font-size: 13px; width: 100%; }
-  .tk-filter-btn { font-size: 11px; padding: 5px 12px; }
-  .tk-member-toast { max-width: 320px; left: 16px; right: 16px; transform: none; padding: 12px 20px; }
+
 }
 @media (max-width: 360px) {
   .tk-page { padding: 20px 8px 40px; }
@@ -917,5 +896,4 @@
   .tk-bottom { padding: 20px 12px; }
   .tk-bottom-title { font-size: 22px; }
   .tk-bottom-cta { padding: 10px 24px; font-size: 12px; }
-  .tk-member-toast { left: 8px; right: 8px; padding: 10px 16px; font-size: 13px; }
 }

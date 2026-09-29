@@ -252,8 +252,6 @@
   .footer-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
   .foot-brand-s { font-size: 32px; }
   .foot-social-link { width: 32px; height: 32px; }
-  .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
-  .footer-bottom-links { gap: 20px; justify-content: center; }
 }
 @media (max-width: 576px) {
   .footer-parent { padding: 24px 12px; }
@@ -267,9 +265,6 @@
   .foot-desc { font-size: 12px; }
   .foot-links li a { font-size: 12px; }
   .foot-contact-item { font-size: 12px; }
-  .footer-bottom p { font-size: 11px; }
-  .footer-bottom-links { gap: 16px; }
-  .footer-bottom-links a { font-size: 11px; }
 }
 @media (max-width: 360px) {
   .footer-parent { padding: 20px 8px; }

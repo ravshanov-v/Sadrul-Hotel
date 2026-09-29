@@ -8,7 +8,24 @@ import { useLanguage } from "../../Language/useLanguage.js"
 import "./SignUpModal.css"
 
 export default function SignUpModal() {
-  const { isOpen, modalType, modalReason, openModal, closeModal } = useModal()
+  const { isOpen, modalType } = useModal()
+
+  useEffect(() => {
+    if (isOpen && modalType === 'signup') {
+      document.body.style.overflow = "hidden"
+    } else {
+      document.body.style.overflow = ""
+    }
+    return () => { document.body.style.overflow = "" }
+  }, [isOpen, modalType])
+
+  if (!isOpen || modalType !== 'signup') return null
+
+  return <SignUpForm />
+}
+
+function SignUpForm() {
+  const { modalReason, openModal, closeModal } = useModal()
   const { login } = useAuth()
   const { t } = useLanguage()
 
@@ -30,24 +47,6 @@ export default function SignUpModal() {
     password: false,
     confirmPassword: false
   })
-
-  useEffect(() => {
-    if (isOpen && modalType === 'signup') {
-      document.body.style.overflow = "hidden"
-    } else {
-      document.body.style.overflow = ""
-    }
-    return () => { document.body.style.overflow = "" }
-  }, [isOpen, modalType])
-
-  useEffect(() => {
-    if (!isOpen || modalType !== 'signup') {
-      setForm({ fullName: "", email: "", phone: "", password: "", confirmPassword: "" })
-      setTouched({ fullName: false, email: false, phone: false, password: false, confirmPassword: false })
-      setShowPassword(false)
-      setShowConfirm(false)
-    }
-  }, [isOpen, modalType])
 
   function handleChange(field) {
     return (e) => {
@@ -113,15 +112,9 @@ export default function SignUpModal() {
     })
     if (allValid) {
       login({ fullName: form.fullName, email: form.email, phone: form.phone })
-      setForm({ fullName: "", email: "", phone: "", password: "", confirmPassword: "" })
-      setTouched({ fullName: false, email: false, phone: false, password: false, confirmPassword: false })
-      setShowPassword(false)
-      setShowConfirm(false)
       closeModal()
     }
   }
-
-  if (!isOpen || modalType !== 'signup') return null
 
   const pwdStrength = getPasswordStrength(form.password)
   const pwdFeedback = getPasswordFeedback(form.password)

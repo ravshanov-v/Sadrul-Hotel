@@ -1,8 +1,6 @@
 import { useState, useRef, useEffect } from "react"
-import { hotels } from "../../data/hotels"
-import { menuItems } from "../../data/taomnoma"
-import { takliflar } from "../../data/takliflar"
 import { useLanguage } from "../Language/useLanguage.js"
+import { hotelCount, dishVariantCount, cityCount, totalRoomCount as roomCount } from "../../utils/stats"
 import "./StatsBar.css"
 
 function useScrollReveal(threshold = 0.4) {
@@ -60,11 +58,6 @@ function StatItem({ icon, target, label, suffix = "" }) {
 
 export default function StatsBar() {
   const { t } = useLanguage()
-  const hotelCount = hotels.length
-  const variantCount = menuItems.reduce((s, item) => s + (item.variants?.length || 0), 0)
-  const cityCount = [...new Set(hotels.map(h => h.location?.split(",")[0]?.trim()).filter(Boolean))].length
-  const offerCount = takliflar.length
-  const roomCount = hotels.reduce((s, h) => s + (h.totalRooms || 0), 0)
 
   const stats = [
     {
@@ -83,7 +76,7 @@ export default function StatsBar() {
           <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       ),
-      target: variantCount,
+      target: dishVariantCount,
       suffix: "+",
       label: t("statsBar.dishes")
     },

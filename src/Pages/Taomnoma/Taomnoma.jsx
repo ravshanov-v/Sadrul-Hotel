@@ -13,6 +13,17 @@ import { useLanguage } from "../../components/Language/useLanguage.js"
 
 const getCategoryId = (cat) => cat.toLowerCase().replace(/\s+/g, '-')
 
+const formatPriceRange = (variants) => {
+    const prices = variants
+        .filter(v => v.available)
+        .map(v => parseInt(v.price.replace(/\D/g, ''), 10))
+        .filter(n => !Number.isNaN(n))
+    if (prices.length === 0) return ''
+    const min = Math.min(...prices)
+    const max = Math.max(...prices)
+    return min === max ? `${min.toLocaleString()} so'm` : `${min.toLocaleString()} - ${max.toLocaleString()} so'm`
+}
+
 const TM_PARTICLES = Array.from({ length: 15 }, (_, i) => ({
     id: i,
     x: (i * 17 + 3) % 100,
@@ -77,14 +88,7 @@ function MenuCard({ item }) {
                 <p className="tm-card-desc" data-aos="fade-up">{tData("data.menu." + item.id + ".description", item.description)}</p>
                 <div className="tm-card-bottom">
                     <span className="tm-card-price">
-                        {item.variants && item.variants.length > 0 ? (
-                            (() => {
-                                const prices = item.variants.filter(v => v.available).map(v => parseInt(v.price.replace(/\D/g, '')))
-                                const min = Math.min(...prices)
-                                const max = Math.max(...prices)
-                                return min === max ? `${min.toLocaleString()} so'm` : `${min.toLocaleString()} - ${max.toLocaleString()} so'm`
-                            })()
-                        ) : ''}
+                        {item.variants?.length > 0 && formatPriceRange(item.variants)}
                     </span>
                 </div>
                 <div className="tm-var-wrap">
@@ -291,7 +295,7 @@ export default function Taomnoma() {
                     id={getCategoryId(activeCategory)}
                 >
                     <div className="tm-cat-track">
-                        {menuCategories.map((cat, ci) => (
+                        {menuCategories.map((cat) => (
                             <button
                                 key={cat}
                                 className={`tm-cat-btn ${activeCategory === cat ? "active" : ""}`}

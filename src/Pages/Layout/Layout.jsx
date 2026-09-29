@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect } from "react"
-import { Outlet, useLocation } from "react-router-dom"
+import { Outlet, useLocation, useNavigate } from "react-router-dom"
 import AOS from "aos"
 import "aos/dist/aos.css"
 
@@ -29,20 +29,17 @@ const knownExact = [
 
 function isNotFound(pathname) {
   if (knownExact.includes(pathname)) return false
-  for (const prefix of knownRoutePrefixes) {
-    if (pathname.startsWith(prefix)) return false
-  }
-  return pathname !== "/"
+  return !knownRoutePrefixes.some(prefix => pathname.startsWith(prefix))
 }
 
 function LayoutContent() {
   const location = useLocation()
+  const navigate = useNavigate()
   const isSignup = location.pathname === "/signup"
   const hideFrame = isNotFound(location.pathname)
   const { openModal } = useModal()
 
-
-  useLayoutEffect(() => {
+  useEffect(() => {
     AOS.init({
       duration: 800,
       once: true,
@@ -50,10 +47,16 @@ function LayoutContent() {
       easing: "ease-out-cubic",
       mirror: false,
       anchorPlacement: "top-bottom",
+      startEvent: "DOMContentLoaded",
     })
+
+    const retryTimer = setTimeout(() => {
+      AOS.refreshHard()
+    }, 300)
+    return () => clearTimeout(retryTimer)
   }, [])
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     AOS.refresh()
   }, [location.pathname])
 
@@ -62,11 +65,10 @@ function LayoutContent() {
   }, [location.pathname])
 
   useEffect(() => {
-    if (location.state?.openModal) {
-      openModal()
-      window.history.replaceState({}, document.title)
-    }
-  }, [location.pathname, openModal])
+    if (!location.state?.openModal) return
+    openModal()
+    navigate(location.pathname, { replace: true, state: null })
+  }, [location.pathname, location.state, openModal, navigate])
 
   return (
     <>

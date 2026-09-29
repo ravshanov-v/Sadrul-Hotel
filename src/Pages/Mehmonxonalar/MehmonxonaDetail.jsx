@@ -8,6 +8,8 @@ import { useLanguage } from "../../components/Language/useLanguage.js"
 import { checkRoomAvailability } from "../../utils/availability"
 import { roomCategories, categoryMultiplier, extractCategory, roomTypes as globalRoomTypes } from "../../utils/roomData"
 import UnavailableModal from "../../components/UnavailableModal/UnavailableModal"
+import RoomCard from "./RoomCard"
+import { StarIcon, PinIcon } from "../../components/ui/icons"
 import L from "leaflet"
 import "leaflet/dist/leaflet.css"
 import "./MehmonxonaDetail.css"
@@ -59,11 +61,16 @@ export default function MehmonxonaDetail() {
   const promoCode = searchParams.get("promo") || ""
   const promoRoom = searchParams.get("room") || ""
   const promoDiscount = Number(searchParams.get("discount")) || 0
+  const urlCheckIn = searchParams.get("checkIn") || ""
+  const urlCheckOut = searchParams.get("checkOut") || ""
+  const dateQS = [
+    urlCheckIn && `checkIn=${urlCheckIn}`,
+    urlCheckOut && `checkOut=${urlCheckOut}`,
+  ].filter(Boolean).join("&")
   const hotelRooms = hotel?.rooms || globalRoomTypes
 
   const [visibleCount, setVisibleCount] = useState(promoRoom ? (hotelRooms.length || 99) : 12)
   const [unavailableRoom, setUnavailableRoom] = useState(null)
-  const [bookLoading, setBookLoading] = useState(null)
 
   useEffect(() => {
     if (promoRoom) {
@@ -72,11 +79,13 @@ export default function MehmonxonaDetail() {
         if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
       }, 600)
     }
-  }, [])
+  }, [promoRoom])
 
-  useEffect(() => {
+  const [prevCategory, setPrevCategory] = useState(roomCategory)
+  if (prevCategory !== roomCategory) {
+    setPrevCategory(roomCategory)
     if (!promoRoom) setVisibleCount(12)
-  }, [roomCategory])
+  }
 
   const availabilityMap = useMemo(() => {
     if (!hotel) return {}
@@ -90,11 +99,11 @@ export default function MehmonxonaDetail() {
 
     const categories = [...new Set(hotelRooms.map(r => extractCategory(r.id)))]
     for (const cat of categories) {
-      const result = checkRoomAvailability(hotel.id, cat + "-1", ci, co, user?.email, hotelRooms)
+      const result = checkRoomAvailability(hotel.id, cat + "-1", ci, co, hotelRooms)
       map[cat] = result
     }
     return map
-  }, [hotel?.id, user?.email, hotelRooms])
+  }, [hotel, hotelRooms])
 
   const mapRef = useRef(null)
   const mapInstance = useRef(null)
@@ -118,6 +127,7 @@ export default function MehmonxonaDetail() {
       map.remove()
       mapInstance.current = null
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- map is initialized once per hotel; popup text keeps its initial language by design
   }, [hotel])
 
   if (!hotel) {
@@ -152,6 +162,22 @@ export default function MehmonxonaDetail() {
     roomRows.push(visible.slice(i, i + 2))
   }
 
+  function handleBook(room) {
+    if (!user) { openModal('login', t("hotelDetail.loginPrompt")); return }
+    const tomorrow = new Date()
+    tomorrow.setDate(tomorrow.getDate() + 1)
+    const weekLater = new Date(tomorrow)
+    weekLater.setDate(weekLater.getDate() + 3)
+    const ci = tomorrow.toISOString().split("T")[0]
+    const co = weekLater.toISOString().split("T")[0]
+    const result = checkRoomAvailability(hotel.id, room.id, ci, co, hotelRooms)
+    if (!result.available) {
+      setUnavailableRoom({ hotelId: hotel.id, roomType: room.id, checkIn: ci, checkOut: co })
+      return
+    }
+    navigate(`/bron-qilish/${hotel.id}?room=${room.id}${promoCode ? `&promo=${promoCode}&discount=${promoDiscount}` : ''}${dateQS ? `&${dateQS}` : ''}`)
+  }
+
   return (
     <div className="md-page" data-aos="fade-up">
       <section className="md-hero" data-aos="fade-up">
@@ -159,31 +185,22 @@ export default function MehmonxonaDetail() {
         <div className="md-hero-overlay" />
         <div className="md-hero-content" data-aos="zoom-in">
           <div className="md-badge" data-aos="fade-up">
-            <svg viewBox="0 0 24 24" fill="none">
-              <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="currentColor" />
-            </svg>
+            <StarIcon />
             {tData("data.hotels." + hotel.id + ".category", hotel.category)}
           </div>
           <h1 className="md-title" data-aos="fade-up" data-aos-delay="100">{tData("data.hotels." + hotel.id + ".name", hotel.name)}</h1>
           <div className="md-hero-meta" data-aos="fade-up" data-aos-delay="200">
             <div className="md-stars" data-aos="fade-up">
               {stars.map((_, i) => (
-                <svg key={i} viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
-                </svg>
+                <StarIcon key={i} />
               ))}
             </div>
             <span className="md-rating-badge" data-aos="fade-up">
-              <svg viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
-              </svg>
+              <StarIcon />
               {hotel.rating}
             </span>
             <span className="md-location" data-aos="fade-up">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" stroke="currentColor" strokeWidth="2" />
-                <circle cx="12" cy="9" r="2.5" stroke="currentColor" strokeWidth="2" />
-              </svg>
+              <PinIcon />
               {tData("data.hotels." + hotel.id + ".location", hotel.location)}
             </span>
           </div>
@@ -219,7 +236,7 @@ export default function MehmonxonaDetail() {
             <div className="md-about-text" data-aos="fade-right">
               <p data-aos="fade-up">{tData("data.hotels." + hotel.id + ".description", hotel.description)}</p>
               <p data-aos="fade-up" data-aos-delay="100">
-                {t("hotelDetail.description").replace("{name}", tData("data.hotels." + hotel.id + ".name", hotel.name)).replace("{stars}", hotel.stars).replace("{rooms}", hotel.totalRooms)}
+                {t("hotelDetail.description", { name: tData("data.hotels." + hotel.id + ".name", hotel.name), stars: hotel.stars, rooms: hotel.totalRooms })}
               </p>
             </div>
             <div className="md-about-stats" data-aos="fade-left">
@@ -278,10 +295,7 @@ export default function MehmonxonaDetail() {
               <div ref={mapRef} className="md-map-iframe" data-aos="fade-up" />
             ) : (
               <div className="md-map-placeholder" data-aos="fade-up">
-                <svg viewBox="0 0 24 24" fill="none">
-                  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" stroke="currentColor" strokeWidth="2" />
-                  <circle cx="12" cy="9" r="2.5" stroke="currentColor" strokeWidth="2" />
-                </svg>
+                <PinIcon />
                 <h3 data-aos="fade-up">{tData("data.hotels." + hotel.id + ".location", hotel.location)}</h3>
                 <p data-aos="fade-up" data-aos-delay="100">{tData("data.hotels." + hotel.id + ".name", hotel.name)}</p>
               </div>
@@ -326,7 +340,7 @@ export default function MehmonxonaDetail() {
               </div>
               <div className="md-promo-banner-text" data-aos="fade-up" data-aos-delay="100">
                 <span className="md-promo-banner-title" data-aos="fade-up">{t("hotelDetail.promoActivated")}</span>
-                <span className="md-promo-banner-code" data-aos="fade-up" data-aos-delay="50">{t("hotelDetail.promoInfo").replace("{code}", promoCode).replace("{discount}", promoDiscount)}</span>
+                <span className="md-promo-banner-code" data-aos="fade-up" data-aos-delay="50">{t("hotelDetail.promoInfo", { code: promoCode, discount: promoDiscount })}</span>
               </div>
               <button className="md-promo-banner-clear" data-aos="fade-up" data-aos-delay="200" onClick={() => navigate(`/mehmonxona/${hotelId}`, { replace: true })}>
                 {t("hotelDetail.dismiss")}
@@ -336,102 +350,21 @@ export default function MehmonxonaDetail() {
           <div className="md-rooms-grid" data-aos="fade-up" data-aos-delay="300">
             {roomRows.map((row, rowIndex) => (
               <div key={rowIndex} className="md-rooms-row" data-aos="row-reveal" data-aos-delay={rowIndex * 100} data-aos-offset="80">
-                {row.map(room => {
-                  const isPromoRoom = promoRoom === room.id
-                  const promoPrice = isPromoRoom && promoDiscount
-                    ? Math.round(room.price * (1 - promoDiscount / 100))
-                    : null
-                  const roomCat = extractCategory(room.id)
-                  const avail = availabilityMap[roomCat]
-                  return (
-                    <div key={room.id} className={`md-room-card ${isPromoRoom ? 'md-room-promo' : ''} ${avail && !avail.available ? 'md-room-card-unavailable' : ''}`} id={isPromoRoom ? 'md-promo-room' : ''} data-aos="fade-up" data-aos-delay={rowIndex * 50}>
-                      {isPromoRoom && <div className="md-room-promo-tag" data-aos="fade-up">{t("hotelDetail.specialOffer")}</div>}
-                      <div className="md-room-image" data-aos="fade-up" data-aos-delay={rowIndex * 50}>
-                        {avail && (
-                          <div className={`md-avail-badge ${avail.available ? (avail.remaining <= Math.ceil(avail.totalRooms / 3) ? 'md-avail-limited' : 'md-avail-available') : 'md-avail-booked'}`} data-aos="fade-up">
-                            {avail.available ? (
-                              <>
-                                <span className="md-avail-dot" />
-                                <span>{avail.remaining >= avail.totalRooms ? t("hotelDetail.available") : `${avail.remaining} ${t("hotelDetail.remaining")}`}</span>
-                              </>
-                            ) : (
-                              <>
-                                <svg viewBox="0 0 24 24" fill="none" width="14" height="14">
-                                  <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5" />
-                                  <path d="M15 9l-6 6M9 9l6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                                </svg>
-                                <span>{t("hotelDetail.booked")}</span>
-                              </>
-                            )}
-                          </div>
-                        )}
-                        <img src={room.image} alt={tData("data.rooms." + room.id + ".name", room.name)} loading="lazy" />
-                        <button
-                          className={`md-like-btn ${isFav('room_' + room.id) ? 'liked' : ''}`}
-                          onClick={(e) => { e.stopPropagation(); toggleFav('room_' + room.id) }}
-                          aria-label={t("common.like")}
-                        >
-                          <svg viewBox="0 0 24 24">
-                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" strokeLinecap="round" strokeLinejoin="round" />
-                          </svg>
-                        </button>
-                      </div>
-                      <div className="md-room-body" data-aos="fade-up" data-aos-delay={rowIndex * 50 + 100}>
-                        <h3 className="md-room-name" data-aos="fade-up">{tData("data.rooms." + room.id + ".name", room.name)}</h3>
-                        <p className="md-room-desc" data-aos="fade-up" data-aos-delay="50">{tData("data.rooms." + room.id + ".description", room.description)}</p>
-                        <div className="md-room-bottom" data-aos="fade-up" data-aos-delay="100">
-                          <div className="md-room-price" data-aos="fade-up">
-                            {promoPrice ? (
-                              <>
-                                <span className="md-room-price-label">{t("hotelDetail.from")}</span>
-                                <span className="md-room-price-old">${room.price}</span>
-                                <span className="md-room-price-amount md-room-price-promo">${promoPrice}</span>
-                                <span className="md-room-price-unit">{t("hotelDetail.perNight")}</span>
-                              </>
-                            ) : (
-                              <>
-                                <span className="md-room-price-label">{t("hotelDetail.from")}</span>
-                                <span className="md-room-price-amount">${room.price}</span>
-                                <span className="md-room-price-unit">{t("hotelDetail.perNight")}</span>
-                              </>
-                            )}
-                          </div>
-                          <button className={`md-room-btn ${avail && !avail.available ? 'md-room-btn-disabled' : ''} ${bookLoading === room.id ? 'md-room-btn-loading' : ''}`} data-aos="zoom-in" data-aos-delay="300"
-                            disabled={avail && !avail.available}
-                            onClick={() => {
-                              if (!user) { openModal('login', t("hotelDetail.loginPrompt")); return }
-                              setBookLoading(room.id)
-                              const tomorrow = new Date()
-                              tomorrow.setDate(tomorrow.getDate() + 1)
-                              const weekLater = new Date(tomorrow)
-                              weekLater.setDate(weekLater.getDate() + 3)
-                              const ci = tomorrow.toISOString().split("T")[0]
-                              const co = weekLater.toISOString().split("T")[0]
-                              const result = checkRoomAvailability(hotel.id, room.id, ci, co, user?.email, hotelRooms)
-                              if (!result.available) {
-                                setBookLoading(null)
-                                setUnavailableRoom({ hotelId: hotel.id, roomType: room.id, checkIn: ci, checkOut: co })
-                                return
-                              }
-                              setBookLoading(null)
-                              navigate(`/bron-qilish/${hotel.id}?room=${room.id}${promoCode ? `&promo=${promoCode}&discount=${promoDiscount}` : ''}`)
-                            }}>
-                            {bookLoading === room.id ? (
-                              <>
-                                <span className="md-room-btn-spinner" />
-                                {t("hotelDetail.checking")}
-                              </>
-                            ) : avail && !avail.available ? (
-                              t("hotelDetail.booked")
-                            ) : (
-                              t("hotelDetail.bookNow")
-                            )}
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  )
-                })}
+                {row.map(room => (
+                  <RoomCard
+                    key={room.id}
+                    room={room}
+                    rowIndex={rowIndex}
+                    isPromoRoom={promoRoom === room.id}
+                    promoDiscount={promoDiscount}
+                    avail={availabilityMap[extractCategory(room.id)]}
+                    t={t}
+                    tData={tData}
+                    isFav={isFav}
+                    toggleFav={toggleFav}
+                    onBook={() => handleBook(room)}
+                  />
+                ))}
               </div>
             ))}
           </div>

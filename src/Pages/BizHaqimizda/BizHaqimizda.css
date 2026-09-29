@@ -908,7 +908,7 @@
   .about-hero-desc { font-size: 14px; }
   .about-stats { grid-template-columns: repeat(2, 1fr); gap: 12px; }
   .about-stat-card { padding: 22px 16px; }
-  .about-mission { flex-direction: column; padding: 0 16px; gap: 24px; }
+  .about-mission { grid-template-columns: 1fr; padding: 0 16px; gap: 24px; }
   .about-mission-image { width: 100%; height: 280px; }
   .about-section-title { font-size: 26px; }
   .about-values-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }

@@ -54,11 +54,6 @@ export const categoryMultiplier = {
   oilaviy: 1.2, lyuks: 2.0, prezident: 3.0
 }
 
-export const categoryLabel = {
-  standart: "Standart", hashamatli: "Hashamatli", biznes: "Biznes",
-  oilaviy: "Oilaviy", lyuks: "Lyuks", prezident: "Prezident"
-}
-
 export function extractCategory(rt) {
   if (!rt) return ""
   const s = String(rt)
@@ -66,6 +61,15 @@ export function extractCategory(rt) {
   return idx > 0 ? s.substring(0, idx).toLowerCase() : s.toLowerCase()
 }
 
-export function getRoomLabel(roomType) {
-  return categoryLabel[roomType] || "Standart"
+const roomLabelKeys = {
+  standart: "booking.roomStandard",
+  hashamatli: "booking.roomLuxury",
+  biznes: "booking.roomBusiness",
+  oilaviy: "booking.roomFamily",
+  lyuks: "booking.roomDeluxe",
+  prezident: "booking.roomPresidential",
+}
+
+export function getRoomLabelKey(roomType) {
+  return roomLabelKeys[roomType] || "booking.roomStandard"
 }

@@ -36,15 +36,13 @@ const PageLoader = () => (
   </div>
 )
 
-const LazyPage = ({ Component }) => {
+function PageGate({ Component }) {
   const [ready, setReady] = useState(false)
-  const location = useLocation()
 
   useEffect(() => {
-    setReady(false)
     const timer = setTimeout(() => setReady(true), 200)
     return () => clearTimeout(timer)
-  }, [location.pathname])
+  }, [])
 
   if (!ready) return <PageLoader />
 
@@ -53,6 +51,11 @@ const LazyPage = ({ Component }) => {
       <Component />
     </Suspense>
   )
+}
+
+const LazyPage = ({ Component }) => {
+  const location = useLocation()
+  return <PageGate key={location.pathname} Component={Component} />
 }
 
 export default function App() {

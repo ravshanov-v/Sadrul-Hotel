@@ -6,6 +6,14 @@ import { categoryMultiplier, extractCategory, roomTypes as globalRoomTypes } fro
 import { useLanguage } from "../Language/useLanguage.js"
 import "./UnavailableModal.css"
 
+const formatAltLabel = (label, t) => {
+  if (label === "today") return t("date.today")
+  const [kind, n] = label.split(":")
+  if (kind === "before") return t("date.before", { n })
+  if (kind === "after") return t("date.after", { n })
+  return label
+}
+
 export default function UnavailableModal({ hotelId, roomType, checkIn, checkOut, onClose }) {
   const navigate = useNavigate()
   const { t, tData } = useLanguage()
@@ -101,7 +109,7 @@ export default function UnavailableModal({ hotelId, roomType, checkIn, checkOut,
                       <path d="M3 10h18M8 2v4M16 2v4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
                     </svg>
                     <span>
-                      <span className="uam-date-label">{alt.label === "today" ? t("date.today") : alt.label.startsWith("before:") ? t("date.before").replace("{n}", alt.label.split(":")[1]) : alt.label.startsWith("after:") ? t("date.after").replace("{n}", alt.label.split(":")[1]) : alt.label}</span>
+                      <span className="uam-date-label">{formatAltLabel(alt.label, t)}</span>
                       {alt.checkIn} – {alt.checkOut}
                     </span>
                   </div>

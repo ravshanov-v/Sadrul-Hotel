@@ -1,24 +1,23 @@
-import { useEffect, useRef, useState } from "react"
+import { useEffect } from "react"
 import { useNavigate, useLocation } from "react-router-dom"
 import { hotels } from "../../data/hotels"
-import { takliflar } from "../../data/takliflar"
 import "./BizHaqimizda.css"
 import { BsBuildings, BsPeople, BsShieldCheck, BsStar } from 'react-icons/bs'
 import { jobPositions } from "../../data/karyera"
 import { useLanguage } from "../../components/Language/useLanguage"
+import useYouTubePlayer from "../../hooks/useYouTubePlayer"
+import { PinIcon } from "../../components/ui/icons"
+import { cityCount, totalRoomCount as roomCount, offerCount, hotelCount } from "../../utils/stats"
 import companyImage from "../../Assets/Images/sadrul-kompany.jpg"
-
-const cityCount = [...new Set(hotels.map(h => h.location?.split(",")[0]?.trim()).filter(Boolean))].length
-const roomCount = hotels.reduce((s, h) => s + (h.totalRooms || 0), 0)
 
 export default function BizHaqimizda() {
   const navigate = useNavigate()
   const location = useLocation()
   const { t, tData } = useLanguage()
   const stats = [
-    { icon: <BsBuildings />, value: `${hotels.length}+`, label: t("about.statsHotels") },
+    { icon: <BsBuildings />, value: `${hotelCount}+`, label: t("about.statsHotels") },
     { icon: <BsPeople />, value: `${roomCount}+`, label: t("about.statsRooms") },
-    { icon: <BsShieldCheck />, value: `${takliflar.length}+`, label: t("about.statsOffers") },
+    { icon: <BsShieldCheck />, value: `${offerCount}+`, label: t("about.statsOffers") },
     { icon: <BsStar />, value: `${cityCount}+`, label: t("about.statsCities") },
   ]
 
@@ -41,71 +40,7 @@ export default function BizHaqimizda() {
     },
   ]
 
-  const containerRef = useRef(null)
-  const playerRef = useRef(null)
-  const apiReady = useRef(false)
-  const [isPlaying, setIsPlaying] = useState(false)
-  const [playerReady, setPlayerReady] = useState(false)
-
-  useEffect(() => {
-    let player
-    const id = "yt-player-" + Math.random().toString(36).slice(2, 8)
-
-    const initPlayer = () => {
-      if (!window.YT?.Player || apiReady.current) return
-      apiReady.current = true
-      if (containerRef.current) containerRef.current.id = id
-      player = new window.YT.Player(id, {
-        videoId: "78z9wfm-Gtg",
-        playerVars: {
-          controls: 0,
-          modestbranding: 1,
-          rel: 0,
-          start: 45,
-          playsinline: 1,
-          origin: window.location.origin,
-          enablejsapi: 1,
-        },
-        events: {
-          onReady: () => setPlayerReady(true),
-          onStateChange: (e) => {
-            setIsPlaying(e.data === window.YT.PlayerState.PLAYING)
-          }
-        }
-      })
-      playerRef.current = player
-    }
-
-    if (window.YT?.Player) {
-      initPlayer()
-    } else {
-      const prev = window.onYouTubeIframeAPIReady
-      window.onYouTubeIframeAPIReady = () => {
-        if (prev) prev()
-        initPlayer()
-      }
-      if (!document.querySelector('script[src*="youtube.com/iframe_api"]')) {
-        const s = document.createElement("script")
-        s.src = "https://www.youtube.com/iframe_api"
-        document.head.appendChild(s)
-      }
-    }
-
-    return () => {
-      apiReady.current = false
-      if (player && player.destroy) player.destroy()
-    }
-  }, [])
-
-  const togglePlay = () => {
-    const p = playerRef.current
-    if (!p || !playerReady) return
-    if (isPlaying) {
-      p.pauseVideo()
-    } else {
-      p.playVideo()
-    }
-  }
+  const { containerRef, isPlaying, togglePlay } = useYouTubePlayer("78z9wfm-Gtg")
 
   useEffect(() => {
     const hash = location.hash.replace("#", "")
@@ -223,7 +158,7 @@ export default function BizHaqimizda() {
             {t("about.missionText1")}
           </p>
           <p className='about-section-text' data-aos="fade-up" data-aos-delay="200">
-            {t("about.missionText2").replace("{cityCount}", cityCount).replace("{hotels.length}", hotels.length)}
+            {t("about.missionText2", { cityCount, "hotels.length": hotels.length })}
           </p>
         </div>
         <div className='about-mission-image' data-aos="fade-left">
@@ -267,10 +202,7 @@ export default function BizHaqimizda() {
               <div className='about-karyera-type'>{tData("data.careers." + i + ".type", job.type)}</div>
               <h3 className='about-karyera-title'>{tData("data.careers." + i + ".title", job.title)}</h3>
               <div className='about-karyera-loc'>
-                <svg viewBox='0 0 24 24' fill='none'>
-                  <path d='M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z' stroke='currentColor' strokeWidth='2' />
-                  <circle cx='12' cy='9' r='2.5' stroke='currentColor' strokeWidth='2' />
-                </svg>
+                <PinIcon />
                 {tData("data.careers." + i + ".loc", job.loc)}
               </div>
               <p className='about-karyera-desc'>{tData("data.careers." + i + ".desc", job.desc)}</p>

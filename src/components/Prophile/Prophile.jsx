@@ -5,211 +5,12 @@ import { useAuth } from "../Auth/useAuth"
 import { useDarkMode } from "../DarkMode/useDarkMode"
 import { useFavorites } from "../Favorites/useFavorites"
 import { useLanguage } from "../Language/useLanguage.js"
-import { hotels } from "../../data/hotels"
-import { roomTypes } from "../../utils/roomData"
-import { menuItems } from "../../data/taomnoma"
+import ServicePanel from "./ServicePanel"
+import { setSeen, getSeen, getBookingCount } from "./seenStorage"
 import close from "../../Assets/Icons/close.svg"
 import sun from "../../Assets/Icons/sun.svg"
 import moon from "../../Assets/Icons/moon.svg"
 import "./Prophile.css"
-
-function userKey(email) { return email || "guest" }
-
-function getSeen(key, email) {
-  const fullKey = "seen_" + key + "_" + userKey(email)
-  try { return JSON.parse(localStorage.getItem(fullKey) || "0") } catch { return 0 }
-}
-function setSeen(key, val, email) {
-  const fullKey = "seen_" + key + "_" + userKey(email)
-  localStorage.setItem(fullKey, JSON.stringify(val))
-}
-
-function ServicePanel({ activeKey, favorites, onClose, user, onSeen, userEmail, t, tData }) {
-  const navigate = useNavigate()
-
-  if (!activeKey) return null
-
-  function handleBack() {
-    if (onSeen) onSeen(activeKey)
-    onClose(null)
-  }
-
-  switch (activeKey) {
-    case "favorites": {
-      const favHotels = hotels.filter(h => favorites.has(h.id))
-      const favRooms = roomTypes.filter(r => favorites.has('room_' + r.id))
-      const favFood = menuItems.filter(m => favorites.has('food_' + m.id))
-      const totalFav = favHotels.length + favRooms.length + favFood.length
-      return (
-        <div className="prophile-subpanel">
-          <div className="prophile-subpanel-header">
-            <button className="prophile-sub-back" onClick={handleBack}>
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M19 12H5M12 19l-7-7 7-7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </button>
-            <h4>{t("prophile.favoritesTitle")}</h4>
-            <span className="prophile-sub-count">{totalFav} {t("prophile.count")}</span>
-          </div>
-          {totalFav === 0 ? (
-            <div className="prophile-sub-empty">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-              <p>{t("prophile.favoritesEmpty")}</p>
-              <button className="prophile-sub-btn" onClick={() => { handleBack(); navigate("/mehmonxonalar") }}>{t("prophile.viewHotels")}</button>
-            </div>
-          ) : (
-            <div className="prophile-fav-list">
-              {favHotels.length > 0 && (
-                <>
-                  <span className="prophile-fav-type-label">{t("prophile.favHotels")}</span>
-                  {favHotels.map(h => (
-                    <div key={'hotel-' + h.id} className="prophile-fav-item">
-                      <img src={h.image} alt={tData("data.hotels." + h.id + ".name", h.name)} />
-                      <div className="prophile-fav-info">
-                        <span className="prophile-fav-name">{tData("data.hotels." + h.id + ".name", h.name)}</span>
-                        <span className="prophile-fav-loc">{tData("data.hotels." + h.id + ".location", h.location)}</span>
-                      </div>
-                      <span className="prophile-fav-price">${h.price}</span>
-                    </div>
-                  ))}
-                </>
-              )}
-              {favRooms.length > 0 && (
-                <>
-                  <span className="prophile-fav-type-label">{t("prophile.favRooms")}</span>
-                  {favRooms.map(r => (
-                    <div key={'room-' + r.id} className="prophile-fav-item">
-                      <img src={r.image} alt={tData("data.rooms." + r.id + ".name", r.name)} />
-                      <div className="prophile-fav-info">
-                        <span className="prophile-fav-name">{tData("data.rooms." + r.id + ".name", r.name)}</span>
-                        <span className="prophile-fav-loc">{tData("data.rooms." + r.id + ".category", r.category)}</span>
-                      </div>
-                    </div>
-                  ))}
-                </>
-              )}
-              {favFood.length > 0 && (
-                <>
-                  <span className="prophile-fav-type-label">{t("prophile.favFood")}</span>
-                  {favFood.map(m => (
-                    <div key={'food-' + m.id} className="prophile-fav-item">
-                      <img src={m.image || 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=100&q=80'} alt={tData("data.menu." + m.id + ".name", m.name)} />
-                      <div className="prophile-fav-info">
-                        <span className="prophile-fav-name">{tData("data.menu." + m.id + ".name", m.name)}</span>
-                        <span className="prophile-fav-loc">{tData("data.menu." + m.id + ".category", m.category)}</span>
-                      </div>
-                    </div>
-                  ))}
-                </>
-              )}
-            </div>
-          )}
-        </div>
-      )
-    }
-
-    case "bookings": {
-      let savedBookings = []
-      try {
-        const bk = "bookings_" + userKey(userEmail)
-        const data = localStorage.getItem(bk)
-        if (data) savedBookings = JSON.parse(data)
-      } catch {}
-      return (
-        <div className="prophile-subpanel">
-          <div className="prophile-subpanel-header">
-            <button className="prophile-sub-back" onClick={handleBack}>
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M19 12H5M12 19l-7-7 7-7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </button>
-            <h4>{t("prophile.bookingsTitle")}</h4>
-            <span className="prophile-sub-count">{savedBookings.length} {t("prophile.count")}</span>
-          </div>
-          {savedBookings.length === 0 ? (
-            <div className="prophile-sub-empty">
-              <svg viewBox="0 0 24 24" fill="none">
-                <rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" strokeWidth="1.8" />
-                <line x1="3" y1="10" x2="21" y2="10" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-              </svg>
-              <p>{t("prophile.bookingsEmpty")}</p>
-              <button className="prophile-sub-btn" onClick={() => { handleBack(); navigate("/mehmonxonalar") }}>{t("prophile.viewHotels")}</button>
-            </div>
-          ) : (
-            <div className="prophile-fav-list">
-              {savedBookings.map((b, i) => (
-                <div key={i} className="prophile-booking-item">
-                  <div className="prophile-booking-top">
-                    <span className="prophile-booking-hotel">{b.hotelName}</span>
-                    <span className="prophile-booking-status">{t("prophile.statusConfirmed")}</span>
-                  </div>
-                  <span className="prophile-booking-dates">{b.checkIn} — {b.checkOut}</span>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-      )
-    }
-
-    case "settings": {
-      return (
-        <div className="prophile-subpanel">
-          <div className="prophile-subpanel-header">
-            <button className="prophile-sub-back" onClick={handleBack}>
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M19 12H5M12 19l-7-7 7-7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </button>
-            <h4>{t("prophile.settings")}</h4>
-          </div>
-          <div className="prophile-settings">
-            <div className="prophile-setting-row">
-              <span className="prophile-setting-label">{t("prophile.settingsName")}</span>
-              <span className="prophile-setting-value">{user?.fullName}</span>
-            </div>
-            <div className="prophile-setting-row">
-              <span className="prophile-setting-label">{t("prophile.settingsEmail")}</span>
-              <span className="prophile-setting-value">{user?.email}</span>
-            </div>
-          </div>
-        </div>
-      )
-    }
-
-    case "help": {
-      return (
-        <div className="prophile-subpanel">
-          <div className="prophile-subpanel-header">
-            <button className="prophile-sub-back" onClick={handleBack}>
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M19 12H5M12 19l-7-7 7-7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </button>
-            <h4>{t("prophile.help")}</h4>
-          </div>
-          <div className="prophile-help-list">
-            {[
-              { q: t("prophile.helpFAQ1Q"), a: t("prophile.helpFAQ1A") },
-              { q: t("prophile.helpFAQ2Q"), a: t("prophile.helpFAQ2A") },
-              { q: t("prophile.helpFAQ3Q"), a: t("prophile.helpFAQ3A") },
-            ].map((item, i) => (
-              <details key={i} className="prophile-help-item">
-                <summary className="prophile-help-question">{item.q}</summary>
-                <p className="prophile-help-answer">{item.a}</p>
-              </details>
-            ))}
-          </div>
-        </div>
-      )
-    }
-
-    default:
-      return null
-  }
-}
 
 export default function Prophile() {
   const { isOpen, closeProphile } = useProphile()
@@ -219,7 +20,6 @@ export default function Prophile() {
   const { t, tData } = useLanguage()
   const navigate = useNavigate()
   const [activeKey, setActiveKey] = useState(null)
-  const [unread, setUnread] = useState({ bookings: 0, favorites: 0 })
   const userEmail = user?.email
 
   const serviceItems = [
@@ -312,24 +112,35 @@ export default function Prophile() {
     return () => { document.body.style.overflow = "" }
   }, [isOpen])
 
-  useEffect(() => {
+  const [prevOpen, setPrevOpen] = useState(isOpen)
+  if (prevOpen !== isOpen) {
+    setPrevOpen(isOpen)
     if (!isOpen) setActiveKey(null)
-  }, [isOpen])
+  }
 
-  useEffect(() => {
+  function computeUnread(email, favoritesCount) {
     let bookingCount = 0
     try {
-      const bk = "bookings_" + userKey(userEmail)
-      const data = localStorage.getItem(bk)
-      if (data) bookingCount = JSON.parse(data).length
-    } catch {}
-    const seenB = getSeen("bookings", userEmail)
-    const seenF = getSeen("favorites", userEmail)
-    setUnread({
-      bookings: Math.max(0, bookingCount - seenB),
-      favorites: Math.max(0, favCount - seenF),
-    })
-  }, [favCount, isOpen, userEmail])
+      bookingCount = JSON.parse(localStorage.getItem("bookings_" + (email || "guest")) || "[]").length
+    } catch {
+      // corrupted bookings — treat as zero
+    }
+    return {
+      bookings: Math.max(0, bookingCount - getSeen("bookings", email)),
+      favorites: Math.max(0, favoritesCount - getSeen("favorites", email)),
+    }
+  }
+
+  const [unread, setUnread] = useState(() => computeUnread(userEmail, favCount))
+  const [unreadSeed, setUnreadSeed] = useState(() => ({ favCount, isOpen, userEmail }))
+  if (
+    unreadSeed.favCount !== favCount ||
+    unreadSeed.isOpen !== isOpen ||
+    unreadSeed.userEmail !== userEmail
+  ) {
+    setUnreadSeed({ favCount, isOpen, userEmail })
+    setUnread(computeUnread(userEmail, favCount))
+  }
 
   const initials = user?.fullName
     ? user.fullName.split(" ").map(w => w[0]).join("").toUpperCase().slice(0, 2)
@@ -356,10 +167,7 @@ export default function Prophile() {
   const handleSeen = useCallback((key) => {
     let count = 0
     if (key === "bookings") {
-      try {
-        const bk = "bookings_" + userKey(userEmail)
-        count = JSON.parse(localStorage.getItem(bk) || "[]").length
-      } catch {}
+      count = getBookingCount(userEmail)
     } else if (key === "favorites") {
       count = favCount
     }

@@ -6,23 +6,33 @@ function storageKey(email) {
   return email ? `favorites_${email}` : "favorites_guest"
 }
 
+function readFavorites(key) {
+  try {
+    const saved = localStorage.getItem(key)
+    return saved ? new Set(JSON.parse(saved)) : new Set()
+  } catch {
+    return new Set()
+  }
+}
+
 export function FavoritesProvider({ children }) {
   const { user } = useAuth()
   const email = user?.email
   const key = storageKey(email)
-  const [favorites, setFavorites] = useState(new Set())
+  const [favorites, setFavorites] = useState(() => readFavorites(key))
+
+  const [prevKey, setPrevKey] = useState(key)
+  if (prevKey !== key) {
+    setPrevKey(key)
+    setFavorites(readFavorites(key))
+  }
 
   useEffect(() => {
     try {
-      const saved = localStorage.getItem(key)
-      setFavorites(saved ? new Set(JSON.parse(saved)) : new Set())
+      localStorage.setItem(key, JSON.stringify([...favorites]))
     } catch {
-      setFavorites(new Set())
+      // storage unavailable (quota/private mode) — favorites stay in memory
     }
-  }, [key])
-
-  useEffect(() => {
-    localStorage.setItem(key, JSON.stringify([...favorites]))
   }, [favorites, key])
 
   const toggleFav = useCallback((id) => {

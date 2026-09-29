@@ -54,7 +54,7 @@ export function validateEmail(email) {
     }
   }
 
-  const localValid = localPart && /^[a-zA-Z0-9._%+\-]+$/.test(localPart)
+  const localValid = localPart && /^[a-zA-Z0-9._%+-]+$/.test(localPart)
   if (localPart && !localValid) {
     codes.push("EMAIL_INVALID_CHARS")
   }
@@ -90,7 +90,9 @@ export function getCurrentUserEmail() {
       const user = JSON.parse(saved)
       if (user && user.email) return user.email
     }
-  } catch {}
+  } catch {
+    // corrupted auth data — treat as logged out
+  }
   return ""
 }
 
@@ -129,39 +131,5 @@ export async function sendVoucherEmail(voucher) {
     return send(voucher)
   } catch {
     return { success: false, demo: true }
-  }
-}
-
-export function prepareVoucherEmail(voucher, t) {
-  if (t) {
-    const subject = t("email.subject").replace("{id}", voucher.id)
-    const body =
-      t("email.greeting").replace("{name}", voucher.guestName) + "\n\n" +
-      t("email.confirmed") + "\n\n" +
-      t("email.hotel") + voucher.hotelName + "\n" +
-      t("email.room") + voucher.roomType + "\n" +
-      t("email.checkIn") + voucher.checkIn + "\n" +
-      t("email.checkOut") + voucher.checkOut + "\n" +
-      t("email.guests") + voucher.guests + " " + t("email.person") + "\n" +
-      t("email.total") + "$" + voucher.totalPrice + "\n\n" +
-      t("email.id") + voucher.id + "\n" +
-      t("email.sentTo") + voucher.guestEmail + "\n\n" +
-      t("email.footer")
-    return { to: voucher.guestEmail, subject, body }
-  }
-  return {
-    to: voucher.guestEmail,
-    subject: `Sadrul — Booking Confirmation #${voucher.id}`,
-    body: `Dear ${voucher.guestName},\n\n` +
-      `Your booking has been confirmed!\n\n` +
-      `Hotel: ${voucher.hotelName}\n` +
-      `Room: ${voucher.roomType}\n` +
-      `Check-in: ${voucher.checkIn}\n` +
-      `Check-out: ${voucher.checkOut}\n` +
-      `Guests: ${voucher.guests} person(s)\n` +
-      `Total: $${voucher.totalPrice}\n\n` +
-      `Booking ID: ${voucher.id}\n` +
-      `Voucher sent to: ${voucher.guestEmail}\n\n` +
-      `Thank you for choosing Sadrul Hotel!`
   }
 }

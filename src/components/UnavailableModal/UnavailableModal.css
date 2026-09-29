@@ -361,8 +361,7 @@
   .uam-body { padding: 4px 16px 20px; }
   .uam-room-card { padding: 10px; }
   .uam-room-img { width: 64px; height: 56px; }
-  .uam-room-name { font-size: 13px; }
-  .uam-hotel-card { padding: 12px; }
+.uam-hotel-card { padding: 12px; }
   .uam-section-title { font-size: 13px; }
 }
 @media (max-width: 360px) {

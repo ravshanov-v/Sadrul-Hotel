@@ -1,28 +1,35 @@
-import { useState, useEffect, useCallback } from "react"
+import { useState, useCallback } from "react"
 import { AuthContext } from "./AuthContext.jsx"
 
-export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null)
-  const [loaded, setLoaded] = useState(false)
+function readSavedUser() {
+  try {
+    const user = JSON.parse(localStorage.getItem("authUser"))
+    return user && typeof user === "object" ? user : null
+  } catch {
+    return null
+  }
+}
 
-  useEffect(() => {
-    try {
-      const saved = localStorage.getItem("authUser")
-      if (saved) {
-        setUser(JSON.parse(saved))
-      }
-    } catch {}
-    setLoaded(true)
-  }, [])
+export function AuthProvider({ children }) {
+  const [user, setUser] = useState(readSavedUser)
+  const [loaded] = useState(true)
 
   const login = useCallback((userData) => {
     setUser(userData)
-    localStorage.setItem("authUser", JSON.stringify(userData))
+    try {
+      localStorage.setItem("authUser", JSON.stringify(userData))
+    } catch {
+      // storage unavailable (quota/private mode) — session stays in memory only
+    }
   }, [])
 
   const logout = useCallback(() => {
     setUser(null)
-    localStorage.removeItem("authUser")
+    try {
+      localStorage.removeItem("authUser")
+    } catch {
+      // storage unavailable
+    }
   }, [])
 
   return (

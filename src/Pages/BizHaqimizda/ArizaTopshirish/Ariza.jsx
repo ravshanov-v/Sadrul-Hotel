@@ -55,50 +55,34 @@ export default function Ariza() {
     setTouched({ fullName: true, phone: true, email: true, position: true })
     if (!allValid) return
 
-    const BOT_TOKEN = import.meta.env.VITE_TELEGRAM_BOT_TOKEN;
-    const CHAT_ID = import.meta.env.VITE_TELEGRAM_CHAT_ID;
-    if (!BOT_TOKEN || !CHAT_ID) { alert(t("ariza.errorConfig")); return }
+    const response = await fetch("/api/ariza", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        fullName: form.fullName,
+        phone: form.phone,
+        email: form.email,
+        position: form.position,
+        coverLetter: form.coverLetter,
+        labels: {
+          title: t("ariza.telegramNewApp"),
+          name: t("ariza.telegramName"),
+          phone: t("ariza.telegramPhone"),
+          email: t("ariza.telegramEmail"),
+          position: t("ariza.telegramPosition"),
+          letter: t("ariza.telegramLetter"),
+        },
+      }),
+    });
 
-    const text = `
-📩 ${t("ariza.telegramNewApp")}
-
- ${t("ariza.telegramName")}: ${form.fullName}
-
- ${t("ariza.telegramPhone")}: ${form.phone}
-
- ${t("ariza.telegramEmail")}: ${form.email}
-
- ${t("ariza.telegramPosition")}: ${form.position}
-
- ${t("ariza.telegramLetter")}:
-
-${form.coverLetter}
-`;
-
-    try {
-      const response = await fetch(
-        `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            chat_id: CHAT_ID,
-            text,
-          }),
-        }
-      );
-
-      const data = await response.json();
-
-      if (data.ok) {
-        setSubmitted(true);
-      } else {
-        alert(t("ariza.errorTelegram"));
-      }
-    } catch (error) {
+    if (response.ok) {
+      setSubmitted(true);
+    } else if (response.status === 400 || response.status === 405) {
       alert(t("ariza.errorNetwork"));
+    } else if (response.status === 500) {
+      alert(t("ariza.errorConfig"));
+    } else {
+      alert(t("ariza.errorTelegram"));
     }
   };
   if (submitted) {

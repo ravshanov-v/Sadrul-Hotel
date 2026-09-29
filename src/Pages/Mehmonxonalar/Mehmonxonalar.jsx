@@ -3,10 +3,9 @@ import { useNavigate, useSearchParams } from "react-router-dom"
 import AOS from "aos"
 import { hotels, categories } from "../../data/hotels"
 import { useLanguage } from "../../components/Language/useLanguage.js"
+import { StarIcon, PinIcon, ArrowRightIcon } from "../../components/ui/icons"
 
 import "./Mehmonxonalar.css"
-
-const STAR_SVG = "M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"
 
 const PARTICLES = Array.from({ length: 20 }, (_, i) => ({
   id: i,
@@ -41,7 +40,7 @@ function ParticleField() {
   )
 }
 
-function FeaturedStrip({ hotels }) {
+function FeaturedStrip({ hotels, buildHref }) {
   const { t, tData } = useLanguage()
   const featured = hotels.filter(h => h.rating >= 4.8)
   const navigate = useNavigate()
@@ -60,23 +59,21 @@ function FeaturedStrip({ hotels }) {
             <article
               key={`${h.id}-${i}`}
               className="mx-feat-card"
-              onClick={() => navigate(`/mehmonxona/${h.id}`)}
+              onClick={() => navigate(buildHref(h.id))}
               data-aos="fade-up"
               data-aos-delay={i * 50}
             >
               <div className="mx-feat-img" data-aos="fade-up">
                 <img src={h.image} alt={tData("data.hotels." + h.id + ".name", h.name)} loading="lazy" />
                 <div className="mx-feat-rating-badge" data-aos="fade-up" data-aos-delay="50">
-                  <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path d={STAR_SVG} />
-                  </svg>
+                  <StarIcon />
                   {h.rating}
                 </div>
               </div>
               <div className="mx-feat-body" data-aos="fade-up" data-aos-delay="100">
                 <h3 data-aos="fade-up">{tData("data.hotels." + h.id + ".name", h.name)}</h3>
                 <span className="mx-feat-loc" data-aos="fade-up" data-aos-delay="50">{tData("data.hotels." + h.id + ".location", h.location)}</span>
-                <span className="mx-feat-price" data-aos="fade-up" data-aos-delay="100">${h.price}<small>{t("hotels.perNight")}</small></span>
+                <span className="mx-feat-price" data-aos="fade-up" data-aos-delay="100">${h.price}<small>{t("home.perNight")}</small></span>
               </div>
             </article>
           ))}
@@ -86,13 +83,13 @@ function FeaturedStrip({ hotels }) {
   )
 }
 
-function HotelCard({ hotel }) {
+function HotelCard({ hotel, buildHref }) {
   const { t, tData } = useLanguage()
   const navigate = useNavigate()
   const [imgError, setImgError] = useState(false)
 
   const stars = Array.from({ length: hotel.stars || 5 })
-  const goToHotel = useCallback(() => navigate(`/mehmonxona/${hotel.id}`), [navigate, hotel.id])
+  const goToHotel = useCallback(() => navigate(buildHref(hotel.id)), [navigate, buildHref, hotel.id])
 
   return (
     <article
@@ -108,15 +105,11 @@ function HotelCard({ hotel }) {
           onError={() => setImgError(true)}
         />
         <div className="mx-card-category" data-aos="fade-up">
-          <svg viewBox="0 0 24 24" fill="none">
-            <path d={STAR_SVG} fill="currentColor" />
-          </svg>
+          <StarIcon />
           {tData("data.hotels." + hotel.id + ".category", hotel.category)}
         </div>
         <div className="mx-card-image-rating" data-aos="fade-up" data-aos-delay="50">
-          <svg viewBox="0 0 24 24" fill="currentColor">
-            <path d={STAR_SVG} />
-          </svg>
+          <StarIcon />
           <span>{hotel.rating}</span>
         </div>
       </div>
@@ -125,26 +118,19 @@ function HotelCard({ hotel }) {
           <h3 className="mx-card-name" data-aos="fade-up">{tData("data.hotels." + hotel.id + ".name", hotel.name)}</h3>
           <div className="mx-card-stars" title={`${hotel.stars} ${t("hotels.stars")}`} data-aos="fade-up">
             {stars.map((_, i) => (
-              <svg key={i} viewBox="0 0 24 24" fill="currentColor">
-                <path d={STAR_SVG} />
-              </svg>
+              <StarIcon key={i} />
             ))}
           </div>
         </div>
         <div className="mx-card-location" data-aos="fade-up" data-aos-delay="50">
-          <svg viewBox="0 0 24 24" fill="none">
-            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" stroke="currentColor" strokeWidth="2" />
-            <circle cx="12" cy="9" r="2.5" stroke="currentColor" strokeWidth="2" />
-          </svg>
+          <PinIcon />
           <span>{tData("data.hotels." + hotel.id + ".location", hotel.location)}</span>
         </div>
         <p className="mx-card-desc" data-aos="fade-up" data-aos-delay="100">{tData("data.hotels." + hotel.id + ".description", hotel.description)}</p>
         <div className="mx-card-bottom" data-aos="fade-up" data-aos-delay="150">
           <button className="mx-card-btn" data-aos="zoom-in" data-aos-delay="300" onClick={goToHotel}>
             <span>{t("hotels.viewHotel")}</span>
-            <svg viewBox="0 0 24 24" fill="none">
-              <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
+            <ArrowRightIcon />
           </button>
         </div>
       </div>
@@ -154,10 +140,23 @@ function HotelCard({ hotel }) {
 
 export default function Mehmonxonalar() {
   const { t } = useLanguage()
-  const [searchParams] = useSearchParams()
+  const [searchParams, setSearchParams] = useSearchParams()
   const categoryParam = searchParams.get("category")
-  const [activeCategory, setActiveCategory] = useState(categoryParam && categories.includes(categoryParam) ? categoryParam : "Barchasi")
   const bodyRef = useRef(null)
+
+  const checkInParam = searchParams.get("checkIn") || ""
+  const checkOutParam = searchParams.get("checkOut") || ""
+  const guestsParam = searchParams.get("guests") || ""
+
+  const buildHref = useCallback((id) => {
+    const params = new URLSearchParams()
+    if (checkInParam) params.set("checkIn", checkInParam)
+    if (checkOutParam) params.set("checkOut", checkOutParam)
+    if (guestsParam) params.set("guests", guestsParam)
+    return `/mehmonxona/${id}${params.size ? `?${params}` : ""}`
+  }, [checkInParam, checkOutParam, guestsParam])
+
+  const activeCategory = categoryParam && categories.includes(categoryParam) ? categoryParam : "Barchasi"
 
   const filtered = activeCategory === "Barchasi"
     ? hotels
@@ -169,7 +168,10 @@ export default function Mehmonxonalar() {
   }
 
   const handleCategory = (cat) => {
-    setActiveCategory(cat)
+    const next = new URLSearchParams(searchParams)
+    if (cat === "Barchasi") next.delete("category")
+    else next.set("category", cat)
+    setSearchParams(next, { preventScrollReset: true })
   }
 
   useEffect(() => {
@@ -191,15 +193,11 @@ export default function Mehmonxonalar() {
         <div className="mx-hero-overlay" />
         <div className="mx-hero-content" data-aos="zoom-in">
           <div className="mx-badge" data-aos="fade-up">
-            <svg viewBox="0 0 24 24" fill="none">
-              <path d={STAR_SVG} fill="currentColor" />
-            </svg>
+            <StarIcon />
             <span className="mx-badge-line" />
             {t("hotels.heroBadge")}
             <span className="mx-badge-line" />
-            <svg viewBox="0 0 24 24" fill="none">
-              <path d={STAR_SVG} fill="currentColor" />
-            </svg>
+            <StarIcon />
           </div>
           <h1 className="mx-title" data-aos="fade-up" data-aos-delay="100">
             {t("hotels.heroTitle1")} <span className="mx-gold">{t("hotels.heroTitleGold")}</span> {t("hotels.heroTitle2")}
@@ -221,7 +219,7 @@ export default function Mehmonxonalar() {
         </div>
       </section>
 
-      <FeaturedStrip hotels={hotels} />
+      <FeaturedStrip hotels={hotels} buildHref={buildHref} />
 
       <section className="mx-body" ref={bodyRef} data-aos="fade-up">
         <div className="mx-section-label" data-aos="fade-up">
@@ -261,7 +259,7 @@ export default function Mehmonxonalar() {
               data-aos-offset="100"
             >
               {row.map(hotel => (
-                <HotelCard key={hotel.id} hotel={hotel} />
+                <HotelCard key={hotel.id} hotel={hotel} buildHref={buildHref} />
               ))}
             </div>
           ))}

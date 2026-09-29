@@ -1,3 +1,31 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-gold: #D4AF37;
+  --color-gold-light: #f5d77b;
+  --color-gold-dark: #b8962e;
+  --color-gold-glow: rgba(212, 175, 55, 0.15);
+  --color-navy: #0c1a2e;
+  --color-ivory: #f8f7f4;
+  --color-ink: #333333;
+  --color-muted: #6b7280;
+  --color-border: #e5e7eb;
+  --color-surface: #ffffff;
+  --font-display: "Playfair Display", serif;
+  --font-body: "Poppins", sans-serif;
+  --radius-xl2: 1.25rem;
+  --radius-xl3: 1.5rem;
+  --shadow-soft: 0 4px 24px rgba(12, 26, 46, 0.08);
+  --shadow-gold: 0 8px 30px rgba(212, 175, 55, 0.25);
+  --shadow-card: 0 2px 16px rgba(12, 26, 46, 0.06);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background-color: #ffffff;
   color: #333333;
@@ -70,8 +98,95 @@ html.dark-transition *::after {
   letter-spacing: 1px;
 }
 
+.tk-member-toast {
+  position: fixed;
+  top: 88px;
+  right: 24px;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 20px 14px 16px;
+  background: linear-gradient(135deg, #059669, #10b981);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 12px 48px rgba(5, 150, 105, 0.35), 0 4px 12px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(20px);
+  max-width: 380px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(120%);
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease, visibility 0s linear 0.6s;
+}
+
+.tk-member-toast-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+  transition-delay: 0s;
+}
+
+.tk-member-toast-icon {
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  font-size: 20px;
+  color: #fff;
+}
+
+.tk-member-toast-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.tk-member-toast-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.3px;
+}
+
+.tk-member-toast-msg {
+  font-size: 12px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.85);
+  letter-spacing: 0.2px;
+}
+
+@media (max-width: 576px) {
+  .tk-member-toast {
+    top: 78px;
+    left: 12px;
+    right: 12px;
+    max-width: none;
+    padding: 12px 16px;
+    border-radius: 14px;
+  }
+}
+@media (max-width: 360px) {
+  .tk-member-toast {
+    top: 72px;
+    left: 8px;
+    right: 8px;
+    gap: 10px;
+    padding: 10px 14px;
+  }
+  .tk-member-toast-icon { width: 34px; height: 34px; font-size: 18px; }
+  .tk-member-toast-title { font-size: 13px; }
+  .tk-member-toast-msg { font-size: 11px; }
+}
+
 @media (max-width: 1200px) { html { font-size: 15.5px; } }
 @media (max-width: 992px) { html { font-size: 15px; } }
 @media (max-width: 768px) { html { font-size: 14px; } }
-@media (max-width: 576px) { html { font-size: 13px; } }
+@media (max-width: 576px) { html { font-size: 13.5px; } }
+@media (max-width: 480px) { html { font-size: 13px; } }
+@media (max-width: 380px) { html { font-size: 12.5px; } }
 @media (max-width: 360px) { html { font-size: 12px; } }

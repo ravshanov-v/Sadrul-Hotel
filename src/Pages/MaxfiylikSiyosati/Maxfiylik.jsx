@@ -3,7 +3,8 @@ import "./Maxfiylik.css"
 
 export default function Maxfiylik() {
   const { t } = useLanguage()
-  const sections = t("privacy.sections")
+  const raw = t("privacy.sections")
+  const sections = Array.isArray(raw) ? raw : []
   return (
     <div className="privacy-page" data-aos="fade-up">
       <section className="privacy-hero" data-aos="fade-up">

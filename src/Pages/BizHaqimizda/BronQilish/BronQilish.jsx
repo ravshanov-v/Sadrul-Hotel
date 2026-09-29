@@ -1,30 +1,28 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useMemo } from "react"
 import { useParams, useNavigate, useSearchParams } from "react-router-dom"
 import { hotels } from "../../../data/hotels"
-import { useAuth } from "../../../components/Auth/useAuth.js"
 import { categoryMultiplier, roomTypes as globalRoomTypes } from "../../../utils/roomData"
 import { checkRoomAvailability, getSimilarRooms } from "../../../utils/availability"
 import { createBookingVoucher, getCurrentUserEmail, sendVoucherEmail } from "../../../utils/auth"
-import "./BronQilish.css"
 import { useLanguage } from "../../../components/Language/useLanguage.js"
+import {
+  StarIcon,
+  CalendarIcon,
+  XCircleIcon,
+  EnvelopeIcon,
+} from "../../../components/ui/icons"
+import { getRoomLabelKey } from "../../../utils/roomData"
+import "./BronQilish.css"
 
 export default function BronQilish() {
   const { hotelId } = useParams()
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
-  const { user } = useAuth()
   const { t, tData } = useLanguage()
   const hotel = hotels.find(h => h.id === Number(hotelId)) || hotels[0]
   const hotelRooms = hotel?.rooms || globalRoomTypes
 
-  const roomLabel = (type) => ({
-    standart: t("booking.roomStandard"),
-    hashamatli: t("booking.roomLuxury"),
-    biznes: t("booking.roomBusiness"),
-    oilaviy: t("booking.roomFamily"),
-    lyuks: t("booking.roomDeluxe"),
-    prezident: t("booking.roomPresidential"),
-  }[type] || t("booking.roomStandard"))
+  const roomLabel = (type) => t(getRoomLabelKey(type))
 
   const roomParamRaw = searchParams.get("room") || "standart"
   const roomParam = roomParamRaw.includes("-") ? roomParamRaw.split("-")[0] : roomParamRaw
@@ -47,33 +45,21 @@ export default function BronQilish() {
     cardName: ""
   })
   const [cardErrors, setCardErrors] = useState({})
-  const [availability, setAvailability] = useState(null)
-  const [similarRooms, setSimilarRooms] = useState([])
   const [submitted, setSubmitted] = useState(false)
   const [emailStatus, setEmailStatus] = useState("idle")
-  const [availChecking, setAvailChecking] = useState(false)
   const [toast, setToast] = useState(null)
 
-  useEffect(() => {
-    if (!form.checkIn || !form.checkOut || !form.roomType || !hotel) {
-      setAvailability(null)
-      setSimilarRooms([])
-      return
-    }
-    setAvailChecking(true)
-    const timer = setTimeout(() => {
-      const result = checkRoomAvailability(hotel.id, form.roomType + "-1", form.checkIn, form.checkOut, user?.email, hotelRooms)
-      setAvailability(result)
-      if (!result.available) {
-        const similar = getSimilarRooms(hotel.id, form.roomType + "-1", hotelRooms, hotel.price)
-        setSimilarRooms(similar)
-      } else {
-        setSimilarRooms([])
-      }
-      setAvailChecking(false)
-    }, 300)
-    return () => clearTimeout(timer)
-  }, [form.checkIn, form.checkOut, form.roomType, hotel?.id, user?.email, hotelRooms])
+  const hasDates = Boolean(form.checkIn && form.checkOut && form.roomType && hotel)
+
+  const availability = useMemo(() => {
+    if (!hasDates) return null
+    return checkRoomAvailability(hotel.id, form.roomType + "-1", form.checkIn, form.checkOut, hotelRooms)
+  }, [hasDates, hotel, form.checkIn, form.checkOut, form.roomType, hotelRooms])
+
+  const similarRooms = useMemo(() => {
+    if (!availability || availability.available || !hotel) return []
+    return getSimilarRooms(hotel.id, form.roomType + "-1", hotelRooms, hotel.price)
+  }, [availability, hotel, form.roomType, hotelRooms])
 
   useEffect(() => {
     if (!toast) return
@@ -156,18 +142,19 @@ export default function BronQilish() {
       setToast(t("booking.toastLogin"))
       return
     }
-    let voucher
+    const voucher = createBookingVoucher({
+      hotel,
+      formData: { ...form, guestEmail },
+      totalPrice
+    })
     try {
       const bk = "bookings_" + guestEmail
       const existing = JSON.parse(localStorage.getItem(bk) || "[]")
-      voucher = createBookingVoucher({
-        hotel,
-        formData: { ...form, guestEmail },
-        totalPrice
-      })
       existing.push(voucher)
       localStorage.setItem(bk, JSON.stringify(existing))
-    } catch {}
+    } catch {
+      setToast(t("booking.voucherFailed"))
+    }
     setSubmitted(true)
     window.scrollTo(0, 0)
     setEmailStatus("sending")
@@ -205,10 +192,7 @@ export default function BronQilish() {
 
             <div className="bq-sc-card" data-aos="fade-up" data-aos-delay="300">
               <div className="bq-sc-card-header" data-aos="fade-up">
-                <svg viewBox="0 0 24 24" fill="none">
-                  <rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" strokeWidth="1.5" />
-                  <path d="M3 10h18M8 2v4M16 2v4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                </svg>
+                <CalendarIcon />
                 {t("booking.bookingInfo")}
               </div>
               <div className="bq-sc-rows" data-aos="fade-up">
@@ -243,10 +227,7 @@ export default function BronQilish() {
               </div>
               <div className="bq-sc-voucher" data-aos="fade-up">
                 <div className="bq-sc-voucher-row" data-aos="fade-up">
-                  <svg viewBox="0 0 24 24" fill="none" width="18" height="18">
-                    <rect x="2" y="4" width="20" height="16" rx="2" stroke="#D4AF37" strokeWidth="1.5" />
-                    <path d="M22 6L12 13L2 6" stroke="#D4AF37" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
+                  <EnvelopeIcon width="18" height="18" />
                   <span>{t("booking.voucherTo")}</span>
                 </div>
                 <div className="bq-sc-voucher-email" data-aos="fade-up">{voucherEmail}</div>
@@ -304,9 +285,7 @@ export default function BronQilish() {
         <div className="bq-hero-overlay" data-aos="fade-up" />
         <div className="bq-hero-content" data-aos="zoom-in">
           <div className="bq-badge" data-aos="fade-up">
-            <svg viewBox="0 0 24 24" fill="none">
-              <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="currentColor" />
-            </svg>
+            <StarIcon />
             {t("booking.heroBadge")}
             {promoCode && (
               <span className="bq-promo-hero-badge" data-aos="fade-up">{promoCode} · {promoDiscount}%</span>
@@ -324,9 +303,7 @@ export default function BronQilish() {
               <img src={hotel?.image} data-aos="fade-up" alt={tData("data.hotels." + hotel?.id + ".name", hotel?.name || "")} />
               <div className="bq-hotel-info" data-aos="fade-up">
                 <div className="bq-hotel-rating" data-aos="fade-up">
-                  <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
-                  </svg>
+                  <StarIcon />
                   {hotel?.rating}
                   <span className="bq-hotel-reviews">{t("booking.reviews", { count: hotel?.reviews })}</span>
                 </div>
@@ -352,10 +329,7 @@ export default function BronQilish() {
               </div>
 
               <div className="bq-email-info" data-aos="fade-up">
-                <svg viewBox="0 0 24 24" fill="none" width="18" height="18">
-                  <rect x="2" y="4" width="20" height="16" rx="2" stroke="#D4AF37" strokeWidth="1.5" />
-                  <path d="M22 6L12 13L2 6" stroke="#D4AF37" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
+                <EnvelopeIcon width="18" height="18" />
                 <span>{t("booking.voucherTo")} <strong>{voucherEmail || t("booking.emailNotFound")}</strong></span>
               </div>
 
@@ -511,14 +485,7 @@ export default function BronQilish() {
               <p className="bq-summary-note" data-aos="fade-up">{t("booking.freeCancel")}</p>
             </div>
 
-            {availChecking && (
-              <div className="bq-avail-checking" data-aos="fade-up">
-                <div className="bq-avail-spinner" />
-                <span>{t("booking.availChecking")}</span>
-              </div>
-            )}
-
-            {availability && !availChecking && (
+            {availability && (
               <div className={`bq-avail-badge ${availability.available ? (availability.remaining <= Math.ceil(availability.totalRooms / 3) ? 'bq-avail-limited' : 'bq-avail-available') : 'bq-avail-booked'}`} data-aos="fade-up">
                 {availability.available ? (
                   <>
@@ -526,22 +493,19 @@ export default function BronQilish() {
                     <span>
                       {availability.remaining >= availability.totalRooms
                         ? t("booking.available")
-                        : t("booking.available", { remaining: availability.remaining })}
+                        : `${availability.remaining} ${t("hotelDetail.remaining")}`}
                     </span>
                   </>
                 ) : (
                   <>
-                    <svg viewBox="0 0 24 24" fill="none" width="16" height="16">
-                      <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5" />
-                      <path d="M15 9l-6 6M9 9l6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                    </svg>
+                    <XCircleIcon width="16" height="16" />
                     <span>{t("booking.booked")}</span>
                   </>
                 )}
               </div>
             )}
 
-            {availability && !availability.available && !availChecking && similarRooms.length > 0 && (
+            {availability && !availability.available && similarRooms.length > 0 && (
               <div className="bq-similar-rooms" data-aos="fade-up">
                 <h4 className="bq-similar-title" data-aos="fade-up">{t("booking.similarRooms")}</h4>
                 <div className="bq-similar-list" data-aos="fade-up">
@@ -570,10 +534,7 @@ export default function BronQilish() {
       </div>
       {toast && (
         <div className="bq-toast" data-aos="fade-up" onClick={() => setToast(null)}>
-          <svg viewBox="0 0 24 24" fill="none" className="bq-toast-icon">
-            <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5" />
-            <path d="M15 9l-6 6M9 9l6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-          </svg>
+          <XCircleIcon className="bq-toast-icon" />
           <span>{toast}</span>
         </div>
       )}

@@ -11,6 +11,7 @@ import { hotels } from '../../data/hotels'
 import { useAuth } from '../../components/Auth/useAuth'
 import { useLanguage } from "../../components/Language/useLanguage.js"
 import { useModal } from '../../components/SmallWindows/Modal/useModal'
+import { CheckCircleIcon, CalendarIcon } from '../../components/ui/icons'
 import { HiShieldCheck } from 'react-icons/hi'
 import { FiUserPlus, FiCheckCircle } from 'react-icons/fi'
 import "./Takliflar.css"
@@ -18,10 +19,7 @@ import "./Takliflar.css"
 function Toast({ message, show }) {
   return (
     <div className={`tk-toast ${show ? 'tk-toast-visible' : ''}`}>
-      <svg viewBox="0 0 24 24" fill="none" className="tk-toast-icon">
-        <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5" />
-        <path d="M8 12l3 3 5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
+      <CheckCircleIcon className="tk-toast-icon" />
       <span>{message}</span>
     </div>
   )
@@ -78,10 +76,7 @@ function OfferCard({ taklif, onCopyCode }) {
         </div>
 
         <div className="tk-card-expiry">
-          <svg viewBox="0 0 24 24" fill="none" className="tk-expiry-icon">
-            <rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" strokeWidth="1.5" />
-            <path d="M3 10h18M8 2v4M16 2v4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-          </svg>
+          <CalendarIcon className="tk-expiry-icon" />
           <span className="tk-expiry-text">
             <span className="tk-expiry-label">{t("offers.expires")}</span>
             {formatDate(taklif.expireDate)}
@@ -97,6 +92,14 @@ function OfferCard({ taklif, onCopyCode }) {
             <span>{tData("data.hotels." + hotel.id + ".name", hotel.name)}</span>
           </div>
         )}
+        <button className="tk-card-promo" onClick={() => onCopyCode?.(taklif.promoCode)} title={t("offers.copyBtn")}>
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M7 7h.01" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+          </svg>
+          <span className="tk-card-promo-label">{t("offers.promoLabel")}</span>
+          <span className="tk-card-promo-code">{taklif.promoCode}</span>
+        </button>
         <button
           className="tk-card-book-btn"
           onClick={() => navigate(`/mehmonxona/${taklif.hotelId}?promo=${taklif.promoCode}&room=${taklif.roomId}&discount=${taklif.discount}`)}
@@ -127,7 +130,6 @@ export default function Takliflar() {
   const { t } = useLanguage()
   const { isAuthenticated } = useAuth()
   const { openModal } = useModal()
-  const navigate = useNavigate()
   const [toastMsg, setToastMsg] = useState("")
   const [toastShow, setToastShow] = useState(false)
   const [memberToastShow, setMemberToastShow] = useState(false)
@@ -193,7 +195,7 @@ export default function Takliflar() {
         >
           {takliflar.map(taklif => (
             <SwiperSlide key={taklif.id}>
-              <OfferCard taklif={taklif} />
+              <OfferCard taklif={taklif} onCopyCode={handleCopyCode} />
             </SwiperSlide>
           ))}
         </Swiper>

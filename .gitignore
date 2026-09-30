@@ -11,7 +11,8 @@ node_modules
 dist
 dist-ssr
 *.local
-.env
+.env*
+.vercel
 nul
 
 # Editor directories and files
@@ -24,3 +25,4 @@ nul
 *.njsproj
 *.sln
 *.sw?
+

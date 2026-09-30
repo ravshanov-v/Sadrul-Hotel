@@ -1,5 +1,7 @@
 import { Suspense, lazy, useEffect, useState } from "react"
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom"
+import AOS from "aos"
+import "aos/dist/aos.css"
 import Layout from "./Pages/Layout/Layout.jsx"
 import BoshSahifa from "./Pages/BoshSahifa/BoshSahifa.jsx"
 import NotFound from "./Pages/NotFound/NotFound.jsx"
@@ -58,10 +60,38 @@ const LazyPage = ({ Component }) => {
   return <PageGate key={location.pathname} Component={Component} />
 }
 
+function AosInit() {
+  const location = useLocation()
+
+  useEffect(() => {
+    AOS.init({
+      duration: 800,
+      once: true,
+      offset: 120,
+      easing: "ease-out-cubic",
+      mirror: false,
+      anchorPlacement: "top-bottom",
+      startEvent: "DOMContentLoaded",
+    })
+
+    const retryTimer = setTimeout(() => {
+      AOS.refreshHard()
+    }, 300)
+    return () => clearTimeout(retryTimer)
+  }, [])
+
+  useEffect(() => {
+    AOS.refresh()
+  }, [location.pathname])
+
+  return null
+}
+
 export default function App() {
   return (
     <LanguageProvider>
       <BrowserRouter>
+        <AosInit />
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<BoshSahifa />} />

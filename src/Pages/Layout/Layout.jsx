@@ -1,6 +1,5 @@
 import { useEffect, useLayoutEffect } from "react"
 import { Outlet, useLocation, useNavigate } from "react-router-dom"
-import AOS from "aos"
 import "aos/dist/aos.css"
 
 import Nav from "../../components/Navbar/Nav.jsx"
@@ -38,27 +37,6 @@ function LayoutContent() {
   const isSignup = location.pathname === "/signup"
   const hideFrame = isNotFound(location.pathname)
   const { openModal } = useModal()
-
-  useEffect(() => {
-    AOS.init({
-      duration: 800,
-      once: true,
-      offset: 120,
-      easing: "ease-out-cubic",
-      mirror: false,
-      anchorPlacement: "top-bottom",
-      startEvent: "DOMContentLoaded",
-    })
-
-    const retryTimer = setTimeout(() => {
-      AOS.refreshHard()
-    }, 300)
-    return () => clearTimeout(retryTimer)
-  }, [])
-
-  useEffect(() => {
-    AOS.refresh()
-  }, [location.pathname])
 
   useLayoutEffect(() => {
     window.scrollTo(0, 0)

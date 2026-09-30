@@ -37,6 +37,13 @@ function apiFunctions(env) {
           return
         }
 
+        const declaredLength = Number(req.headers['content-length'] || 0)
+        if (Number.isFinite(declaredLength) && declaredLength > 16384) {
+          res.statusCode = 413
+          res.end(JSON.stringify({ ok: false, error: 'payload_too_large' }))
+          return
+        }
+
         let body
         try {
           body = await readBody(req)

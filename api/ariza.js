@@ -1,17 +1,57 @@
 const TELEGRAM_API = process.env.TELEGRAM_API_URL || "https://api.telegram.org";
 
 const MAX_FIELD = 500;
+const MAX_BODY_BYTES = 16384;
 const PHONE_RE = /^[+()\d\s-]{6,32}$/;
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+const RATE_WINDOW_MS = 60_000;
+const RATE_MAX_REQUESTS = 5;
+const RATE_MAX_KEYS = 5000;
+
+const rateHits = new Map();
 
 function clean(value, max = MAX_FIELD) {
   return typeof value === "string" ? value.trim().slice(0, max) : "";
 }
 
-function send(res, status, payload) {
+function send(res, status, payload, headers = {}) {
   res.statusCode = status;
   res.setHeader("Content-Type", "application/json");
+  for (const [key, value] of Object.entries(headers)) res.setHeader(key, value);
   res.end(JSON.stringify(payload));
+}
+
+function clientKey(req) {
+  const fwd = req.headers?.["x-forwarded-for"];
+  const first = Array.isArray(fwd) ? fwd[0] : typeof fwd === "string" ? fwd.split(",")[0] : "";
+  return (first || req.socket?.remoteAddress || "unknown").trim();
+}
+
+function prune(now) {
+  for (const [key, entry] of rateHits) {
+    if (now > entry.resetAt) rateHits.delete(key);
+  }
+  while (rateHits.size > RATE_MAX_KEYS) {
+    rateHits.delete(rateHits.keys().next().value);
+  }
+}
+
+function rateLimit(key) {
+  const now = Date.now();
+  const entry = rateHits.get(key);
+
+  if (!entry || now > entry.resetAt) {
+    if (rateHits.size >= RATE_MAX_KEYS) prune(now);
+    rateHits.set(key, { count: 1, resetAt: now + RATE_WINDOW_MS });
+    return null;
+  }
+
+  entry.count += 1;
+  if (entry.count > RATE_MAX_REQUESTS) {
+    return Math.max(1, Math.ceil((entry.resetAt - now) / 1000));
+  }
+  return null;
 }
 
 export default async function handler(req, res) {
@@ -27,7 +67,28 @@ export default async function handler(req, res) {
     return send(res, 500, { ok: false, error: "not_configured" });
   }
 
-  const { fullName, phone, email, position, coverLetter, labels } = req.body ?? {};
+  const declaredLength = Number(req.headers?.["content-length"] || 0);
+  if (Number.isFinite(declaredLength) && declaredLength > MAX_BODY_BYTES) {
+    return send(res, 413, { ok: false, error: "payload_too_large" });
+  }
+
+  const key = clientKey(req);
+  const retryAfter = rateLimit(key);
+
+  if (retryAfter !== null) {
+    return send(
+      res,
+      429,
+      { ok: false, error: "too_many_requests" },
+      { "Retry-After": String(retryAfter), "X-RateLimit-Remaining": "0" }
+    );
+  }
+
+  const { fullName, phone, email, position, coverLetter, labels, website } = req.body ?? {};
+
+  if (clean(website, 200)) {
+    return send(res, 200, { ok: true });
+  }
 
   const data = {
     fullName: clean(fullName, 120),

@@ -16,6 +16,7 @@ export default function Ariza() {
     email: "",
     position: initialPosition,
     coverLetter: "",
+    website: "",
   })
   const [submitted, setSubmitted] = useState(false)
   const [touched, setTouched] = useState({
@@ -64,6 +65,7 @@ export default function Ariza() {
         email: form.email,
         position: form.position,
         coverLetter: form.coverLetter,
+        website: form.website,
         labels: {
           title: t("ariza.telegramNewApp"),
           name: t("ariza.telegramName"),
@@ -169,6 +171,10 @@ export default function Ariza() {
               <div className="ariza-form-group ariza-full">
                 <label>{t("ariza.coverLetter")}</label>
                 <textarea name="coverLetter" value={form.coverLetter} onChange={handleChange} placeholder={t("ariza.letterPlaceholder")} rows={5} />
+              </div>
+              <div className="ariza-hp" aria-hidden="true">
+                <label>Website</label>
+                <input type="text" name="website" value={form.website} onChange={handleChange} tabIndex={-1} autoComplete="off" />
               </div>
             </div>
 
